@@ -4,7 +4,7 @@ RoboAdviceApp.component("signIn",{
         myuser: "="
     },
     templateUrl: "../html/signInView.html",
-    controller: function($scope, $log, userService, TokenHandler, userREST, $cookies, $location, SIGNIN_CODES){
+    controller: function($scope, $log, userService, TokenHandler, userREST, $http, $cookies, $location, SIGNIN_CODES){
       let $ctrl = this;
       $scope.doLogin = function(){
         $log.info("SignInController| button pressed");
@@ -25,15 +25,16 @@ RoboAdviceApp.component("signIn",{
               $log.debug("doLogin| Don't remember me");
               $log.debug("doLogin| without cookies ");
             }
-            console.log("-----")
-            console.log(response.data.token)
-            TokenHandler.set("Bearer " + response.data.token);
+            //console.log("-----")
+            //console.log(response.data.token)
+            //TokenHandler.set("Bearer " + response.data.token);
+            $http.defaults.headers.common['Authorization']= "Bearer " + response.data.token;
+            userService.init(response.data.user);
 
             sweetAlert(SIGNIN_CODES[response.statusCode], "" , "success");
-            userService.init(response.data.user);
             this.myuser = userService;
-            window.location = "/";
-            //$location.path("/portfolio");
+
+            $location.path("/portfolio");
           }else{
             sweetAlert(SIGNIN_CODES[response.statusCode], "" , "error");
             $log.debug("wrong username || password");

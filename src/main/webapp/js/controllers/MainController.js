@@ -30,6 +30,7 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
         if(response.statusCode == 0){
           // everything is going well
           // user object is into data.data
+          $http.defaults.headers.common['Authorization']= "Bearer " + response.data.token;
           userService.init(response.data.user);
           $scope.user=userService;
         }else{
