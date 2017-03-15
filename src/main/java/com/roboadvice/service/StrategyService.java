@@ -18,5 +18,8 @@ public interface StrategyService {
     List<Strategy> findStrategiesByUserAndDate(User u, LocalDate date);
     List<Strategy> getLastStrategy(User u);
     List<Strategy> findHistoryByUserAndDates(User u, LocalDate start, LocalDate end);
+    int deleteActiveStrategy (User u, LocalDate date);
+    List<Strategy> findLatestStrategy(User u);
+
 
 }

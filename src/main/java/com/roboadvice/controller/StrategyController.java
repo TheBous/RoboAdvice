@@ -4,12 +4,16 @@ import com.roboadvice.dto.StrategyDTO;
 import com.roboadvice.model.AssetsClass;
 import com.roboadvice.model.Strategy;
 import com.roboadvice.model.User;
+import com.roboadvice.repository.StrategyRepository;
 import com.roboadvice.service.AssetsClassService;
 import com.roboadvice.service.StrategyService;
 import com.roboadvice.service.UserService;
 import com.roboadvice.utils.Constant;
 import com.roboadvice.utils.GenericResponse;
+import org.apache.tomcat.jni.Local;
+import org.springframework.aop.target.LazyInitTargetSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +31,14 @@ public class StrategyController {
     private UserService userService;
     private AssetsClassService assetsClassService;
     private StrategyService strategyService;
+    private StrategyRepository strategyRepository;
 
     @Autowired
-    public StrategyController(UserService userService, AssetsClassService assetsClassService, StrategyService strategyService) {
+    public StrategyController(UserService userService, AssetsClassService assetsClassService, StrategyService strategyService,StrategyRepository strategyRepository ) {
         this.userService = userService;
         this.assetsClassService = assetsClassService;
         this.strategyService = strategyService;
+        this.strategyRepository= strategyRepository;
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST, consumes = "application/json")
@@ -56,6 +62,33 @@ public class StrategyController {
         strDTO.setActive(true);
 
         return new GenericResponse<>(strDTO, Constant.SUCCES_MSG, Constant.SUCCESS);
+    }
+
+
+    @RequestMapping(value="/delete", method = RequestMethod.POST)
+    public GenericResponse<Boolean> deletePendingStrategy(Authentication authentication){
+        String email =authentication.getName();
+        User u = userService.selectByEmail(email);
+        if (u !=null){
+            int risposta = strategyService.deleteActiveStrategy(u, LocalDate.now());
+            if(risposta==4){
+                List<Strategy> strategies = strategyService.findLatestStrategy(u);
+
+                for(Strategy s : strategies){
+                    s.setActive(true);
+                    strategyService.insert(s);
+                }
+
+                return new GenericResponse<>(true, "STRATEGY DELETED", Constant.SUCCESS);
+
+            }
+            else
+                return new GenericResponse<>(null, "IMPOSSIBLE TO DELETE STRATEGY", Constant.ERROR);
+
+        }
+        else
+            return new GenericResponse<>(null, "USER_ID NOT FOUND", Constant.ERROR);
+
     }
 
 

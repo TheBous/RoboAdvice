@@ -5,6 +5,7 @@ import com.roboadvice.model.User;
 import com.roboadvice.repository.StrategyRepository;
 import com.roboadvice.service.StrategyService;
 import com.roboadvice.utils.Constant;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -99,5 +100,15 @@ public class StrategyServiceImpl implements StrategyService{
     @Override
     public List<Strategy> findHistoryByUserAndDates(User u, LocalDate start, LocalDate end) {
         return strategyRepository.findHistoryByUserAndDates(u, start, end);
+    }
+
+    @Override
+    public int deleteActiveStrategy (User u, LocalDate date){
+        return strategyRepository.deleteActiveStrategy(u, date);
+    }
+
+    @Override
+    public  List<Strategy> findLatestStrategy(User u){
+        return strategyRepository.findLatestStrategy(u,new PageRequest(0, Constant.NUM_ASSETS_CLASS));
     }
 }

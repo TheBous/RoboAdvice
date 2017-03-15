@@ -1,5 +1,6 @@
 package com.roboadvice.repository;
 
+import com.roboadvice.model.Portfolio;
 import com.roboadvice.model.Strategy;
 import com.roboadvice.model.User;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +42,13 @@ public interface StrategyRepository extends PagingAndSortingRepository<Strategy,
 
     @Query("SELECT s FROM Strategy s WHERE s.user=?1 AND s.date BETWEEN ?2 and ?3")
     List<Strategy> findHistoryByUserAndDates(User u, LocalDate start, LocalDate end);
+
+    @Modifying
+    @Query("DELETE FROM Strategy s where s.user = ?1 and s.active=1 and date=?2")
+    int deleteActiveStrategy(User u, LocalDate date);
+
+    @Query("select s from Strategy s where s.user=?1 and s.date=(select max(s.date) from s where s.user=?1 and s.active=0) order by s.id desc")
+    List<Strategy> findLatestStrategy(User u, Pageable pageable);
 
 
 
