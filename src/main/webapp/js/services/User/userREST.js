@@ -29,8 +29,7 @@ RoboAdviceApp.factory('userREST', ['$resource', '$cookies', 'TokenHandler',
                 user_id: '@user_id',
                 name: '@name',
                 surname: '@surname'
-              },
-              headers : {'Authorization' : TokenHandler.get() }
+              }
             }
         });
     }

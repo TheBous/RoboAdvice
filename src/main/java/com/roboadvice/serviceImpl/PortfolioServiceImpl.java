@@ -1,17 +1,13 @@
 package com.roboadvice.serviceImpl;
 
-
-import com.roboadvice.dto.PortfolioDTO;
 import com.roboadvice.model.Portfolio;
 import com.roboadvice.model.User;
 import com.roboadvice.repository.PortfolioRepository;
 import com.roboadvice.repository.StrategyRepository;
 import com.roboadvice.service.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;

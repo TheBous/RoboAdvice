@@ -51,7 +51,7 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
 
                     portfolioHistory.forEach(function(aPortfolio){
                       i++;
-                      let portfolioObj = new Portfolio(aPortfolio);
+                      const portfolioObj = new Portfolio(aPortfolio);
                       let portfolioDate = portfolioObj.getDate();
                       portfolioAmount = portfolioObj.getTotalAmount();
                       parent.portfoliosRaw.amounts.push(portfolioAmount);

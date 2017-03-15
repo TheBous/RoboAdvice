@@ -7,8 +7,7 @@ RoboAdviceApp.service("portfolioREST",
                 url: baseUrl + 'getCurrent',
                 params: {
                     user_id: '@user_id'
-                },
-                headers : {'Authorization' : TokenHandler.get() }
+                }
             },//end getCurrent
 
             getFullHistory: {
@@ -16,8 +15,7 @@ RoboAdviceApp.service("portfolioREST",
                 url: baseUrl + 'getFullHistory',
                 params: {
                     user_id: '@user_id'
-                },
-                headers : {'Authorization' : TokenHandler.get() }
+                }
             },
 
             getPortfolioByDate: {
@@ -25,8 +23,7 @@ RoboAdviceApp.service("portfolioREST",
                 url: baseUrl + 'getPortfoliobyDate',
                 params: {
                     user_id: '@user_id'
-                },
-                headers : {'Authorization' : TokenHandler.get() }
+                }
             }
         })
     });

@@ -14,7 +14,7 @@ public interface StrategyService {
     List<Strategy> getCurrentStrategy(User u);
     List<Strategy> newStrategiesFromNewUsers();
     List<Strategy> newStrategiesFromOldUsers();
-    List<Strategy> findHistoryStrategiesFromUser(User u);
+    List<Strategy> fullHistoryByUser(User u);
     List<Strategy> findStrategiesByUserAndDate(User u, LocalDate date);
     List<Strategy> getLastStrategy(User u);
     List<Strategy> findHistoryByUserAndDates(User u, LocalDate start, LocalDate end);

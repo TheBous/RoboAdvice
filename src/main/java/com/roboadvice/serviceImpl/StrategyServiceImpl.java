@@ -84,8 +84,8 @@ public class StrategyServiceImpl implements StrategyService{
         }
     }
     @Override
-    public List<Strategy> findHistoryStrategiesFromUser(User u) {
-        return strategyRepository.findStrategiesHistory(u);
+    public List<Strategy> fullHistoryByUser(User u) {
+        return strategyRepository.fullHistoryByUser(u);
     }
     @Override
     public List<Strategy> findStrategiesByUserAndDate(User u, LocalDate date) {

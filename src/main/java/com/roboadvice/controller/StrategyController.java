@@ -42,9 +42,11 @@ public class StrategyController {
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST, consumes = "application/json")
-    public GenericResponse<StrategyDTO> insertStrategy(@RequestBody @Validated StrategyDTO strategyDTO) {  //todo @valid
+    public GenericResponse<StrategyDTO> insertStrategy(@RequestBody @Validated StrategyDTO strategyDTO,
+                                                       Authentication authentication) {
         //{"user_id": 56, "bonds_p": 30, "stocks_p": 30, "forex_p": 20, "commodities_p":20, "name": Balanced}
-        User u = userService.selectById(strategyDTO.getUser_id());
+        String email = authentication.getName();
+        User u = userService.selectByEmail(email);
         if (u == null) {
             return new GenericResponse<>(null, "USER_ID NOT FOUND", Constant.ERROR);
         }
@@ -102,7 +104,6 @@ public class StrategyController {
             if (!strategies.isEmpty()) {
                 strDTO.setName(strategies.get(0).getName());
                 strDTO.setDate(strategies.get(0).getDate());
-                strDTO.setUser_id(strategies.get(0).getUser().getId());
                 strDTO.setActive(strategies.get(0).getActive());
                 for (Strategy strategy : strategies) {
                     strDTO.setPercentage(strategy.getAssetsClass().getId(), strategy.getPercentage());
@@ -127,7 +128,6 @@ public class StrategyController {
             if(strategies!=null && !strategies.isEmpty()){
                 strDTO.setName(strategies.get(0).getName());
                 strDTO.setDate(strategies.get(0).getDate());
-                strDTO.setUser_id(strategies.get(0).getUser().getId());
                 strDTO.setActive(strategies.get(0).getActive());
                 for (Strategy strategy : strategies) {
                     strDTO.setPercentage(strategy.getAssetsClass().getId(), strategy.getPercentage());
@@ -148,30 +148,22 @@ public class StrategyController {
         String email = authentication.getName();
         User u = userService.selectByEmail(email);
         if (u != null) {
-            StrategyDTO strDTO = new StrategyDTO();
-            List<StrategyDTO> strategyDTOList = new ArrayList<>();
-            List<Strategy> strategies = strategyService.findHistoryStrategiesFromUser(u);
-            if(strategies!= null && !strategies.isEmpty()) {
-                LocalDate start = strategies.get(0).getDate();
-                LocalDate end = strategies.get(strategies.size() - 1).getDate();
+            List<Strategy> strategyList = strategyService.fullHistoryByUser(u);
+            if(strategyList!= null && !strategyList.isEmpty()) {
+                StrategyDTO strDTO = new StrategyDTO();
+                List<StrategyDTO> strategyDTOList = new ArrayList<>();
 
-                List<Strategy> strategy_list = strategyService.findHistoryByUserAndDates(u, start, end);
-                if(strategy_list != null && !strategy_list.isEmpty()) {
-                    for (int i = 0; i < strategy_list.size(); i += Constant.NUM_ASSETS_CLASS) {
-                        strDTO = new StrategyDTO();
-                        strDTO.setName(strategy_list.get(i).getName());
-                        strDTO.setDate(strategy_list.get(i).getDate());
-                        strDTO.setUser_id(strategy_list.get(i).getUser().getId());
-                        strDTO.setActive(strategy_list.get(i).getActive());
-                        for (int j = 0; j < Constant.NUM_ASSETS_CLASS; j++) {
-                            strDTO.setPercentage(strategy_list.get(i + j).getAssetsClass().getId(), strategy_list.get(i + j).getPercentage());
-                        }
-                        strategyDTOList.add(strDTO);
+                for(int i=0;i<strategyList.size();i+=Constant.NUM_ASSETS_CLASS){
+                    strDTO = new StrategyDTO();
+                    strDTO.setName(strategyList.get(i).getName());
+                    strDTO.setDate(strategyList.get(i).getDate());
+                    strDTO.setActive(strategyList.get(i).getActive());
+                    for(int j=i;j<i+Constant.NUM_ASSETS_CLASS;j++){
+                        strDTO.setPercentage(strategyList.get(j).getAssetsClass().getId(), strategyList.get(j).getPercentage());
                     }
-                    return new GenericResponse<>(strategyDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
+                    strategyDTOList.add(strDTO);
                 }
-                else
-                    return new GenericResponse<>(null, "THE USER HAS NO STRATEGIES YET!", Constant.ERROR);
+                    return new GenericResponse<>(strategyDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
             }
             else
                 return new GenericResponse<>(null, "THE USER HAS NO STRATEGIES YET!", Constant.ERROR);
