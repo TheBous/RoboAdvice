@@ -14,8 +14,7 @@ public class StrategyDTO {
 
     private String name;
     private Boolean active;
-
-    @NotNull
+    
     private LocalDate date;
     @NotNull
     private BigDecimal bonds_p;
