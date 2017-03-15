@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "api_data")
+@Table(name = "api_data", indexes = {@Index(columnList = "assets_id, date")})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

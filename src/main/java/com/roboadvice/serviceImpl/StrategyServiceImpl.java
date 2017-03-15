@@ -1,8 +1,12 @@
 package com.roboadvice.serviceImpl;
 
+import com.roboadvice.dto.StrategyDTO;
+import com.roboadvice.model.AssetsClass;
 import com.roboadvice.model.Strategy;
 import com.roboadvice.model.User;
+import com.roboadvice.repository.AssetsClassRepository;
 import com.roboadvice.repository.StrategyRepository;
+import com.roboadvice.repository.UserRepository;
 import com.roboadvice.service.StrategyService;
 import com.roboadvice.utils.Constant;
 import org.apache.tomcat.jni.Local;
@@ -20,15 +24,125 @@ import java.util.List;
 public class StrategyServiceImpl implements StrategyService{
 
     private StrategyRepository strategyRepository;
+    private UserRepository userRepository;
+    private AssetsClassRepository assetsClassRepository;
 
     @Autowired
-    public StrategyServiceImpl(StrategyRepository strategyRepository) {
+    public StrategyServiceImpl(StrategyRepository strategyRepository, UserRepository userRepository, AssetsClassRepository assetsClassRepository) {
         this.strategyRepository = strategyRepository;
+        this.userRepository = userRepository;
+        this.assetsClassRepository = assetsClassRepository;
+    }
+
+
+    @Override
+    public StrategyDTO insert(String userEmail, StrategyDTO strategyDTO) {
+        User u = userRepository.findByEmail(userEmail);
+        if (u == null) {
+            return null;
+        }
+        strategyRepository.setInactive(u);
+        AssetsClass ac = null;
+        Strategy str = null;
+
+        for (int i = 1; i < Constant.NUM_ASSETS_CLASS+1; i++) {
+            ac = assetsClassRepository.findById(i);
+            str = new Strategy(0, strategyDTO.getName(), LocalDate.now(), true, strategyDTO.getPercentage(i), u, ac);
+            strategyRepository.save(str);
+        }
+        StrategyDTO strDTO = strategyDTO;
+        strDTO.setDate(LocalDate.now());
+        strDTO.setActive(true);
+        return strDTO;
     }
 
     @Override
-    public Strategy insert(Strategy str) {
-        return strategyRepository.save(str);
+    public Boolean deletePendingStrategy(String userEmail) {
+        User u = userRepository.findByEmail(userEmail);
+        if (u==null)
+            return false;
+
+        int resp = strategyRepository.deleteActiveStrategyByUserAndDate(u, LocalDate.now());
+        if(resp==4){
+            List<Strategy> strategies = strategyRepository.findLatestInactiveStrategy(u, new PageRequest(0, Constant.NUM_ASSETS_CLASS));
+            for(Strategy s : strategies){
+                s.setActive(true);
+                strategyRepository.save(s);
+            }
+            return true;
+        }
+        else
+            return false;
+    }
+
+    @Override
+    public StrategyDTO getCurrentActiveStrategy(String userEmail) {
+        StrategyDTO strDTO = new StrategyDTO();
+        User u = userRepository.findByEmail(userEmail);
+        if(u == null)
+            return null;
+
+        List<Strategy> strategies = strategyRepository.findByUserAndActive(u, true);
+        if (!strategies.isEmpty()) {
+            strDTO.setName(strategies.get(0).getName());
+            strDTO.setDate(strategies.get(0).getDate());
+            strDTO.setActive(strategies.get(0).getActive());
+            for (Strategy strategy : strategies) {
+                strDTO.setPercentage(strategy.getAssetsClass().getId(), strategy.getPercentage());
+            }
+            return strDTO;
+        } else
+            return null;
+    }
+
+    @Override
+    public StrategyDTO getLastUsedStrategy(String userEmail) {
+
+        StrategyDTO strDTO = new StrategyDTO();
+
+        User u = userRepository.findByEmail(userEmail);
+        if(u == null)
+            return null;
+
+        List<Strategy> strategies = strategyRepository.findLastUsedStrategy(u, new PageRequest(0, Constant.NUM_ASSETS_CLASS));
+        if(strategies!=null && !strategies.isEmpty()){
+            strDTO.setName(strategies.get(0).getName());
+            strDTO.setDate(strategies.get(0).getDate());
+            strDTO.setActive(strategies.get(0).getActive());
+            for (Strategy strategy : strategies) {
+                strDTO.setPercentage(strategy.getAssetsClass().getId(), strategy.getPercentage());
+            }
+            return strDTO;
+        }
+        else
+            return null;
+    }
+
+    @Override
+    public List<StrategyDTO> getFullHistoryByUser(String userEmail) {
+        User u = userRepository.findByEmail(userEmail);
+        if (u == null)
+            return null;
+
+        List<Strategy> strategyList = strategyRepository.fullHistoryByUser(u);
+        if(strategyList!= null && !strategyList.isEmpty()) {
+            StrategyDTO strDTO = new StrategyDTO();
+            List<StrategyDTO> strategyDTOList = new ArrayList<>();
+
+            for(int i=0;i<strategyList.size();i+=Constant.NUM_ASSETS_CLASS){
+                strDTO = new StrategyDTO();
+                strDTO.setName(strategyList.get(i).getName());
+                strDTO.setDate(strategyList.get(i).getDate());
+                strDTO.setActive(strategyList.get(i).getActive());
+                for(int j=i;j<i+Constant.NUM_ASSETS_CLASS;j++){
+                    strDTO.setPercentage(strategyList.get(j).getAssetsClass().getId(), strategyList.get(j).getPercentage());
+                }
+                strategyDTOList.add(strDTO);
+            }
+            return strategyDTOList;
+        }
+        else
+            return null;
     }
 
     @Override
@@ -36,10 +150,7 @@ public class StrategyServiceImpl implements StrategyService{
         strategyRepository.setInactive(u);
     }
 
-    @Override
-    public List<Strategy> getCurrentStrategy(User u) {
-        return strategyRepository.findByUserAndActive(u, (byte) 1);
-    }
+
 
     @Override
     public List<Strategy> newStrategiesFromNewUsers() {
@@ -82,33 +193,5 @@ public class StrategyServiceImpl implements StrategyService{
         else {
             return null;
         }
-    }
-    @Override
-    public List<Strategy> fullHistoryByUser(User u) {
-        return strategyRepository.fullHistoryByUser(u);
-    }
-    @Override
-    public List<Strategy> findStrategiesByUserAndDate(User u, LocalDate date) {
-        return strategyRepository.findByUserAndDate(u,date);
-    }
-
-    @Override
-    public List<Strategy> getLastStrategy(User u) {
-        return strategyRepository.findLastStrategy(u, new PageRequest(0, Constant.NUM_ASSETS_CLASS));
-    }
-
-    @Override
-    public List<Strategy> findHistoryByUserAndDates(User u, LocalDate start, LocalDate end) {
-        return strategyRepository.findHistoryByUserAndDates(u, start, end);
-    }
-
-    @Override
-    public int deleteActiveStrategy (User u, LocalDate date){
-        return strategyRepository.deleteActiveStrategy(u, date);
-    }
-
-    @Override
-    public  List<Strategy> findLatestStrategy(User u){
-        return strategyRepository.findLatestStrategy(u,new PageRequest(0, Constant.NUM_ASSETS_CLASS));
     }
 }

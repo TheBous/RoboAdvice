@@ -16,10 +16,6 @@ public interface PortfolioService {
     List<PortfolioDTO> getFullHistory(String userEmail);
     List<PortfolioDTO> getHistoryByDates(String userEmail, LocalDate from, LocalDate to);
 
-
-
-
-
     Portfolio save(Portfolio p);
     List<Portfolio> getAllYesterdayPortfolios();
     List<User> getAllYesterdayPortfoliosUsers();

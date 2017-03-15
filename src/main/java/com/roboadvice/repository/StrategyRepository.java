@@ -17,38 +17,41 @@ import java.util.List;
 @Transactional
 public interface StrategyRepository extends PagingAndSortingRepository<Strategy, Long> {
 
-    List <Strategy> findByUserAndDate(User u, LocalDate date);
+    List<Strategy> findByUserAndDate(User u, LocalDate date);
 
-    List<Strategy> findByUserAndActive(User u, byte active);
+    List<Strategy> findByUserAndActive(User u, boolean active);
 
     @Modifying
     @Query ("UPDATE Strategy s SET s.active=0 WHERE s.active=1 AND s.user=?1")
     void setInactive(User u);
 
-    @Query("SELECT s FROM Strategy s WHERE s.active = 1 AND s.date=?1")
-    List<Strategy> findNewStrategies(LocalDate yesterday);
+    @Modifying
+    @Query("DELETE FROM Strategy s where s.user = ?1 and s.active=1 and date=?2")
+    int deleteActiveStrategyByUserAndDate(User u, LocalDate date);
 
-    @Query("SELECT s FROM Strategy s WHERE s.active = 1 AND s.date=?1 GROUP BY s.user")
-    List<Strategy> findNewStrategiesUsers(LocalDate yesterday);
+    @Query("select s from Strategy s where s.user=?1 and s.date=(select max(s.date) from s where s.user=?1 and s.active=0) order by s.id desc")
+    List<Strategy> findLatestInactiveStrategy(User u, Pageable pageable);
 
-    @Query("SELECT s FROM Strategy s WHERE s.user=?1 AND s.date<>?2 AND s.active=0")
-    List<Strategy> findUserOldStrategies(User u, LocalDate date);
+    @Query("SELECT s FROM Strategy s WHERE s.user=?1 AND s.date<(SELECT s.date FROM Strategy s WHERE s.user=?1 AND s.active=1 GROUP BY s.date) ORDER BY s.date DESC , s.id DESC")
+    List<Strategy> findLastUsedStrategy(User u, Pageable pageable);
 
     @Query("SELECT s FROM Strategy s WHERE s.user=?1")
     List<Strategy> fullHistoryByUser(User u);
 
-    @Query("SELECT s FROM Strategy s WHERE s.user=?1 AND s.date<(SELECT s.date FROM Strategy s WHERE s.user=?1 AND s.active=1 GROUP BY s.date) ORDER BY s.date DESC , s.id DESC")
-    List<Strategy> findLastStrategy(User u, Pageable pageable);
 
-    @Query("SELECT s FROM Strategy s WHERE s.user=?1 AND s.date BETWEEN ?2 and ?3")
-    List<Strategy> findHistoryByUserAndDates(User u, LocalDate start, LocalDate end);
 
-    @Modifying
-    @Query("DELETE FROM Strategy s where s.user = ?1 and s.active=1 and date=?2")
-    int deleteActiveStrategy(User u, LocalDate date);
 
-    @Query("select s from Strategy s where s.user=?1 and s.date=(select max(s.date) from s where s.user=?1 and s.active=0) order by s.id desc")
-    List<Strategy> findLatestStrategy(User u, Pageable pageable);
+
+
+    @Query("SELECT s FROM Strategy s WHERE s.active = 1 AND s.date=?1")
+    List<Strategy> findNewStrategies(LocalDate yesterday);
+
+    @Query("SELECT s FROM Strategy s WHERE s.user=?1 AND s.date<>?2 AND s.active=0")
+    List<Strategy> findUserOldStrategies(User u, LocalDate date);
+
+
+
+
 
 
 
