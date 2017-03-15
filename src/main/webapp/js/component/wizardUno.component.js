@@ -33,7 +33,7 @@ RoboAdviceApp.component("wizardUno",{
 
 
 
-        var strategy_percentages = new Array(5);
+        let strategy_percentages = new Array(5);
 
         for(let i = 0; i<5; i++){
             strategy_percentages[i]=[];
@@ -47,7 +47,7 @@ RoboAdviceApp.component("wizardUno",{
         $scope.finish = function(){
             // $ctrl.setStrategy();
             $log.error("Wizard-1 finished: ");
-        }
+        };
 
         $scope.newValue = function(value){
             this.myStrategy = value;

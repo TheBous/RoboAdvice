@@ -44,7 +44,7 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, TokenHandle
         },
         newStrategy: function(strategyObj){
             // insert a new strategy at runtime
-            var newStrategy = new Strategy(strategyObj);
+            let newStrategy = new Strategy(strategyObj);
             if(this.hasStrategy){
               newStrategy.setFinalAmount(this.getCurrentPortfolioAmount());
               newStrategy.setInitialAmount(this.getCurrentPortfolioAmount());

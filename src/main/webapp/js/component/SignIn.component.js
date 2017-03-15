@@ -14,7 +14,7 @@ RoboAdviceApp.component("signIn",{
         },function(response){
           if(response.statusCode == 0){
             if($scope.assert) {
-              var now = new Date(),
+              let now = new Date(),
               // this will set the expiration to 1 day
               exp = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);
               $log.debug("doLogin| Remember me");

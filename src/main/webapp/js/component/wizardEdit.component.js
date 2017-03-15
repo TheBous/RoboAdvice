@@ -1,4 +1,4 @@
-RoboAdviceApp.component("wizardEdit",{
+    RoboAdviceApp.component("wizardEdit",{
     bindings: {
         myStrategy : "<",
         saveStrategy : "&",
@@ -24,14 +24,14 @@ RoboAdviceApp.component("wizardEdit",{
         $scope.$watch('newStrategy.strategy', function (newValue,oldValue) {
             $log.debug("newStrategy changed: ");
             /*
-            $log.debug("oldValue: ");
-            $log.debug(oldValue);
-            $log.debug("newValue:");
-            $log.debug(newValue);
-            */
+             $log.debug("oldValue: ");
+             $log.debug(oldValue);
+             $log.debug("newValue:");
+             $log.debug(newValue);
+             */
 
             //$log.debug($scope.newStrategy.strategy)
-            var sum = $scope.newStrategy.strategy.reduce(function(a,b){
+            let sum = $scope.newStrategy.strategy.reduce(function(a,b){
                 let ret = a+parseInt(b.percentage);
                 return ret;
             },0);
@@ -54,11 +54,11 @@ RoboAdviceApp.component("wizardEdit",{
                         max = $scope.newStrategy.strategy[i].percentage;
                     }
                 }
-            $scope.newStrategy.strategy[max_index].percentage -= (sum-100);
-            $ctrl.myStrategy = $scope.newStrategy;
-            $scope.ranges.forEach(function(a){
-                a.isDisabled = true;
-            })
+                $scope.newStrategy.strategy[max_index].percentage -= (sum-100);
+                $ctrl.myStrategy = $scope.newStrategy;
+                $scope.ranges.forEach(function(a){
+                    a.isDisabled = true;
+                })
 
             }else{
                 $scope.ranges.forEach(function(a){

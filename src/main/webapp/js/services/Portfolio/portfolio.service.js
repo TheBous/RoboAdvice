@@ -30,13 +30,13 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
             portfolioREST.getFullHistory({user_id: usr_id}).$promise.then(function(response){
                 if(response.statusCode == 0){
                   $log.debug("portfolioService.getFullHistory || Received Obj:");
-                  var portfolioHistory = response.data;
+                  let portfolioHistory = response.data;
 
                   let strategy_index = 0;
 
                   if(portfolioHistory != null){
                     // get strategies history
-                    var strategies = strategyService.getHistory();
+                    let strategies = strategyService.getHistory();
                     // an index for the strategies
                     $log.debug("portfolioService.setHistory| setting up amount for each strategy");
                     $log.debug("portfolioService.setHistory| strategies: " + strategies.length)
@@ -51,8 +51,8 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
 
                     portfolioHistory.forEach(function(aPortfolio){
                       i++;
-                      var portfolioObj = new Portfolio(aPortfolio);
-                      var portfolioDate = portfolioObj.getDate();
+                      const portfolioObj = new Portfolio(aPortfolio);
+                      let portfolioDate = portfolioObj.getDate();
                       portfolioAmount = portfolioObj.getTotalAmount();
                       parent.portfoliosRaw.amounts.push(portfolioAmount);
                       parent.portfoliosRaw.dates.push(portfolioObj.getDate().getTime());
