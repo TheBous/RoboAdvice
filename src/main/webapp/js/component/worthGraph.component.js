@@ -15,7 +15,8 @@ RoboAdviceApp.component("worthGraph",{
 
               Highcharts.stockChart('newGraph', {
                 rangeSelector: {
-                  selected: 1
+                  selected: 1,
+                    inputEnabled:false
                 },
 
                 series: [{
@@ -28,4 +29,6 @@ RoboAdviceApp.component("worthGraph",{
               });
         }
     }
+
+
 });
