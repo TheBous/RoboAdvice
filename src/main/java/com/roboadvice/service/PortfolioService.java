@@ -11,14 +11,23 @@ import java.util.List;
 
 public interface PortfolioService {
 
+
+    PortfolioDTO getCurrent(String userEmail);
+    List<PortfolioDTO> getFullHistory(String userEmail);
+    List<PortfolioDTO> getHistoryByDates(String userEmail, LocalDate from, LocalDate to);
+
+
+
+
+
     Portfolio save(Portfolio p);
     List<Portfolio> getAllYesterdayPortfolios();
     List<User> getAllYesterdayPortfoliosUsers();
     List<Portfolio> findByUserAndDate(User u, LocalDate date);
     List<Portfolio> findByUser(User u);
-    List<Portfolio> getCurrent(User u);
-    List<Portfolio> fullHistoryByUser(User u);
-    List<Portfolio> historyByUserAndDates(User u, LocalDate from, LocalDate to);
+
+
+
 
 
 }
