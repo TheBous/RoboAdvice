@@ -78,7 +78,7 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
                 // the values are the same, do nothing
                 //sweetAlert(USER_CODES["NO_CHANGES"], "", "error")
             }else{
-                userREST.update({user_id: this.getId(),name: newObj["name"],surname:newObj["surname"]}).$promise.then(function(response){
+                userREST.update({name: newObj["name"],surname:newObj["surname"],email:$parent.getEmail(),password:$parent.getPassword()}).$promise.then(function(response){
                     if(response.statusCode == 0){
                         // update done
                         $parent.userObj.name = newObj.name;
