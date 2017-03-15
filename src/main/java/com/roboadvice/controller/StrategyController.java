@@ -1,13 +1,7 @@
 package com.roboadvice.controller;
 
 import com.roboadvice.dto.StrategyDTO;
-import com.roboadvice.model.AssetsClass;
-import com.roboadvice.model.Strategy;
-import com.roboadvice.model.User;
-import com.roboadvice.repository.StrategyRepository;
-import com.roboadvice.service.AssetsClassService;
 import com.roboadvice.service.StrategyService;
-import com.roboadvice.service.UserService;
 import com.roboadvice.utils.Constant;
 import com.roboadvice.utils.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 

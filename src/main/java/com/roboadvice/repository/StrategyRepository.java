@@ -1,6 +1,5 @@
 package com.roboadvice.repository;
 
-import com.roboadvice.model.Portfolio;
 import com.roboadvice.model.Strategy;
 import com.roboadvice.model.User;
 import org.springframework.data.domain.Pageable;

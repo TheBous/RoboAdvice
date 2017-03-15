@@ -2,7 +2,6 @@ package com.roboadvice.controller;
 
 import com.roboadvice.dto.UserDTO;
 import com.roboadvice.utils.GenericResponse;
-import com.roboadvice.model.User;
 import com.roboadvice.service.UserService;
 import com.roboadvice.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,28 +25,24 @@ public class UserController {
 
 
     @RequestMapping(value = "/get", method = RequestMethod.POST)
-    public GenericResponse getUser(Authentication authentication){
+    public GenericResponse<UserDTO> getUser(Authentication authentication){
         String email = authentication.getName();
-        User u = userService.selectByEmail(email);
-        if(u!= null){
-            return new GenericResponse<>(u, Constant.SUCCES_MSG,Constant.SUCCESS);
-        }
-        return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+        UserDTO userDTO = userService.getUser(email);
+        if(userDTO!=null)
+            return new GenericResponse<>(userDTO, Constant.SUCCES_MSG, Constant.SUCCESS);
+        else
+            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
-    public GenericResponse updateUser(@RequestBody @Valid UserDTO userDTO,
-                                      Authentication authentication){
+    public GenericResponse<UserDTO> updateUser(@RequestBody @Valid UserDTO userDTO,
+                                            Authentication authentication){
         String email = authentication.getName();
-        User u = userService.selectByEmail(email);
-        if(u!= null){
-            u.setName(userDTO.getName());
-            u.setSurname(userDTO.getSurname());
-            userService.insert(u);
-            return new GenericResponse<>(u, Constant.SUCCES_MSG,Constant.SUCCESS);
-        }
-        return new GenericResponse<>(null, "USER NOT FOUND!", Constant.ERROR);
-
+        UserDTO u = userService.updateUser(userDTO);
+        if(u!=null)
+            return new GenericResponse<>(u, Constant.SUCCES_MSG, Constant.SUCCESS);
+        else
+            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
     }
 
 

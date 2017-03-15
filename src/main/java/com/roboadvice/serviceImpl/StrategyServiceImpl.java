@@ -9,7 +9,6 @@ import com.roboadvice.repository.StrategyRepository;
 import com.roboadvice.repository.UserRepository;
 import com.roboadvice.service.StrategyService;
 import com.roboadvice.utils.Constant;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -144,12 +143,6 @@ public class StrategyServiceImpl implements StrategyService{
         else
             return null;
     }
-
-    @Override
-    public void setInactive(User u) {
-        strategyRepository.setInactive(u);
-    }
-
 
 
     @Override
