@@ -33,16 +33,15 @@ public class PortfolioController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/getCurrentAmount", method = RequestMethod.POST)
+    @RequestMapping(value = "/getCurrent", method = RequestMethod.POST)
     public GenericResponse<PortfolioDTO> getAmount(Authentication authentication){
         //portfolioDTO = {totalAmount, bondsAmount, stocksAmanount, forexAmount, commoditiesAmount, date}
-        List<Portfolio> portfolioList = new ArrayList<>();
-        PortfolioDTO portfolioDTO = new PortfolioDTO();
         String email = authentication.getName();
         User u = userService.selectByEmail(email);
         if(u != null){
-            portfolioList = portfolioService.getCurrentAmount(u);
+            List<Portfolio> portfolioList = portfolioService.getCurrentAmount(u);
             if(portfolioList != null && !portfolioList.isEmpty()){
+                PortfolioDTO portfolioDTO = new PortfolioDTO();
                 portfolioDTO.setTotalAmount(BigDecimal.ZERO);
                 for(Portfolio p : portfolioList){
                     portfolioDTO.setTotalAmount(portfolioDTO.getTotalAmount().add(p.getValue()));

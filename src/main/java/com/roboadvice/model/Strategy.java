@@ -34,7 +34,7 @@ public class Strategy {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "assets_class_id")
     private AssetsClass assetsClass;
 

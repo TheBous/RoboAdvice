@@ -2,6 +2,7 @@ package com.roboadvice.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -11,13 +12,18 @@ import java.time.LocalDate;
 @Getter @Setter
 public class StrategyDTO {
 
-    private long user_id;
     private String name;
-    private LocalDate date;
     private Boolean active;
+
+    @NotNull
+    private LocalDate date;
+    @NotNull
     private BigDecimal bonds_p;
+    @NotNull
     private BigDecimal stocks_p;
+    @NotNull
     private BigDecimal forex_p;
+    @NotNull
     private BigDecimal commodities_p;
 
     public BigDecimal getPercentage(long id){
