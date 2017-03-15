@@ -26,10 +26,10 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log){
         parent = this;
         strategyREST.getHistory({user_id: usr_id}).$promise.then(function(response){
           if(response.statusCode == 0){
-              var strategyHistory = response.data;
+              let strategyHistory = response.data;
               let ret = [];
               strategyHistory.forEach(function(anElement){
-                  var strategyObj = new Strategy(anElement);
+                  let strategyObj = new Strategy(anElement);
                   ret.push(strategyObj);
               });
               parent.strategyHistory = ret;

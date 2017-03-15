@@ -1,4 +1,5 @@
 RoboAdviceApp.component("wizardEdit",{
+RoboAdviceApp.component("wizardEdit",{
     bindings: {
         myStrategy : "<",
         saveStrategy : "&",
@@ -31,7 +32,7 @@ RoboAdviceApp.component("wizardEdit",{
             */
 
             //$log.debug($scope.newStrategy.strategy)
-            var sum = $scope.newStrategy.strategy.reduce(function(a,b){
+            let sum = $scope.newStrategy.strategy.reduce(function(a,b){
                 let ret = a+parseInt(b.percentage);
                 return ret;
             },0);
