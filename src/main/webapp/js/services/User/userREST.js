@@ -7,29 +7,17 @@ RoboAdviceApp.factory('userREST', ['$resource', '$cookies', 'TokenHandler',
             login: {
               method: 'POST',
               url: baseUrl + 'login',
-              params: {
-                email: '@email',
-                password: '@password'
-              }
+              headers: {'Content-Type': 'application/json; charset=UTF-8' }
             },
             signup: {
               method: 'POST',
               url: baseUrl + 'signup',
-              params: {
-                name: '@name',
-                surname: '@surname',
-                email: '@email',
-                password: '@password'
-              }
+              headers: {'Content-Type': 'application/json; charset=UTF-8' }
             },
             update: {
               method: 'POST',
               url: baseUrl + 'update',
-              params: {
-                user_id: '@user_id',
-                name: '@name',
-                surname: '@surname'
-              }
+              headers: {'Content-Type': 'application/json; charset=UTF-8' }
             }
         });
     }

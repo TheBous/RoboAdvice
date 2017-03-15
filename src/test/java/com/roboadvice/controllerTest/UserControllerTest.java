@@ -26,7 +26,7 @@ public class UserControllerTest {
     @Autowired
     private AuthenticationController authenticationController;
 
-    @Test
+    /*@Test
     public void loginTestOK() {
         User user = new User();
         user.setEmail("leo@galati.com");
@@ -68,7 +68,7 @@ public class UserControllerTest {
         }catch(Exception e ){
 
         }
-    }
+    }*/
 
 
 }
