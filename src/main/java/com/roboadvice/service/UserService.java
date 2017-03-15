@@ -7,9 +7,9 @@ import com.roboadvice.model.User;
 public interface UserService {
 
     boolean insert (User u);
-    User selectByEmail(String email);
+    User selectByEmail(String userEmail);
     UserDTO getUser(String userEmail);
-    UserDTO updateUser(UserDTO userDTO);
+    UserDTO updateUser(String userEmail, UserDTO userDTO);
 
 
 

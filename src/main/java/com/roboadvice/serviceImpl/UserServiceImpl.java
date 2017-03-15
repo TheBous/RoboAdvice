@@ -45,9 +45,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDTO updateUser(UserDTO userDTO) {
-        User u = userRepository.findByEmail(userDTO.getEmail());
-        if(u== null)
+    public UserDTO updateUser(String userEmail, UserDTO userDTO) {
+        User u = userRepository.findByEmail(userEmail);
+        if(u==null || !u.getEmail().equals(userDTO.getEmail()))
             return null;
 
         u.setName(userDTO.getName());

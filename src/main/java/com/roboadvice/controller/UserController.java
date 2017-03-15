@@ -36,9 +36,9 @@ public class UserController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
     public GenericResponse<UserDTO> updateUser(@RequestBody @Valid UserDTO userDTO,
-                                            Authentication authentication){
+                                               Authentication authentication){
         String email = authentication.getName();
-        UserDTO u = userService.updateUser(userDTO);
+        UserDTO u = userService.updateUser(email, userDTO);
         if(u!=null)
             return new GenericResponse<>(u, Constant.SUCCES_MSG, Constant.SUCCESS);
         else
