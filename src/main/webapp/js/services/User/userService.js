@@ -3,7 +3,7 @@
  You can use it to manage user's data
  */
 
-RoboAdviceApp.service("userService",function($log,$cookies,userREST, TokenHandler, strategyService, portfolioREST, strategyREST, portfolioService, USER_CODES, CONFIG){
+RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, TokenHandler, strategyService, portfolioREST, strategyREST, portfolioService, USER_CODES, CONFIG){
     return{
         userObj: {},
         logged: false, // this flag is true when the user is logged
@@ -23,7 +23,6 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, TokenHandle
             $log.debug("userService.init| init user called, setted user object");
             this.userObj = user_obj;
             this.logged = true;
-            $log.debug("userService.init| token: " + TokenHandler.get())
             this.setStrategyHistory();
         },
         setStrategyHistory: function(){
@@ -44,7 +43,7 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, TokenHandle
         },
         newStrategy: function(strategyObj){
             // insert a new strategy at runtime
-            var newStrategy = new Strategy(strategyObj);
+            let newStrategy = new Strategy(strategyObj);
             if(this.hasStrategy){
               newStrategy.setFinalAmount(this.getCurrentPortfolioAmount());
               newStrategy.setInitialAmount(this.getCurrentPortfolioAmount());
@@ -128,13 +127,14 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, TokenHandle
             userREST.login(params).$promise
                 .then(function(response){
                     // then is the promise method?
-                    TokenHandler.set("Bearer " + response.data.token);
+                    // TokenHandler.set("Bearer " + response.data.token);
+                    $http.defaults.headers.common['Authorization']= "Bearer " + response.data.token;
 
-                    $cookies.put("token", "Bearer " + response.data.token);
-                    console.log("-----------------------------")
-                    console.log("Bearer " + response.data.token);
-                    console.log(TokenHandler.get())
-                    console.log("-----------------------------")
+                    // $cookies.put("token", "Bearer " + response.data.token);
+                    // console.log("-----------------------------")
+                    // console.log("Bearer " + response.data.token);
+                    // console.log(TokenHandler.get())
+                    // console.log("-----------------------------")
                     if(callback != null){
                         // isset the callback, the method wants to handle the response
                         callback(response);

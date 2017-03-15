@@ -4,7 +4,7 @@ RoboAdviceApp.component("signUp",{
         myuser: "="
     },
     templateUrl: "../html/signUpView.html",
-    controller: function($scope,$log, userService, userREST, TokenHandler, $location, SIGNUP_CODES, $cookies){
+    controller: function($scope,$log, userService, userREST, $http, TokenHandler, $location, SIGNUP_CODES, $cookies){
         $ctrl = this;
         $scope.doSignUp = function(){
             let check = true;
@@ -45,17 +45,19 @@ RoboAdviceApp.component("signUp",{
                             password:   sha256($scope.password)
                          },function(response){
                             if(response.statusCode == 0){
+                              $http.defaults.headers.common['Authorization']= "Bearer " + response.data.token;
+                              userService.init(response.data.user);
+                              $scope.user=userService;
 
                                 $cookies.put("email", response.data.user.email);
                                 $cookies.put("password", response.data.user.password);
-                                $cookies.put("token", "Bearer " + response.data.token);
-
-                                TokenHandler.set("Bearer " + response.data.token);
-
-                                userService.init(response.data.user);
+                                // $cookies.put("token", "Bearer " + response.data.token);
+                                // TokenHandler.set("Bearer " + response.data.token);
+                                //$http.defaults.headers.common['Authorization']= "Bearer:" + response.data.token;
+                                //userService.init(response.data.user);
                                 //$ctrl.myuser = userService;
-                                window.location = "#!/prewizard";
-                                //$location.path("/prewizard");
+                                // window.location = "#!/prewizard";
+                                $location.path("/prewizard");
                             }
                         });
 
