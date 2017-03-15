@@ -51,8 +51,8 @@ public class PortfolioServiceImpl implements PortfolioService{
 
 
     @Override
-    public List<Portfolio> getCurrentAmount(User u) {
-        return portfolioRepository.getCurrentAmount(u);
+    public List<Portfolio> getCurrent(User u) {
+        return portfolioRepository.getCurrent(u);
     }
 
     @Override

@@ -39,7 +39,7 @@ public class PortfolioController {
         String email = authentication.getName();
         User u = userService.selectByEmail(email);
         if(u != null){
-            List<Portfolio> portfolioList = portfolioService.getCurrentAmount(u);
+            List<Portfolio> portfolioList = portfolioService.getCurrent(u);
             if(portfolioList != null && !portfolioList.isEmpty()){
                 PortfolioDTO portfolioDTO = new PortfolioDTO();
                 portfolioDTO.setTotalAmount(BigDecimal.ZERO);

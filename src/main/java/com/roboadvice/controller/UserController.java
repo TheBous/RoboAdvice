@@ -7,8 +7,9 @@ import com.roboadvice.service.UserService;
 import com.roboadvice.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -35,7 +36,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
-    public GenericResponse updateUser(@RequestBody @Validated UserDTO userDTO,
+    public GenericResponse updateUser(@RequestBody @Valid UserDTO userDTO,
                                       Authentication authentication){
         String email = authentication.getName();
         User u = userService.selectByEmail(email);

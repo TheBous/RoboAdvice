@@ -31,7 +31,7 @@ public interface PortfolioRepository extends PagingAndSortingRepository<Portfoli
     List<User> findAllPortfoliosUsersByDate(LocalDate date);
 
     @Query("SELECT NEW com.roboadvice.model.Portfolio(p.assetsClass, sum(p.value), p.date) FROM Portfolio p WHERE p.user=?1 and p.date=(SELECT MAX(p.date) FROM p WHERE p.user=?1) GROUP BY p.assetsClass")
-    List<Portfolio> getCurrentAmount(User u);
+    List<Portfolio> getCurrent(User u);
 
     @Query(value = "SELECT * FROM portfolio WHERE user_id=?1 GROUP BY assets_class_id, date ORDER BY date, assets_class_id", nativeQuery = true)
     List<Portfolio> fullHistoryByUser(User u);

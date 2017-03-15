@@ -8,11 +8,9 @@ import com.roboadvice.utils.GenericResponse;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import javax.validation.Valid;
 import java.util.*;
 
 @RestController
@@ -28,7 +26,7 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = "application/json")
-    public GenericResponse<User> signup(@RequestBody @Validated UserDTO userDTO){
+    public GenericResponse<User> signup(@RequestBody @Valid UserDTO userDTO){
         User u = new User(0,userDTO.getName(), userDTO.getSurname(), userDTO.getEmail(), userDTO.getPassword(), "USER");
 
         if(userService.insert(u))
@@ -40,7 +38,7 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
-    public GenericResponse<Map<String, Object>> login(@RequestBody @Validated UserDTO userDTO){
+    public GenericResponse<Map<String, Object>> login(@RequestBody @Valid UserDTO userDTO){
         String token = null;
         String secretKey = "mikyfalSone";
         User u = userService.selectByEmail(userDTO.getEmail());

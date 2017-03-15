@@ -78,8 +78,6 @@ public class NightlyComputationController {
 
         ApiData api = new ApiData();
         Portfolio p = new Portfolio();
-        //Portfolio p[] = new Portfolio[Constant.NUM_ASSETS];
-        //int i=0;
 
         //CHECK IF THERE ARE NEW STRATEGIES FROM NEW USERS
         List<Strategy> newStrategies = strategyService.newStrategiesFromNewUsers();
@@ -107,10 +105,8 @@ public class NightlyComputationController {
                         p.setUnits(units);
 
                         portfolioService.save(p);
-                        //i++;
                     }
                 }
-                //i=0;
             }
             System.out.println("*** NIGHTLY TASK 2: PORTFOLIOs CORRECTLY CREATED FOR NEW USERS! ***\n");
         }
@@ -196,8 +192,6 @@ public class NightlyComputationController {
         ApiData api = new ApiData();
         User user = new User();
         Portfolio p = new Portfolio();
-        //Portfolio p[] = new Portfolio[Constant.NUM_ASSETS];
-        //int i=0;
 
         //CHECK IF THERE ARE NEW STRATEGIES FROM OLD USERS
         List<Strategy> newStrategies = strategyService.newStrategiesFromOldUsers();
@@ -238,10 +232,8 @@ public class NightlyComputationController {
                         p.setUnits(units);
 
                         portfolioService.save(p);
-                        //i++;
                     }
                 }
-                //i=0;
                 investment = BigDecimal.ZERO;
             }
             System.out.println("*** NIGHTLY TASK 4: PORTFOLIOs CORRECTLY CREATED FOR USERS THAT CHANGED STRATEGY! ***\n");

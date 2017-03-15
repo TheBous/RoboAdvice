@@ -10,14 +10,11 @@ import com.roboadvice.service.StrategyService;
 import com.roboadvice.service.UserService;
 import com.roboadvice.utils.Constant;
 import com.roboadvice.utils.GenericResponse;
-import org.apache.tomcat.jni.Local;
-import org.springframework.aop.target.LazyInitTargetSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +39,7 @@ public class StrategyController {
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST, consumes = "application/json")
-    public GenericResponse<StrategyDTO> insertStrategy(@RequestBody @Validated StrategyDTO strategyDTO,
+    public GenericResponse<StrategyDTO> insertStrategy(@RequestBody @Valid StrategyDTO strategyDTO,
                                                        Authentication authentication) {
         //{"user_id": 56, "bonds_p": 30, "stocks_p": 30, "forex_p": 20, "commodities_p":20, "name": Balanced}
         String email = authentication.getName();

@@ -3,6 +3,7 @@ package com.roboadvice.dto;
 import lombok.*;
 import org.hibernate.validator.constraints.Email;
 
+
 import javax.validation.constraints.NotNull;
 
 @Data
