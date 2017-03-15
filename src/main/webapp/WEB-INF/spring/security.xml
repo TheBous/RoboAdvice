@@ -1,0 +1,40 @@
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <global-method-security secured-annotations="enabled" />
+
+    <http pattern="/api/**" entry-point-ref="restEntryPoint" use-expressions="true" disable-url-rewriting="false">
+        <intercept-url pattern="/api/*" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <csrf disabled="true"/>
+
+    </http>
+
+    <http pattern="/api-admin/**" entry-point-ref="restEntryPoint" use-expressions="true" disable-url-rewriting="false">
+        <intercept-url pattern="/api-admin/*" access="hasRole('ROLE_ADMIN')"/>
+        <csrf disabled="true"/>
+    </http>
+
+    <http entry-point-ref="restEntryPoint" use-expressions="true" disable-url-rewriting="false">
+        <form-login
+                authentication-success-handler-ref="lpcSuccessHandler"
+                authentication-failure-handler-ref="lpcFailureHandler"
+        />
+        <logout success-handler-ref="lpcLogoutSuccessHandler" />
+        <csrf disabled="true"/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider ref="lpcAuthProvider" />
+    </authentication-manager>
+
+    <b:bean id="lpcSuccessHandler" class="it.uiip.digitalgarage.leparkboxygate.auth.LpcSuccessHandler"/>
+    <b:bean id="lpcFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"/>
+    <b:bean id="lpcAuthProvider" class="it.uiip.digitalgarage.leparkboxygate.auth.LpcAuthProvider" />
+    <b:bean id="restEntryPoint" class="it.uiip.digitalgarage.leparkboxygate.auth.RestAuthenticationEntryPoint"/>
+    <b:bean id="lpcLogoutSuccessHandler" class="it.uiip.digitalgarage.leparkboxygate.auth.LpcLogoutSuccessHandler"/>
+
+
+</b:beans>

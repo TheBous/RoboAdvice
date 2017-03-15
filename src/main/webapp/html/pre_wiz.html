@@ -1,0 +1,597 @@
+<html>
+  <head>
+  <style>
+
+@charset "UTF-8";
+@import url("http://fonts.googleapis.com/css?family=Roboto");
+@import url("http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css");
+@import url("http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css");
+
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background: #DDD7D1;
+}
+
+
+#map {
+  position: absolute;
+  top: 0px;
+  bottom: 0;
+  width: 100%;
+  height: 2000px;
+  background-image: url("http://i.imgur.com/EuWbvA5.png");
+  background-repeat: no-repeat;
+  background-size: contain
+}
+
+.notPlacemarked {
+  visibility: hidden;
+}
+
+.placemarked {
+  visibility: visible;
+  height: 55px;
+  width: 55px;
+  position: relative;
+  top: 110px;
+  margin-left: 40%;
+  z-index: 100;
+  transition: width 1s, height 1s, transform 1s;
+  -webkit-transition: width 1s, height 1s, -webkit-transform 1s;
+}
+
+.container-wizard {
+  background: #00C993;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2050px;
+  color: white;
+  text-align: center;
+  min-width: 24px;
+}
+
+.section {
+  position: absolute;
+  display: block;
+  width: 100%;
+  color: white;
+  text-align: left;
+}
+
+#sect1 {
+  top: 400px;
+}
+
+#sect2 {
+  top: 1000px;
+}
+
+#sect3 {
+  top: 1500px;
+}
+
+#twitter {
+  float: left;
+  width: 20%;
+  font-size: 5em;
+  padding-left: 15%;
+}
+
+#rocket {
+  float: right;
+  width: 20%;
+  font-size: 5em;
+  padding-left: 15%;
+}
+
+#hiddenIcon {
+  text-align: center;
+  visibility: hidden;
+  height: 0;
+  font-size: 5em;
+}
+
+.anchor {
+  height: 100px;
+}
+
+.band2 h2 {
+  text-align: left;
+}
+
+.explanation {
+  min-width: 12.42em;
+  float: left;
+  width: 40%;
+}
+
+.explanation-right {
+  min-width: 12.42em;
+  float: left;
+  text-align: right;
+  padding-left: 5%;
+  width: 40%;
+}
+
+#phone {
+  background: #DDD7D1;
+  border-radius: 30px;
+  box-shadow: 0 0.5em 0 #BCB1A5;
+  padding: 50px 18px 50px 18px;
+  width: 20%;
+  min-width: 200px;
+  max-width: 400px;
+  margin-right: 5%;
+  float: left;
+}
+
+#screen {
+  background: #ffffff;
+  height: 300px;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  min-width: 200px;
+}
+
+#topBar {
+  background: #00C993;
+  height: 10%;
+  overflow: hidden;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+  min-width: 100px;
+}
+
+#mc_embed_signup {
+  text-align: right;
+  background-color: #00C993;
+}
+
+#mce-EMAIL {
+  text-align: right;
+  width: auto;
+  height: 30px;
+  margin-bottom: 20px;
+  padding-right: 1em;
+  border-style: none;
+  outline: none;
+}
+
+#mce-EMAIL:focus {
+  outline: none;
+}
+
+#mc-embedded-subscribe {
+  border-style: none;
+}
+
+.icon-bookmark {
+  float: right;
+}
+
+.icon-bookmark:hover {
+  color: #FFC52F;
+}
+
+.pressed {
+  color: #FFC52F;
+}
+
+h1, h3 {
+  font-family: 'Signika', sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.container-wizard h1 {
+  font-size: 5em;
+  line-height: 1em;
+  /*margin-bottom: 1em;*/
+}
+
+a {
+  color: white;
+}
+
+
+a.arrow {
+  color: white;
+  text-align: center;
+  font-size: 3em;
+  text-decoration: none;
+  padding-bottom: 30px;
+  /*transition cross-browser stuff*/
+  -webkit-transition: color 0.2s ease-out;
+  /* Safari 3.2+, Chrome */
+  -moz-transition: color 0.2s ease-out;
+  /* Firefox 4-15 */
+  -o-transition: color 0.2s ease-out;
+  /* Opera 10.5�12.00 */
+  transition: color 0.2s ease-out;
+  /* Firefox 16+, Opera 12.50+ */
+}
+
+a.arrow:hover {
+  color: #FFC52F;
+}
+
+@media only screen and (min-width: 767px) {
+  body {
+    font-size: 1.125em;
+    /* 18px / 16px */
+  }
+
+  .container-wizard {
+    background-size: 100%;
+  }
+
+  .container-wizard h1 {
+    font-size: 3.25em;
+    /*52 / 16*/
+  }
+
+  a.button {
+    padding: .75em 1.5em;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .explanation {
+    float: none;
+    margin: auto;
+    text-align: center;
+  }
+
+  .explanation-right {
+    float: none;
+    margin: auto;
+    text-align: center;
+  }
+
+  #sect1 {
+    top: 350px;
+  }
+
+  #phone {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+    padding: 0;
+    margin: 0;
+  }
+
+  #map {
+    width: 0px;
+    height: 0px;
+  }
+
+  #sect2 {
+    top: 900px;
+  }
+
+  #rocket {
+    visibility: hidden;
+  }
+
+  #twitter {
+    visibility: hidden;
+    padding-left: 0em;
+  }
+
+  #hiddenIcon {
+    visibility: visible;
+    height: auto;
+  }
+
+  #mce-EMAIL {
+    text-align: center;
+    padding: 0;
+    float: none;
+  }
+
+  #mc_embed_signup {
+    text-align: center;
+  }
+}
+</style>
+
+<script>
+skrollr.init({
+    forceHeight: false
+});
+/*!
+ * Plugin for skrollr.
+ * This plugin makes hashlinks scroll nicely to their target position.
+ *
+ * Alexander Prinzhorn - https://github.com/Prinzhorn/skrollr
+ *
+ * Free to use under terms of MIT license
+ */
+(function(document, window) {
+	'use strict';
+
+	var DEFAULT_DURATION = 500;
+	var DEFAULT_EASING = 'sqrt';
+
+	var MENU_TOP_ATTR = 'data-menu-top';
+	var MENU_OFFSET_ATTR = 'data-menu-offset';
+
+	var skrollr = window.skrollr;
+	var history = window.history;
+	var supportsHistory = !!history.pushState;
+
+	/*
+		Since we are using event bubbling, the element that has been clicked
+		might not acutally be the link but a child.
+	*/
+	var findParentLink = function(element) {
+		//Yay, it's a link!
+		if(element.tagName === 'A') {
+			return element;
+		}
+
+		//We reached the top, no link found.
+		if(element === document) {
+			return false;
+		}
+
+		//Maybe the parent is a link.
+		return findParentLink(element.parentNode);
+	};
+
+	/*
+		Handle the click event on the document.
+	*/
+	var handleClick = function(e) {
+		//Only handle left click.
+		if((e.which || e.button) !== 1) {
+			return;
+		}
+
+		var link = findParentLink(e.target);
+
+		//The click did not happen inside a link.
+		if(!link) {
+			return;
+		}
+
+		if(handleLink(link)) {
+			e.preventDefault();
+		}
+	};
+
+	/*
+		Handles the click on a link. May be called without an actual click event.
+		When the fake flag is set, the link won't change the url and the position won't be animated.
+	*/
+	var handleLink = function(link, fake) {
+		//Don't use the href property (link.href) because it contains the absolute url.
+		var href = link.getAttribute('href');
+
+		//Check if it's a hashlink.
+		if(!/^#/.test(href)) {
+			return false;
+		}
+
+		//Now get the targetTop to scroll to.
+		var targetTop;
+
+		//If there's a data-menu-top attribute, it overrides the actuall anchor offset.
+		var menuTop = link.getAttribute(MENU_TOP_ATTR);
+
+		if(menuTop !== null) {
+			targetTop = +menuTop;
+		} else {
+			var scrollTarget = document.getElementById(href.substr(1));
+
+			//Ignore the click if no target is found.
+			if(!scrollTarget) {
+				return false;
+			}
+
+			targetTop = _skrollrInstance.relativeToAbsolute(scrollTarget, 'top', 'top');
+
+			var menuOffset = scrollTarget.getAttribute(MENU_OFFSET_ATTR);
+
+			if(menuOffset !== null) {
+				targetTop += +menuOffset;
+			}
+		}
+
+		if(supportsHistory && !fake) {
+			history.pushState({top: targetTop}, '', href);
+		}
+
+		//Now finally scroll there.
+		if(_animate && !fake) {
+			_skrollrInstance.animateTo(targetTop, {
+				duration: _duration(_skrollrInstance.getScrollTop(), targetTop),
+				easing: _easing
+			});
+		} else {
+			defer(function() {
+				_skrollrInstance.setScrollTop(targetTop);
+			});
+		}
+
+		return true;
+	};
+
+	var defer = function(fn) {
+		window.setTimeout(fn, 1);
+	};
+
+	/*
+		Global menu function accessible through window.skrollr.menu.init.
+	*/
+	skrollr.menu = {};
+	skrollr.menu.init = function(skrollrInstance, options) {
+		_skrollrInstance = skrollrInstance;
+
+		options = options || {};
+
+		_easing = options.easing || DEFAULT_EASING;
+		_animate = options.animate !== false;
+		_duration = options.duration || DEFAULT_DURATION;
+
+		if(typeof _duration === 'number') {
+			_duration = (function(duration) {
+				return function() {
+					return duration;
+				};
+			}(_duration));
+		}
+
+		//Use event bubbling and attach a single listener to the document.
+		skrollr.addEvent(document, 'click', handleClick);
+
+		if(supportsHistory) {
+			window.addEventListener('popstate', function(e) {
+				var state = e.state || {};
+				var top = state.top || 0;
+
+				defer(function() {
+					_skrollrInstance.setScrollTop(top);
+				});
+			}, false);
+		}
+	};
+
+	//Private reference to the initialized skrollr.
+	var _skrollrInstance;
+
+	var _easing;
+	var _duration;
+	var _animate;
+
+	//In case the page was opened with a hash, prevent jumping to it.
+	//http://stackoverflow.com/questions/3659072/jquery-disable-anchor-jump-when-loading-a-page
+	defer(function() {
+		if(window.location.hash) {
+			window.scrollTo(0, 0);
+
+			if(document.querySelector) {
+				var link = document.querySelector('a[href="' + window.location.hash + '"]');
+
+				if(link) {
+					handleLink(link, true);
+				}
+			}
+		}
+	});
+}(document, window));
+
+var s = skrollr.init(/*other stuff*/);
+
+//The options (second parameter) are all optional. The values shown are the default values.
+skrollr.menu.init(s, {
+    //skrollr will smoothly animate to the new position using `animateTo`.
+    animate: true,
+
+    //The easing function to use.
+    easing: 'sqrt',
+
+    //How long the animation should take in ms.
+    duration: function(currentTop, targetTop) {
+        //By default, the duration is hardcoded at 500ms.
+        return 1000;
+
+        //But you could calculate a value based on the current scroll position (`currentTop`) and the target scroll position (`targetTop`).
+        //return Math.abs(currentTop - targetTop) * 10;
+    },
+});
+
+
+  $(".icon-bookmark").click(function(){
+      $("#placemark").addClass("placemarked");
+      $(".icon-bookmark").addClass("pressed");
+  });
+
+
+</script>
+
+</head>
+
+<body>
+  <div class="container-wizard" id="skrollr-body" data-0="background-color:rgb(0,201,147);"data-400="background-color:rgb(74,173,255);" data-1000="background-color:rgb(74,173,255);" data-1300="background-color:rgb(0,201,147);">
+
+  <h1><i class="icon-circle-blank"></i></h1>
+  <h2>Welcome to RoboAdvice</h2>
+  <p>We will help you to find your best investment Strategy</p>
+
+  <!-- <a class="arrow" href="#!/prewizard#anchor1"><i class="icon-sort-down"></i></a> -->
+  </p>
+
+<div class="section" id="sect1">
+  <div class="anchor" id="anchor1"></div>
+  <div id="hiddenIcon">
+    <i class="icon-mobile-phone"></i>
+        </div>
+  <div id="phone" data-0="margin-left: -20%; opacity:0" data-350="margin-left: 10%; opacity:1">
+
+
+    <div id="screen">
+      <div id="map">
+          <img id="placemark" class="notPlacemarked" src="http://s.cdpn.io/52524/CircleMarkerTest3.png">
+      </div><!--/ map-->
+    </div><!--/ screen-->
+    </div><!--/ phone-->
+  <div class="explanation" data-300="opacity: 0" data-350="opacity: 1">
+  <h2>Select your Strategy</h2>
+    <p>Each strategy is designed according to different levels of Risk.<BR>Find the right one for you!</p>
+
+    <!-- <a class="arrow" href="#!/prewizard#anchor2"><i class="icon-sort-down"></i></a> -->
+    </div><!--/ explanation-->
+  </div><!--/ sect1-->
+
+  <div class="section" id="sect2">
+    <div class="anchor" id="anchor2"></div>
+    <div id="hiddenIcon">
+    <i class="icon-wrench"></i>
+        </div>
+    <div id="twitter"  data-600="margin-top: -20%; opacity: 0" data-1000="margin-top: 0; opacity:1">
+    <i class="icon-wrench"></i>
+    </div>
+    <div class="explanation" data-850=" opacity: 0" data-900=" opacity:1">
+    <h2>Be Brave!</h2>
+    <p>Whenever you feel like it, you can tune and edit your strategy.</p>
+      <!-- <a class="arrow" href="#!/prewizard#anchor3"><i class="icon-sort-down"></i></a> -->
+    </div><!--/ explanation-->
+  </div><!--sect2-->
+
+    <div class="section" id="sect3">
+    <div class="anchor" id="anchor3"></div>
+      <div id="hiddenIcon">
+    <i class="icon-rocket icon-rotate-180"></i>
+        <p></p>
+        </div>
+    <div class="explanation-right" data-1150=" opacity: 0" data-1200=" opacity:1">
+    <h2>You're done!</h2>
+    <p>You are now ready to start your adventure.</p>
+
+<!-- Begin MailChimp Signup Form -->
+
+<div id="mc_embed_signup">
+<form>
+  <a href="#!/wizard">
+	   <button class="btn waves-effect waves-light blue right">Go!</button>
+  </a>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+    </div><!--/ explanation-->
+      <div id="rocket" data-1100="margin-top:-300px; margin-right:0%; opacity: 0" data-1400="margin-top:50; margin-right:20%; opacity:1">
+    <i class="icon-rocket icon-rotate-180"></i>
+    </div><!--/ rocket-->
+  </div><!--sect2-->
+
+</div><!--/ band-->
+
+</body>
+</html>

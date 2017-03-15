@@ -1,0 +1,141 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <div ng-controller="SignIn">
+        <fieldset>
+            <label for="email">
+                Email:
+            </label>
+            <input id="email" is-email-valid ng-model="email"/>
+        </fieldset>
+        <fieldset>
+            <label for="password">
+                Password:
+            </label>
+            <input id="password" ng-model="password"/>
+        </fieldset>
+
+        <fieldset>
+        <input type="submit" ng-click="doLogin()" value="Login" >
+        </fieldset>
+        <h2>You want to login as:</h2>
+        <b>Email: </b> {{email}}
+        <br>
+        <b>Password: </b> {{password}}
+    </div>
+</body>
+</html>
+-->
+
+
+
+<!DOCTYPE html>
+<html>
+
+<div class="header_section">Welcome</div>
+<head>
+	<link href="fonts/pacifico.css" rel="stylesheet" />
+
+	<style>
+		.input-field label{color:#999;}
+		.input-field input[type=text]:focus + label,.input-field input[type=password]:focus + label{color:#000;}
+		.input-field input[type=text]:focus ,.input-field input[type=password]:focus {border-bottom:1px solid #000;box-shadow:0 1px 0 0 #000;}
+		.input-field input[type=text].valid,.input-field input[type=password].valid{border-bottom:1px solid #B2DFDB;box-shadow:0 1px 0 0 #B2DFDB;}
+		.input-field input[type=text].invalid,.input-field input[type=password].invalid{border-bottom:1px solid #F44336;box-shadow:0 1px 0 0 #F44336;}
+		.input-field .prefix.active{color:#000;}
+		/* Input : switch */
+		.switch{margin-top:7px;}
+		.switch label .lever{margin:0 7px;}
+		.switch label input[type="checkbox"]:checked + .lever{background-color:#ADD0EB;}
+		.switch label input[type="checkbox"]:checked + .lever::after{background-color: #26A69A ;}
+		.login-body{background-image:url(https://s23.postimg.org/ydf6369q3/9da350ebfeb5a8897639492866340ec9.jpg);background-size:cover;background-position: center;background-attachment:fixed;}
+		.input-cart{min-height:400px;border-top:3px solid teal;margin-top:80px;margin-bottom:100px;}
+		.login{margin-top:25px;border-right:1px solid #ddd;}
+		.policy{visibility: hidden;}
+		.signupForm{display: none;}
+		.signup{margin-top:25px;}
+		.signup-toggle{cursor:pointer;margin-top:140px;}
+		.login h4, .signup h4{font-weight:200;}
+		.legal{border-top:1px solid #ddd;}
+		.email label{margin-left:11px;}
+		.policy{font-size:13px;}
+		.main-title{font-family:Roboto;}
+
+	</style>
+
+	<meta charset="utf-8">
+	<title>Login to Robo Adviser</title>
+</head>
+<body class="login-body">
+<div class="row">
+	<div class="input-cart col s12 m10 push-m1 z-depth-2 grey lighten-5">
+		<!-- passage of the userObj to the component -->
+		<sign-in myuser='user'></sign-in>
+		<!-- Signup form -->
+		<div class="col s12 m7 signup">
+			<sign-up myuser='user'></sign-up>
+
+			<div class="signup-toggle center" >
+				<h4 class="center">Have No Account ? <a class="signup-toggle">Sign Up</a></h4>
+			</div>
+		</div>
+		<div class="col s12">
+			<br>
+			<div class="legal center">
+			</div>
+			<div class="legal center">
+				<div class="col s12 m7 right">
+					<p class="grey-text policy center">By signing up, you agree on our <a style="color:teal;"href="#!">Privacy Policy</a> and  <a style="color:teal;" href="#!">Terms of Use</a> including <a style="color:teal;" href="#!">Cookie Use</a>.</p>
+				</div>
+				<div class="col s12 m5">
+					<!-- <p class="center grey-text" style="font-size: 14px;">Coding : <a href="http://fb.com/celyes17" class="main-title red-text">Celyes</a></p>-->
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!--
+<div class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large amber black-text">
+        Login
+    </a>
+    <ul>
+        <li><a class="indigo center" href="#!">Login with FB</a></li>
+        <li><a class="blue center" href="#!">Login with Twitter</a></li>
+        <li><a class="red center" href="#!">Login with Google +</a></li>
+    </ul>
+    -->
+</div>
+<!-- script -->
+<!--
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+		integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+		crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+<script src="asset/js/init.js"></script>
+-->
+</body>
+</html>
+
+<script>
+
+    jQuery(document).ready(function($){
+        //$(".dropdown-button").dropdown();
+        //$('.modal').modal();
+
+        $(".signup-toggle").click(function(){
+            $(this).hide();
+            $(".signupForm").show(300);
+            $(".policy").css("visibility","visible");
+        });
+
+    });
+
+</script>

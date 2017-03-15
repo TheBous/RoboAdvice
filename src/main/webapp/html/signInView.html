@@ -1,0 +1,31 @@
+<div class="col s12 m5 login">
+    
+    <h4 class="center">Log in</h4>
+	<br>
+	<!--<form>-->
+	<div class="row">
+	   <div class="input-field">
+           <input type="text" id="user" name="username" class="validate" required="required" id="email" is-email-valid ng-model="email">
+                <label for="user">E-Mail</label>
+        </div>	
+    </div>
+	<div class="row">
+	   <div class="input-field">
+           <input type="password" id="pass" name="password" class="validate" required="required" ng-model="password">
+           <label for="pass">Password</label>
+       </div>	
+    </div>
+    <div class="row">
+	   <div class="switch col s6">
+           <label>
+                <input type="checkbox" ng-model="assert" ng-init="assert=true">
+				    <span class="lever"></span>
+					Remember Me
+				</label>
+        </div>
+		<div class="col s6">
+		      <button type="submit" name="login" class="btn waves-effect waves-light blue right" ng-click="doLogin()">Log in</button>
+        </div>
+    </div>
+	<!--</form>-->
+</div>

@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row">
+        <div class="col s12 m12">
+            <div class="card grey lighten-5">
+                <div class="card-content black-text">
+                  <br />
+                  <div style="text-align:left">
+                    <span class="card-title" style="margin-bottom:10pt">Strategy name: <b>
+                      <input style="margin-left:10pt;min-width:100pt;width:auto;margin-top:-10pt; font-size:24px;" id="last_name" type="text" class="validate" ng-model="newStrategy.name"></span>
+                      </b></span>
+                      <span class="card-title">Investment:
+                        <b class="amount">$ {{$ctrl.investmentAmount}}</b>
+                      </span>
+
+
+                  </div>
+                </div>
+                <div class="card-content">
+
+                    <div class="product" style="margin-left:auto;margin-right:auto;min-width:70%">
+                        <table class="highlight centered responsive-table">
+                            <thead>
+                            <tr>
+                                <th data-field="id">Level</th>
+                                <th data-field="name">Asset Class</th>
+                                <th data-field="price">Percentage</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+
+                            <tr ng-repeat="asset in newStrategy.strategy">
+                                <td>
+                                    <p class="range-field">
+                                        <input type="range" min="0" max="100" ng-model="asset.percentage" ng-disabled="ranges[$index].isDisabled" />
+                                    </p>
+                                </td>
+                                <td>
+                                    {{asset.name}}
+                                </td>
+                                <td>
+                                    <b class="wizard-percentage">{{asset.percentage}} %</b>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td class="strategy_name">Total: <b class="wizard-percentage">{{assetTotalPercentage}} %</b></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>                </div>
+                <div class="card-action" style="text-align:center;">
+                    <button class="waves-effect waves-light btn" ng-disabled="!isStrategyOk" ng-click="$ctrl.saveStrategy({value: newStrategy})">Save Strategy</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

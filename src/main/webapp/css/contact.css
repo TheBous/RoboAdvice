@@ -1,0 +1,73 @@
+
+@import url(http://fonts.googleapis.com/css?family=Raleway:300);
+
+body_class{
+	margin:0;
+	padding:15px;
+	height:700px;
+
+	text-align:center;
+}
+
+
+.personne{
+	display:inline-block;
+	position:relative;
+	width:200px;
+	margin:0 20px;
+	cursor:pointer;
+	vertical-align:top;
+}
+.personne > div{
+	width:100%;
+	height:200px;
+	border-radius:50%;
+	border: 14px solid transparent;
+	box-shadow: 2px 2px 2px rgba(0,0,0, 0.18);
+	text-align:center;
+	overflow:hidden;
+	box-sizing:border-box;
+}
+
+.personne img{
+	height:100%;
+	margin:0 -50%;
+	transition: all 0.5s ease;
+}
+
+.personne > span {
+	background:#4db6ac;
+	position:absolute;
+	z-index:1;
+	top:140px;
+	left:0px;
+	padding: 6px 20px 6px 40px;
+	font-family:'Raleway';
+	color:#FFF;
+	font-weight:400;
+	font-size:14px;
+	border-radius: 0 13px 13px 0;
+	transition: all 0.5s ease-in;
+}
+
+.personne:hover > span{padding-left:45px;display:none}
+.personne:hover img{height:105%;}
+.personne:hover > div {	border: 14px solid #009688;}
+
+
+.personne h4  {
+	font-family:'Raleway';
+	text-align:left;
+	margin-top:3px;
+	color:#000;
+	font-size:18px;
+	padding-left:45px;
+}
+
+.personne h4 span {
+	display:block;
+	font-size:23px;
+	margin-left:15px
+}
+
+

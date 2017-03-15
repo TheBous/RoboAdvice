@@ -1,0 +1,151 @@
+<style>
+
+    body {
+        background: #f9f9f9;
+    }
+
+
+    .losing
+    {
+        -webkit-animation: ll 1s linear 1s infinite alternate;
+        animation: ll 1s linear 1s infinite alternate;
+        color: #F44336;
+        font-size: 100px;
+    }
+
+    @-webkit-keyframes ll
+    {
+        0%   { color: #F44336;}
+        50%  { color: #B71C1C;}
+        100% { color: #F44336;}
+    }
+
+    @keyframes ll
+    {
+        0%   { color: #F44336;}
+        50%  { color: #B71C1C;}
+        100% { color: #F44336;}
+    }
+
+    .winning
+    {
+        -webkit-animation: ww 1s linear 1s infinite alternate;
+        animation: ww 1s linear 1s infinite alternate;
+        color: #00e676;
+        font-size: 100px;
+    }
+
+    @-webkit-keyframes ww
+    {
+        0%   { color: #00e676;}
+        50%  { color: #2e7d32;}
+        100% { color: #00e676;}
+    }
+
+    @keyframes ww
+    {
+        0%   { color: #00e676;}
+        50%  { color: #2e7d32;}
+        100% { color: #00e676;}
+    }
+
+    .constant
+    {
+        -webkit-animation: cc 1s linear 1s infinite alternate;
+        animation: cc 1s linear 1s infinite alternate;
+        color: #ffeb3b;
+        font-size: 100px;
+    }
+
+    @-webkit-keyframes cc
+    {
+        0%   { color: #ffeb3b;}
+        50%  { color: #f9a825;}
+        100% { color: #ffeb3b;}
+    }
+
+    @keyframes cc
+    {
+        0%   { color: #ffeb3b;}
+        50%  { color: #f9a825;}
+        100% { color: #ffeb3b;}
+    }
+
+
+
+</style>
+
+
+<div>
+
+
+
+
+    <div class="container">
+
+        <div class="header_section">Balance
+            <div>
+                <div class="row">
+                    <div class="col s12 m3" ng-repeat="difference in portfolio.getPortfolioDifferences() track by $index">
+                        <div class="card brown lighten-3">
+                            <div class="card-content white-text">
+                                <div class="card-title">{{CONFIG["ASSETS_NAME"][$index]}}</div>
+                                <p class="card-title">
+                                    {{difference | number : 6}}%
+                                </p>
+                                <p class="card-title">
+                                    <i ng-if="difference < 0" style="color:#F44336;font-size:50px;" class="material-icons losing">trending_down</i>
+                                    <i ng-if="difference > 0" style="color: #00e676;font-size:50px;" class="material-icons winning">trending_up</i>
+                                    <i ng-if="difference==0" style="color: #ffeb3b;font-size:50px;" class="material-icons constant">trending_flat</i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div ng-if="!(user.currentPortfolio == null)">
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="card white">
+                        <div class="card-content teal-text">
+                            <span class="card-title">Worth</span>
+                            <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph>
+                        </div>
+                        <!--<div class="card-action">
+                            <a href="#">Luca</a>
+                            <a href="#">Michele</a>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="container">
+        <div class="container">
+
+            <div ng-if="(user.currentPortfolio) == null">
+                <div ng-if="user.currentPortfolio == null">
+                    <div  class="col m4 s12">
+                        <div class="card">
+                            <div style="text-align: center;" class="card-content">
+                                <span style="color:black;"class="card-title">Your balance will be updated tomorrow </span></span>
+                                <img  style="width:70%" src="../img/001-analytics-3.png">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+</div>

@@ -1,0 +1,230 @@
+<style>
+
+    .header_section
+    {
+        text-align: center;
+        font-size: 48px;
+        font-weight: 300;
+        line-height: 2.618em ;
+        color:#666;
+    }
+
+
+</style>
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" ng-app="RoboAdviceApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>RoboAdvice</title>
+    <!-- favicon -->
+
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+
+    <!-- CSS and Styles -->
+
+    <link rel="stylesheet" type="text/css" href="css/home.css"/>
+    <link rel="stylesheet" type="text/css" href="css/contact.css"/>
+    <link rel="stylesheet" type="text/css" href="css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-loading-bar/build/loading-bar.css">
+
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    -->
+    <link href="fonts/roboto.css" rel="stylesheet" />
+    <link href="fonts/doris.css" rel="stylesheet" />
+    <link href="fonts/openSans.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">-->
+    <link href="bower_components/components-font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Angular material -->
+    <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css"> -->
+    <link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet">
+
+    <!-- Materialize library -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"> -->
+    <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.css">
+
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <link href="fonts/materialIcon.css" rel="stylesheet" />
+
+
+    <!-- wizard style -->
+    <link href="bower_components/angular-wizard/dist/angular-wizard.min.css" rel="stylesheet">
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.30/skrollr.min.js"></script>
+</head>
+<body ng-cloak ng-controller="MainController">
+
+
+
+
+<div>
+    <nav class="nav-extended">
+
+        <div style="background-color:#00897b" class="nav-wrapper">
+            <a style="font-weight:200;" ng-if="user.isLogged()" href="#!/portfolio" class="brand-logo">
+              <i style="font-size: 45px; margin-left: 10px;color: #ffd600;" class="material-icons" ng-if="user.getCurrentPortfolioAmount()">monetization_on</i>
+              {{user.getCurrentPortfolioAmount() | number : 2}}
+            </a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#!/">Home</a></li>
+                <li ng-if="user.isLogged()"><a href="#!/portfolio">Dashboard</a></li>
+                <li><a href="#!/contact">Team</a></li>
+                <li><a href="#!/sign" ng-if="!user.isLogged()">Login</a></li>
+                <li ng-if="user.isLogged()">
+                    <a href="#!/user-profile">Hi {{user.getName()}}</a></li>
+                <li ng-if="user.isLogged()"><a ng-click="logout()">Logout</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="#!/">Home</a></li>
+                <li ng-if="user.isLogged()"><a href="#!/portfolio">Dashboard</a></li>
+                <li><a href="#!/contact">Contact</a></li>
+                <li ng-cloak><a href="#!/sign" ng-if="!user.isLogged()">Login</a></li>
+                <li ng-cloak ng-if="user.isLogged()">
+                    <a href="#!/user-profile">Hi {{user.getEmail()}}</a></li>
+                <li ng-cloak ng-if="user.isLogged()"><a ng-click="logout()">Logout</a></li>
+            </ul>
+        </div>
+        <div  ng-if="showBar()" class="nav-content" style="background-color: #26a69a" >
+            <ul class="tabs tabs-transparent tabs-fixed-width">
+                <li class="tab"><a class="active" href="#!/portfolio">Portfolio</a></li>
+                <li class="tab"><a  href="#!/history">History</a></li>
+                <li class="tab"><a href="#!/worth">Balance</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+<div ng-view></div>
+
+<!-- LIBRARIES -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
+<script src="/bower_components/chart.js/dist/Chart.js"></script>
+<script src="bower_components/angular-chart.js/angular-chart.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-wizard/dist/angular-wizard.js"></script>
+<script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+
+<script src="bower_components/highcharts/highstock.js"></script>
+<script src="bower_components/highcharts/modules/exporting.js"></script>
+
+
+<!-- javascript sha -->
+<script src="bower_components/js-sha256/src/sha256.js"></script>
+
+<script>
+    // Initialize collapse button
+    $(document).ready(function() {
+        $(".button-collapse").sideNav(
+            {
+
+
+                closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                draggable: true // Choose whether you can drag to open on touch screens
+            }
+
+
+
+        );
+
+    });
+</script>
+
+<!-- UTILS -->
+<script src="js/utils.js"></script>
+<script src="js/routes/main_routes.js"></script>
+<script src="js/lib/homeparallax.js"></script>
+<script src="js/CONFIG.js"></script>
+<script src="js/STATUS_CODES.js"></script>
+
+<!-- CLASSES used from services and controllers -->
+<script src="js/class/portfolio.js"></script>
+<script src="js/class/strategy.js"></script>
+<script src="js/services/Strategy/strategy.service.js"></script>
+
+<!-- CONTROLLERS -->
+<script src="js/controllers/MainController.js"></script>
+<script src="js/component/SignIn.component.js"></script>
+<script src="js/component/Signup.component.js"></script>
+<script src="js/controllers/wizardController.js"></script>
+<script src="js/controllers/graphController.js"></script>
+<script src="js/component/wizardResume.component.js"></script>
+<script src="js/component/wizardEdit.component.js"></script>
+<script src="js/component/wizardUno.component.js"></script>
+<script src="js/component/worthGraph.component.js"></script>
+
+<!-- COMPONENTS -->
+<script src="js/component/assetsClassGraph.component.js"></script>
+<script src="js/component/strategyHistory.component.js"></script>
+<script src="js/component/worthHistory.component.js"></script>
+
+<!-- SERVICES, FACTORIES -->
+<script src="js/services/token.service.js"></script>
+<script src="js/services/Strategy/strategyREST.js"></script>
+<script src="js/services/Portfolio/portfolioREST.js"></script>
+<script src="js/services/User/userREST.js"></script>
+<script src="js/services/User/userService.js"></script>
+<script src="js/services/Portfolio/portfolio.service.js"></script>
+
+
+
+<!-- DIRECTIVES -->
+<script src="js/directives/user-editable-fields.js"></script>
+
+<!-- Materialize-->
+
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script> -->
+
+
+<script src="bower_components/materialize/dist/js/materialize.js"></script>
+
+
+</body>
+
+
+
+<footer class="page-footer" style="background-color: #00897b">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Robo Advice</h5>
+                <p class="grey-text text-lighten-4">Start growing your wealth today</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Menu</h5>
+                <ul class="right-on-med-and-down">
+                    <li><a class="grey-text text-lighten-3" href="#!/">Home</a></li>
+                    <li><a class="grey-text text-lighten-3" href=#!/contact>Team</a></li>
+                    <li><a class="grey-text text-lighten-3" ng-if="!user.isLogged()" href=#!/sign>Login</a></li>
+                    <li ng-if="user.isLogged()"><a class="grey-text text-lighten-3" href="#!/" ng-click="logout()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container ">
+            © 2017 Made with ❤ by PulpFiction
+            <a class="grey-text text-lighten-4 right" > Powered by Digital Garage</a>
+        </div>
+    </div>
+</footer>
+
+</html>

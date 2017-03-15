@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+
+<style>
+  .wizard-container{
+    background-color:red;
+  }
+</style>
+
+</head>
+<body>
+<!-- <wizard-uno myStrategy=""></wizard-uno> -->
+<br>
+<div style="text-align: center;">
+
+<div ng-controller="strategyWizard" ng-if="user.isLogged()">
+    <wizard on-finish="finishedWizard()" indicators-position="top">
+        <wz-step wz-title="Strategy">
+            <wizard-uno my-strategy="newStrategy" investment-amount="investmentAmount"></wizard-uno>
+        </wz-step>
+        <wz-step wz-title="Resume / Edit">
+            <wizard-resume my-strategy="newStrategy" save-strategy="saveStrategy(value)" investment-amount="investmentAmount" style="margin-top:50pt"></wizard-resume>
+        </wz-step>
+        <wz-step wz-title="Save">
+            <wizard-edit my-strategy="newStrategy" save-strategy="saveStrategy(value)" investment-amount="investmentAmount" style="margin-top:50pt"></wizard-edit>
+        </wz-step>
+    </wizard>
+</div>
+</div>
+<div ng-if="!user.isLogged()">
+    <h1>You can insert a new strategy only if you are logged</h1>
+</div>
+
+</body>
+</html>

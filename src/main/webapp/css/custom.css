@@ -1,0 +1,25 @@
+.strategySelector{
+    background-color: "#cdcdcd";
+}
+
+b.strategy_name{
+  letter-spacing:0.5pt;
+  background-color: #eaeaea;
+  padding:3pt;
+  padding-left:10pt;
+  padding-right:10pt;
+  color:#333;
+  text-align:center;
+}
+
+b.amount{
+  letter-spacing:0.5pt;
+  background-color: #eaeaea;
+  padding:3pt;
+  padding-left:10pt;
+  padding-right:10pt;
+}
+
+b.wizard-percentage{
+  font-size:1.5em;
+}

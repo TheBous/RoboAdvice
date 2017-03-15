@@ -1,0 +1,78 @@
+<style>
+    body {
+        background: #f9f9f9;
+    }
+
+
+</style>
+
+<div class="header_section">Portfolio</div>
+    <div class="container" ng-if="user.hasCurrentPortfolio()">
+                    <div class="row">
+                        <div class="col m12 s12">
+                            <div class="card white">
+                                <div class="card-content teal-text">
+                                    <span class="card-title"> {{strategy.getLastStrategy().getName()}} Trend</span>
+                                    {{portfolio.getLastStrategy().getHistoryDate()}}
+                                    <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph>
+                                    <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
+
+                                </div>
+                                <!--<div class="card-action">
+                                    <a href="#">Michele</a>
+                                    <a href="#">Luca</a>
+                                </div>-->
+                            </div>
+                        </div>
+
+                        <div  class="col m6 s12">
+                            <div class="card grey lighten-4">
+                                <div class="card-content">
+                                    <span style="color:black;"class="card-title teal-text">{{strategy.getCurrentStrategy().getName()}} </span>
+                                    <span ng-if="strategy.getCurrentStrategy().isPending()" class="new badge" data-badge-caption="Pending Strategy"></span>
+                                </div>
+                                <div style="margin:5pt;margin-left:8pt">
+                                  <assets-class-graph percentages=strategy.getCurrentStrategy().getAssets()></assets-class-graph>
+                                </div>
+                                <div class="card-action" style="text-align: center">
+                                    <a href="#!/wizard" class="waves-effect waves-light btn cyan "><i class="material-icons left">mode_edit</i>Edit Strategy</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div  class="col m6 s12" ng-if="strategy.getCurrentStrategy().isPending()">
+                            <div class="card grey lighten-4">
+                                <div class="card-content">
+                                    <span style="color:black;" class="card-title teal-text">{{strategy.getLastStrategy().getName()}} </span>
+                                </div>
+                                <div style="margin:5pt;margin-left:8pt">
+                                  <assets-class-graph ng-if="strategy.getLastStrategy().getAssets()" percentages=strategy.getLastStrategy().getAssets()></assets-class-graph>
+                                </div>
+                                <div style="height:50pt">
+                                  &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+<div class="container">
+    <div class="container">
+        <div class="container">
+
+            <div ng-if="user.currentPortfolio == null">
+                <div  class="col m12 s12">
+                    <div class="card big">
+                        <div style="text-align: center;" class="card-content">
+                            <span style="color:black;"class="card-title">Your portfolio will be updated tomorrow </span></span>
+                            <img  style="width:70%" src="../img/004-analytics.png">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div></div>
+    </div>
+</div>

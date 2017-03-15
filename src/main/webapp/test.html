@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+    <head>
+    <script src="bower_components/angular/angular.js"></script>
+    <script>
+        var test = angular.module("test",[]);
+        
+        test.controller("parentComponent",function($scope){
+                $scope.brands="del capo";    
+            
+                $scope.onUpdate = function(aaa){
+                    console.log("sono onUpdate sul controller padre " + aaa);
+                }
+        });
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        test.component("child1",{
+            template: `
+                amaro del <input type="text" ng-model="$ctrl.brand" /> <button ng-click="$ctrl.onUpdate({francesco: $ctrl.brand})">Cliccami</button>
+            `,
+            bindings:{
+                brand: '<',
+                onUpdate: "&"
+            },
+            controller: function(){
+                
+                this.$onInit = function(){
+                    //this.onUpdate();
+                    
+                    
+                    console.log("child1 init " + this.brand);
+                }
+            }
+        });
+        
+        test.component("child2",{
+            template: `
+                amaro del {{$ctrl.brand}}
+            `,
+            bindings:{
+                brand: '<'
+            },
+            controller: function(){
+                
+                this.$onInit = function(){
+                    console.log("child2 init " + this.brand);
+                }
+            }
+        });
+    </script>
+    
+    </head>
+    <body ng-app="test">
+        ciao mondo
+        <div ng-controller="parentComponent">
+            <br>
+            <child1 brand="brands" on-update="onUpdate(francesco)">
+            </child1>
+            <br>
+            <child2 brand="brands"></child2>
+        </div>
+    </body>
+</html>

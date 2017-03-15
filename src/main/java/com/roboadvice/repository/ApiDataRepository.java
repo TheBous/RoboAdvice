@@ -1,0 +1,24 @@
+package com.roboadvice.repository;
+
+import com.roboadvice.model.ApiData;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
+import java.time.LocalDate;
+
+@Repository
+@Transactional
+public interface ApiDataRepository extends PagingAndSortingRepository<ApiData, Long> {
+
+    ApiData findByAssetsIdAndDate(long assetId, LocalDate date);
+
+    @Query(value = "SELECT * FROM api_data WHERE assets_id = ?1 AND date = (SELECT MAX(date) FROM api_data WHERE assets_id = ?1)", nativeQuery = true)
+    ApiData findLatestValueByAsset(long assets_id);
+
+    @Query(value = "SELECT * FROM api_data WHERE assets_id = ?1 AND date = (SELECT MAX(date) FROM api_data WHERE assets_id = ?1 AND date<= ?2)", nativeQuery = true)
+    ApiData findLatestValueByAssetAndDate(long assets_id, String date);
+
+
+}

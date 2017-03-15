@@ -1,0 +1,40 @@
+<div class="signupForm">
+    <h4 class="center">Sign up</h4>
+    <br>
+    <form name="myForm">
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <input type="text" id="name-picked" name="namepicked" class="validate" required="required" ng-model="name">
+                <label for="name-picked">Name</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <input type="text" id="name-picked" name="namepicked" class="validate" required="required" ng-model="surname">
+                <label for="name-picked">Surname</label>
+            </div>
+
+            <div class="input-field col s12 m6">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="validate" required="required" ng-model="email">
+                    <div ng-messages="myForm.email.$error" style="color:maroon" role="alert">
+                      <div ng-message="email">Your email address is invalid</div>
+                    </div>            
+            </div>
+            <div class="input-field col s12 m6">
+                <input type="password" ng-minlength="8" id="password" name="password" class="validate" required="required" ng-model="password">
+                <label for="password">Password</label>
+                <div ng-messages="myForm.password.$error" style="color:maroon" role="alert" >
+                    <div ng-message="minlength">Your field is too short, min 8 characters</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field email">
+                <div class="col s12">
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <button type="submit" name="btn-signup" class="btn blue right waves-effect waves-light" ng-click="doSignUp()" value="signup">Sign Up</button>
+    </div>
+</div>
