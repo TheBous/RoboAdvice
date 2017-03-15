@@ -16,7 +16,7 @@ public interface PortfolioService {
     List<User> getAllYesterdayPortfoliosUsers();
     List<Portfolio> findByUserAndDate(User u, LocalDate date);
     List<Portfolio> findByUser(User u);
-    List<Portfolio> getCurrentAmount(User u);
+    List<Portfolio> getCurrent(User u);
     List<Portfolio> fullHistoryByUser(User u);
     List<Portfolio> historyByUserAndDates(User u, LocalDate from, LocalDate to);
 
