@@ -7,18 +7,15 @@ import com.roboadvice.model.AssetsClass;
 import com.roboadvice.model.Portfolio;
 import com.roboadvice.model.User;
 import com.roboadvice.service.PortfolioService;
-import org.apache.tomcat.jni.Local;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.sound.sampled.Port;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -159,7 +156,4 @@ public class PortfolioServiceTest {
             assertTrue(user.getPassword() instanceof String);
         }
     }
-
-
-
 }
