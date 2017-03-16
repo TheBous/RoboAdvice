@@ -22,10 +22,8 @@ import static org.junit.Assert.*;
 public class UserControllerTest {
 
     @Autowired
-    private UserController userController;
-
-    @Autowired
     private AuthenticationController authenticationController;
+
 
     @Test
     public void loginTestOK() {
@@ -48,7 +46,7 @@ public class UserControllerTest {
         userDTO.setPassword("rewfdwqwefd");
         try {
             GenericResponse<Map<String, Object>> response = authenticationController.login(userDTO);
-            assertEquals(0, response.getStatusCode());
+            assertNotEquals(0, response.getStatusCode());
             assertTrue(response.getData() instanceof Map<?, ?>);
         }catch(Exception e ){
 
