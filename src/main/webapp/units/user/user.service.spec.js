@@ -23,17 +23,29 @@ describe("User Test Suite",function(){
             password: 12345678,
             role: "USER"
         };
-        userService.logged = true;
+        userService.logged = false;
         userService.setStrategyHistory = [{}];
         userService.newStrategy = [{}];
     }));
     describe("User do login",function(){
         it("INIT || userObj => typeof(object)",function(){
-            expect(typeof(userService.userObj)).toEqual('object');
+            expect(typeof userService.userObj).toEqual('object');
         });
         it("INIT || userObj => Any object properties is only one",function(){
             expect(Object.keys(userService.userObj).length).toEqual(6);
         });
+        /*let userObj = {
+         id: 1,
+         email: "g@g.com",
+         name: "j",
+         surname: "g",
+         password: 12345678,
+         role: "USER"
+         };
+         userService.init(userObj);
+         it("INIT || if user log in, logged => true",function(){
+         expect(userObj.logged).toBeTruthy();
+         });*/
         //OTHER TESTS
     });
 
