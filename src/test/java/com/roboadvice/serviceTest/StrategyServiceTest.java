@@ -4,11 +4,9 @@ import com.roboadvice.RoboadviceApplication;
 import com.roboadvice.dto.StrategyDTO;
 import com.roboadvice.model.Strategy;
 import com.roboadvice.service.StrategyService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -79,7 +77,9 @@ public class StrategyServiceTest {
         String userEmail = "leo@galati.com";
 
         List<StrategyDTO> strategyDTO = strategyService.getFullHistoryByUser(userEmail);
+
         assertNotNull(strategyDTO);
+        assertTrue(strategyDTO instanceof  List<?>);
         assertTrue(strategyDTO.size() > 0);
         for (StrategyDTO str : strategyDTO) {
             assertTrue(str.getName() instanceof String);
@@ -94,8 +94,9 @@ public class StrategyServiceTest {
         String userEmail = "duino@pasquale.com";
 
         List<StrategyDTO> strategyDTO = strategyService.getFullHistoryByUser(userEmail);
+
         assertNull(strategyDTO);
-        assertFalse(strategyDTO instanceof StrategyDTO);
+        assertFalse(strategyDTO instanceof  List<?>);
     }
 
     @Test
@@ -105,15 +106,16 @@ public class StrategyServiceTest {
         List<StrategyDTO> strategyDTO = strategyService.getFullHistoryByUser(userEmail);
 
         assertNull(strategyDTO);
-        assertFalse(strategyDTO instanceof StrategyDTO);
+        assertFalse(strategyDTO instanceof  List<?>);
     }
 
     @Test
     public void newStrategiesFromNewUsersTestFailure() {
 
         List<Strategy> strategies = strategyService.newStrategiesFromNewUsers();
+
         assertNull(strategies);
-        assertFalse(strategies instanceof Strategy);
+        assertFalse(strategies instanceof  List<?>);
 
     }
 
@@ -121,7 +123,9 @@ public class StrategyServiceTest {
     public void newStrategiesFromOldUserTestOk() {
 
         List<Strategy> strategies = strategyService.newStrategiesFromOldUsers();
+
         assertNotNull(strategies);
+        assertTrue(strategies instanceof  List<?>);
         assertTrue(!strategies.isEmpty());
         for (Strategy str : strategies) {
             assertTrue(str.getActive() instanceof Boolean);
@@ -135,23 +139,25 @@ public class StrategyServiceTest {
     @Test
     public void newStrategiesFromOldUserTestFailure() {
         List<Strategy> strategies = strategyService.newStrategiesFromOldUsers();
+
         assertNull(strategies);
-        assertFalse(strategies instanceof Strategy);
+        assertFalse(strategies instanceof  List<?>);
     }
 
     @Test
     public void deletePendingStrategyTestOk() {
-
         String userEmail = "enrico@pasquale.com";
+
         Boolean delete = strategyService.deletePendingStrategy(userEmail);
+
         assertNotNull(delete);
         assertTrue(delete);
     }
 
     @Test
     public void deletePendingStrategyTestFailure() {
-
         String userEmail = "enrico@pasquale.com";
+
         Boolean delete = strategyService.deletePendingStrategy(userEmail);
         assertFalse(delete);
     }
