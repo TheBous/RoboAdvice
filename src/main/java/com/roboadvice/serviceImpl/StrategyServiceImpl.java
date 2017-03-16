@@ -146,7 +146,7 @@ public class StrategyServiceImpl implements StrategyService{
     }
 
 
-    @Override
+    /*@Override
     public List<Strategy> newStrategiesFromNewUsers() {
         List<Strategy> newStrategies = strategyRepository.findNewStrategies(LocalDate.now().minus(Period.ofDays(1)));
 
@@ -166,9 +166,9 @@ public class StrategyServiceImpl implements StrategyService{
         else {
             return null;
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public List<Strategy> newStrategiesFromOldUsers() {
         List<Strategy> newStrategies = strategyRepository.findNewStrategies(LocalDate.now().minus(Period.ofDays(1)));
 
@@ -187,5 +187,5 @@ public class StrategyServiceImpl implements StrategyService{
         else {
             return null;
         }
-    }
+    }*/
 }

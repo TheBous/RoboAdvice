@@ -17,8 +17,8 @@ public interface StrategyService {
 
 
 
-    List<Strategy> newStrategiesFromNewUsers();
-    List<Strategy> newStrategiesFromOldUsers();
+    /*List<Strategy> newStrategiesFromNewUsers();
+    List<Strategy> newStrategiesFromOldUsers();*/
 
 
 }
