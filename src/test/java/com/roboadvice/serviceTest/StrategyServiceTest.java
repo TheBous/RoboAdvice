@@ -109,7 +109,7 @@ public class StrategyServiceTest {
         assertFalse(strategyDTO instanceof  List<?>);
     }
 
-    @Test
+    /*@Test
     public void newStrategiesFromNewUsersTestFailure() {
 
         List<Strategy> strategies = strategyService.newStrategiesFromNewUsers();
@@ -152,7 +152,7 @@ public class StrategyServiceTest {
 
         assertNotNull(delete);
         assertTrue(delete);
-    }
+    }*/
 
     @Test
     public void deletePendingStrategyTestFailure() {

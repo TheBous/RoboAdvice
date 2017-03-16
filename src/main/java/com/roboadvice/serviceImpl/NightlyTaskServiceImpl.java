@@ -39,7 +39,7 @@ public class NightlyTaskServiceImpl {
         this.assetsRepository = assetsRepository;
     }
 
-    @Scheduled(cron ="0 2 17 * * *") //scheduled every day at 5:00 am
+    @Scheduled(cron ="0 0 5 * * *") //scheduled every day at 5:00 am
     @Transactional
     private void updateAPI(){
         startTime = System.currentTimeMillis();
