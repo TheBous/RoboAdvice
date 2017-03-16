@@ -29,13 +29,13 @@ public class AssetsClassServiceImpl implements AssetsClassService {
 
     }
 
-    @Override
+    /*@Override
     public AssetsClass selectById(long id){
         return assetsClassRepository.findById(id);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public Iterable<AssetsClass> findAll() {
         return assetsClassRepository.findAll();
-    }
+    }*/
 }

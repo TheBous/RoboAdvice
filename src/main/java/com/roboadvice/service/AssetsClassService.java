@@ -9,7 +9,7 @@ import java.util.List;
 public interface AssetsClassService {
 
     AssetsClass insert(AssetsClass ac);
-    AssetsClass selectById(long id);
-    Iterable<AssetsClass> findAll();
+    //AssetsClass selectById(long id);
+    //Iterable<AssetsClass> findAll();
 
 }
