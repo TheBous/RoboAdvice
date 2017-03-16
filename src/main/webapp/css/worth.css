@@ -1,0 +1,67 @@
+.losing
+{
+    -webkit-animation: ll 1s linear 1s infinite alternate;
+    animation: ll 1s linear 1s infinite alternate;
+    color: #F44336;
+    font-size: 100px;
+}
+
+@-webkit-keyframes ll
+{
+    0%   { color: #F44336;}
+    50%  { color: #B71C1C;}
+    100% { color: #F44336;}
+}
+
+@keyframes ll
+{
+    0%   { color: #F44336;}
+    50%  { color: #B71C1C;}
+    100% { color: #F44336;}
+}
+
+.winning
+{
+    -webkit-animation: ww 1s linear 1s infinite alternate;
+    animation: ww 1s linear 1s infinite alternate;
+    color: #00e676;
+    font-size: 100px;
+}
+
+@-webkit-keyframes ww
+{
+    0%   { color: #00e676;}
+    50%  { color: #2e7d32;}
+    100% { color: #00e676;}
+}
+
+@keyframes ww
+{
+    0%   { color: #00e676;}
+    50%  { color: #2e7d32;}
+    100% { color: #00e676;}
+}
+
+.constant
+{
+    -webkit-animation: cc 1s linear 1s infinite alternate;
+    animation: cc 1s linear 1s infinite alternate;
+    color: #ffeb3b;
+    font-size: 100px;
+}
+
+@-webkit-keyframes cc
+{
+    0%   { color: #ffeb3b;}
+    50%  { color: #f9a825;}
+    100% { color: #ffeb3b;}
+}
+
+@keyframes cc
+{
+    0%   { color: #ffeb3b;}
+    50%  { color: #f9a825;}
+    100% { color: #ffeb3b;}
+}
+
+
