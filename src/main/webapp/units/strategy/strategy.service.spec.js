@@ -41,10 +41,11 @@ describe("Strategy Test Suite - ",function(){
 
     it("he can delete the LAST pending strategy",function(){
       // add a new strategy that will be in pending
-      strategyService.newStrategy(pendingStrategy);
-      let beforeDeleteLength = strategyService.strategyHistory.length;
-      strategyService.deletePending();
-      expect(strategyService.strategyHistory.length).toEqual(beforeDeleteLength-1);
+      let beforeInsertLength = strategyService.strategyHistory.length;
+      strategyService.newStrategy(pendingStrategy.strategyObj);
+      strategyService.deletePending(function(){
+        expect(strategyService.strategyHistory.length).toEqual(beforeInsertLength);
+      });
     });
 
     it("he can't delete an active strategy", function(){
@@ -62,6 +63,9 @@ describe("Strategy Test Suite - ",function(){
       strategyService.strategyHistory = [ pendingStrategy ];
     }));
 
+    it("test",function(){
+
+    });
 
   });
 
