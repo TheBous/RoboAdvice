@@ -18,11 +18,6 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
         portfolioList: null,
         hasPortfolio: false, // this flag is true when the user has at least a portfolio active
 
-
-        isValsecchi: function(a){
-          if(a=="zik")return true;
-          return false;
-        },
         init: function(user_obj){
             let parent = this;
             $log.debug("userService.init| init user called, setted user object");
