@@ -19,32 +19,30 @@ module.exports = function(config) {
             },
             watch: true
         },
-
-        // list of files / patterns to load in the browser
-        files: [
-            './bower_components/angular/angular.js',
-            './bower_components/angular-mocks/angular-mocks.js',
-            './bower_components/angular-animate/angular-animate.js',
-            './bower_components/angular-aria/angular-aria.js',
-            './bower_components/chart.js/dist/Chart.js',
-            './bower_components/angular-chart.js/dist/angular-chart.min.js',
-            './bower_components/angular-cookies/angular-cookies.js',
-            './bower_components/angular-material/angular-material.js',
-            './bower_components/angular-messages/angular-messages.js',
-            './bower_components/angular-resource/angular-resource.js',
-            './bower_components/angular-route/angular-route.js',
-            './bower_components/angular-wizard/dist/angular-wizard.js',
-            './bower_components/angular-loading-bar/build/loading-bar.js',
-            './js/app.js',
-            './js/CONFIG.js',
-            './js/STATUS_CODES.js',
-            './js/routes/main_routes.js',
-            './js/utils.js',
-            './js/services/**/*.js',
-            './units/**/*.js'
-        ],
-
-
+    // list of files / patterns to load in the browser
+    files: [
+        './bower_components/angular/angular.js',
+        './bower_components/angular-mocks/angular-mocks.js',
+		    './bower_components/angular-animate/angular-animate.js',
+  		  './bower_components/angular-aria/angular-aria.js',
+        './bower_components/chart.js/dist/Chart.js',
+  		  './bower_components/angular-chart.js/dist/angular-chart.min.js',
+  		  './bower_components/angular-cookies/angular-cookies.js',
+  		  './bower_components/angular-material/angular-material.js',
+  		  './bower_components/angular-messages/angular-messages.js',
+  		  './bower_components/angular-resource/angular-resource.js',
+  		  './bower_components/angular-route/angular-route.js',
+  		  './bower_components/angular-wizard/dist/angular-wizard.js',
+        './bower_components/angular-loading-bar/build/loading-bar.js',
+        './js/app.js',
+        './js/CONFIG.js',
+        './js/STATUS_CODES.js',
+        './js/routes/main_routes.js',
+        './js/utils.js',
+        './js/services/**/*.js',
+        './js/class/strategy.js',
+        './units/**/*.js'
+    ],
         // list of files to exclude
         exclude: [
         ],
