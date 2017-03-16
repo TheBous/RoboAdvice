@@ -32,7 +32,7 @@ class Portfolio {
 
 var Portfolio = function(PortObj){
  this.totalAmount = PortObj.totalAmount;
- this.date = new Date(PortObj.date.year+"/"+PortObj.date.monthValue+"/"+PortObj.date.dayOfMonth);
+ this.date = new Date(parseInt(PortObj.date.year),parseInt(PortObj.date.monthValue)-1,parseInt(PortObj.date.dayOfMonth));
  this.bondsAmount = PortObj.bondsAmount;
  this.bondsPercentage = PortObj.bondsPercentage;
  this.commoditiesAmount = PortObj.commoditiesAmount;
