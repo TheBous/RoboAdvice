@@ -83,7 +83,7 @@ var Strategy = function(strategyObj){
 
     // the initial amount, if the strategy is the first strategy, the amount is equal to 10000
     //this.getInitialAmount = () => this.portfolios[0].getAmount();
-    this.getInitialAmount = () => return this.initial_amount;
+    this.getInitialAmount = () => {return this.initial_amount;}
 
 
     // if the strategy is the actual strategy, finalAmount is equal to the currentAmount
