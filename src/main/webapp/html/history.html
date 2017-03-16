@@ -1,7 +1,7 @@
 <div class="header_section">History</div>
 
 
-<div ng-if="user.hasStrategies()" class="container" ng-cloak>
+<div ng-if="user.hasStrategies()" class="container" ng-cloak ng-controller="deletePending">
     <div id="timeline">
         <div class="timeline-item" ng-repeat="strategy in strategy.getHistory() | orderBy: strategy.getFormattedDate() : true | limitTo: 10  ">
             <div class="timeline-icon">
@@ -13,7 +13,7 @@
 
                 <p class="right" ng-if="strategy.isPending()">
                     <a href="#!/wizard" class="btn-floating  waves-effect waves-light cyan"><i class="material-icons">mode_edit</i></a>
-                    <a class="btn-floating  waves-effect waves-light red"><i class="material-icons">delete</i></a>
+                    <a ng-click="deletePending()" class="btn-floating  waves-effect waves-light red"><i class="material-icons">delete</i></a>
                 </p>
 
 
@@ -27,7 +27,6 @@
                 </p>
                     <assets-class-graph percentages="strategy.getAssets()"></assets-class-graph>
                <!-- <a href="#"  class="waves-effect waves-light btn"><i class="material-icons left">info</i>Get Info</a> -->
-
             </div>
         </div>
     </div>

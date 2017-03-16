@@ -56,8 +56,15 @@ FATTO! 15)in Portfolio manca la seconda torta
 
 ______________________________________________________________________________________________________________________________________________________
 
-Fix:
+Issue:
 
+1)refresh pagina history dopo delete
+
+2)refresh pagina history dopo aver editato una nuova strategia
+
+3)
+
+4)
 
 
 
