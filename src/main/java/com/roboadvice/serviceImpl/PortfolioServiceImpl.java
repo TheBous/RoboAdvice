@@ -10,6 +10,7 @@ import com.roboadvice.service.PortfolioService;
 import com.roboadvice.utils.Constant;
 import com.roboadvice.utils.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -58,6 +59,7 @@ public class PortfolioServiceImpl implements PortfolioService{
 
 
     @Override
+    @Cacheable("portfolioFullHistory")
     public List<PortfolioDTO> getFullHistory(String userEmail) {
 
         User u = userRepository.findByEmail(userEmail);

@@ -6,6 +6,7 @@ import com.roboadvice.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 
 @SpringBootApplication
 @EnableScheduling
+@EnableCaching
 @ComponentScan(basePackages = {"com.roboadvice"})
 public class RoboadviceApplication {
 

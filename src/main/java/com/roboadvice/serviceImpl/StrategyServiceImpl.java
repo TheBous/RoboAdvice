@@ -10,6 +10,7 @@ import com.roboadvice.repository.UserRepository;
 import com.roboadvice.service.StrategyService;
 import com.roboadvice.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +63,7 @@ public class StrategyServiceImpl implements StrategyService{
             return false;
 
         int resp = strategyRepository.deleteActiveStrategyByUserAndDate(u, LocalDate.now());
-        if(resp==4){
+        if(resp==Constant.NUM_ASSETS_CLASS){
             List<Strategy> strategies = strategyRepository.findLatestInactiveStrategy(u, new PageRequest(0, Constant.NUM_ASSETS_CLASS));
             for(Strategy s : strategies){
                 s.setActive(true);
