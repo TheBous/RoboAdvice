@@ -41,7 +41,10 @@ public class AuthenticationController {
         User u = userService.selectByEmail(userDTO.getEmail());
         Map<String, Object> tokenMap = new HashMap<>();
         if(u!= null && u.getPassword().equals(userDTO.getPassword())){
-            token = Jwts.builder().setSubject(userDTO.getEmail()).claim("role", u.getRole()).setIssuedAt(new Date())
+            Date date = new Date();
+            long t = date.getTime();
+            //scadenza token: 7200000 millisecondi = 2 ore
+            token = Jwts.builder().setSubject(userDTO.getEmail()).claim("role", u.getRole()).setIssuedAt(date).setExpiration(new Date(t+7200000))
                     .signWith(SignatureAlgorithm.HS256, secretKey).compact();
             tokenMap.put("token", token);
             tokenMap.put("user", u);
