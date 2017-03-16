@@ -63,6 +63,7 @@
 }*/
 
 var Strategy = function(strategyObj){
+    this.obj = strategyObj;
     this.name = strategyObj.name;
     this.date = new Date(strategyObj.date.year+"/"+strategyObj.date.monthValue+"/"+strategyObj.date.dayOfMonth);
     this.isActive = strategyObj.active ? true : false;
