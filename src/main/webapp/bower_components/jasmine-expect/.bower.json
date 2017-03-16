@@ -1,0 +1,40 @@
+{
+  "name": "jasmine-expect",
+  "main": "dist/jasmine-matchers.js",
+  "version": "3.7.0",
+  "homepage": "https://github.com/JamieMason/Jasmine-Matchers",
+  "authors": [
+    "Jamie Mason <siunmaru@gmail.com>"
+  ],
+  "description": "Write Beautiful Specs with Jasmine Custom Matchers",
+  "keywords": [
+    "jasmine",
+    "testing",
+    "unit",
+    "karma",
+    "tdd",
+    "bdd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "*.conf.js",
+    "bin",
+    "build",
+    "Gruntfile.js",
+    "index.js",
+    "node_modules",
+    "src",
+    "test"
+  ],
+  "_release": "3.7.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.7.0",
+    "commit": "ad935bc725682db9c6fdb841f11acc94badcc2f3"
+  },
+  "_source": "https://github.com/JamieMason/Jasmine-Matchers.git",
+  "_target": "^3.7.0",
+  "_originalSource": "jasmine-expect",
+  "_direct": true
+}
