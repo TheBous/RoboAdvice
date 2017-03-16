@@ -1,6 +1,6 @@
 RoboAdviceApp.constant("CONFIG", {
     "INITIAL_AMOUNT": 10000,
-    "ASSETS_NAME": ["Bonds","Stocks","Forex", "Commodities"]
+    "ASSETS_NAME": ["Bonds","Commodities","Forex", "Stocks"]
 });
 
 
