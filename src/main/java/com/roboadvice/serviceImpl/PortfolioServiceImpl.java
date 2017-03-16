@@ -130,34 +130,20 @@ public class PortfolioServiceImpl implements PortfolioService{
         }
     }
 
-    @Override
-    public Portfolio save(Portfolio p) {
-        return portfolioRepository.save(p);
-    }
 
-    @Override
+
+    /*@Override
     public List<Portfolio> getAllYesterdayPortfolios() {
         return portfolioRepository.findAllPortfoliosToBeUpdatedByDate(LocalDate.now().minus(Period.ofDays(1)));
-    }
-
-    @Override
+    }*/
+    /*@Override
     public List<User> getAllYesterdayPortfoliosUsers() {
         return portfolioRepository.findAllPortfoliosUsersByDate(LocalDate.now().minus(Period.ofDays(1)));
-    }
-
-    @Override
+    }*/
+    /*@Override
     public List<Portfolio> findByUserAndDate(User u, LocalDate date) {
         return portfolioRepository.findByUserAndDate(u, date);
-    }
-
-    @Override
-    public List<Portfolio> findByUser(User u) {
-        return portfolioRepository.findByUser(u);
-    }
-
-
-
-
+    }*/
 
 
 
