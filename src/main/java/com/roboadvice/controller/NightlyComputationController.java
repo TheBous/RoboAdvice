@@ -36,7 +36,7 @@ public class NightlyComputationController {
         this.portfolioService = portfolioService;
     }
 
-    @Scheduled(cron ="0 0 5 * * *") //scheduled every day at 5:00 am
+    @Scheduled(cron ="0 2 11 * * *") //scheduled every day at 5:00 am
     @Transactional
     public void updateAPI(){
         System.out.println("============= NIGHTLY COMPUTATIONS STARTED =============\n");
