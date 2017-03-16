@@ -2,10 +2,13 @@ package com.roboadvice.serviceTest;
 
 import com.roboadvice.RoboadviceApplication;
 import com.roboadvice.dto.StrategyDTO;
+import com.roboadvice.model.Strategy;
 import com.roboadvice.service.StrategyService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -23,7 +26,7 @@ public class StrategyServiceTest {
     private StrategyService strategyService;
 
     @Test
-    public void getCurrentActiveStrategyTestOK(){
+    public void getCurrentActiveStrategyTestOK() {
         String userEmail = "leo@galati.com";
 
         StrategyDTO strategyDTO = strategyService.getCurrentActiveStrategy(userEmail);
@@ -37,7 +40,7 @@ public class StrategyServiceTest {
     }
 
     @Test
-    public void getCurrentActiveStrategyTestFAILURE(){
+    public void getCurrentActiveStrategyTestFAILURE() {
         String userEmail = "ukjghgf";
 
         StrategyDTO strategyDTO = strategyService.getCurrentActiveStrategy(userEmail);
@@ -48,20 +51,20 @@ public class StrategyServiceTest {
 
 
     @Test
-    public void getLastUsedStrategyTestOk(){
-        String userEmail ="leo@galati.com";
+    public void getLastUsedStrategyTestOk() {
+        String userEmail = "leo@galati.com";
 
         StrategyDTO strategyDTO = strategyService.getLastUsedStrategy(userEmail);
 
         assertNotNull(strategyDTO);
-        assertTrue(strategyDTO instanceof  StrategyDTO);
-        assertTrue(strategyDTO.getName() instanceof  String);
+        assertTrue(strategyDTO instanceof StrategyDTO);
+        assertTrue(strategyDTO.getName() instanceof String);
         assertTrue(strategyDTO.getBonds_p() instanceof BigDecimal);
-        assertEquals(strategyDTO.getActive(),  false);
+        assertEquals(strategyDTO.getActive(), false);
     }
 
     @Test
-    public  void getLastUsedStrategyTestFailure(){
+    public void getLastUsedStrategyTestFailure() {
         String userEmail = "duino@pasquale.com";
 
         StrategyDTO strategyDTO = strategyService.getLastUsedStrategy(userEmail);
@@ -72,13 +75,13 @@ public class StrategyServiceTest {
     }
 
     @Test
-    public void getFullHistoryByUserTestOk(){
+    public void getFullHistoryByUserTestOk() {
         String userEmail = "leo@galati.com";
 
         List<StrategyDTO> strategyDTO = strategyService.getFullHistoryByUser(userEmail);
         assertNotNull(strategyDTO);
-        assertTrue(strategyDTO.size()>0);
-        for(StrategyDTO str :strategyDTO){
+        assertTrue(strategyDTO.size() > 0);
+        for (StrategyDTO str : strategyDTO) {
             assertTrue(str.getName() instanceof String);
             assertTrue(str.getBonds_p() instanceof BigDecimal);
             assertTrue(str.getDate() instanceof LocalDate);
@@ -87,7 +90,7 @@ public class StrategyServiceTest {
     }
 
     @Test
-    public void getFullHistoryByUserEmailNotExistTestFailure(){
+    public void getFullHistoryByUserEmailNotExistTestFailure() {
         String userEmail = "duino@pasquale.com";
 
         List<StrategyDTO> strategyDTO = strategyService.getFullHistoryByUser(userEmail);
@@ -96,8 +99,8 @@ public class StrategyServiceTest {
     }
 
     @Test
-    public void getFullHistoryByUserWithoutAnHistoryTestFailure (){
-        String userEmail ="test@test.it";
+    public void getFullHistoryByUserWithoutAnHistoryTestFailure() {
+        String userEmail = "test@test.it";
 
         List<StrategyDTO> strategyDTO = strategyService.getFullHistoryByUser(userEmail);
 
@@ -106,12 +109,50 @@ public class StrategyServiceTest {
     }
 
     @Test
-    public  void newStrategiesFromNewUsersTestOk(){
+    public void newStrategiesFromNewUsersTestFailure() {
 
-
+        List<Strategy> strategies = strategyService.newStrategiesFromNewUsers();
+        assertNull(strategies);
+        assertFalse(strategies instanceof Strategy);
 
     }
 
+    @Test
+    public void newStrategiesFromOldUserTestOk() {
 
+        List<Strategy> strategies = strategyService.newStrategiesFromOldUsers();
+        assertNotNull(strategies);
+        assertTrue(!strategies.isEmpty());
+        for (Strategy str : strategies) {
+            assertTrue(str.getActive() instanceof Boolean);
+            assertTrue(str.getName() instanceof String);
+            assertTrue(str.getDate() instanceof LocalDate);
+            assertTrue(str.getPercentage() instanceof BigDecimal);
 
+        }
+    }
+
+    @Test
+    public void newStrategiesFromOldUserTestFailure() {
+        List<Strategy> strategies = strategyService.newStrategiesFromOldUsers();
+        assertNull(strategies);
+        assertFalse(strategies instanceof Strategy);
+    }
+
+    @Test
+    public void deletePendingStrategyTestOk() {
+
+        String userEmail = "enrico@pasquale.com";
+        Boolean delete = strategyService.deletePendingStrategy(userEmail);
+        assertNotNull(delete);
+        assertTrue(delete);
+    }
+
+    @Test
+    public void deletePendingStrategyTestFailure() {
+
+        String userEmail = "enrico@pasquale.com";
+        Boolean delete = strategyService.deletePendingStrategy(userEmail);
+        assertFalse(delete);
+    }
 }

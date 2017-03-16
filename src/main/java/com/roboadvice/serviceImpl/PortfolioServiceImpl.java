@@ -4,11 +4,9 @@ import com.roboadvice.dto.PortfolioDTO;
 import com.roboadvice.model.Portfolio;
 import com.roboadvice.model.User;
 import com.roboadvice.repository.PortfolioRepository;
-import com.roboadvice.repository.StrategyRepository;
 import com.roboadvice.repository.UserRepository;
 import com.roboadvice.service.PortfolioService;
 import com.roboadvice.utils.Constant;
-import com.roboadvice.utils.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -131,7 +129,6 @@ public class PortfolioServiceImpl implements PortfolioService{
             return null;
         }
     }
-
 
     @Override
     public Portfolio save(Portfolio p) {
