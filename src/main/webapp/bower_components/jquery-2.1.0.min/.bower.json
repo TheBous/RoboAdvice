@@ -9,6 +9,5 @@
   "main": "index.js",
   "_source": "http://code.jquery.com/jquery-2.1.0.min.js",
   "_target": "*",
-  "_originalSource": "http://code.jquery.com/jquery-2.1.0.min.js",
-  "_direct": true
+  "_originalSource": "http://code.jquery.com/jquery-2.1.0.min.js"
 }

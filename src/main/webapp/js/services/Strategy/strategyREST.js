@@ -10,6 +10,10 @@ RoboAdviceApp.factory('strategyREST', ['$resource', '$cookies', 'TokenHandler',
                     user_id: '@user_id'
                 }
             },
+            deletePending: {
+                method: 'POST',
+                url: baseUrl + 'delete'
+            },
             getHistory: {
                 method: 'POST',
                 url: baseUrl + 'getFullHistory',
