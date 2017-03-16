@@ -28,13 +28,10 @@ public class AuthenticationController {
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = "application/json")
     public GenericResponse<User> signup(@RequestBody @Valid UserDTO userDTO){
         User u = new User(0,userDTO.getName(), userDTO.getSurname(), userDTO.getEmail(), userDTO.getPassword(), "USER");
-
         if(userService.insert(u))
             return new GenericResponse<>(u, Constant.SUCCES_MSG, Constant.SUCCESS);
-
         else
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
-
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")

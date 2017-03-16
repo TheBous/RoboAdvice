@@ -1,5 +1,6 @@
 package com.roboadvice.serviceImpl;
 
+import com.roboadvice.dto.UserDTO;
 import com.roboadvice.repository.UserRepository;
 import com.roboadvice.model.User;
 import com.roboadvice.service.UserService;
@@ -29,24 +30,31 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean authentication(User u) {
-        User user = userRepository.findByEmailAndPassword(u.getEmail(), u.getPassword());
-        if(user != null){
-            u.setId(user.getId());
-            u.setName(user.getName());
-            u.setSurname(user.getSurname());
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public User selectByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public User selectById(long id) {
-        return userRepository.findById(id);
+    public UserDTO getUser(String userEmail) {
+        User u= userRepository.findByEmail(userEmail);
+        if(u==null)
+            return null;
+
+        UserDTO userDTO = new UserDTO(u.getName(), u.getSurname(), u.getEmail(), u.getPassword());
+        return userDTO;
     }
+
+    @Override
+    public UserDTO updateUser(String userEmail, UserDTO userDTO) {
+        User u = userRepository.findByEmail(userEmail);
+        if(u==null || !u.getEmail().equals(userDTO.getEmail()))
+            return null;
+
+        u.setName(userDTO.getName());
+        u.setSurname(userDTO.getSurname());
+        userRepository.save(u);
+        return userDTO;
+
+    }
+
 }
