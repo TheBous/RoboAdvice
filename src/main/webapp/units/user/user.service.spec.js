@@ -1,6 +1,16 @@
 describe("User Test Suite",function(){
     var userService;
     // var http;
+
+    var today = new Date();
+
+    var pendingStrategy = new Strategy({name: "Strategy#1", date: { year: today.getUTCFullYear(), monthValue : today.getMonth(), dayOfMonth: today.getDate() },
+        isActive: 1, bonds_p: 95, stocks_p: 0, forex_p: 0, commodities_p: 5 });
+    var activeStrategy = new Strategy({name: "Strategy#2", date: { year: 2017, monthValue : 3, dayOfMonth: 1 },
+        isActive: 0, bonds_p: 95, stocks_p: 0, forex_p: 0, commodities_p: 5 });
+    var oldStrategy = new Strategy({name: "Strategy#3", date: { year: 2017, monthValue : 2, dayOfMonth: 28 },
+        isActive: 0, bonds_p: 95, stocks_p: 0, forex_p: 0, commodities_p: 5 });
+
     beforeEach(angular.mock.module('RoboAdviceApp'));
 
     beforeEach(inject(function(_userService_, $httpBackend) {
@@ -13,7 +23,8 @@ describe("User Test Suite",function(){
             password: 12345678,
             role: "USER"
         };
-        userService.setStrategyHistory = [{}]
+        userService.setStrategyHistory = [{}];
+        userService.newStrategy = [{}];
     }));
     describe("User do login",function(){
         it("INIT || userObj => typeof(object)",function(){
@@ -24,19 +35,6 @@ describe("User Test Suite",function(){
         });
         //OTHER TESTS
     });
-    describe("User do update",function(){
-        it("UPDATE || user changed any fields)",function(){
-            let updateUserObj =
-                {
-                    name: "j",
-                    surname: "g",
-                };
-            expect((
-                userService.userObj.name != updateUserObj.name ||
-                userService.userObj.surname != updateUserObj.surname
-            )).toEqual(false);
-        });
-    });
 
     describe("User set his own strategy",function(){
         it("SETSTRATEGY || if object defined",function(){
@@ -46,16 +44,59 @@ describe("User Test Suite",function(){
             expect(userService.setStrategyHistory.constructor).toEqual(Array);
         });
         it("SETSTRATEGY || return type setStrategy())",function(){
-            expect(userService.setStrategyHistory).toEqual(jasmine.any(Object));
+            expect(typeof(userService.setStrategyHistory)).toEqual(typeof(pendingStrategy));
         });
-    });
-    describe("User create a new strategy",function(){
-        it("NEWSTRATEGY || )",function(){
-            var fakeStrategy = new Strategy("")
-                {
 
+    });
+
+    /*describe("User create a new strategy",function(){
+     it("NEWSTRATEGY || )",function(){
+     expect().toEqual(Array);
+     });
+     });*/
+
+    describe("User do update",function(){
+        it("UPDATE || user changed any fields)",function(){
+            let updateUserObj =
+                {
+                    name: "j",
+                    surname: "g",
                 };
-            expect(fakeStrategy).toEqual(Array);
+            userService.update(updateUserObj);
+            expect((
+                userService.userObj.name != updateUserObj.name ||
+                userService.userObj.surname != updateUserObj.surname
+            )).toEqual(false);
         });
     });
+
+    describe("User create a new strategy",function(){
+        it("NEWSTRATEGY || if object defined",function(){
+            expect(userService.newStrategy).toBeDefined();
+        });
+        it("NEWSTRATEGY || return if array setStrategy())",function(){
+            expect(userService.newStrategy.constructor).toEqual(Array);
+        });
+        it("NEWSTRATEGY || return type setStrategy())",function(){
+            expect(typeof(userService.newStrategy)).toEqual(typeof(pendingStrategy));
+        });
+    });
+
+    describe("User can logout",function(){
+        it("LOGOUT || if object defined",function(){
+            expect().toBeDefined();
+        });
+        it("LOGOUT || return if array setStrategy())",function(){
+            expect().toEqual();
+        });
+        it("LOGOUT || return type setStrategy())",function(){
+            expect().toEqual();
+        });
+    });
+
+
+
+
+
+
 });
