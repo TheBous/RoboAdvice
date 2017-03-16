@@ -1,16 +1,16 @@
 describe("User Test Suite",function(){
-  var User;
+  var userService;
   beforeEach(angular.mock.module('RoboAdviceApp'));
 
-  beforeEach(inject(function(_User_) {
-    User = _User_;
+  beforeEach(inject(function(_userService_) {
+    //_userService_.isValsecchi("ciao");
+    userService = _userService_;
   }));
-
 
   describe("User do login",function(){
     it("bho",function(){
-    //    expect(4).toEqual(4);
-    })
-  })
+        expect(userService.isValsecchi("zik")).toEqual(true);
+    });
+  });
 
 });

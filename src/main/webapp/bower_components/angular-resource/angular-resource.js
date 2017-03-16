@@ -56,7 +56,7 @@ function shallowClearAndCopy(src, dst) {
  * # ngResource
  *
  * The `ngResource` module provides interaction support with RESTful services
- * via the $resource serviceImpl.
+ * via the $resource service.
  *
  *
  * <div doc-module-components="ngResource"></div>
@@ -71,7 +71,7 @@ function shallowClearAndCopy(src, dst) {
  * @description
  *
  * Use `$resourceProvider` to change the default behavior of the {@link ngResource.$resource}
- * serviceImpl.
+ * service.
  *
  * ## Dependencies
  * Requires the {@link ngResource } module to be installed.
@@ -79,7 +79,7 @@ function shallowClearAndCopy(src, dst) {
  */
 
 /**
- * @ngdoc serviceImpl
+ * @ngdoc service
  * @name $resource
  * @requires $http
  * @requires ng.$log
@@ -91,7 +91,7 @@ function shallowClearAndCopy(src, dst) {
  * [RESTful](http://en.wikipedia.org/wiki/Representational_State_Transfer) server-side data sources.
  *
  * The returned resource object has action methods which provide high-level behaviors without
- * the need to interact with the low level {@link ng.$http $http} serviceImpl.
+ * the need to interact with the low level {@link ng.$http $http} service.
  *
  * Requires the {@link ngResource `ngResource`} module to be installed.
  *

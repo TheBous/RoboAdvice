@@ -1,4 +1,4 @@
-package com.roboadvice.controller;
+package com.roboadvice.serviceImpl;
 
 import com.jimmoores.quandl.DataSetRequest;
 import com.jimmoores.quandl.QuandlSession;
@@ -8,7 +8,7 @@ import com.roboadvice.service.*;
 import com.roboadvice.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 import org.threeten.bp.Period;
 
 import javax.transaction.Transactional;
@@ -18,8 +18,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-public class NightlyComputationController {
+@Service
+public class NightlyTaskServiceImpl {
 
     private ApiDataService apiDataService;
     private StrategyService strategyService;
@@ -27,8 +27,11 @@ public class NightlyComputationController {
     private AssetsService assetsService;
     private PortfolioService portfolioService;
 
+    private long startTime;
+    private long endTime;
+
     @Autowired
-    public NightlyComputationController(ApiDataService apiDataService, StrategyService strategyService, AssetsClassService assetsClassService, AssetsService assetsService, PortfolioService portfolioService) {
+    public NightlyTaskServiceImpl(ApiDataService apiDataService, StrategyService strategyService, AssetsClassService assetsClassService, AssetsService assetsService, PortfolioService portfolioService) {
         this.apiDataService = apiDataService;
         this.strategyService = strategyService;
         this.assetsClassService = assetsClassService;
@@ -36,9 +39,10 @@ public class NightlyComputationController {
         this.portfolioService = portfolioService;
     }
 
-    @Scheduled(cron ="0 2 11 * * *") //scheduled every day at 5:00 am
+    @Scheduled(cron ="0 0 5 * * *") //scheduled every day at 5:00 am
     @Transactional
     public void updateAPI(){
+        startTime = System.currentTimeMillis();
         System.out.println("============= NIGHTLY COMPUTATIONS STARTED =============\n");
         int j = 0;
 
@@ -67,7 +71,8 @@ public class NightlyComputationController {
         updatePortfolios();
         insertPortfoliosForNewStrategiesFromOldUsers();
 
-        System.out.println("============= NIGHTLY COMPUTATIONS FINISHED =============");
+        endTime = System.currentTimeMillis();
+        System.out.println("============= NIGHTLY COMPUTATIONS FINISHED - Total time: "+((endTime-startTime)/1000)+"s =============");
     }
 
     //CREATE NEW PORTFOLIO FOR NEW USERS
@@ -244,3 +249,4 @@ public class NightlyComputationController {
     }
 
 }
+

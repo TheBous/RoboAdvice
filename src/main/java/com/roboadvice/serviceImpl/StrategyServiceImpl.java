@@ -10,6 +10,7 @@ import com.roboadvice.repository.UserRepository;
 import com.roboadvice.service.StrategyService;
 import com.roboadvice.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 

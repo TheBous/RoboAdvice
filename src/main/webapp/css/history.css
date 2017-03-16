@@ -41,8 +41,14 @@ a {
 
 h2 {
     font-family: Roboto, sans-serif;
-    font-size:25px !important;
-    font-weight: 500;
+    font-size:22px !important;
+    font-weight: 200 !important;
+}
+
+@media only screen and (max-width: 420px) {
+    h2 {
+        font-size:90%  !important;
+    }
 }
 
 
@@ -83,6 +89,8 @@ h2 {
     margin-bottom: 50px;
     position: relative;
 }
+
+
 #timeline .timeline-item .timeline-icon {
     background: #00695c;
     width: 50px;
@@ -176,4 +184,18 @@ h2 {
     #timeline .timeline-item .timeline-icon {
         left: 0;
     }
+}
+
+strong.amount{
+    font-size:1.6em;
+    color: #009687;
+}
+
+strong.date{
+    color: #80CBC4;
+    font-style: normal;
+    font-size: 0.7em;
+}
+h2 > b{
+    color: #eee;
 }
