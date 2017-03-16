@@ -1,0 +1,287 @@
+@charset "UTF-8";
+@import url("http://fonts.googleapis.com/css?family=Roboto");
+@import url("http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css");
+@import url("http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css");
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: #DDD7D1;
+}
+
+
+#map {
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    width: 100%;
+    height: 2000px;
+    background-image: url("http://i.imgur.com/EuWbvA5.png");
+    background-repeat: no-repeat;
+    background-size: contain
+}
+
+.notPlacemarked {
+    visibility: hidden;
+}
+
+.placemarked {
+    visibility: visible;
+    height: 55px;
+    width: 55px;
+    position: relative;
+    top: 110px;
+    margin-left: 40%;
+    z-index: 100;
+    transition: width 1s, height 1s, transform 1s;
+    -webkit-transition: width 1s, height 1s, -webkit-transform 1s;
+}
+
+.container-wizard {
+    background: #00C993;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2050px;
+    color: white;
+    text-align: center;
+    min-width: 24px;
+}
+
+.section {
+    position: absolute;
+    display: block;
+    width: 100%;
+    color: white;
+    text-align: left;
+}
+
+#sect1 {
+    top: 400px;
+}
+
+#sect2 {
+    top: 1000px;
+}
+
+#sect3 {
+    top: 1500px;
+}
+
+#eng_key {
+    float: left;
+    width: 20%;
+    font-size: 5em;
+    padding-left: 15%;
+}
+
+#rocket {
+    float: right;
+    width: 20%;
+    font-size: 5em;
+    padding-left: 15%;
+}
+
+#hiddenIcon {
+    text-align: center;
+    visibility: hidden;
+    height: 0;
+    font-size: 5em;
+}
+
+.anchor {
+    height: 100px;
+}
+
+.band2 h2 {
+    text-align: left;
+}
+
+.explanation {
+    min-width: 12.42em;
+    float: left;
+    width: 40%;
+}
+
+.explanation-right {
+    min-width: 12.42em;
+    float: left;
+    text-align: right;
+    padding-left: 5%;
+    width: 40%;
+}
+
+#roboscreen {
+    background: #DDD7D1;
+    border-radius: 30px;
+    box-shadow: 0 0.5em 0 #BCB1A5;
+    padding: 50px 18px 50px 18px;
+    width: 20%;
+    min-width: 200px;
+    max-width: 400px;
+    margin-right: 5%;
+    float: left;
+}
+
+#screen {
+    background: #ffffff;
+    height: 300px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    min-width: 200px;
+}
+
+
+#mc_embed_signup {
+    text-align: right;
+    background-color: #00C993;
+}
+
+#mce-EMAIL {
+    text-align: right;
+    width: auto;
+    height: 30px;
+    margin-bottom: 20px;
+    padding-right: 1em;
+    border-style: none;
+    outline: none;
+}
+
+#mce-EMAIL:focus {
+    outline: none;
+}
+
+#mc-embedded-subscribe {
+    border-style: none;
+}
+
+.icon-bookmark {
+    float: right;
+}
+
+.icon-bookmark:hover {
+    color: #FFC52F;
+}
+
+.pressed {
+    color: #FFC52F;
+}
+
+h1, h3 {
+    font-family: 'Signika', sans-serif;
+    font-weight: 700;
+    text-align: center;
+}
+
+.container-wizard h1 {
+    font-size: 5em;
+    line-height: 1em;
+    /*margin-bottom: 1em;*/
+}
+
+a {
+    color: white;
+}
+
+
+a.arrow {
+    color: white;
+    text-align: center;
+    font-size: 3em;
+    text-decoration: none;
+    padding-bottom: 30px;
+    /*transition cross-browser stuff*/
+    -webkit-transition: color 0.2s ease-out;
+    /* Safari 3.2+, Chrome */
+    -moz-transition: color 0.2s ease-out;
+    /* Firefox 4-15 */
+    -o-transition: color 0.2s ease-out;
+    /* Opera 10.5�12.00 */
+    transition: color 0.2s ease-out;
+    /* Firefox 16+, Opera 12.50+ */
+}
+
+a.arrow:hover {
+    color: #FFC52F;
+}
+
+@media only screen and (min-width: 767px) {
+    body {
+        font-size: 1.125em;
+        /* 18px / 16px */
+    }
+
+    .container-wizard {
+        background-size: 100%;
+    }
+
+    .container-wizard h1 {
+        font-size: 3.25em;
+        /*52 / 16*/
+    }
+
+    a.button {
+        padding: .75em 1.5em;
+    }
+}
+@media only screen and (max-width: 550px) {
+    .explanation {
+        float: none;
+        margin: auto;
+        text-align: center;
+    }
+
+    .explanation-right {
+        float: none;
+        margin: auto;
+        text-align: center;
+    }
+
+    #sect1 {
+        top: 350px;
+    }
+
+    #roboscreen {
+        visibility: hidden;
+        height: 0px;
+        width: 0px;
+        padding: 0;
+        margin: 0;
+    }
+
+    #map {
+        width: 0px;
+        height: 0px;
+    }
+
+    #sect2 {
+        top: 900px;
+    }
+
+    #rocket {
+        visibility: hidden;
+    }
+
+    #eng_key {
+        visibility: hidden;
+        padding-left: 0em;
+    }
+
+    #hiddenIcon {
+        visibility: visible;
+        height: auto;
+    }
+
+    #mce-EMAIL {
+        text-align: center;
+        padding: 0;
+        float: none;
+    }
+
+    #mc_embed_signup {
+        text-align: center;
+    }
+}
