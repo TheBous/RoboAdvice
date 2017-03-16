@@ -62,7 +62,7 @@ public class StrategyServiceImpl implements StrategyService{
             return false;
 
         int resp = strategyRepository.deleteActiveStrategyByUserAndDate(u, LocalDate.now());
-        if(resp==4){
+        if(resp==Constant.NUM_ASSETS_CLASS){
             List<Strategy> strategies = strategyRepository.findLatestInactiveStrategy(u, new PageRequest(0, Constant.NUM_ASSETS_CLASS));
             for(Strategy s : strategies){
                 s.setActive(true);

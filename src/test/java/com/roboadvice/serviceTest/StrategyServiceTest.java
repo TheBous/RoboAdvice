@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -43,6 +45,73 @@ public class StrategyServiceTest {
         assertNull(strategyDTO);
         assertFalse(strategyDTO instanceof StrategyDTO);
     }
+
+
+    @Test
+    public void getLastUsedStrategyTestOk(){
+        String userEmail ="leo@galati.com";
+
+        StrategyDTO strategyDTO = strategyService.getLastUsedStrategy(userEmail);
+
+        assertNotNull(strategyDTO);
+        assertTrue(strategyDTO instanceof  StrategyDTO);
+        assertTrue(strategyDTO.getName() instanceof  String);
+        assertTrue(strategyDTO.getBonds_p() instanceof BigDecimal);
+        assertEquals(strategyDTO.getActive(),  false);
+    }
+
+    @Test
+    public  void getLastUsedStrategyTestFailure(){
+        String userEmail = "duino@pasquale.com";
+
+        StrategyDTO strategyDTO = strategyService.getLastUsedStrategy(userEmail);
+
+        assertNull(strategyDTO);
+        assertFalse(strategyDTO instanceof StrategyDTO);
+
+    }
+
+    @Test
+    public void getFullHistoryByUserTestOk(){
+        String userEmail = "leo@galati.com";
+
+        List<StrategyDTO> strategyDTO = strategyService.getFullHistoryByUser(userEmail);
+        assertNotNull(strategyDTO);
+        assertTrue(strategyDTO.size()>0);
+        for(StrategyDTO str :strategyDTO){
+            assertTrue(str.getName() instanceof String);
+            assertTrue(str.getBonds_p() instanceof BigDecimal);
+            assertTrue(str.getDate() instanceof LocalDate);
+            assertTrue(str.getActive() instanceof Boolean);
+        }
+    }
+
+    @Test
+    public void getFullHistoryByUserEmailNotExistTestFailure(){
+        String userEmail = "duino@pasquale.com";
+
+        List<StrategyDTO> strategyDTO = strategyService.getFullHistoryByUser(userEmail);
+        assertNull(strategyDTO);
+        assertFalse(strategyDTO instanceof StrategyDTO);
+    }
+
+    @Test
+    public void getFullHistoryByUserWithoutAnHistoryTestFailure (){
+        String userEmail ="test@test.it";
+
+        List<StrategyDTO> strategyDTO = strategyService.getFullHistoryByUser(userEmail);
+
+        assertNull(strategyDTO);
+        assertFalse(strategyDTO instanceof StrategyDTO);
+    }
+
+    @Test
+    public  void newStrategiesFromNewUsersTestOk(){
+
+
+
+    }
+
 
 
 }
