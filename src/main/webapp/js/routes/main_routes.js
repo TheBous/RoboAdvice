@@ -1,4 +1,3 @@
-var RoboAdviceApp = angular.module("RoboAdviceApp",["ngRoute","ngResource","ngCookies","ngMessages", "chart.js", "mgo-angular-wizard", "angular-loading-bar"]);
 
 RoboAdviceApp.controller("CheckUserLogged",function($scope,$location){
   if(!$scope.user.isLogged())

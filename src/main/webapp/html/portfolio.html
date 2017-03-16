@@ -7,9 +7,9 @@
 </style>
 
 <div class="header_section">Portfolio</div>
-    <div class="container" ng-if="user.hasCurrentPortfolio()">
+    <div class="" ng-if="user.hasCurrentPortfolio()">
                     <div class="row">
-                        <div class="col m12 s12">
+                        <div class="col m8 s12">
                             <div class="card white">
                                 <div class="card-content teal-text">
                                     <span class="card-title"> {{strategy.getLastStrategy().getName()}} Trend</span>
@@ -25,17 +25,18 @@
                             </div>
                         </div>
 
-                        <div  class="col m6 s12">
+                        <div  class="col m4 s12">
                             <div class="card grey lighten-4">
                                 <div class="card-content">
                                     <span style="color:black;"class="card-title teal-text">{{strategy.getCurrentStrategy().getName()}} </span>
                                     <span ng-if="strategy.getCurrentStrategy().isPending()" class="new badge" data-badge-caption="Pending Strategy"></span>
                                 </div>
-                                <div style="margin:5pt;margin-left:8pt">
+                                <div style=" margin:5pt;margin-left:8pt;height:50%">
                                   <assets-class-graph percentages=strategy.getCurrentStrategy().getAssets()></assets-class-graph>
                                 </div>
-                                <div class="card-action" style="text-align: center">
-                                    <a href="#!/wizard" class="waves-effect waves-light btn cyan "><i class="material-icons left">mode_edit</i>Edit Strategy</a>
+                                <div class="card-action" style="text-align:center">
+                                    <a href="#!/wizard" class="waves-effect waves-light btn cyan "><i class="material-icons left">mode_edit</i>Edit</a>
+                                    <a href="#!/" class="waves-effect waves-light btn red "><i class="material-icons left">delete</i>Delete</a>
                                 </div>
                             </div>
                         </div>
