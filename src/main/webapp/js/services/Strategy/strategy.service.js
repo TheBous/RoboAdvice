@@ -134,27 +134,23 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log){
             ]
         },
         // end get standard strategy
-        deletePending:function() {
-            let parent = this;
-            strategyREST.deletePending().$promise.then(function (response) {
-                swal({
-                        title: "Are you sure?",
-                        type: "warning",
-                        text: "Deleting this strategy, you will return to your previous strategy?",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Yes, delete it!",
-                        closeOnConfirm: false
-                    },
-                    function(){
-                    swal("Deleted!","Your strategy has been deleted.", "success");
-                        if (response.statusCode==0){
-                            console.log("StrategyREST || delete strategy")
-                            parent.strategyHistory = parent.strategyHistory.splice(0,1);
-                        }
-                    });
+        deletePending: function(callback){
+            var parent = this;
+            $log.debug("strategyService.deletePending| actual length: " + parent.strategyHistory.length);
+            strategyREST.deletePending().$promise.then(function (response){
+              if (response.statusCode==0){
+                $log.debug("strategyService.deletePending | statusCode == 0");
+                parent.strategyHistory = parent.strategyHistory.slice(0,-1);
+                $log.debug("StrategyREST | after delete: " + parent.strategyHistory.length);
+                if(callback)
+                  callback(true);
+              }else{
+                // delete is not possible
+                $log.error("strategyService.deletePending | statusCode != 0")
+                callback(false);
+              }
             });
         }
 
-    }
+    }// end return
 });

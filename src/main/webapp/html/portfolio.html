@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="card-action" style="text-align:center">
                                     <a href="#!/wizard" class="waves-effect waves-light btn cyan "><i class="material-icons left">mode_edit</i>Edit</a>
-                                    <a ng-click="deletePending()" class="waves-effect waves-light btn red "><i class="material-icons left">delete</i>Delete</a>
+                                    <a ng-if="strategy.getCurrentStrategy().isPending()" ng-click="deletePending()" class="waves-effect waves-light btn red "><i class="material-icons left">delete</i>Delete</a>
                                 </div>
                             </div>
                         </div>
