@@ -27,6 +27,9 @@ public class NightlyComputationController {
     private AssetsService assetsService;
     private PortfolioService portfolioService;
 
+    private long startTime;
+    private long endTime;
+
     @Autowired
     public NightlyComputationController(ApiDataService apiDataService, StrategyService strategyService, AssetsClassService assetsClassService, AssetsService assetsService, PortfolioService portfolioService) {
         this.apiDataService = apiDataService;
@@ -36,9 +39,10 @@ public class NightlyComputationController {
         this.portfolioService = portfolioService;
     }
 
-    @Scheduled(cron ="0 2 11 * * *") //scheduled every day at 5:00 am
+    @Scheduled(cron ="0 27 11 * * *") //scheduled every day at 5:00 am
     @Transactional
     public void updateAPI(){
+        startTime = System.currentTimeMillis();
         System.out.println("============= NIGHTLY COMPUTATIONS STARTED =============\n");
         int j = 0;
 
@@ -67,7 +71,8 @@ public class NightlyComputationController {
         updatePortfolios();
         insertPortfoliosForNewStrategiesFromOldUsers();
 
-        System.out.println("============= NIGHTLY COMPUTATIONS FINISHED =============");
+        endTime = System.currentTimeMillis();
+        System.out.println("============= NIGHTLY COMPUTATIONS FINISHED - Total time: "+((endTime-startTime)/1000)+"s =============");
     }
 
     //CREATE NEW PORTFOLIO FOR NEW USERS
