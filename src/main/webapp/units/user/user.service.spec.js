@@ -23,16 +23,29 @@ describe("User Test Suite",function(){
             password: 12345678,
             role: "USER"
         };
+        userService.logged = false;
         userService.setStrategyHistory = [{}];
         userService.newStrategy = [{}];
     }));
     describe("User do login",function(){
         it("INIT || userObj => typeof(object)",function(){
-            expect(typeof(userService.userObj)).toEqual('object');
+            expect(typeof userService.userObj).toEqual('object');
         });
         it("INIT || userObj => Any object properties is only one",function(){
             expect(Object.keys(userService.userObj).length).toEqual(6);
         });
+        /*let userObj = {
+         id: 1,
+         email: "g@g.com",
+         name: "j",
+         surname: "g",
+         password: 12345678,
+         role: "USER"
+         };
+         userService.init(userObj);
+         it("INIT || if user log in, logged => true",function(){
+         expect(userObj.logged).toBeTruthy();
+         });*/
         //OTHER TESTS
     });
 
@@ -48,12 +61,6 @@ describe("User Test Suite",function(){
         });
 
     });
-
-    /*describe("User create a new strategy",function(){
-     it("NEWSTRATEGY || )",function(){
-     expect().toEqual(Array);
-     });
-     });*/
 
     describe("User do update",function(){
         it("UPDATE || user changed any fields)",function(){
@@ -83,20 +90,17 @@ describe("User Test Suite",function(){
     });
 
     describe("User can logout",function(){
-        it("LOGOUT || if object defined",function(){
-            expect().toBeDefined();
+        it("LOGOUT || logout()",function(){
+            expect(userService.userObj).toBeDefined();
         });
-        it("LOGOUT || return if array setStrategy())",function(){
-            expect().toEqual();
+        it("LOGOUT || logout()",function(){
+            expect(userService.userObj).toBeTruthy();
         });
-        it("LOGOUT || return type setStrategy())",function(){
-            expect().toEqual();
+        it("LOGOUT || logout())",function() {
+            expect(userService.logout(userService.userObj)).toBeUndefined();
+        });
+        it("LOGOUT || logout())",function() {
+            expect(userService.logout(userService.logged)).toBeFalsy();
         });
     });
-
-
-
-
-
-
 });
