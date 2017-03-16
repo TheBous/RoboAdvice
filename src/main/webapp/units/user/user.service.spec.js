@@ -23,6 +23,7 @@ describe("User Test Suite",function(){
             password: 12345678,
             role: "USER"
         };
+        userService.logged = true;
         userService.setStrategyHistory = [{}];
         userService.newStrategy = [{}];
     }));
@@ -48,12 +49,6 @@ describe("User Test Suite",function(){
         });
 
     });
-
-    /*describe("User create a new strategy",function(){
-     it("NEWSTRATEGY || )",function(){
-     expect().toEqual(Array);
-     });
-     });*/
 
     describe("User do update",function(){
         it("UPDATE || user changed any fields)",function(){
@@ -83,20 +78,17 @@ describe("User Test Suite",function(){
     });
 
     describe("User can logout",function(){
-        it("LOGOUT || if object defined",function(){
-            expect().toBeDefined();
+        it("LOGOUT || logout()",function(){
+            expect(userService.userObj).toBeDefined();
         });
-        it("LOGOUT || return if array setStrategy())",function(){
-            expect().toEqual();
+        it("LOGOUT || logout()",function(){
+            expect(userService.userObj).toBeTruthy();
         });
-        it("LOGOUT || return type setStrategy())",function(){
-            expect().toEqual();
+        it("LOGOUT || logout())",function() {
+            expect(userService.logout(userService.userObj)).toBeUndefined();
+        });
+        it("LOGOUT || logout())",function() {
+            expect(userService.logout(userService.logged)).toBeFalsy();
         });
     });
-
-
-
-
-
-
 });
