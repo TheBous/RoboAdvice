@@ -7,8 +7,16 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
         portfolioHistory : null,
         portfoliosRaw : {
             amounts : [],
-            dates   : []
+            dates   : [],
+            class_assets : [
+                [],
+                [],
+                [],
+                []
+            ],
+
         },
+
         portfolioDifferences: {},
 
         getPortfolioHistory:   () => this.portfolioHistory,
@@ -17,6 +25,9 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
             return this.portfoliosRaw.amounts;
         },
 
+        getClassAssets: function(){
+            return this.portfoliosRaw.class_assets;
+        },
         getPortfolioDates: function(){
             return this.portfoliosRaw.dates;
         },
@@ -56,6 +67,11 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                             portfolioAmount = portfolioObj.getTotalAmount();
                             parent.portfoliosRaw.amounts.push(portfolioAmount);
                             parent.portfoliosRaw.dates.push((portfolioObj.getDate().getTime())+(3600*24*1000));
+                            parent.portfoliosRaw.class_assets[0].push(portfolioObj.getBondsAmount());
+                            parent.portfoliosRaw.class_assets[1].push(portfolioObj.getCommoditiesAmount());
+                            parent.portfoliosRaw.class_assets[2].push(portfolioObj.getStocksAmount());
+                            parent.portfoliosRaw.class_assets[3].push(portfolioObj.getForexAmount());
+
                             if(strategy_index<strategies.length){
                                 // attachPortfolio
                                 strategies[strategy_index].attachPortfolio(portfolioObj);
