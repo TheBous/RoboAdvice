@@ -16,13 +16,10 @@ Colloquio con David:
 
 8)
 
-
-
 UI Tips and tricks
 1)Tooltip sui vari acronimi e gergo provenienti da wiki.
 
 2)
-
 
 3)Wizard As carousel:
 
@@ -30,23 +27,21 @@ UI Tips and tricks
 
 5)Swipeable tabs : http://materializecss.com/tabs.html
 
-6)Zompato lo Swal su Profile.
 
-7)zompata scritta update in profile su responsive.
 
 FATTO!8)nella navbar saldo corrente visibile in tutte le schermate
 
-FATTO!9)Wizard Guide fighetta trovata
+FATTO!9)Wizard Guide fighetta sgueguerina
 
 FATTO!10)inserire grafici dentro history(giaMESSI solo da fixare)
 
 FATTO! 11)percentuali in worth che micheluzzo ci dona domani e Colore Cards.
 
-12)Creare Legenda per i vari grafici:in portfolio, in wizard, in Historiy,
+FATTO!12)Creare Legenda per i vari grafici:in portfolio, in wizard, in Historiy,
 
-13)in History sistemare gli indicatori di initial e final ammount
+FATTO! 13)in History sistemare gli indicatori di initial e final ammount
 
-14)Stilare gli Header
+FATTO! 14)Stilare gli Header
 
 FATTO! 15)in Portfolio manca la seconda torta
 
@@ -62,7 +57,7 @@ Issue:
 
 2)refresh pagina history dopo aver editato una nuova strategia
 
-3)
+3)se utente appena creato, finisce il tutorial, ed esce dal sito, gli viene data na strategia?
 
 4)
 

@@ -1,7 +1,7 @@
 /*
  Strategy Logic
  */
-RoboAdviceApp.service("strategyService",function(strategyREST, $log){
+RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
     return {
         // the user's strategies history
         strategyHistory: [],
@@ -20,6 +20,13 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log){
         },
         // set history and save it in the local variable
         newStrategy: function(strategyObj){
+            /*
+              The new strategy will be the last
+            */
+            if(this.strategyHistory.length == 0){
+              // is the first strategy
+              strategyObj.setInitialAmount(CONFIG["INITIAL_AMOUNT"]);
+            }
             this.strategyHistory.push(strategyObj);
         },
         setHistory: function(usr_id,callback){
@@ -32,6 +39,7 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log){
                         let strategyObj = new Strategy(anElement);
                         ret.push(strategyObj);
                     });
+                    $log.error(ret);
                     parent.strategyHistory = ret;
                     if(callback)
                         callback(ret);
