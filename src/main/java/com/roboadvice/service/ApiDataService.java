@@ -6,6 +6,7 @@ import com.roboadvice.model.Assets;
 
 public interface ApiDataService {
 
+    boolean firstInsert();
     ApiData insert(ApiData ad);
     //ApiData findLatestValueByAsset(Assets asset);
 
