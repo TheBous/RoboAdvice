@@ -55,7 +55,7 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                       let portfolioDate = portfolioObj.getDate();
                       portfolioAmount = portfolioObj.getTotalAmount();
                       parent.portfoliosRaw.amounts.push(portfolioAmount);
-                      parent.portfoliosRaw.dates.push(portfolioObj.getDate().getTime());
+                      parent.portfoliosRaw.dates.push(portfolioObj.getDate().getTime()-(3600*24));
                       if(strategy_index<strategies.length){
                         // attachPortfolio
                         strategies[strategy_index].attachPortfolio(portfolioObj);

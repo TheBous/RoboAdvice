@@ -57,6 +57,11 @@ var Portfolio = function(PortObj){
  year : this.date.getUTCFullYear()
  };
 
+ //console.log("-----------------------------")
+ //console.log(parseInt(PortObj.date.year),parseInt(PortObj.date.monthValue)-1,parseInt(PortObj.date.dayOfMonth))
+ //console.log(" this.date: " + this.date)
+
+
  this.getBondsAmount = () => this.bondsAmount;
  this.getBondsPercentage = () => this.bondsPercentage;
  this.getCommoditiesAmount = () => this.commoditiesAmount;
