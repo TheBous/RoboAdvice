@@ -152,5 +152,5 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
                 });
         }// end login
 
-    }//end service return
-})
+    }; //end service return
+});

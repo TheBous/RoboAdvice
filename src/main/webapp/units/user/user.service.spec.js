@@ -1,6 +1,7 @@
 describe("User Test Suite",function(){
     var userService;
     var strategyService;
+    var portfolioService;
     // var http;
 
     var today = new Date();
@@ -102,6 +103,20 @@ describe("User Test Suite",function(){
         });
     });
 
+    describe("User can logout",function(){
+        beforeEach(inject(function(_userService_){
+            userService = _userService_;
+        }));
+        it("LOGOUT || logout()",function(){
+            expect(userService.userObj).toBeDefined();
+        });
+        it("LOGOUT || logout => user undefined)",function() {
+            expect(userService.logout(userService.userObj)).toBeUndefined();
+        });
+        it("LOGOUT || logout => logged = false)",function() {
+            expect(userService.logout(userService.logged)).toBeFalsy();
+        });
+    });
     describe("User can logout",function(){
         beforeEach(inject(function(_userService_){
             userService = _userService_;
