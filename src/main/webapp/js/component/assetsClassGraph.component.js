@@ -16,10 +16,7 @@ RoboAdviceApp.component("assetsClassGraph",{
       1: true,
       2: true,
       3: true
-    }
-
-
-
+    };
     this.$onInit = function(){
       $scope.assetsData = this.percentages;
       let index = 0;
@@ -28,4 +25,4 @@ RoboAdviceApp.component("assetsClassGraph",{
       //})
     }
   }
-})
+});
