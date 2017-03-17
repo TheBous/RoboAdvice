@@ -3,7 +3,7 @@
     body {
         background: #f9f9f9;
     }
-    
+
 </style>
 
 
@@ -21,7 +21,7 @@
                             </div>
                             <div class="card-content">
                                 <span class="card-title activator grey-text text-darken-4" style="font-size: 22px;">{{CONFIG["ASSETS_NAME"][$index]}}<i class="material-icons right">keyboard_arrow_up</i></span>
-                             <!--   <p><a> {{difference | number : 2}}%</a></p> -->
+                                <!--   <p><a> {{difference | number : 2}}%</a></p> -->
                                 <div style="font-size:24px">{{difference | number : 2}}%</div>
                                 <div>
                                     <i ng-if="difference < 0" style="color:#F44336;font-size:50px;" class="material-icons losing">trending_down</i>
@@ -31,18 +31,19 @@
                             </div>
                             <div class="card-reveal">
                                 <span class="card-title grey-text text-darken-4" style="font-size:20px;">{{CONFIG["ASSETS_NAME"][$index]}}<i class="material-icons right">close</i></span>
+                            <!-- asset graphs -->
                             </div>
-                          <!--  <div class="card-content white-text">
-                                <div class="card-title">{{CONFIG["ASSETS_NAME"][$index]}}</div>
-                                <p class="card-title">
-                                    {{difference | number : 6}}%
-                                </p>
-                                <p class="card-title">
-                                    <i ng-if="difference < 0" style="color:#F44336;font-size:50px;" class="material-icons losing">trending_down</i>
-                                    <i ng-if="difference > 0" style="color: #00e676;font-size:50px;" class="material-icons winning">trending_up</i>
-                                    <i ng-if="difference==0" style="color: #ffeb3b;font-size:50px;" class="material-icons constant">trending_flat</i>
-                                </p>
-                            </div>-->
+                            <!--  <div class="card-content white-text">
+                                  <div class="card-title">{{CONFIG["ASSETS_NAME"][$index]}}</div>
+                                  <p class="card-title">
+                                      {{difference | number : 6}}%
+                                  </p>
+                                  <p class="card-title">
+                                      <i ng-if="difference < 0" style="color:#F44336;font-size:50px;" class="material-icons losing">trending_down</i>
+                                      <i ng-if="difference > 0" style="color: #00e676;font-size:50px;" class="material-icons winning">trending_up</i>
+                                      <i ng-if="difference==0" style="color: #ffeb3b;font-size:50px;" class="material-icons constant">trending_flat</i>
+                                  </p>
+                              </div>-->
                         </div>
                     </div>
                 </div>
@@ -86,7 +87,7 @@
                 </div>
             </div>
         </div>
-      </div>
+    </div>
 </div>
 
 

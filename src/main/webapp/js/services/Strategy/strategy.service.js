@@ -21,11 +21,11 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
         // set history and save it in the local variable
         newStrategy: function(strategyObj){
             /*
-              The new strategy will be the last
-            */
+             The new strategy will be the last
+             */
             if(this.strategyHistory.length == 0){
-              // is the first strategy
-              strategyObj.setInitialAmount(CONFIG["INITIAL_AMOUNT"]);
+                // is the first strategy
+                strategyObj.setInitialAmount(CONFIG["INITIAL_AMOUNT"]);
             }
             this.strategyHistory.push(strategyObj);
         },
@@ -146,17 +146,17 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
             var parent = this;
             $log.debug("strategyService.deletePending| actual length: " + parent.strategyHistory.length);
             strategyREST.deletePending().$promise.then(function (response){
-              if (response.statusCode==0){
-                $log.debug("strategyService.deletePending | statusCode == 0");
-                parent.strategyHistory = parent.strategyHistory.slice(0,-1);
-                $log.debug("StrategyREST | after delete: " + parent.strategyHistory.length);
-                if(callback)
-                  callback(true);
-              }else{
-                // delete is not possible
-                $log.error("strategyService.deletePending | statusCode != 0")
-                callback(false);
-              }
+                if (response.statusCode==0){
+                    $log.debug("strategyService.deletePending | statusCode == 0");
+                    parent.strategyHistory = parent.strategyHistory.slice(0,-1);
+                    $log.debug("StrategyREST | after delete: " + parent.strategyHistory.length);
+                    if(callback)
+                        callback(true);
+                }else{
+                    // delete is not possible
+                    $log.error("strategyService.deletePending | statusCode != 0")
+                    callback(false);
+                }
             });
         }
 

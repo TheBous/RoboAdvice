@@ -26,48 +26,48 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
             this.setStrategyHistory();
         },
         setStrategyHistory: function(){
-          let parent = this;
-          $log.debug("userService.setStrategyHistory| setting up user's strategies");
+            let parent = this;
+            $log.debug("userService.setStrategyHistory| setting up user's strategies");
 
-          strategyService.setHistory(this.getId(),function(history){
-            if(history != null){
-              parent.hasStrategy = true;
-              $log.debug("userService.init| the user has " + history.length + " strategies");
-            }else{
-              // the user don't have strategies
-            }
+            strategyService.setHistory(this.getId(),function(history){
+                if(history != null){
+                    parent.hasStrategy = true;
+                    $log.debug("userService.init| the user has " + history.length + " strategies");
+                }else{
+                    // the user don't have strategies
+                }
 
-            // setting portfolio History
-            parent.setCurrentPortfolio();
-          });
+                // setting portfolio History
+                parent.setCurrentPortfolio();
+            });
         },
         newStrategy: function(strategyObj){
             // insert a new strategy at runtime
             let newStrategy = new Strategy(strategyObj);
             if(this.hasStrategy){
-              newStrategy.setFinalAmount(this.getCurrentPortfolioAmount());
-              newStrategy.setInitialAmount(this.getCurrentPortfolioAmount());
+                newStrategy.setFinalAmount(this.getCurrentPortfolioAmount());
+                newStrategy.setInitialAmount(this.getCurrentPortfolioAmount());
             }else{
-              newStrategy.setInitialAmount(CONFIG["INITIAL_AMOUNT"]);
-              newStrategy.setFinalAmount(CONFIG["INITIAL_AMOUNT"]);
-              this.hasStrategy = true;
+                newStrategy.setInitialAmount(CONFIG["INITIAL_AMOUNT"]);
+                newStrategy.setFinalAmount(CONFIG["INITIAL_AMOUNT"]);
+                this.hasStrategy = true;
             }
             strategyService.newStrategy(newStrategy);
         },
         setCurrentPortfolio : function() {
-          let parent = this;
-          portfolioService.getFullHistory(this.getId(), function(portfolioHistory){
-            if(portfolioHistory != null){
-              // portfolioHistory has something
-              $log.debug("userService.setCurrentPortfolio| the user has portfolioHistory")
-              parent.currentPortfolio = portfolioHistory[portfolioHistory.length-1];
-              parent.hasPortfolio = true;
-            }else{
-              $log.debug("userService.setCurrentPortfolio| the user doesn't have portfolioHistory");
-              parent.hasPortfolio = false;
-              // portfolioHistory is empty
-            }
-          });
+            let parent = this;
+            portfolioService.getFullHistory(this.getId(), function(portfolioHistory){
+                if(portfolioHistory != null){
+                    // portfolioHistory has something
+                    $log.debug("userService.setCurrentPortfolio| the user has portfolioHistory")
+                    parent.currentPortfolio = portfolioHistory[portfolioHistory.length-1];
+                    parent.hasPortfolio = true;
+                }else{
+                    $log.debug("userService.setCurrentPortfolio| the user doesn't have portfolioHistory");
+                    parent.hasPortfolio = false;
+                    // portfolioHistory is empty
+                }
+            });
         },
 
         update: function(newObj){
@@ -94,9 +94,9 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
         /* USER PORTFOLIO METHODS */
         hasCurrentPortfolio: function(){    return this.hasPortfolio;},
         getCurrentPortfolioAmount: function(){
-          if(this.currentPortfolio!=null)
-            return this.currentPortfolio.getTotalAmount();
-          else return CONFIG["INITIAL_AMOUNT"];
+            if(this.currentPortfolio!=null)
+                return this.currentPortfolio.getTotalAmount();
+            else return CONFIG["INITIAL_AMOUNT"];
         },
         /* USER STRATEGY METHODS */
         hasStrategies: function(){          return this.hasStrategy},
