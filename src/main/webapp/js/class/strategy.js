@@ -66,7 +66,7 @@ var Strategy = function(strategyObj){
     this.obj = strategyObj;
     this.name = strategyObj.name;
     this.date = new Date(strategyObj.date.year+"/"+strategyObj.date.monthValue+"/"+strategyObj.date.dayOfMonth);
-    this.isActive = strategyObj.active ? true : false;
+    this.isActive = strategyObj.active == 1 ? true : false;
     this.bonds_p = strategyObj.bonds_p;
     this.stocks_p = strategyObj.stocks_p;
     this.forex_p = strategyObj.forex_p;
@@ -81,6 +81,10 @@ var Strategy = function(strategyObj){
         amounts: [],
         dates: []
     };
+
+    this.setActive = function(isActive){
+      this.isActive = isActive;
+    }
 
     // the initial amount, if the strategy is the first strategy, the amount is equal to 10000
     //this.getInitialAmount = () => this.portfolios[0].getAmount();
