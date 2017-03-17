@@ -10,7 +10,7 @@ body_class{
 }
 
 
-.personne{
+.person{
 	display:inline-block;
 	position:relative;
 	width:200px;
@@ -18,7 +18,7 @@ body_class{
 	cursor:pointer;
 	vertical-align:top;
 }
-.personne > div{
+.person > div{
 	width:100%;
 	height:200px;
 	border-radius:50%;
@@ -29,34 +29,34 @@ body_class{
 	box-sizing:border-box;
 }
 
-.personne img{
+.person img{
 	height:100%;
 	margin:0 -50%;
 	transition: all 0.5s ease;
 }
 
-.personne > span {
+.person > span {
 	background:#4db6ac;
 	position:absolute;
 	z-index:1;
 	top:140px;
 	left:0px;
 	padding: 6px 20px 6px 40px;
-	font-family:'Raleway';
+	font-family:'Roboto';
 	color:#FFF;
-	font-weight:400;
+	font-weight:300;
 	font-size:14px;
 	border-radius: 0 13px 13px 0;
 	transition: all 0.5s ease-in;
 }
 
-.personne:hover > span{padding-left:45px;display:none}
-.personne:hover img{height:105%;}
-.personne:hover > div {	border: 14px solid #009688;}
+.person:hover > span{padding-left:45px;display:none}
+.person:hover img{height:105%;}
+.person:hover > div {	border: 14px solid #009688;}
 
 
-.personne h4  {
-	font-family:'Raleway';
+.person h4  {
+	font-family:'Roboto';
 	text-align:left;
 	margin-top:3px;
 	color:#000;
@@ -64,7 +64,7 @@ body_class{
 	padding-left:45px;
 }
 
-.personne h4 span {
+.person h4 span {
 	display:block;
 	font-size:23px;
 	margin-left:15px

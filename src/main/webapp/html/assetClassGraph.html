@@ -1,3 +1,4 @@
+<!--
 <div style="text-align:center;width:50%;padding:2%;margin-left:auto;margin-right:auto">
     <canvas id="pie" class="chart chart-pie" chart-data="assetsData" chart-labels="assetsLabel" chart-options="options">
     </canvas>
@@ -19,4 +20,38 @@
         <img src="../img/forex.jpg" alt="Forex">
         Forex
     </div>
+</div>-->
+
+<div style="text-align:center;width:50%;padding:2%;margin-left:auto;margin-right:auto">
+    <canvas id="pie" class="chart chart-pie" chart-data="assetsData" chart-labels="assetsLabel" chart-options="options">
+    </canvas>
+</div>
+
+<div  >
+
+    <div  class="center-align" >
+
+        <div class="chip" style="" ng-if="ifLabel[0]">
+            <img src="../img/bonds.jpg" alt="Bonds">
+            Bonds
+        </div>
+        <div class="chip" style="" ng-if="ifLabel[1]">
+            <img src="../img/stocks.jpg" alt="Commodities">
+            Comm
+        </div>
+    </div>
+
+    <div  class="center-align">
+        <div class="chip" style="" ng-if="ifLabel[2]">
+            <img src="../img/commodities.jpg" alt="Stocks">
+            Stocks
+        </div>
+        <div class="chip" style="" ng-if="ifLabel[3]">
+            <img src="../img/forex.jpg" alt="Forex">
+            Forex
+        </div>
+    </div>
+
+</div>
+
 </div>
