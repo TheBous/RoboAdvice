@@ -51,11 +51,11 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
 
                         portfolioHistory.forEach(function(aPortfolio){
                             i++;
-                            const portfolioObj = new Portfolio(aPortfolio);
+                            let portfolioObj = new Portfolio(aPortfolio);
                             let portfolioDate = portfolioObj.getDate();
                             portfolioAmount = portfolioObj.getTotalAmount();
                             parent.portfoliosRaw.amounts.push(portfolioAmount);
-                            parent.portfoliosRaw.dates.push(portfolioObj.getDate().getTime()-(3600*24));
+                            parent.portfoliosRaw.dates.push((portfolioObj.getDate().getTime())+(3600*24*1000));
                             if(strategy_index<strategies.length){
                                 // attachPortfolio
                                 strategies[strategy_index].attachPortfolio(portfolioObj);
