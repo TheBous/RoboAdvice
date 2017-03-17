@@ -41,7 +41,9 @@ module.exports = function(config) {
             './js/utils.js',
             './js/services/**/*.js',
             './js/class/strategy.js',
-            './units/**/*.js'
+            './js/class/portfolio.js',
+            './units/**/*.js',
+
         ],
         // list of files to exclude
         exclude: [
