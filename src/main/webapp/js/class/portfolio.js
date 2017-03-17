@@ -45,16 +45,16 @@ var Portfolio = function(PortObj){
  //date
  var today = new Date();
  this.todayFormatted = {
- day : today.getDayFormatted(),
- month: today.getMonthFormatted(),
- year: today.getUTCFullYear()
+   day : today.getDayFormatted(),
+   month: today.getMonthFormatted(),
+   year: today.getUTCFullYear()
  };
 
  // the strategy formatted date
  this.dateFormatted = {
- day : this.date.getDayFormatted(),
- month : this.date.getMonthFormatted(),
- year : this.date.getUTCFullYear()
+   day : this.date.getDayFormatted(),
+   month : this.date.getMonthFormatted(),
+   year : this.date.getUTCFullYear()
  };
 
  //console.log("-----------------------------")
