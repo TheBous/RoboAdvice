@@ -37,11 +37,6 @@ public interface StrategyRepository extends PagingAndSortingRepository<Strategy,
     @Query("SELECT s FROM Strategy s WHERE s.user=?1")
     List<Strategy> fullHistoryByUser(User u);
 
-
-
-
-
-
     @Query("SELECT s FROM Strategy s WHERE s.active = 1 AND s.date=?1")
     List<Strategy> findNewStrategies(LocalDate yesterday);
 

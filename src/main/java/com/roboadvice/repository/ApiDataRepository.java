@@ -14,7 +14,7 @@ public interface ApiDataRepository extends PagingAndSortingRepository<ApiData, L
 
     ApiData findByAssetsIdAndDate(long assetId, LocalDate date);
 
-    @Query(value = "SELECT * FROM api_data WHERE assets_id = ?1 AND date = (SELECT MAX(date) FROM api_data WHERE assets_id = ?1)", nativeQuery = true)
+    @Query(value = "SELECT * FROM api_data WHERE date = (SELECT MAX(date) FROM api_data WHERE assets_id = ?1) AND assets_id = ?1", nativeQuery = true)
     ApiData findLatestValueByAsset(long assets_id);
 
 

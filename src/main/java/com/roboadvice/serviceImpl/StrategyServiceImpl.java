@@ -10,12 +10,12 @@ import com.roboadvice.repository.UserRepository;
 import com.roboadvice.service.StrategyService;
 import com.roboadvice.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +36,7 @@ public class StrategyServiceImpl implements StrategyService{
 
 
     @Override
+    @CacheEvict(cacheNames = "strategyFullHistory", allEntries = true)
     public StrategyDTO insert(String userEmail, StrategyDTO strategyDTO) {
         User u = userRepository.findByEmail(userEmail);
         if (u == null) {
@@ -57,6 +58,7 @@ public class StrategyServiceImpl implements StrategyService{
     }
 
     @Override
+    @CacheEvict(cacheNames = "strategyFullHistory", allEntries = true)
     public Boolean deletePendingStrategy(String userEmail) {
         User u = userRepository.findByEmail(userEmail);
         if (u==null)
@@ -119,6 +121,7 @@ public class StrategyServiceImpl implements StrategyService{
     }
 
     @Override
+    @Cacheable("strategyFullHistory")
     public List<StrategyDTO> getFullHistoryByUser(String userEmail) {
         User u = userRepository.findByEmail(userEmail);
         if (u == null)
@@ -144,48 +147,4 @@ public class StrategyServiceImpl implements StrategyService{
         else
             return null;
     }
-
-
-    /*@Override
-    public List<Strategy> newStrategiesFromNewUsers() {
-        List<Strategy> newStrategies = strategyRepository.findNewStrategies(LocalDate.now().minus(Period.ofDays(1)));
-
-        if (!newStrategies.isEmpty()){
-            List<Strategy> oldUserStrategies = new ArrayList<>();
-            List<Strategy> newStrategiesFromNewUsers = new ArrayList<>();
-
-            for (Strategy strategy : newStrategies) {
-                //se trovo strategia con active=0 && data precedente, significa che non è un nuovo utente ma è un utente che ha cambiato strategia
-                oldUserStrategies = strategyRepository.findUserOldStrategies(strategy.getUser(), strategy.getDate());
-                if (oldUserStrategies.isEmpty()) {
-                    newStrategiesFromNewUsers.add(strategy);
-                }
-            }
-            return newStrategiesFromNewUsers;
-        }
-        else {
-            return null;
-        }
-    }*/
-
-    /*@Override
-    public List<Strategy> newStrategiesFromOldUsers() {
-        List<Strategy> newStrategies = strategyRepository.findNewStrategies(LocalDate.now().minus(Period.ofDays(1)));
-
-        if (!newStrategies.isEmpty()){
-            List<Strategy> oldUserStrategies = new ArrayList<>();
-            List<Strategy> newStrategiesFromOldUsers = new ArrayList<>();
-
-            for (Strategy strategy : newStrategies) {
-                oldUserStrategies = strategyRepository.findUserOldStrategies(strategy.getUser(), strategy.getDate());
-                if (!oldUserStrategies.isEmpty()) {
-                    newStrategiesFromOldUsers.add(strategy);
-                }
-            }
-            return newStrategiesFromOldUsers;
-        }
-        else {
-            return null;
-        }
-    }*/
 }

@@ -51,7 +51,7 @@ public class RoboadviceApplication {
 		ast[5] = new Assets(6, "Twitter", new BigDecimal(20), "WIKI/TWTR", 11, assetsClass[1]);
 		ast[6] = new Assets(7, "USD -> EUR", new BigDecimal(25), "CURRFX/USDEUR", 1, assetsClass[2]);
 		ast[7] = new Assets(8, "USD -> CHF", new BigDecimal(50), "CURRFX/USDCHF", 1, assetsClass[2]);
-		ast[8] = new Assets(9, "USD -> BIT", new BigDecimal(25), "BAVERAGE/USD", 1, assetsClass[2]);
+		ast[8] = new Assets(9, "USD -> BIT", new BigDecimal(25), "BTCE/USDBTC", 3, assetsClass[2]);
 		ast[9] = new Assets(10, "Gold", new BigDecimal(30), "COM/WLD_GOLD", 1, assetsClass[3]);
 		ast[10] = new Assets(11, "Silver", new BigDecimal(20), "COM/WLD_SILVER", 1, assetsClass[3]);
 		ast[11] = new Assets(12, "Crude oil", new BigDecimal(30), "COM/OIL_BRENT", 1, assetsClass[3]);

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,22 +128,5 @@ public class PortfolioServiceImpl implements PortfolioService{
             return null;
         }
     }
-
-
-
-    /*@Override
-    public List<Portfolio> getAllYesterdayPortfolios() {
-        return portfolioRepository.findAllPortfoliosToBeUpdatedByDate(LocalDate.now().minus(Period.ofDays(1)));
-    }*/
-    /*@Override
-    public List<User> getAllYesterdayPortfoliosUsers() {
-        return portfolioRepository.findAllPortfoliosUsersByDate(LocalDate.now().minus(Period.ofDays(1)));
-    }*/
-    /*@Override
-    public List<Portfolio> findByUserAndDate(User u, LocalDate date) {
-        return portfolioRepository.findByUserAndDate(u, date);
-    }*/
-
-
 
 }
