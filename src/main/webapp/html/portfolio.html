@@ -36,12 +36,12 @@
                                     <span style="color:black;"class="card-title teal-text">{{strategy.getCurrentStrategy().getName()}} </span>
                                     <span ng-if="strategy.getCurrentStrategy().isPending()" class="new badge" data-badge-caption="Pending Strategy"></span>
                                 </div>
-                                <div style=" margin:5pt;margin-left:8pt;height:49.5% ">
+                                <div style=" margin:5pt;margin-left:8pt;height:47.5% ">
                                   <assets-class-graph percentages=strategy.getCurrentStrategy().getAssets()></assets-class-graph>
                                 </div>
                                 <div class="card-action" style="text-align:right">
-                                    <a href="#!/wizard" class="btn-floating waves-effect waves-light cyan "><i class="material-icons left">mode_edit</i>Edit</a>
-                                    <a ng-if="strategy.getCurrentStrategy().isPending()" ng-click="deletePending()" class="btn-floating  waves-effect waves-light red "><i class="material-icons left">delete</i>Delete</a>
+                                    <a href="#!/wizard" class="btn-floating waves-effect waves-light cyan tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Strategy" ><i class="material-icons left">mode_edit</i>Edit</a>
+                                    <a ng-if="strategy.getCurrentStrategy().isPending()" ng-click="deletePending()" class="btn-floating  waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Strategy""><i class="material-icons left">delete</i>Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -84,3 +84,10 @@
             </div></div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('.tooltipped').tooltip({delay: 50});
+    });
+
+</script>

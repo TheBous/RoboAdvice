@@ -12,8 +12,8 @@
                 </h2>
 
                 <p class="right" ng-if="strategy.isPending()">
-                    <a href="#!/wizard" class="btn-floating  waves-effect waves-light cyan"><i class="material-icons">mode_edit</i></a>
-                    <a ng-click="deletePending()" class="btn-floating  waves-effect waves-light red"><i class="material-icons">delete</i></a>
+                    <a href="#!/wizard" class="btn-floating  waves-effect waves-light cyan tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Strategy" ><i class="material-icons">mode_edit</i></a>
+                    <a ng-click="deletePending()" class="btn-floating  waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Strategy"><i class="material-icons">delete</i></a>
                 </p>
 
 
@@ -52,3 +52,13 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function(){
+        $('.tooltipped').tooltip({delay: 50});
+    });
+
+
+
+</script>
