@@ -27,7 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                          "/img/**",
                                          "/fonts/**",
                                          "/user/signup",  //open REST API for login and signup
-                                         "/user/login");
+                                         "/user/login",
+                                         "/assetsclass/history");
     }
 
 

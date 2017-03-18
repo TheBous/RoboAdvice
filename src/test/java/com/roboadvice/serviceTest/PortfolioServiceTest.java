@@ -2,10 +2,6 @@ package com.roboadvice.serviceTest;
 
 import com.roboadvice.RoboadviceApplication;
 import com.roboadvice.dto.PortfolioDTO;
-import com.roboadvice.model.Assets;
-import com.roboadvice.model.AssetsClass;
-import com.roboadvice.model.Portfolio;
-import com.roboadvice.model.User;
 import com.roboadvice.service.PortfolioService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -124,36 +120,4 @@ public class PortfolioServiceTest {
         assertFalse(portfolioDTOS instanceof List<?>);
 
     }
-
-    /*@Test
-    public void getAllYesterdayPortfoliosTestOk(){
-
-        List<Portfolio> portfolios = portfolioService.getAllYesterdayPortfolios();
-
-        assertNotNull(portfolios);
-        assertTrue(portfolios instanceof List<?>);
-        assertTrue(!portfolios.isEmpty());
-        for(Portfolio portfolio : portfolios){
-            assertTrue(portfolio.getAmount() instanceof BigDecimal);
-            assertTrue(portfolio.getAssets() instanceof Assets);
-            assertTrue(portfolio.getDate() instanceof  LocalDate);
-            assertTrue(portfolio.getUnits() instanceof  BigDecimal);
-            assertTrue(portfolio.getAssetsClass() instanceof AssetsClass);
-        }
-    }
-
-    @Test
-    public void getAllYesterdayPortfoliosUsersTestOk(){
-
-        List<User> users = portfolioService.getAllYesterdayPortfoliosUsers();
-
-        assertNotNull(users);
-        assertTrue(users instanceof List<?>);
-        assertTrue(!users.isEmpty());
-        for(User user : users){
-            assertTrue(user.getEmail() instanceof String);
-            assertTrue(user.getName() instanceof String);
-            assertTrue(user.getPassword() instanceof String);
-        }
-    }*/
 }

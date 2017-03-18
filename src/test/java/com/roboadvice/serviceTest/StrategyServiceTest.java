@@ -2,7 +2,6 @@ package com.roboadvice.serviceTest;
 
 import com.roboadvice.RoboadviceApplication;
 import com.roboadvice.dto.StrategyDTO;
-import com.roboadvice.model.Strategy;
 import com.roboadvice.service.StrategyService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -109,41 +108,6 @@ public class StrategyServiceTest {
         assertFalse(strategyDTO instanceof  List<?>);
     }
 
-    /*@Test
-    public void newStrategiesFromNewUsersTestFailure() {
-
-        List<Strategy> strategies = strategyService.newStrategiesFromNewUsers();
-
-        assertNull(strategies);
-        assertFalse(strategies instanceof  List<?>);
-
-    }
-
-    @Test
-    public void newStrategiesFromOldUserTestOk() {
-
-        List<Strategy> strategies = strategyService.newStrategiesFromOldUsers();
-
-        assertNotNull(strategies);
-        assertTrue(strategies instanceof  List<?>);
-        assertTrue(!strategies.isEmpty());
-        for (Strategy str : strategies) {
-            assertTrue(str.getActive() instanceof Boolean);
-            assertTrue(str.getName() instanceof String);
-            assertTrue(str.getDate() instanceof LocalDate);
-            assertTrue(str.getPercentage() instanceof BigDecimal);
-
-        }
-    }
-
-    @Test
-    public void newStrategiesFromOldUserTestFailure() {
-        List<Strategy> strategies = strategyService.newStrategiesFromOldUsers();
-
-        assertNull(strategies);
-        assertFalse(strategies instanceof  List<?>);
-    }
-
     @Test
     public void deletePendingStrategyTestOk() {
         String userEmail = "enrico@pasquale.com";
@@ -152,7 +116,7 @@ public class StrategyServiceTest {
 
         assertNotNull(delete);
         assertTrue(delete);
-    }*/
+    }
 
     @Test
     public void deletePendingStrategyTestFailure() {

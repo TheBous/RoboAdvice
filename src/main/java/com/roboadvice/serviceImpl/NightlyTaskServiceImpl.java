@@ -7,6 +7,8 @@ import com.roboadvice.model.*;
 import com.roboadvice.repository.*;
 import com.roboadvice.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.threeten.bp.Period;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class NightlyTaskServiceImpl {
 
     private PortfolioRepository portfolioRepository;
@@ -40,11 +43,11 @@ public class NightlyTaskServiceImpl {
     }
 
     @Scheduled(cron ="0 0 5 * * *") //scheduled every day at 5:00 am
-    @Transactional
-    private void updateAPI(){
+    @Caching(evict = {@CacheEvict(cacheNames = "portfolioFullHistory", allEntries = true), @CacheEvict(cacheNames = "assetsClassHistory", allEntries = true)})
+    public void updateAPI(){
         startTime = System.currentTimeMillis();
         System.out.println("============= NIGHTLY COMPUTATIONS STARTED =============\n");
-        int j = 0;
+        int j;
 
         Iterable<Assets> assetsList = assetsRepository.findAll();
         ApiData api;
@@ -76,7 +79,6 @@ public class NightlyTaskServiceImpl {
     }
 
     //CREATE NEW PORTFOLIO FOR NEW USERS
-    @Transactional
     private void insertPortfoliosForNewStrategiesFromNewUsers(){
         BigDecimal investment = new BigDecimal(Constant.INITIAL_INVESTMENT);
         BigDecimal amount, value, units;
@@ -121,7 +123,6 @@ public class NightlyTaskServiceImpl {
     }
 
     //UPDATE PORTFOLIOS DAILY FOR OLD USERS THAT DID NOT CHANGE STRATEGY
-    @Transactional
     private void updatePortfolios(){
         BigDecimal amount = new BigDecimal(0);
         List<BigDecimal> values = new ArrayList<>();
@@ -188,7 +189,6 @@ public class NightlyTaskServiceImpl {
     }
 
     //CREATE NEW PORTFOLIO FOR OLD USERS THAT CHANGED STRATEGY
-    @Transactional
     private void insertPortfoliosForNewStrategiesFromOldUsers(){
         BigDecimal investment = new BigDecimal(0);
         BigDecimal amount, value, units;
@@ -247,8 +247,6 @@ public class NightlyTaskServiceImpl {
             System.out.println("*** NIGHTLY TASK 4: NEW STRATEGIES FROM OLD USERS NOT FOUND! ***\n");
         }
     }
-
-
 
     private ApiData insertApiData(ApiData ad){
         if(apiDataRepository.findByAssetsIdAndDate(ad.getAssets().getId(), ad.getDate()) == null)
