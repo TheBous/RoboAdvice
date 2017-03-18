@@ -16,8 +16,10 @@
                             <div class="card white">
                                 <div class="card-content teal-text">
                                     <span class="card-title"> {{strategy.getLastStrategy().getName()}} Trend</span>
-                                    {{portfolio.getLastStrategy().getHistoryDate()}}
-                                    <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph>
+                                    {{strategy.getLastStrategy().getHistoryDate()}}
+
+                                    <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
+                                    <realtime-line-graph vertical-axis="strategy.getCurrentStrategy().getHistoryAmount()" horizzontal-axis="strategy.getCurrentStrategy().getHistoryDate()"></realtime-line-graph>
                                     <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
                                 </div>
                                 <!--<div class="card-action">
@@ -67,10 +69,12 @@
             <div ng-if="user.currentPortfolio == null">
                 <div  class="col m12 s12">
                     <div class="card big">
-                        <div style="text-align: center;" class="card-content">
+                      <!-- <realtime-line-graph vertical-axis="[1,2,3,4]" horizzontal-axis="[1,2,3,4]"></realtime-line-graph> -->
+
+                        <!-- <div style="text-align: center;" class="card-content">
                             <span style="color:black;"class="card-title">Your portfolio will be updated tomorrow </span></span>
                             <img  style="width:70%" src="../img/004-analytics.png">
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div></div>

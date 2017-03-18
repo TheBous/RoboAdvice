@@ -12,3 +12,7 @@ Date.prototype.getDayFormatted = function() {
 var date = this.getDate();
 return date < 10 ? '0' + date : date;
 }
+
+Date.prototype.getDateFormatted = function(){
+  return this.getUTCFullYear()+"/"+this.getMonthFormatted()+"/"+this.getDayFormatted();
+}
