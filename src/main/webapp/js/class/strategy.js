@@ -133,7 +133,7 @@ var Strategy = function(strategyObj){
         //console.log("strategy.attachPortfolio| new portfolio, amount:",portfolio.getTotalAmount()," date: ",portfolio.getDate(),"at the strategy " + this.getName());
         // create the strategy portfolios
         this.portfolios.amounts.push(portfolio.getTotalAmount());
-        this.portfolios.dates.push(portfolio.getFormattedDate());
+        this.portfolios.dates.push(portfolio.getDate());
 
         // set the final amount
         this.final_amount = portfolio.getTotalAmount();
