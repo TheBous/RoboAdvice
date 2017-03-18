@@ -14,9 +14,9 @@ RoboAdviceApp.component("wizardUno",{
             $scope.data = strategy_percentages[0];
             // default strategy
             $scope.newStrategy = $scope.strategies[0];
-        }
+        };
 
-        $scope.$watch('newStrategy', function (newValue,oldValue) {
+        $scope.$watch('newStrategy', function (newValue) {
             $log.info("strategy changed: " + newValue.name);
             $log.info(newValue);
             $ctrl.myStrategy.name = newValue.name;
@@ -28,10 +28,6 @@ RoboAdviceApp.component("wizardUno",{
         $scope.labels = $scope.strategies[0].strategy.map(function(a){
             return a.name;
         });
-
-        //  $scope.chartOptions = {legend: {display: true}};Es una Mierda!!!! :<
-
-
 
         let strategy_percentages = new Array(5);
 

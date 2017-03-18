@@ -4,29 +4,26 @@ RoboAdviceApp.component("worthGraph",{
         portfolioAmount: "<"
     },
     templateUrl: "../html/worthGraph.html",
-    controller: function($log,$scope, portfolioService, userService){
+    controller: function($log,$scope){
 
         $scope.data = [];
         this.$onInit = function() {
             for(let i=0;i<this.portfolioAmount.length;i++){
-//              var formattedDate = new Date(this.portfolioDate[i])
-              $scope.data.push([this.portfolioDate[i],this.portfolioAmount[i]]);
+                $scope.data.push([this.portfolioDate[i],this.portfolioAmount[i]]);
             }
-
-              Highcharts.stockChart('newGraph', {
+            Highcharts.stockChart('newGraph', {
                 rangeSelector: {
-                  selected: 1,
+                    selected: 1,
                     inputEnabled:false
                 },
-
                 series: [{
-                  name: 'Amount',
-                  data: $scope.data,
-                  tooltip: {
-                    valueDecimals: 2
-                  }
+                    name: 'Amount',
+                    data: $scope.data,
+                    tooltip: {
+                        valueDecimals: 2
+                    }
                 }]
-              });
+            });
         }
     }
 

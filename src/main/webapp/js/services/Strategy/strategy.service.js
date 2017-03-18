@@ -30,11 +30,11 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
             this.strategyHistory.push(strategyObj);
         },
         setHistory: function(usr_id,callback){
-            parent = this;
+            let parent = this;
             strategyREST.getHistory({user_id: usr_id}).$promise.then(function(response){
                 if(response.statusCode == 0){
                     let strategyHistory = response.data;
-                    let ret = [];
+                    var ret = [];
                     strategyHistory.forEach(function(anElement){
                         let strategyObj = new Strategy(anElement);
                         ret.push(strategyObj);
@@ -45,7 +45,8 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
                         callback(ret);
                 }else{
                     // something is not working
-                    $log.error("strategyService | error on fetching strateg history");
+                    $log.error("strategyService | error on fetching strategy history");
+                    $log.error(response.statusCode);
                     if(callback)
                         callback(ret);
                 }

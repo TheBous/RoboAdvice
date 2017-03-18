@@ -1,4 +1,4 @@
-    RoboAdviceApp.component("wizardEdit",{
+RoboAdviceApp.component("wizardEdit",{
     bindings: {
         myStrategy : "<",
         saveStrategy : "&",
@@ -10,7 +10,7 @@
             $log.debug("wizard-3 init");
             $scope.newStrategy = this.myStrategy;
             $scope.saveStrategy = this.saveStrategy;
-        }
+        };
 
         $scope.isStrategyOk = true;
 
@@ -19,17 +19,10 @@
             { isDisabled : true },
             { isDisabled : true },
             { isDisabled : true }
-        ]
+        ];
 
         $scope.$watch('newStrategy.strategy', function (newValue,oldValue) {
             $log.debug("newStrategy changed: ");
-            /*
-             $log.debug("oldValue: ");
-             $log.debug(oldValue);
-             $log.debug("newValue:");
-             $log.debug(newValue);
-             */
-
             //$log.debug($scope.newStrategy.strategy)
             let sum = $scope.newStrategy.strategy.reduce(function(a,b){
                 let ret = a+parseInt(b.percentage);
