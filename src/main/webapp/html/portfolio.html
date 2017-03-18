@@ -16,10 +16,9 @@
                             <div class="card white">
                                 <div class="card-content teal-text">
                                     <span class="card-title"> {{strategy.getLastStrategy().getName()}} Trend</span>
-                                    {{strategy.getLastStrategy().getHistoryDate()}}
 
                                     <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
-                                    <realtime-line-graph vertical-axis="strategy.getCurrentStrategy().getHistoryAmount()" horizzontal-axis="strategy.getCurrentStrategy().getHistoryDate()"></realtime-line-graph>
+                                    <realtime-line-graph realtime="false" vertical-axis="strategy.getCurrentStrategy().getHistoryAmount()" horizzontal-axis="strategy.getCurrentStrategy().getHistoryDate()"></realtime-line-graph>
                                     <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
                                 </div>
                                 <!--<div class="card-action">
