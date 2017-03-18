@@ -110,4 +110,15 @@ public class StrategyServiceMockTest {
         assertEquals(LocalDate.now().toString(), strategyDTO.getDate().toString());
     }
 
+    @Test
+    public void getCurrentActiveStrategyFailure() {
+
+        List<Strategy> resultList = new ArrayList<>();
+        when(strategyRepository.findByUserAndActive(user,true)).thenReturn(resultList);
+        StrategyDTO strategyDTO = this.strategyService.getCurrentActiveStrategy(user.getEmail());
+        assertNull(strategyDTO);
+        assertFalse(strategyDTO instanceof StrategyDTO);
+    }
+
+
 }
