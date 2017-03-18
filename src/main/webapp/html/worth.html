@@ -23,15 +23,13 @@
     <div id="modal1" class="modal bottom-sheet">
         <div class="modal-content">
             <h4>Michele e Leonardo</h4>
-            <p>Hai vinto una lingua in bocca</p>
+            <p>Hai vinto un bacino da Leonardo</p>
         </div>
         <div class="modal-footer">
             <a href="#!/worth" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
-
-
-
+    <!-- Main Container -->
     <div class="container">
         <div class="header_section">Balance
             <div>
@@ -42,7 +40,7 @@
                                 <img class="activator" >
                             </div>
                             <div class="card-content">
-                                <span class="card-title activator grey-text text-darken-4" style="font-size: 18px;">{{CONFIG["ASSETS_NAME"][$index]}}<i class="material-icons right">keyboard_arrow_up</i></span>
+                                <span class="card-title activator grey-text text-darken-4" style="font-size: 22px;">{{CONFIG["ASSETS_NAME"][$index]}}<i class="material-icons right">keyboard_arrow_up</i></span>
                                 <!--   <p><a> {{difference | number : 2}}%</a></p> -->
                                 <div style="font-size:20px">{{difference | number : 2}}%</div>
                                 <div>
@@ -52,7 +50,7 @@
                                 </div>
                             </div>
                             <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4" style="font-size:19px;">{{CONFIG["ASSETS_NAME"][$index]}}<i class="material-icons right">close</i></span>
+                                <span class="card-title grey-text text-darken-4" style="font-size:19px;"><span class="hide-on-med-and-down" >{{CONFIG["ASSETS_NAME"][$index]}}</span><i class="material-icons right">close</i></span>
                                 <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[$index]"></asset-general>
                             </div>
                             <!--  <div class="card-content white-text">

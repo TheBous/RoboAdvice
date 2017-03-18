@@ -11,6 +11,7 @@
 
 
     <div class="" style="max-width:90%;margin: auto;" ng-if="user.hasCurrentPortfolio()" ng-controller="deletePending">
+                    <!-- first Card -->
                     <div class="row">
                         <div class="col m8 s12">
                             <div class="card white">
@@ -26,24 +27,27 @@
                                 </div>-->
                             </div>
                         </div>
-
+                        <div >
+                        <!--Second Card -->
                         <div  class="col m4 s12">
                             <div class="card grey lighten-4">
                                 <div class="card-content">
                                     <span style="color:black;"class="card-title teal-text">{{strategy.getCurrentStrategy().getName()}} </span>
                                     <span ng-if="strategy.getCurrentStrategy().isPending()" class="new badge" data-badge-caption="Pending Strategy"></span>
                                 </div>
-                                <div style=" margin:5pt;margin-left:8pt;height:50%">
+                                <div style=" margin:5pt;margin-left:8pt;height:49.5% ">
                                   <assets-class-graph percentages=strategy.getCurrentStrategy().getAssets()></assets-class-graph>
                                 </div>
-                                <div class="card-action" style="text-align:center">
-                                    <a href="#!/wizard" class="waves-effect waves-light btn cyan "><i class="material-icons left">mode_edit</i>Edit</a>
-                                    <a ng-if="strategy.getCurrentStrategy().isPending()" ng-click="deletePending()" class="waves-effect waves-light btn red "><i class="material-icons left">delete</i>Delete</a>
+                                <div class="card-action" style="text-align:right">
+                                    <a href="#!/wizard" class="btn-floating waves-effect waves-light cyan "><i class="material-icons left">mode_edit</i>Edit</a>
+                                    <a ng-if="strategy.getCurrentStrategy().isPending()" ng-click="deletePending()" class="btn-floating  waves-effect waves-light red "><i class="material-icons left">delete</i>Delete</a>
                                 </div>
                             </div>
                         </div>
+                        <!-- third Card -->
 
-                        <div  class="col m6 s12" ng-if="strategy.getCurrentStrategy().isPending()">
+                        </div>
+                     <!--   <div  class="col m6 s12" ng-if="strategy.getCurrentStrategy().isPending()">
                             <div class="card grey lighten-4">
                                 <div class="card-content">
                                     <span style="color:black;" class="card-title teal-text">{{strategy.getLastStrategy().getName()}} </span>
@@ -55,7 +59,8 @@
                                   &nbsp;
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
+
                     </div>
                 </div>
 
