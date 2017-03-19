@@ -19,9 +19,11 @@ public class ApiDataController {
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public void insertAPI(@RequestParam(value = "pass", defaultValue = "null") String pass) {
+        long start = System.currentTimeMillis();
         if(pass.equals("prattico")) {
             apiDataService.firstInsert();
-            System.out.println("QUANDL DATAS CORRECTLY INSERTED IN DATABASE");
+            long end = System.currentTimeMillis();
+            System.out.println("QUANDL DATAS CORRECTLY INSERTED IN DATABASE - Total time: "+(end-start)/1000+"s");
         }
         else System.out.println("ACCESS DENIED!");
     }

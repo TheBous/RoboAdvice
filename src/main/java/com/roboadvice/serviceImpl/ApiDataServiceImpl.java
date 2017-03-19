@@ -45,7 +45,8 @@ public class ApiDataServiceImpl implements ApiDataService{
             j = 0;
             while (j < tabularResult.size()) {
                 api = new ApiData(0, LocalDate.parse(tabularResult.get(j).getString(0)), BigDecimal.valueOf(tabularResult.get(j).getDouble(1)), asset);
-                insert(api);
+                //insert(api);
+                apiDataRepository.save(api);
                 j++;
             }
         }

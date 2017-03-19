@@ -21,7 +21,7 @@ public class AssetsClassController {
         this.assetsClassService = assetsClassService;
     }
 
-    @RequestMapping("/history")
+    @RequestMapping("/trend")
     public GenericResponse<List<AssetsClassDTO>> getAssetsClassHistory(){
         List<AssetsClassDTO> assetsClassDTOList = assetsClassService.getAssetsClassHistory();
 

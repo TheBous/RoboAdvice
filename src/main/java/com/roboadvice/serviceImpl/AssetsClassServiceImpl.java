@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,10 @@ public class AssetsClassServiceImpl implements AssetsClassService {
                         y++;
                     }
                     if (sum_list.get(j).getAssetsClass().getId() == 4) {
-                        assetsClassDTO.setCommoditiesValue(sum_list.get(j).getValue());
+                        if(sum_list.get(j).getValue().compareTo(BigDecimal.valueOf(1000))>0)
+                            assetsClassDTO.setCommoditiesValue(sum_list.get(j).getValue());
+                        else
+                            assetsClassDTO.setCommoditiesValue(null);
                         y++;
                     }
                 }

@@ -75,4 +75,15 @@ public class PortfolioController {
 
     }
 
+    @RequestMapping(value = "/backtesting", method = RequestMethod.POST)
+    public GenericResponse<List<PortfolioDTO>> getBacktestingChart(Authentication authentication){
+        String email = authentication.getName();
+        List<PortfolioDTO> portfolioDTOList = portfolioService.getBackTestingChart(email);
+
+        if(portfolioDTOList!=null)
+            return new GenericResponse<>(portfolioDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
+        else
+            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+    }
+
 }
