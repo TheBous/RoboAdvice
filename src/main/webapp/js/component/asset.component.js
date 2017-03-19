@@ -5,12 +5,39 @@ RoboAdviceApp.component("assetGeneral",{
     },
     templateUrl: "../html/asset.html",
     controller: function($scope, portfolioService, userService, $log){
-        this.$onInit = function() {
-            $log.debug("ASSET GRAPHS || print bonds,commodities, stocks, forex graph");
+      $scope.series = ['Series A', 'Series B'];
+      $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+      $scope.options = {
+        scales: {
+          yAxes: [
+            {
+              id: 'y-axis-1',
+              type: 'linear',
+              display: true,
+              position: 'left'
+            },
+            {
+              id: 'y-axis-2',
+              type: 'linear',
+              display: false,
+              position: 'right'
+            }
+          ]
+        }
+      };
 
-            $scope.assetsColor = ['#BBDEFB'];
-
-            $scope.options = {
+      this.$onInit = function() {
+        $log.debug("ASSET GRAPHS || print bonds,commodities, stocks, forex graph");
+        if(this.portfolioDate.length!=this.portfolioAmount.length){
+          $log.error("assetGeneral| error, x-axis and y-axis don't have the same length");
+          //$log.debug("x: " + this.portfolioDate);
+          $log.debug("y: " + this.portfolioAmount);
+        }
+        $scope.assetsColor = ['#BBDEFB'];
+      };// end onInit
+    }
+  });
+            /*$scope.options = {
                 scales: {
                     xAxes: [
                         {
@@ -27,13 +54,4 @@ RoboAdviceApp.component("assetGeneral",{
                     ],
                 }
             };
-
-            $scope.assetsData = this.portfolioDate;
-            $scope.assetsLabel = this.portfolioAmount;
-        };
-
-
-
-
-    }
-});
+            */
