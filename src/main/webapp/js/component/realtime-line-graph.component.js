@@ -9,9 +9,7 @@ RoboAdviceApp.component("realtimeLineGraph",{
       {{$ctrl.currentTime}}
     </div>
     <div>
-      <canvas id="line" class="chart chart-line" chart-data="$ctrl.realtimeAmounts"
-        chart-labels="$ctrl.realtimeDates" chart-series="series" chart-options="options"
-        chart-dataset-override="datasetOverride" chart-click="onClick">
+      <canvas id="line" class="chart chart-line" chart-data="$ctrl.realtimeAmounts" chart-labels="$ctrl.realtimeDates" chart-options="options">
       </canvas
     </div>
   `,
@@ -34,17 +32,35 @@ RoboAdviceApp.component("realtimeLineGraph",{
       $ctrl.realtimeDates.push(now.getHours() + " " + now.getMinutes());
     }
 
+
     this.$onInit = function(){
       let now = new Date();
       $ctrl.currentTime = now.getDateFormatted() + " " + now.getHours() + ":" + now.getMinutes();
+      $ctrl.realtimeAmount = [];
+      $ctrl.realtimeDates = [];
+
       $ctrl.realtimeAmounts = this.verticalAxis;
       $ctrl.realtimeDates = new Array(this.horizzontalAxis.length);
+
+      var minY = 0;
+      var maxY = 0;
 
       $ctrl.horizzontalAxis.forEach(function(a,$index){
         let dateFromTimestamp = new Date(a);
         $ctrl.realtimeDates[$index] = dateFromTimestamp.getDateFormatted();
       });
 
+      $scope.options = {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero:false
+//              min: minY
+//              max: maxY
+            }
+          }]
+        }
+      };
       $ctrl.lastAmount= this.verticalAxis[this.verticalAxis.length-1];
       if(this.realtime == "true"){
       //each minute
