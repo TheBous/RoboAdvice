@@ -35,6 +35,15 @@
                 </div>
             </div>
         </div>
+
+        <div class="row" ng-controller="GetGlobalAssets">
+          <div class="col s3" ng-repeat="asset in globalAssets">
+            <div class="center promo promo-example">
+              <p style="font-size:25px;" class="promo-caption">{{asset.name}}</p>
+              <asset-general portfolio-amount="asset.percentages" portfolio-date="asset.dates"></asset-general>
+            </div>
+          </div>
+        </div>
     </div>
 </div>
 <div class="parallax-container" style="height: 400px;">

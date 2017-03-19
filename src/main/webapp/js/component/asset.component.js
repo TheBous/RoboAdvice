@@ -7,7 +7,9 @@ RoboAdviceApp.component("assetGeneral",{
     controller: function($scope, portfolioService, userService, $log){
         this.$onInit = function() {
             $log.debug("ASSET GRAPHS || print bonds,commodities, stocks, forex graph");
+
             $scope.assetsColor = ['#BBDEFB'];
+
             $scope.options = {
                 scales: {
                     xAxes: [
@@ -25,6 +27,7 @@ RoboAdviceApp.component("assetGeneral",{
                     ],
                 }
             };
+
             $scope.assetsData = this.portfolioDate;
             $scope.assetsLabel = this.portfolioAmount;
         };
