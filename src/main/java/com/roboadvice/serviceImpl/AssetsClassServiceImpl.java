@@ -39,44 +39,44 @@ public class AssetsClassServiceImpl implements AssetsClassService {
     }
 
     @Override
-    @Cacheable("assetsClassHistory")
-    public List<AssetsClassDTO> getAssetsClassHistory() {
+    @Cacheable("assetsClassTrend")
+    public List<AssetsClassDTO> getAssetsClassTrend() {
 
         List<Portfolio> sum_list= assetsClassRepository.getHistoryByDate(LocalDate.now().minusYears(1), LocalDate.now()); //1y
         List<AssetsClassDTO> assetsClassDTOList = new ArrayList<>();
         AssetsClassDTO assetsClassDTO;
 
         int y=0;
-        for(int i=0;i<sum_list.size();i+=y){
-            assetsClassDTO=new AssetsClassDTO();
+        for(int i=0;i<sum_list.size();i+=y) {
+            assetsClassDTO = new AssetsClassDTO();
             assetsClassDTO.setDate(sum_list.get(i).getDate());
-            y=0;
-            for(int j=i;j<i+Constant.NUM_ASSETS_CLASS && j<sum_list.size();j++){
-                if(sum_list.get(j).getDate().equals(sum_list.get(i).getDate())) {
-                    if (sum_list.get(j).getAssetsClass().getId() == 1) {
-                        assetsClassDTO.setBondsValue(sum_list.get(j).getValue());
-                        y++;
-                    }
-                    if (sum_list.get(j).getAssetsClass().getId() == 2) {
-                        assetsClassDTO.setStocksValue(sum_list.get(j).getValue());
-                        y++;
-                    }
-                    if (sum_list.get(j).getAssetsClass().getId() == 3) {
-                        assetsClassDTO.setForexValue(sum_list.get(j).getValue());
-                        y++;
-                    }
-                    if (sum_list.get(j).getAssetsClass().getId() == 4) {
-                        if(sum_list.get(j).getValue().compareTo(BigDecimal.valueOf(1000))>0)
+            y = 0;
+            if (assetsClassDTO.getDate().getDayOfMonth() == 1) {
+                for (int j = i; j < i + Constant.NUM_ASSETS_CLASS && j < sum_list.size(); j++) {
+                    if (sum_list.get(j).getDate().equals(sum_list.get(i).getDate())) {
+                        if (sum_list.get(j).getAssetsClass().getId() == 1) {
+                            assetsClassDTO.setBondsValue(sum_list.get(j).getValue());
+                            y++;
+                        }
+                        if (sum_list.get(j).getAssetsClass().getId() == 2) {
+                            assetsClassDTO.setStocksValue(sum_list.get(j).getValue());
+                            y++;
+                        }
+                        if (sum_list.get(j).getAssetsClass().getId() == 3) {
+                            assetsClassDTO.setForexValue(sum_list.get(j).getValue());
+                            y++;
+                        }
+                        if (sum_list.get(j).getAssetsClass().getId() == 4) {
                             assetsClassDTO.setCommoditiesValue(sum_list.get(j).getValue());
-                        else
-                            assetsClassDTO.setCommoditiesValue(null);
-                        y++;
-                    }
+                            y++;
+                        }
+                    } else
+                        break;
                 }
-                else
-                    break;
+                assetsClassDTOList.add(assetsClassDTO);
             }
-            assetsClassDTOList.add(assetsClassDTO);
+            else
+                y++;
         }
         return  assetsClassDTOList;
 

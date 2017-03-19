@@ -22,8 +22,8 @@ public class AssetsClassController {
     }
 
     @RequestMapping("/trend")
-    public GenericResponse<List<AssetsClassDTO>> getAssetsClassHistory(){
-        List<AssetsClassDTO> assetsClassDTOList = assetsClassService.getAssetsClassHistory();
+    public GenericResponse<List<AssetsClassDTO>> getAssetsClassTrend(){
+        List<AssetsClassDTO> assetsClassDTOList = assetsClassService.getAssetsClassTrend();
 
         if(assetsClassDTOList != null && !assetsClassDTOList.isEmpty())
             return new GenericResponse<>(assetsClassDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);

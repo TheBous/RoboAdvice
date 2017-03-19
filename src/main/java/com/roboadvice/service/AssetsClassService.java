@@ -10,6 +10,6 @@ import java.util.List;
 public interface AssetsClassService {
 
     AssetsClass insert(AssetsClass ac);
-    List<AssetsClassDTO> getAssetsClassHistory();
+    List<AssetsClassDTO> getAssetsClassTrend();
 
 }

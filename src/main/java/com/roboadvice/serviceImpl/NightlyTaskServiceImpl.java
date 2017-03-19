@@ -43,7 +43,7 @@ public class NightlyTaskServiceImpl {
     }
 
     @Scheduled(cron ="0 0 5 * * *") //scheduled every day at 5:00 am
-    @Caching(evict = {@CacheEvict(cacheNames = "portfolioFullHistory", allEntries = true), @CacheEvict(cacheNames = "assetsClassHistory", allEntries = true)})
+    @Caching(evict = {@CacheEvict(cacheNames = "portfolioFullHistory", allEntries = true), @CacheEvict(cacheNames = "assetsClassTrend", allEntries = true)})
     public void updateAPI(){
         startTime = System.currentTimeMillis();
         System.out.println("============= NIGHTLY COMPUTATIONS STARTED =============\n");
