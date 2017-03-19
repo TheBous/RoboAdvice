@@ -1,10 +1,10 @@
 Colloquio con David:
 
-1)Delete Pending Strategy in History e in Portfolio.
+FATTO 1)Delete Pending Strategy in History e in Portfolio.
 
-2)Click sulle card in Balance per vedere con maggior precisione la crescita o la decrescita di BONDS,Commodities,Forex, Stocks.
+FATTO 2)Click sulle card in Balance per vedere con maggior precisione la crescita o la decrescita di BONDS,Commodities,Forex, Stocks.
 
-3)Polish codice con Let, const enum.
+FATTO 3)Polish codice con Let, const enum.
 
 4)rimuovere il css in html
 
@@ -53,9 +53,9 @@ ________________________________________________________________________________
 
 Issue:
 
-1)refresh pagina history dopo delete
+1)
 
-2)refresh pagina history dopo aver editato una nuova strategia
+2)
 
 3)se utente appena creato, finisce il tutorial, ed esce dal sito, gli viene data na strategia?
 
