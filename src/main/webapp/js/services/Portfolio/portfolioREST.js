@@ -24,6 +24,11 @@ RoboAdviceApp.service("portfolioREST",
                 params: {
                     user_id: '@user_id'
                 }
+            },
+
+            getAssetsTrend: {
+                method: 'POST',
+                url: "/assetsclass/trend"
             }
         })
     });
