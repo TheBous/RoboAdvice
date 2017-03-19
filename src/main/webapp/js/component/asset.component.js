@@ -14,13 +14,19 @@ RoboAdviceApp.component("assetGeneral",{
               id: 'y-axis-1',
               type: 'linear',
               display: true,
-              position: 'left'
             },
             {
               id: 'y-axis-2',
               type: 'linear',
               display: false,
               position: 'right'
+            }
+          ],
+          xAxes: [
+            {
+              id: 'x-axis-1',
+
+              display:false
             }
           ]
         }
