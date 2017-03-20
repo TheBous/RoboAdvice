@@ -81,7 +81,7 @@ var Strategy = function(strategyObj){
         amounts: [],
         dates: []
     };
-
+    this.portfoliosHistory = [];
     this.setActive = function(isActive){
       this.isActive = isActive;
     }
@@ -129,12 +129,16 @@ var Strategy = function(strategyObj){
         return this.portfolios.dates;
     }
 
+    this.getPortfolios = function(){
+        return this.portfoliosHistory;
+    }
+
     this.attachPortfolio = function(portfolio){
         //console.log("strategy.attachPortfolio| new portfolio, amount:",portfolio.getTotalAmount()," date: ",portfolio.getDate(),"at the strategy " + this.getName());
         // create the strategy portfolios
         this.portfolios.amounts.push(portfolio.getTotalAmount());
         this.portfolios.dates.push(portfolio.getDate());
-
+        this.portfoliosHistory.push(portfolio);
         // set the final amount
         this.final_amount = portfolio.getTotalAmount();
 
