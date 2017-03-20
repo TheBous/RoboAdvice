@@ -5,7 +5,29 @@
     <div class="parallax"><img src="../img/parallax_background.png"></div>
 </div>
 
+
+<div class="section transparent">
+
+    <div class="row container">
+        <div class="header_section" >Real Time Analytics</div>
+        <!--  <p class="grey-text text-darken-3 lighten-3">Qui possiamo mettere qualche scritta figa che magari michele e luca si inventano.</p> -->
+
+
+        <div class="row" ng-controller="GetGlobalAssets">
+          <div class="col s3" ng-repeat="asset in globalAssets">
+            <div class="center promo promo-example">
+              <p style="font-size:25px;" class="promo-caption">{{asset.name}}</p>
+              <asset-general show-y-label="false" portfolio-amount="asset.percentages" portfolio-date="asset.dates"></asset-general>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="parallax-container" style="height: 400px;">
+        <div class="parallax"><img src="../img/parallax3.png"></div>
+    </div>
 </div>
+
+
 <div class="section transparent">
 
     <div class="row container">
@@ -36,21 +58,12 @@
             </div>
         </div>
 
-        <div class="row" ng-controller="GetGlobalAssets">
-          <div class="col s3" ng-repeat="asset in globalAssets">
-            <div class="center promo promo-example">
-              <p style="font-size:25px;" class="promo-caption">{{asset.name}}</p>
-              <asset-general show-y-label="false" portfolio-amount="asset.percentages" portfolio-date="asset.dates"></asset-general>
-            </div>
-          </div>
-        </div>
+  
+    </div>
+    <div class="parallax-container" style="height: 400px;">
+        <div class="parallax"><img src="../img/parallax2.png"></div>
     </div>
 </div>
-<div class="parallax-container" style="height: 400px;">
-    <div class="parallax"><img src="../img/parallax2.png"></div>
-</div>
-
-
 
 <script>
 
