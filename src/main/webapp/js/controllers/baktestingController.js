@@ -1,3 +1,3 @@
-RoboAdviceApp.controller("Backtesting", function () {
+RoboAdviceApp.controller("Backtesting", function ($scope, $log) {
 
 });

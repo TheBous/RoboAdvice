@@ -1,7 +1,7 @@
 RoboAdviceApp.component("backDue",{
     bindings: {
     },
-    templateUrl: "../../html/assetClassGraph.html",
+    templateUrl: "../../html/backtesting2.html",
     controller: function($scope,CONFIG){
     }
 });

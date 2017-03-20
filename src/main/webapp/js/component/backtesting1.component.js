@@ -1,7 +1,7 @@
 RoboAdviceApp.component("backUno",{
     bindings: {
     },
-    templateUrl: "../../html/assetClassGraph.html",
+    templateUrl: "../../html/backtesting1.html",
     controller: function($scope,CONFIG){
     }
 });

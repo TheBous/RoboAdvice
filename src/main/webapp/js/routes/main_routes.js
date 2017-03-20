@@ -99,4 +99,7 @@ RoboAdviceApp.config(function($routeProvider) {
             templateUrl : 'html/portfolio.html',
             controller: "CheckUserLogged"
         })
+        .when('/backtesting', {
+            templateUrl : 'html/backtesting.html',
+        })
 });
