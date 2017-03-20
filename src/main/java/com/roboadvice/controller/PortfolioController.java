@@ -1,10 +1,7 @@
 package com.roboadvice.controller;
 
 import com.roboadvice.dto.PortfolioDTO;
-import com.roboadvice.model.Portfolio;
-import com.roboadvice.model.User;
 import com.roboadvice.service.PortfolioService;
-import com.roboadvice.service.UserService;
 import com.roboadvice.utils.Constant;
 import com.roboadvice.utils.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -76,9 +70,17 @@ public class PortfolioController {
     }
 
     @RequestMapping(value = "/backtesting", method = RequestMethod.POST)
-    public GenericResponse<List<PortfolioDTO>> getBacktestingChart(Authentication authentication){
-        String email = authentication.getName();
-        List<PortfolioDTO> portfolioDTOList = portfolioService.getBackTestingChart(email);
+    public GenericResponse<List<PortfolioDTO>> getBacktestingChart(@RequestParam(value="precision", defaultValue = "null") String precision,
+                                                                   @RequestParam(value="months", defaultValue = "0") int months,
+                                                                   Authentication authentication){
+
+        if(precision.equals("null") || (!precision.equals("weekly") && !precision.equals("monthly")))
+            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+        if(months<=0)
+            new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+
+        String userEmail = authentication.getName();
+        List<PortfolioDTO> portfolioDTOList = portfolioService.getBackTestingChart(userEmail, precision, months);
 
         if(portfolioDTOList!=null)
             return new GenericResponse<>(portfolioDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
