@@ -1,11 +1,9 @@
 package com.roboadvice.serviceImpl;
 
 import com.roboadvice.dto.PortfolioDTO;
-import com.roboadvice.dto.StrategyDTO;
 import com.roboadvice.model.*;
 import com.roboadvice.repository.*;
 import com.roboadvice.service.PortfolioService;
-import com.roboadvice.service.StrategyService;
 import com.roboadvice.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -140,7 +138,7 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
-    public List<PortfolioDTO> getBackTestingChart(String userEmail) {
+    public List<PortfolioDTO> getBackTestingChart(String userEmail, String prec, int months) {
         User u = userRepository.findByEmail(userEmail);
         if(u==null)
             return null;
@@ -148,6 +146,12 @@ public class PortfolioServiceImpl implements PortfolioService{
         List<Strategy> currentStrategyList = strategyRepository.findByUserAndActive(u, true);
         if(currentStrategyList==null || currentStrategyList.isEmpty())
             return null;
+
+        int precision;
+        if(prec.equals("weekly"))
+            precision = 1;
+        else
+            precision = 4;
 
         List<PortfolioDTO> portfolioDTOList = new ArrayList<>();
         PortfolioDTO pDTO;
@@ -157,7 +161,7 @@ public class PortfolioServiceImpl implements PortfolioService{
 
         BigDecimal investment = new BigDecimal(Constant.INITIAL_INVESTMENT);
         BigDecimal amount=BigDecimal.ZERO, value=BigDecimal.ZERO, units=BigDecimal.ZERO;
-        LocalDate startDate = LocalDate.now().minusYears(1);//LocalDate.parse("2017-01-01");
+        LocalDate startDate = LocalDate.now().minusMonths(months);//LocalDate.parse("2017-01-01");
         LocalDate endDate = LocalDate.now();
         Iterable<Assets> assetsList = assetsRepository.findAll();
         Iterable<AssetsClass> assetsClassList = assetsClassRepository.findAll();
@@ -204,7 +208,7 @@ public class PortfolioServiceImpl implements PortfolioService{
 
         List<BigDecimal> values = new ArrayList<>();
 
-        for(LocalDate date = startDate.plusDays(1); date.isBefore(endDate); date = date.plusDays(1)){
+        for(LocalDate date = startDate.plusDays(1); date.isBefore(endDate); date = date.plusWeeks(precision)){
             //System.out.println("Date: "+date.toString()+" - Size: "+portfolioList.size());
             oldPortfolioList.clear();
             for( ;index<portfolioList.size();index++){
