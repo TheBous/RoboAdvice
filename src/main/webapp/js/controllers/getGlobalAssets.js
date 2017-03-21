@@ -47,7 +47,7 @@ RoboAdviceApp.controller("GetGlobalAssets",function($scope,portfolioREST,$log,CO
         //data[0].map(function(value){return value.date.year+"/"+value.date.monthValue+"/"+value.date.dayOfMonth}),
 
         // setting the percentages for each asset class
-        for(var i=0;i<4;i++){
+        for(let i=0;i<4;i++){
           $scope.globalAssets[i]={
             name : CONFIG["ASSETS_NAME"][i],
             percentages : percentages[i],
@@ -60,4 +60,4 @@ RoboAdviceApp.controller("GetGlobalAssets",function($scope,portfolioREST,$log,CO
       }
   })
 
-})
+});

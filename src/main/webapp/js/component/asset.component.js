@@ -33,7 +33,6 @@ RoboAdviceApp.component("assetGeneral",{
       };
 
       this.$onInit = function() {
-        $log.debug("ASSET GRAPHS || print bonds,commodities, stocks, forex graph");
         if(this.portfolioDate.length!=this.portfolioAmount.length){
           $log.error("assetGeneral| error, x-axis and y-axis don't have the same length");
           //$log.debug("x: " + this.portfolioDate);

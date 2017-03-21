@@ -30,7 +30,7 @@ RoboAdviceApp.controller("RealtimeGraphController",function($scope,strategyServi
     let updateTime = new Date();
     $scope.lastStrategyDates.push(now.getHours() + ":" + now.getMinutes());
     saveRealtime();
-  }
+  };
 
   // check if exists somwthing in the local storage
   getRealtime();

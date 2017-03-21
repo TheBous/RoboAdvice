@@ -10,7 +10,7 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
         // get current strategy
         getCurrent: (usr_id) => strategyREST.getCurrent({user_id: usr_id}),
 
-        getCurrentStrategy: function(){
+        getCurrentStrategy(){
             //if(!this.strategyHistory[this.strategyHistory.length-1].isPending()){
             return this.strategyHistory[this.strategyHistory.length-1];
             //}
@@ -19,7 +19,7 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
             //return this.lastStrategy;
         },
         // set history and save it in the local variable
-        newStrategy: function(strategyObj){
+        newStrategy(strategyObj){
             /*
              The new strategy will be the last
              */
@@ -29,48 +29,35 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
             }
             this.strategyHistory.push(strategyObj);
         },
-        setHistory: function(usr_id,callback){
+        setHistory(usr_id,callback){
             let parent = this;
             strategyREST.getHistory({user_id: usr_id}).$promise.then(function(response){
                 if(response.statusCode == 0){
                     let strategyHistory = response.data;
-                    var ret = [];
+                    let ret = [];
                     strategyHistory.forEach(function(anElement){
                         let strategyObj = new Strategy(anElement);
                         ret.push(strategyObj);
                     });
-                    $log.error(ret);
                     parent.strategyHistory = ret;
                     if(callback)
                         callback(ret);
                 }else{
                     // something is not working
                     $log.error("strategyService | error on fetching strategy history");
-                    $log.error(response.statusCode);
                     if(callback)
                         callback(ret);
                 }
             });
         },
-        getHistory : function(){
+        getHistory(){
             return this.strategyHistory;
         },
-        // setLastStrategy: function(usr_id){
-        //   var parent = this;
-        //   strategyREST.getLastStrategy({user_id: usr_id}).$promise.then(function(response){
-        //     if(response.statusCode == 0){
-        //       parent.lastStrategy = new Strategy(response.data);
-        //       //callback(response.data);
-        //     }else{
-        //       //callback(null);
-        //     }
-        //   });
-        // },
-        setLastStrategy: function(strategyObj){
+        setLastStrategy(strategyObj){
             //$log.error(strategyObj)
             this.lastStrategy = strategyObj;
         },
-        getLastStrategy: function(){
+        getLastStrategy(){
             return this.lastStrategy;
         },
         // insert a new strategy for the user
@@ -94,7 +81,7 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
                 strategyREST.insert({user_id: usr_id, bonds_p: ''+percentages[0], stocks_p:''+percentages[1], forex_p:''+percentages[2], commodities_p:''+percentages[3], name:strategy_name})
         },
         // get standard hard-coded strategies
-        getStandardStrategies : function(){
+        getStandardStrategies(){
             return [
                 { name: "Bonds", strategy:
                     [
@@ -143,14 +130,14 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
             ]
         },
         // end get standard strategy
-        deletePending: function(callback){
-            var parent = this;
+        deletePending(callback){
+            let parent = this;
             $log.debug("strategyService.deletePending| actual length: " + parent.strategyHistory.length);
+            
             strategyREST.deletePending().$promise.then(function (response){
                 if (response.statusCode==0){
                     $log.debug("strategyService.deletePending | statusCode == 0");
                     parent.strategyHistory = parent.strategyHistory.slice(0,-1);
-                    $log.debug("StrategyREST | after delete: " + parent.strategyHistory.length);
                     if(callback)
                         callback(true);
                 }else{
@@ -161,5 +148,6 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
             });
         }
 
-    }// end return
+    };
+    // end return
 });

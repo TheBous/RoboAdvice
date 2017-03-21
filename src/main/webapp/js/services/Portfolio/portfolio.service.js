@@ -19,28 +19,28 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
 
         portfolioDifferences: {},
 
-        getPortfolioHistory:   () => this.portfolioHistory,
+        getPortfolioHistory()  {return this.portfolioHistory},
 
-        getPortfolioAmounts: function(){
+        getPortfolioAmounts(){
             return this.portfoliosRaw.amounts;
         },
 
-        getClassAssets: function(){
+        getClassAssets(){
             return this.portfoliosRaw.class_assets;
         },
-        getPortfolioDates: function(){
+        getPortfolioDates(){
             return this.portfoliosRaw.dates;
         },
 
-        getPortfolioDifferences: function(){
+        getPortfolioDifferences(){
             return this.portfolioDifferences;
         },
 
-        getFullHistory: function(usr_id, callback){
+        getFullHistory(usr_id, callback){
             let parent = this;
             portfolioREST.getFullHistory({user_id: usr_id}).$promise.then(function(response){
                 if(response.statusCode == 0){
-                    $log.debug("portfolioService.getFullHistory || Received Obj:");
+                    $log.debug("portfolioService.getFullHistory");
                     let portfolioHistory = response.data;
 
                     let strategy_index = 0;
@@ -53,7 +53,7 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                         $log.debug("portfolioService.setHistory| strategies: " + strategies.length)
 
                         // for each portfolio
-                        let ret = []
+                        let ret = [];
                         let i =0;
                         let portfolioAmount = 0;
 
@@ -79,8 +79,7 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                                 // if the next strategy exists and has a date after the portfolio Date
                                 if(strategy_index + 1 < strategies.length && strategies[strategy_index+1].getDate() <= portfolioDate){
                                     // the next strategy
-                                    $log.debug(portfolioDate)
-                                    $log.debug("portfolioService.getFullHistory| next Strategy: "+strategies[strategy_index+1].getName() + " date: " + strategies[strategy_index+1].getDate());
+                                    $log.debug("portfolioService.getFullHistory| next Strategy name: "+strategies[strategy_index+1].getName());
                                     strategies[strategy_index+1].setInitialAmount(portfolioAmount);
                                     strategies[strategy_index].setFinalAmount(portfolioAmount);
                                     strategy_index++;
@@ -106,7 +105,7 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                         }
 
                         if(i>1){
-                            $log.debug("portfolioService.setHistory| setting up portoflio Differences: ");
+                            $log.debug("portfolioService.setHistory| setting up portfolio Differences: ");
                             let last_portfolio_index = i-1;
                             parent.portfolioDifferences = new Array(4);
                             parent.portfolioDifferences[0]=portfolioHistory[last_portfolio_index].bondsAmount!=0 ? (
@@ -136,6 +135,7 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                 }
             });
         },
-        setPortfolioByDate: function(){}
+        //unused function for future
+        setPortfolioByDate(){}
     }
 });

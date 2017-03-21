@@ -18,14 +18,14 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
         portfolioList: null,
         hasPortfolio: false, // this flag is true when the user has at least a portfolio active
 
-        init: function(user_obj){
+        init(user_obj){
             let parent = this;
             $log.debug("userService.init| init user called, setted user object");
             this.userObj = user_obj;
             this.logged = true;
             this.setStrategyHistory();
         },
-        setStrategyHistory: function(){
+        setStrategyHistory(){
             let parent = this;
             $log.debug("userService.setStrategyHistory| setting up user's strategies");
 
@@ -41,7 +41,7 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
                 parent.setCurrentPortfolio();
             });
         },
-        newStrategy: function(strategyObj){
+        newStrategy(strategyObj){
             // insert a new strategy at runtime
             let newStrategy = new Strategy(strategyObj);
             if(this.hasStrategy){
@@ -52,9 +52,10 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
                 newStrategy.setFinalAmount(CONFIG["INITIAL_AMOUNT"]);
                 this.hasStrategy = true;
             }
+            $log.debug("userService.newStrategy | set new strategy");
             strategyService.newStrategy(newStrategy);
         },
-        setCurrentPortfolio : function() {
+        setCurrentPortfolio() {
             let parent = this;
             portfolioService.getFullHistory(this.getId(), function(portfolioHistory){
                 if(portfolioHistory != null){
@@ -70,7 +71,7 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
             });
         },
 
-        update: function(newObj){
+        update(newObj){
             // this method update the user object with the new object
             $log.info("userService.update| updating the user ");
             $parent = this;
@@ -92,36 +93,36 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
         },
 
         /* USER PORTFOLIO METHODS */
-        hasCurrentPortfolio: function(){    return this.hasPortfolio;},
-        getCurrentPortfolioAmount: function(){
+        hasCurrentPortfolio() {return this.hasPortfolio},
+        getCurrentPortfolioAmount(){
             if(this.currentPortfolio!=null)
                 return this.currentPortfolio.getTotalAmount();
             else return CONFIG["INITIAL_AMOUNT"];
         },
         /* USER STRATEGY METHODS */
-        hasStrategies: function(){          return this.hasStrategy},
+        hasStrategies(){          return this.hasStrategy},
 
         /* USER METHODS */
-        getToken: function(){               return this.token;},
-        getId : function(){                 return this.userObj.id; },
-        getObj: function(){                 return this.userObj; },
-        isLogged: function(){               return this.logged; },
-        getUser: function(){                return this.userObj; },
-        getName: function(){                return this.userObj.name; },
-        getEmail: function(){               return this.userObj.email; },
-        getPassword: function(){            return this.userObj.password; },
-        getSurname: function(){             return this.userObj.surname; },
-        setName: function(name){            this.userObj.name = name; },
-        setToken: function(newToken){       this.token=newToken;},
-        setEmail: function(email){          this.userObj.email = email; },
-        setPassword: function(password){    this.userObj.password = password; },
-        setSurname: function(surname){      this.userObj.surname = surname; },
-        logout: function(){
+        getToken(){               return this.token;},
+        getId (){                 return this.userObj.id; },
+        getObj(){                 return this.userObj; },
+        isLogged(){               return this.logged; },
+        getUser(){                return this.userObj; },
+        getName(){                return this.userObj.name; },
+        getEmail(){               return this.userObj.email; },
+        getPassword(){            return this.userObj.password; },
+        getSurname(){             return this.userObj.surname; },
+        setName(name){            this.userObj.name = name; },
+        setToken(newToken){       this.token=newToken;},
+        setEmail(email){          this.userObj.email = email; },
+        setPassword(password){    this.userObj.password = password; },
+        setSurname(surname){      this.userObj.surname = surname; },
+        logout(){
             this.userObj = {};
             this.logged = false;
         },
 
-        doLogin: function(params,callback){
+        doLogin(params,callback){
             // request the login REST controller from the backend
             let parent = this;
             userREST.login(params).$promise
