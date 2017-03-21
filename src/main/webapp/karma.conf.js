@@ -34,6 +34,7 @@ module.exports = function(config) {
             './bower_components/angular-route/angular-route.js',
             './bower_components/angular-wizard/dist/angular-wizard.js',
             './bower_components/angular-loading-bar/build/loading-bar.js',
+            '.bower_components/sweetalert/dist/sweetalert.min.js',
             './js/app.js',
             './js/CONFIG.js',
             './js/STATUS_CODES.js',
