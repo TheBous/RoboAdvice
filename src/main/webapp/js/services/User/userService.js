@@ -57,7 +57,7 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
         },
         setCurrentPortfolio() {
             let parent = this;
-            portfolioService.getFullHistory(this.getId(), function(portfolioHistory){
+            portfolioService.getFullHistory(function(portfolioHistory){
                 if(portfolioHistory != null){
                     // portfolioHistory has something
                     $log.debug("userService.setCurrentPortfolio| the user has portfolioHistory")
@@ -71,22 +71,23 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
             });
         },
 
-        update(newObj){
+        update(newObj,callback){
             // this method update the user object with the new object
             $log.info("userService.update| updating the user ");
             $parent = this;
             if(newObj.name == this.userObj.name && newObj.surname==this.userObj.surname){
                 // the values are the same, do nothing
                 //sweetAlert(USER_CODES["NO_CHANGES"], "", "error")
+
             }else{
                 userREST.update({name: newObj["name"],surname:newObj["surname"],email:$parent.getEmail(),password:$parent.getPassword()}).$promise.then(function(response){
                     if(response.statusCode == 0){
                         // update done
                         $parent.userObj.name = newObj.name;
                         $parent.userObj.surname = newObj.surname;
-                        sweetAlert(USER_CODES[response.statusCode], "" , "success");
+                        callback(true,USER_CODES[response.statusCode]);
                     }else{
-                        sweetAlert(USER_CODES[response.statusCode], "", "error");
+                        callback(false,USER_CODES[response.statusCode]);
                     }
                 });
             }
