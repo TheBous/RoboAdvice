@@ -17,6 +17,10 @@ describe("Strategy Test Suite - ",function(){
     //_userService_.isValsecchi("ciao");
     strategyService = _strategyService_;
     userService = _userService_;
+    http = $httpBackend;
+    http.when('POST', '/strategy/delete').respond(200,{statusCode: 0});
+    //http.expectPOST('/strategy/delete');
+
   }));
 
   /*
@@ -37,6 +41,14 @@ describe("Strategy Test Suite - ",function(){
     it("he wants to see current strategy assets allocation", function(){
       expect(strategyService.getCurrentStrategy().getAssets()).toBeDefined();
     });
+
+    it("he wants to see standard Strategies",function(){
+      let standardStrategies = strategyService.getStandardStrategies();
+      expect(strategyService.getStandardStrategies().length).toEqual(5);
+      standardStrategies.forEach(function(strategy){
+        expect(["Bonds","Income","Balanced","Growth","Stocks"].includes(strategy.name)).toBeTruthy();
+      })
+    })
 
     it("he wants to get the current strategy",function(){
       expect(strategyService.getCurrentStrategy()).toEqual(strategyService.strategyHistory[strategyService.strategyHistory.length-1]);
@@ -86,6 +98,16 @@ describe("Strategy Test Suite - ",function(){
       expect(theStrategy).toEqual(pendingStrategy);
       expect(theStrategy.isActive).toBeTruthy();
       expect(pendingStrategy.isPending()).toBeTruthy();
+    });
+
+    it("he can delete the first strategy and add a new one",function(){
+      strategyService.newStrategy(pendingStrategy);
+      //http.get('/strategy/delete');
+      http.expectPOST('/strategy/delete').respond(200,function(data){
+        strategyService.deletePending();
+        expect(strategyService.strategyHistory.length).toEqual(0);
+      });
+
     });
 
     it("he wants to see the initial amount that must be 10000",function(){
