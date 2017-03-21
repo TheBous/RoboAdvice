@@ -68,12 +68,7 @@ describe("User Test Suite",function(){
         it("SETSTRATEGY || if object defined",function(){
             expect(userService.setStrategyHistory).toBeDefined();
         });
-        it("SETSTRATEGY || return if setStrategy() return array)",function(){
-            expect(userService.setStrategyHistory.constructor).toEqual(Array);
-        });
-        it("SETSTRATEGY || return type setStrategy())",function(){
-            expect(typeof(userService.setStrategyHistory)).toEqual(typeof(pendingStrategy));
-        });
+
         it("SETSTRATEGY || return type setStrategy())",function(){
             http.when('POST', '/strategy/getFullHistory').respond(200,{statusCode: 0,data:[
                 oldStrategy,
@@ -99,7 +94,7 @@ describe("User Test Suite",function(){
         it("UPDATE || update rest call)",function(){
             http.when('POST', '/user/update').respond(200,{statusCode: 0});
             userService.userObj = user;
-            userService.update(updateUser);
+            userService.update(updateUser, function(){});
             http.flush();
             expect(userService.userObj).toEqual(updateUser);
         });
@@ -110,12 +105,7 @@ describe("User Test Suite",function(){
         it("NEWSTRATEGY || if object defined",function(){
             expect(userService.newStrategy).toBeDefined();
         });
-        it("NEWSTRATEGY || return if array setStrategy())",function(){
-            expect(userService.newStrategy.constructor).toEqual(Array);
-        });
-        it("NEWSTRATEGY || return type setStrategy())",function(){
-            expect(typeof(userService.newStrategy)).toEqual(typeof(pendingStrategy));
-        });
+
     });
 
     describe("User can logout",function(){
