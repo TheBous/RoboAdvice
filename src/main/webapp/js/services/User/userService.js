@@ -57,7 +57,7 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
         },
         setCurrentPortfolio() {
             let parent = this;
-            portfolioService.getFullHistory(this.getId(), function(portfolioHistory){
+            portfolioService.getFullHistory(function(portfolioHistory){
                 if(portfolioHistory != null){
                     // portfolioHistory has something
                     $log.debug("userService.setCurrentPortfolio| the user has portfolioHistory")
