@@ -32,6 +32,7 @@ public class NightlyTaskServiceImpl {
 
     private long startTime;
     private long endTime;
+    private LocalDate lastUpdate;
 
     @Autowired
     public NightlyTaskServiceImpl(PortfolioRepository portfolioRepository, ApiDataRepository apiDataRepository, StrategyRepository strategyRepository, AssetsClassRepository assetsClassRepository, AssetsRepository assetsRepository) {
@@ -80,6 +81,9 @@ public class NightlyTaskServiceImpl {
 
     //CREATE NEW PORTFOLIO FOR NEW USERS
     private void insertPortfoliosForNewStrategiesFromNewUsers(){
+
+        lastUpdate = portfolioRepository.getLastUpdateDate();
+
         BigDecimal investment = new BigDecimal(Constant.INITIAL_INVESTMENT);
         BigDecimal amount, value, units;
 
@@ -129,12 +133,14 @@ public class NightlyTaskServiceImpl {
         ApiData api;
         int i=0;
 
-        //prendo tutti i portfoli della giornata di ieri degli utenti che non hanno cambiato strategia
-        //cioé utenti la cui strategia attiva ha data<ieri
-        List<Portfolio> portfolios = portfolioRepository.findAllPortfoliosToBeUpdatedByDate(LocalDate.now().minus(java.time.Period.ofDays(1)));
+        //prendo tutti i portfoli della giornata di ieri degli utenti che non hanno cambiato strategia,
+        //cioé utenti la cui strategia attiva ha data<last_update
+        List<Portfolio> portfolios = portfolioRepository.findAllPortfoliosToBeUpdatedByDate(lastUpdate);
+        //List<Portfolio> portfolios = portfolioRepository.findPortfoliosToBeUpdated();
 
         if(!portfolios.isEmpty()) {
-            List<User> users = portfolioRepository.findAllPortfoliosUsersByDate(LocalDate.now().minus(java.time.Period.ofDays(1)));
+            //List<User> users = portfolioRepository.findAllPortfoliosUsersByDate(LocalDate.now().minus(java.time.Period.ofDays(1)));
+            List<User> users = portfolioRepository.findAllPortfoliosUsersByDate(portfolios.get(0).getDate());
             Portfolio updatedPortfolio;
             Iterable<AssetsClass> assetsClasses = assetsClassRepository.findAll();
             Iterable<Assets> assets = assetsRepository.findAll();
@@ -205,14 +211,14 @@ public class NightlyTaskServiceImpl {
             Iterable<Assets> allAssets = assetsRepository.findAll();
             for(Strategy strategy : newStrategies){
                 user = strategy.getUser();
-                oldPortfolio = portfolioRepository.findByUserAndDate(user, LocalDate.now().minus(java.time.Period.ofDays(1))); //portfolio di ieri dell'utente
+                //oldPortfolio = portfolioRepository.findByUserAndDate(user, LocalDate.now().minus(java.time.Period.ofDays(1))); //portfolio di ieri dell'utente
+                oldPortfolio = portfolioRepository.findByUserAndDate(user, strategy.getDate());
                 for(Assets asset : allAssets) {
                     for (Portfolio portfolio : oldPortfolio) {
                         if(asset.getId() == portfolio.getAssets().getId()){
                             api = apiDataRepository.findLatestValueByAsset(asset.getId());
                             investment = investment.add(portfolio.getUnits().multiply(api.getValue())); //calcolo l'investimento iniziale del nuovo portfolio partendo dal vecchio
                         }
-
                     }
                 }
 
@@ -256,7 +262,8 @@ public class NightlyTaskServiceImpl {
     }
 
     private List<Strategy> getNewStrategiesFromNewUsers() {
-        List<Strategy> newStrategies = strategyRepository.findNewStrategies(LocalDate.now().minus(java.time.Period.ofDays(1)));
+        //List<Strategy> newStrategies = strategyRepository.findNewStrategies(LocalDate.now().minus(java.time.Period.ofDays(1)));
+        List<Strategy> newStrategies = strategyRepository.findNewStrategies(lastUpdate);
 
         if (!newStrategies.isEmpty()){
             List<Strategy> oldUserStrategies = new ArrayList<>();
@@ -277,7 +284,8 @@ public class NightlyTaskServiceImpl {
     }
 
     private List<Strategy> getNewStrategiesFromOldUsers() {
-        List<Strategy> newStrategies = strategyRepository.findNewStrategies(LocalDate.now().minus(java.time.Period.ofDays(1)));
+        //List<Strategy> newStrategies = strategyRepository.findNewStrategies(LocalDate.now().minus(java.time.Period.ofDays(1)));
+        List<Strategy> newStrategies = strategyRepository.findNewStrategies(lastUpdate);
 
         if (!newStrategies.isEmpty()){
             List<Strategy> oldUserStrategies = new ArrayList<>();
