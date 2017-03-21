@@ -15,11 +15,11 @@
                     <div class="row">
                         <div class="col m8 s12">
                             <div class="card white">
-                                <div class="card-content teal-text">
+                                <div class="card-content teal-text" ng-controller="RealtimeGraphController">
                                     <span class="card-title"> {{strategy.getLastStrategy().getName()}} Trend</span>
 
                                     <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
-                                    <realtime-line-graph realtime="false" vertical-axis="strategy.getCurrentStrategy().getHistoryAmount()" horizzontal-axis="strategy.getCurrentStrategy().getHistoryDate()"></realtime-line-graph>
+                                    <realtime-line-graph realtime="false" increment-data="incrementData()" vertical-axis="lastStrategyAmounts" horizzontal-axis="lastStrategyDates"></realtime-line-graph>
                                     <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
                                 </div>
                                 <!--<div class="card-action">
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="card-action" style="text-align:right">
                                     <a href="#!/wizard" class="btn-floating waves-effect waves-light cyan tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Strategy" ><i class="material-icons left">mode_edit</i>Edit</a>
-                                    <a ng-if="strategy.getCurrentStrategy().isPending()" ng-click="deletePending()" class="btn-floating  waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Strategy""><i class="material-icons left">delete</i>Delete</a>
+                                    <a ng-if="strategy.getCurrentStrategy().isPending()" ng-click="deletePending()" class="btn-floating  waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Strategy"><i class="material-icons left">delete</i>Delete</a>
                                 </div>
                             </div>
                         </div>
