@@ -142,7 +142,7 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
                         callback(response);
                     }else{
                         // silent login
-                        if(data.statusCode == 0){
+                        if(response.data.statusCode == 0){
                             // everything is gone well
                             $log.debug("userService.doLogin silent| statusCode is 0");
                         }else{
