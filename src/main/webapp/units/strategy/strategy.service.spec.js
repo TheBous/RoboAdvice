@@ -115,7 +115,7 @@ describe("Strategy Test Suite - ",function(){
 
       strategyService.deletePending();
       http.flush();
-      expect(strategyService.getHistory().length).toEqual(0);
+      expect(strategyService.strategyHistory.length).toEqual(0);
     });
 
     it("he wants to see the initial amount that must be 10000",function(){
