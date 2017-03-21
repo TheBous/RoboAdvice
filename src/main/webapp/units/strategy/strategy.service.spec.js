@@ -35,7 +35,14 @@ describe("Strategy Test Suite - ",function(){
     }));
 
     it("he wants to see his strategy history",function(){
+      http.when('POST', '/strategy/getFullHistory').respond(200,{statusCode: 0,data:[
+        oldStrategy,
+        activeStrategy
+      ]});
+      strategyService.setHistory();
+      http.flush();
       expect(strategyService.strategyHistory).toBeDefined();
+      expect(strategyService.strategyHistory.length).toEqual(2);
     });
 
     it("he wants to see current strategy assets allocation", function(){
@@ -65,9 +72,10 @@ describe("Strategy Test Suite - ",function(){
       let beforeInsertLength = strategyService.strategyHistory.length;
       strategyService.newStrategy(pendingStrategy.strategyObj);
       // expect(strategyService.getLastStrategy().isPending()).toBeTruthy();
-      strategyService.deletePending(function(){
-        expect(strategyService.strategyHistory.length).toEqual(beforeInsertLength);
-      });
+      http.when('POST', '/strategy/delete').respond(200,{statusCode: 0});
+      strategyService.deletePending();
+      http.flush();
+      expect(strategyService.strategyHistory.length).toEqual(beforeInsertLength);
     });
 
     it("he can't delete an active strategy", function(){
@@ -102,12 +110,12 @@ describe("Strategy Test Suite - ",function(){
 
     it("he can delete the first strategy and add a new one",function(){
       strategyService.newStrategy(pendingStrategy);
-      //http.get('/strategy/delete');
-      http.expectPOST('/strategy/delete').respond(200,function(data){
-        strategyService.deletePending();
-        expect(strategyService.strategyHistory.length).toEqual(0);
-      });
+      // set the backend response
+      http.when('POST', '/strategy/delete').respond(200,{statusCode: 0});
 
+      strategyService.deletePending();
+      http.flush();
+      expect(strategyService.getHistory().length).toEqual(0);
     });
 
     it("he wants to see the initial amount that must be 10000",function(){
