@@ -30,7 +30,7 @@ RoboAdviceApp.component("userEditableFields",{
         </div>
        &lt;!&ndash; <button ng-click="$ctrl.update()">Update</button> &ndash;&gt;
        <div style="text-align: center;">
-<a ng-click="$ctrl.onUpdate({newUser : $ctrl.user})" class="waves-effect waves-light btn"><i class="material-icons left">save</i>Update</a></div>-->
+<a ng-click="update()" class="waves-effect waves-light btn"><i class="material-icons left">save</i>Update</a></div>-->
     `,
     controller: function($log){
         $ctrl = this;
@@ -44,7 +44,6 @@ RoboAdviceApp.component("userEditableFields",{
                 $ctrl.newUser[field]=this.user[field]
             }
 
-
             $ctrl.fields = [
                 {label: "Name",     name:"name",     oldValue: this.user.name},
                 {label: "Surname",  name:"surname",  oldValue: this.user.surname}
@@ -52,12 +51,13 @@ RoboAdviceApp.component("userEditableFields",{
             ];
         }
 
-        //this.$onChanges = function(changesObject){
-        //    $log.debug(changesObject);
-        //}
-
         this.update = function(){
-            swal("Profile updated!", "Crongratulation!", "success");
+            this.onUpdate({newUser: $ctrl.user},function(status,message){
+              if(status)
+                sweetAlert(message, "" , "success");
+              else
+                sweetAlert(message, "" , "error");
+            });
         }
     }
 })
