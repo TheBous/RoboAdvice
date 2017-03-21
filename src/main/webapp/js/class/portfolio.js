@@ -11,7 +11,11 @@ var Portfolio = class {
         this.forexPercentage = PortObj.forexPercentage;
         this.stocksAmount = PortObj.stocksAmount;
         this.stocksPercentage = PortObj.stocksPercentage;
-        this.dateFormatted = this.date.getDayFormatted();
+        this.dateFormatted = {
+          day: this.date.getDayFormatted(),
+          month: this.date.getMonthFormatted(),
+          year: this.date.getUTCFullYear()
+        }
     }
 
     getBondsAmount(){           return this.bondsAmount; }
