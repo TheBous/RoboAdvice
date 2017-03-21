@@ -29,9 +29,25 @@ describe("User Test Suite",function(){
         surname: "g",
         password: 12345678,
         role: "USER"
-
-
     };
+
+    var firstPortfolio = {
+      totalAmount: 10000,
+      date: {
+        year:2017,
+        monthValue:3,
+        dayOfMonth: 19
+      },
+      bondsAmount: 5000,
+      bondsPercentage: 95,
+      commoditiesAmount: 10000,
+      commoditiesPercentage: 0,
+      forexAmount: 10000,
+      forexPercentage: 0,
+      stocksAmount: 10000,
+      stocksPercentage: 5
+    };
+    
     beforeEach(angular.mock.module('RoboAdviceApp'));
 
     beforeEach(inject(function(_userService_, $httpBackend) {
@@ -70,13 +86,16 @@ describe("User Test Suite",function(){
         });
 
         it("SETSTRATEGY || return type setStrategy())",function(){
+          http.when('POST', '/portfolio/getFullHistory').respond(200,{statusCode: 0,data:[
+            firstPortfolio
+          ]});
             http.when('POST', '/strategy/getFullHistory').respond(200,{statusCode: 0,data:[
                 oldStrategy,
                 activeStrategy
             ]});
             userService.setStrategyHistory();
             http.flush();
-            expect().toBeDefined();
+            //expect().toBeDefined();
             // expect(strategyService.strategyHistory.length).toEqual(2);
         });
 
