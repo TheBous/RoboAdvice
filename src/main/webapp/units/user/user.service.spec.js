@@ -95,7 +95,8 @@ describe("User Test Suite",function(){
             ]});
             userService.setStrategyHistory();
             http.flush();
-            //expect().toBeDefined();
+            expect(userService.hasStrategy).toEqual(true);
+
             // expect(strategyService.strategyHistory.length).toEqual(2);
         });
 
