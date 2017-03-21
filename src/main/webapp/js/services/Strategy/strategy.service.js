@@ -146,6 +146,7 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
         deletePending: function(callback){
             var parent = this;
             $log.debug("strategyService.deletePending| actual length: " + parent.strategyHistory.length);
+            
             strategyREST.deletePending().$promise.then(function (response){
                 if (response.statusCode==0){
                     $log.debug("strategyService.deletePending | statusCode == 0");
