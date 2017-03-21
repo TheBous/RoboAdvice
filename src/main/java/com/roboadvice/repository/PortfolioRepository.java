@@ -1,16 +1,13 @@
 package com.roboadvice.repository;
 
-import com.roboadvice.dto.PortfolioDTO;
 import com.roboadvice.model.Portfolio;
 import com.roboadvice.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,6 +24,9 @@ public interface PortfolioRepository extends PagingAndSortingRepository<Portfoli
 
     @Query(value = "SELECT * FROM portfolio WHERE user_id=?1 GROUP BY assets_class_id, date ORDER BY date, assets_class_id", nativeQuery = true)
     List<Portfolio> fullHistoryByUser(User u);
+
+    @Query("SELECT MAX(p.date) FROM Portfolio p")
+    LocalDate getLastUpdateDate();
 
     @Query("SELECT p FROM Portfolio p WHERE p.date=?1 AND p.user NOT IN (SELECT s.user FROM Strategy s  WHERE s.active=1 AND s.date=?1 GROUP BY s.user)")
     List<Portfolio> findAllPortfoliosToBeUpdatedByDate(LocalDate date);

@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class PortfolioController {
 
     }
 
-    @RequestMapping(value = "/backtesting", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/backtesting", method = RequestMethod.POST)
     public GenericResponse<List<PortfolioDTO>> getBacktestingChart(@RequestParam(value="precision", defaultValue = "null") String precision,
                                                                    @RequestParam(value="months", defaultValue = "0") int months,
                                                                    Authentication authentication){
@@ -77,7 +78,7 @@ public class PortfolioController {
         if(precision.equals("null") || (!precision.equals("weekly") && !precision.equals("monthly")))
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
         if(months<=0)
-            new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
 
         String userEmail = authentication.getName();
         List<PortfolioDTO> portfolioDTOList = portfolioService.getBackTestingChart(userEmail, precision, months);
@@ -86,6 +87,16 @@ public class PortfolioController {
             return new GenericResponse<>(portfolioDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
         else
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
-    }
+    }*/
+
+    /*@RequestMapping(value = "/advice", method = RequestMethod.POST)
+    public GenericResponse<BigDecimal> getAdvice(@RequestParam(value = "strategy", defaultValue = "null") int strategyCode,
+                                                 Authentication authentication){
+        if(strategyCode<1 || strategyCode>4)
+            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+
+        String userEmail = authentication.getName();
+        PortfolioDTO pDTO = portfolioService.getAdvice(userEmail, strategyCode);
+    }*/
 
 }
