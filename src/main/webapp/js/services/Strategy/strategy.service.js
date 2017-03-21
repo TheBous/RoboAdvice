@@ -34,19 +34,17 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
             strategyREST.getHistory({user_id: usr_id}).$promise.then(function(response){
                 if(response.statusCode == 0){
                     let strategyHistory = response.data;
-                    var ret = [];
+                    let ret = [];
                     strategyHistory.forEach(function(anElement){
                         let strategyObj = new Strategy(anElement);
                         ret.push(strategyObj);
                     });
-                    $log.error(ret);
                     parent.strategyHistory = ret;
                     if(callback)
                         callback(ret);
                 }else{
                     // something is not working
                     $log.error("strategyService | error on fetching strategy history");
-                    $log.error(response.statusCode);
                     if(callback)
                         callback(ret);
                 }
@@ -144,13 +142,12 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
         },
         // end get standard strategy
         deletePending: function(callback){
-            var parent = this;
+            let parent = this;
             $log.debug("strategyService.deletePending| actual length: " + parent.strategyHistory.length);
             strategyREST.deletePending().$promise.then(function (response){
                 if (response.statusCode==0){
                     $log.debug("strategyService.deletePending | statusCode == 0");
                     parent.strategyHistory = parent.strategyHistory.slice(0,-1);
-                    $log.debug("StrategyREST | after delete: " + parent.strategyHistory.length);
                     if(callback)
                         callback(true);
                 }else{
