@@ -89,7 +89,7 @@ public class PortfolioController {
     @RequestMapping(value = "/advice", method = RequestMethod.POST)
     public GenericResponse<BigDecimal> getAdvice(@RequestParam(value = "strategy", defaultValue = "null") int strategyCode,
                                                  Authentication authentication){
-        if(strategyCode<1 || strategyCode>4)
+        if(strategyCode<1 || strategyCode>5)
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
 
         String userEmail = authentication.getName();
