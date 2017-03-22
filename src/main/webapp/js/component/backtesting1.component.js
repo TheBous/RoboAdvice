@@ -12,7 +12,8 @@ RoboAdviceApp.component("backUno",{
         this.update = function(){
             $log.debug("+++++++++++");
             this.onUpdate({data: {precision: this.precision, interval: this.interval}});
-
+            $log.debug($scope.selection);
+            $log.debug($scope.francesco);
         }
     }
 });
