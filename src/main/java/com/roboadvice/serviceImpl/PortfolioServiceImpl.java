@@ -139,6 +139,7 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
+    @Cacheable("backtestingChart")
     public List<PortfolioDTO> getBackTestingChart(String userEmail, LocalDate fromDate) {
         User u = userRepository.findByEmail(userEmail);
         if(u==null)
@@ -346,9 +347,11 @@ public class PortfolioServiceImpl implements PortfolioService{
         }
         else return null;
 
-        LocalDate startDate = currentStrategyList.get(0).getDate().plusDays(1);
+        LocalDate startDate = currentStrategyList.get(0).getDate();
         LocalDate endDate = LocalDate.now();
         BigDecimal startAmount = portfolioRepository.findTotalAmountByUserAndDate(u, startDate);
+        if(startAmount==null)
+            startAmount = new BigDecimal(10000);
         BigDecimal amount=BigDecimal.ZERO, value=BigDecimal.ZERO, units=BigDecimal.ZERO;
         List<Assets> assetsList = (List<Assets>) assetsRepository.findAll();
         ApiData api;
