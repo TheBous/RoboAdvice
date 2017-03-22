@@ -1,8 +1,14 @@
 RoboAdviceApp.controller("Backtesting", function ($scope, $log, portfolioService) {
+    $scope.xAxis = [];
+    //$log.debug($scope.xAxis);
+    $scope.yAxis = [];
+    // $log.debug($scope.yAxis);
+
     $scope.update = function(data) {
-        var graphDates = [];
-        var formattedDateGraph = [];
-        var formattedValueGraph = [];
+        //var graphDates = [];
+        let formattedDateGraph = [];
+        let formattedValueGraph = [];
+
         $scope.TheInterval = data.interval;
         $log.debug("PortfolioService | Interval: "+ data.interval);
         portfolioService.getBacktesting(data.interval, function(response){
@@ -12,10 +18,15 @@ RoboAdviceApp.controller("Backtesting", function ($scope, $log, portfolioService
                     $log.debug(response.data[i].date);
                     formattedDateGraph[i] = response.data[i].date.dayOfMonth + "-" + response.data[i].date.monthValue + "-" + response.data[i].date.year;
                     formattedValueGraph[i] = response.data[i].totalAmount;
-                    $log.debug(formattedDateGraph[i]);
-                    $log.debug(formattedValueGraph[i]);
-
+                    //$log.debug(formattedDateGraph[i]);
+                    //$log.debug(formattedValueGraph[i]);
                 }
+                $scope.xAxis = formattedDateGraph;
+                //$log.debug($scope.xAxis);
+                $scope.yAxis = formattedValueGraph;
+                // $log.debug($scope.yAxis);
+
+
             }
             else{
                 $log.debug(response.statusCode);
