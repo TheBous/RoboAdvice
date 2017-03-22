@@ -36,7 +36,8 @@ RoboAdviceApp.component("realtimeLineGraph",{
             };
 
             $scope.getNewData = function(){
-                $ctrl.incrementData()
+                let $this = this;
+                $ctrl.incrementData({data:$ctrl.forecastValue})
             };
 
             if(this.realtime == "true"){
