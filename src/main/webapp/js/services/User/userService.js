@@ -71,9 +71,13 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
             });
         },
 
-        update(newObj,callback){
+        update(data){
             // this method update the user object with the new object
             $log.info("userService.update| updating the user ");
+            $log.info(data);
+            let newObj = data[0];
+            let callback = data[1];
+            $log.info(callback)
             $parent = this;
             if(newObj.name == this.userObj.name && newObj.surname==this.userObj.surname){
                 // the values are the same, do nothing
