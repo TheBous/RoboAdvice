@@ -1,8 +1,8 @@
 describe("User Test Suite",function(){
+
     var userService;
     var strategyService;
-    var portfolioService;
-    // var http;
+    var http;
 
     var today = new Date();
 
@@ -12,10 +12,6 @@ describe("User Test Suite",function(){
         isActive: 0, bonds_p: 95, stocks_p: 0, forex_p: 0, commodities_p: 5 });
     var oldStrategy = new Strategy({name: "Strategy#3", date: { year: 2017, monthValue : 2, dayOfMonth: 28 },
         isActive: 0, bonds_p: 95, stocks_p: 0, forex_p: 0, commodities_p: 5 });
-
-    var fakePortfolio = new Portfolio({totalAmount: 23, date: { year: today.getUTCFullYear(), monthValue : today.getMonth(), dayOfMonth: today.getDate()},
-        bondsAmount: 2000, bondsPercentage: 20, commoditiesAmount: 2000, commoditiesPercentage: 20, forexAmount: 4000, forexPercentage: 40,
-        stocksAmount: 2000, stocksPercentage: 20});
 
     var user = {
         id: 1,
@@ -34,22 +30,32 @@ describe("User Test Suite",function(){
         password: 12345678,
         role: "USER"
     };
+
+    var firstPortfolio = {
+      totalAmount: 10000,
+      date: {
+        year:2017,
+        monthValue:3,
+        dayOfMonth: 19
+      },
+      bondsAmount: 5000,
+      bondsPercentage: 95,
+      commoditiesAmount: 10000,
+      commoditiesPercentage: 0,
+      forexAmount: 10000,
+      forexPercentage: 0,
+      stocksAmount: 10000,
+      stocksPercentage: 5
+    };
+    
     beforeEach(angular.mock.module('RoboAdviceApp'));
 
     beforeEach(inject(function(_userService_, $httpBackend) {
         userService = _userService_;
-        userService.logged = false;
-        userService.setStrategyHistory = [{}];
-        userService.newStrategy = [{}];
-
+        http = $httpBackend;
     }));
     describe("User do login",function(){
 
-        beforeEach(inject(function(_userService_, _strategyService_){
-            userService = _userService_;
-            strategyService = _strategyService_;
-            userService.setStrategyHistory = function(){};
-        }));
 
         it("INIT || userObj => typeof(object)",function(){
             expect(typeof user).toEqual('object');
@@ -58,24 +64,40 @@ describe("User Test Suite",function(){
             expect(Object.keys(user).length).toEqual(6);
         });
         // initialize user
-
         it("INIT || if user log in, logged => true",function(){
             userService.init(user);
-            expect(userService.logged).toBeTruthy();
+            expect(userService.logged).toBeTruthy() && expect(userService.userObj).toEqual(user);
         });
+        it("INIT || test rest login call",function(){
+            http.when('POST', '/user/login').respond(200,{statusCode: 0, data: {token: 'token'}});
+            userService.doLogin(userService.userObj);
+            http.flush();
+            expect(userService.userObj).toBeDefined();
+        });
+
         //OTHER TESTS
     });
 
 
     describe("User set his own strategy",function(){
+
         it("SETSTRATEGY || if object defined",function(){
             expect(userService.setStrategyHistory).toBeDefined();
         });
-        it("SETSTRATEGY || return if setStrategy() return array)",function(){
-            expect(userService.setStrategyHistory.constructor).toEqual(Array);
-        });
+
         it("SETSTRATEGY || return type setStrategy())",function(){
-            expect(typeof(userService.setStrategyHistory)).toEqual(typeof(pendingStrategy));
+          http.when('POST', '/portfolio/getFullHistory').respond(200,{statusCode: 0,data:[
+            firstPortfolio
+          ]});
+            http.when('POST', '/strategy/getFullHistory').respond(200,{statusCode: 0,data:[
+                oldStrategy,
+                activeStrategy
+            ]});
+            userService.setStrategyHistory();
+            http.flush();
+            expect(userService.hasStrategy).toEqual(true);
+
+            // expect(strategyService.strategyHistory.length).toEqual(2);
         });
 
     });
@@ -89,38 +111,24 @@ describe("User Test Suite",function(){
                 user.surname != updateUser.surname
             )).toEqual(true);
         });
+        it("UPDATE || update rest call)",function(){
+            http.when('POST', '/user/update').respond(200,{statusCode: 0});
+            userService.userObj = user;
+            userService.update(updateUser, function(){});
+            http.flush();
+            expect(userService.userObj).toEqual(updateUser);
+        });
+
     });
 
     describe("User create a new strategy",function(){
         it("NEWSTRATEGY || if object defined",function(){
             expect(userService.newStrategy).toBeDefined();
         });
-        it("NEWSTRATEGY || return if array setStrategy())",function(){
-            expect(userService.newStrategy.constructor).toEqual(Array);
-        });
-        it("NEWSTRATEGY || return type setStrategy())",function(){
-            expect(typeof(userService.newStrategy)).toEqual(typeof(pendingStrategy));
-        });
+
     });
 
     describe("User can logout",function(){
-        beforeEach(inject(function(_userService_){
-            userService = _userService_;
-        }));
-        it("LOGOUT || logout()",function(){
-            expect(userService.userObj).toBeDefined();
-        });
-        it("LOGOUT || logout => user undefined)",function() {
-            expect(userService.logout(userService.userObj)).toBeUndefined();
-        });
-        it("LOGOUT || logout => logged = false)",function() {
-            expect(userService.logout(userService.logged)).toBeFalsy();
-        });
-    });
-    describe("User can logout",function(){
-        beforeEach(inject(function(_userService_){
-            userService = _userService_;
-        }));
         it("LOGOUT || logout()",function(){
             expect(userService.userObj).toBeDefined();
         });

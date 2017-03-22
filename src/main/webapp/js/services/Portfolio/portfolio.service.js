@@ -36,9 +36,9 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
             return this.portfolioDifferences;
         },
 
-        getFullHistory(usr_id, callback){
+        getFullHistory(callback){
             let parent = this;
-            portfolioREST.getFullHistory({user_id: usr_id}).$promise.then(function(response){
+            portfolioREST.getFullHistory().$promise.then(function(response){
                 if(response.statusCode == 0){
                     $log.debug("portfolioService.getFullHistory");
                     let portfolioHistory = response.data;

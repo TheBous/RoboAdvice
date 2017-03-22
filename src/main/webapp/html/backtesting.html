@@ -5,16 +5,36 @@
     <title>backtesting</title>
 
 
+    <script>
+
+        $(document).ready(function() {
+            $('.datepicker').pickadate({
+                /*
+                 selectMonths: true, // Creates a dropdown to control month
+                 */
+                selectYears: 7, // Creates a dropdown of 15 years to control year
+                min: new Date(2014,4,30),
+                max: new Date,
+            });
+            $('select').material_select();
+        });
+
+    </script>
+
 </head>
 <body>
 <div ng-controller="Backtesting">
-    backtesting
-    <back-uno></back-uno>
-
-    <back-due></back-due>
-
-    <back-tre></back-tre>
-
+    <wizard indicators-position="top">
+        <wz-step wz-title="first">
+            <back-uno precision="ThePrecision" interval="TheInterval" on-update="update(data)"></back-uno>
+        </wz-step>
+        <wz-step wz-title="second">
+            <back-due precision="ThePrecision" interval="TheInterval"></back-due>
+        </wz-step>
+        <wz-step wz-title="third">
+            <back-tre precision="ThePrecision" interval="TheInterval"></back-tre>
+        </wz-step>
+    </wizard>
 </div>
 
 </body>
