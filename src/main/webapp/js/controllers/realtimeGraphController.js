@@ -48,7 +48,6 @@ RoboAdviceApp.controller("RealtimeGraphController",function($scope,strategyServi
 
     // set the date in human style
     $scope.strategyPortfolios.forEach(function(portfolio,$index){
-
       $scope.lastStrategyAmounts[$index] = portfolio.getTotalAmount();
 
       $scope.lastStrategyDates[$index] = portfolio.getFormattedDate();
