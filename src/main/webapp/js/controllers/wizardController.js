@@ -23,7 +23,7 @@ RoboAdviceApp.controller("strategyWizard", function($scope, userService, STRATEG
                 if(response.statusCode == 0){
                     // everything is going ok
                     sweetAlert(STRATEGY_CODES[response.statusCode], "" , "success");
-                    $log.debug("wizardController| new strategy added, : ");
+                    $log.debug("wizardController| new strategy added");
                     $log.debug(response.data);
 
                     // add the new strategy to the user

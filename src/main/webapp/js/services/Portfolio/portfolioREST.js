@@ -25,6 +25,13 @@ RoboAdviceApp.service("portfolioREST",
                     user_id: '@user_id'
                 }
             },
+            backtesting: {
+                method: 'POST',
+                url: baseUrl + 'backtesting',
+                params: {
+                    fromDate: '@fromDate'
+                }
+            },
 
             getAssetsTrend: {
                 method: 'POST',

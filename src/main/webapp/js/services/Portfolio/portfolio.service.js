@@ -4,6 +4,7 @@
 
 RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strategyREST, strategyService, $log){
     return{
+        backtestingDatas: {},
         portfolioHistory : null,
         portfoliosRaw : {
             amounts : [],
@@ -16,7 +17,6 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
             ],
 
         },
-
         portfolioDifferences: {},
 
         getPortfolioHistory()  {return this.portfolioHistory},
@@ -136,6 +136,28 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
             });
         },
         //unused function for future
-        setPortfolioByDate(){}
+        setPortfolioByDate(){},
+
+        getBacktesting(param){
+            let parent = this;
+            $log.debug("PortfolioService | BackTesting call");
+            portfolioREST.backtesting({fromDate: param}).$promise.then(function(response) {
+                if(response.statusCode == 0){
+                    $log.debug("PortfolioService | statusCode = 0");
+
+                    $log.debug(response.data);
+                    let backtestingDatas = response.data;
+                    let ret = [];
+                    backtestingDatas.forEach(function(element){
+                        let portfolioObj = new Portfolio(element);
+                        ret.push(portfolioObj);
+                    });
+                    parent.backtestingDatas = ret;
+                }
+                else{
+                    $log.debug("backtesting| error on fetching backtesting");
+                }
+            });
+        }
     }
 });
