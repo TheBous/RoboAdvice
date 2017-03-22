@@ -138,7 +138,7 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
         //unused function for future
         setPortfolioByDate(){},
 
-        getBacktesting(param){
+        getBacktesting(param, callback){
             let parent = this;
             $log.debug("PortfolioService | BackTesting call");
             portfolioREST.backtesting({fromDate: param}).$promise.then(function(response) {
@@ -153,9 +153,14 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                         ret.push(portfolioObj);
                     });
                     parent.backtestingDatas = ret;
+                    if(callback)
+                        callback(response);
+                    $log.debug("backtestingDatas:" + parent.backtestingDatas);
                 }
                 else{
-                    $log.debug("backtesting| error on fetching backtesting");
+                    $log.debug("backtesting| error on  backtesting");
+                    if(callback)
+                        callback(response);
                 }
             });
         }
