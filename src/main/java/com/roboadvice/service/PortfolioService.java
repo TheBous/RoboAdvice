@@ -12,8 +12,8 @@ public interface PortfolioService {
     List<PortfolioDTO> getFullHistory(String userEmail);
     List<PortfolioDTO> getHistoryByDates(String userEmail, LocalDate from, LocalDate to);
 
-    //List<PortfolioDTO> getBackTestingChart(String userEmail, String precision, int months);
-    //PortfolioDTO getAdvice(String userEmail, int strategyCode);
+    List<PortfolioDTO> getBackTestingChart(String userEmail, LocalDate fromDate);
+    PortfolioDTO getAdvice(String userEmail, int strategyCode);
 
 
 

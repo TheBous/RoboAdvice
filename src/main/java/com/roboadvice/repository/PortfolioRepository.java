@@ -8,6 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -36,6 +37,9 @@ public interface PortfolioRepository extends PagingAndSortingRepository<Portfoli
 
     @Query(value = "SELECT * FROM portfolio WHERE user_id=?1 AND date BETWEEN ?2 and ?3 GROUP BY assets_class_id, date ORDER BY date, assets_class_id", nativeQuery = true)
     List<Portfolio> historyByUserAndDates(User u, String from, String to);
+
+    @Query("SELECT SUM(p.value) FROM Portfolio p WHERE p.user=?1 AND p.date=?2")
+    BigDecimal findTotalAmountByUserAndDate(User u, LocalDate date);
 
 
 
