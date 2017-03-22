@@ -10,10 +10,8 @@ RoboAdviceApp.component("backUno",{
             $log.debug(this.precision);
         };
         this.update = function(){
-            $log.debug("+++++++++++");
-            this.onUpdate({data: {precision: this.precision, interval: this.interval}});
-            $log.debug($scope.selection);
-            $log.debug($scope.francesco);
+            $log.debug("backtesting1| precision: " + $scope.precision + " | interval: " + $scope.interval);
+            this.onUpdate({data: {precision: $scope.precision, interval: $scope.interval}});
         }
     }
 });

@@ -2,8 +2,9 @@ RoboAdviceApp.component("realtimeLineGraph",{
     bindings: {
         horizzontalAxis: "<", // an array of dates in timestamp
         verticalAxis: "<",    // an array of amounts
-        incrementData: "&",   // the method that increment the data
-        realtime: "@"         // [true|false]
+        incrementData: "&",   // the method that increments the data
+        realtime: "@",        // [true|false]
+        forecastValue: "@"    // forecast value to obtain
     },
     template: `
     <div style="text-align:right">
@@ -14,7 +15,7 @@ RoboAdviceApp.component("realtimeLineGraph",{
       </canvas
     </div>
   `,
-    controller: function($scope,$interval){
+    controller: function($scope,$interval,$log){
         var $ctrl = this;
         var scope = $scope;
 
@@ -39,6 +40,7 @@ RoboAdviceApp.component("realtimeLineGraph",{
             };
 
             if(this.realtime == "true"){
+                  $log.debug("realtime component| realtime is setted");
                 //each minute
                 //this.incrementData();
                 $interval($scope.getNewData,5000,0,true);

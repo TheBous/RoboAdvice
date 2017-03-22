@@ -13,7 +13,7 @@ RoboAdviceApp.controller("RealtimeGraphController",function($scope,strategyServi
   }
 
   // increment the data using forecast
-  $scope.incrementData = function(){
+  $scope.incrementData = function(data){
     let rnd = Math.floor((Math.random()*100)+1)
     if(rnd % 2 == 0)rnd*=-1;
     let now = new Date();

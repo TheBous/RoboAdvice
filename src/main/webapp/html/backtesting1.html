@@ -7,7 +7,7 @@
                         <span class="card-title grey-text center">BackTesting</span>
                         <!-- Precision Selector -->
                         <div class="input-field">
-                            <select ng-model="selection">
+                            <select ng-model="precision">
                                 <option value="" disabled selected>Choose your option</option>
                                 <option value="1">Weekly</option>
                                 <option value="2">Monthly</option>
@@ -16,7 +16,7 @@
                         </div>
                         <!-- Date picker -->
                         <label for="picker_label">Select Interval</label>
-                        <input ng-model="francesco" id="picker_label" type="date" class="datepicker" >
+                        <input ng-model="interval" id="picker_label" type="text" class="datepicker" />
                         <div style="text-align: center;">
                             <button class="btn waves-effect waves-light" type="submit" name="action" ng-click="$ctrl.update()" wz-next>Next
                                 <i class="material-icons right">send</i>
