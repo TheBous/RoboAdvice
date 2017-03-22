@@ -1,6 +1,5 @@
 RoboAdviceApp.component("backDue",{
     bindings: {
-      precision: "<",
       interval: "<"
     },
     templateUrl: "../../html/backtesting2.html",
