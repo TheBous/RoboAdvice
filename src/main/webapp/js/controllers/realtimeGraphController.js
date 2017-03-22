@@ -28,12 +28,13 @@ RoboAdviceApp.controller("RealtimeGraphController",function($scope,strategyServi
       //$log.debug("realtimeGraphCtrl| realtimeValue: " + lastValue);
     }
 
-    $scope.currentTime = now.getDateFormatted() + " " + now.getHours() + ":" + now.getMinutes();
+    $scope.currentTime = now.getDateFormatted() + " <b>" + now.getHours() + ":" + now.getMinutes() + "</b>";
     let newValue = 0;
     if(pulse!=0){
       // if there is some change in the value, set the new value
       let rnd = Math.floor((Math.random()*pulse)+1);
       newValue = lastValue + rnd;
+      $scope.stimatedAmount = newValue;
     }
     // add the new value
     $log.debug("realtimeGraphCtrl| pulse: " + pulse);

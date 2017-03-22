@@ -4,12 +4,17 @@ RoboAdviceApp.component("realtimeLineGraph",{
         verticalAxis: "<",    // an array of amounts
         incrementData: "&",   // the method that increments the data
         realtime: "@",        // [true|false]
-        forecastValue: "@"    // forecast value to obtain
+        forecastValue: "@",   // forecast value to obtain
+        stimatedAmount: "<"   // the stimated amount from the controller
     },
     template: `
+    <div style="text-align:left;float:left" ng-if="$ctrl.stimatedAmount">
+      Stimated Amount: <b>{{$ctrl.stimatedAmount}}</b>
+    </div>
     <div style="text-align:right">
       {{$ctrl.currentTime}}
     </div>
+    <br>
     <div>
       <canvas id="line" class="chart chart-line" chart-data="$ctrl.verticalAxis" chart-labels="$ctrl.horizzontalAxis" chart-options="options">
       </canvas
@@ -21,7 +26,6 @@ RoboAdviceApp.component("realtimeLineGraph",{
 
         this.$onInit = function(){
             let now = new Date();
-            $ctrl.currentTime = now.getDateFormatted() + " " + now.getHours() + ":" + now.getMinutes();
 
             $scope.options = {
                 scales: {
@@ -36,8 +40,9 @@ RoboAdviceApp.component("realtimeLineGraph",{
             };
 
             $scope.getNewData = function(){
-                let $this = this;
-                $ctrl.incrementData({data:$ctrl.forecastValue})
+              $ctrl.currentTime = now.getDateFormatted() + " " + now.getHours() + ":" + now.getMinutes();
+              let $this = this;
+              $ctrl.incrementData({data:$ctrl.forecastValue})
             };
 
             if(this.realtime == "true"){
