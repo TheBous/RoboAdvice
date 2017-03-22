@@ -70,33 +70,36 @@ public class PortfolioController {
 
     }
 
-    /*@RequestMapping(value = "/backtesting", method = RequestMethod.POST)
-    public GenericResponse<List<PortfolioDTO>> getBacktestingChart(@RequestParam(value="precision", defaultValue = "null") String precision,
-                                                                   @RequestParam(value="months", defaultValue = "0") int months,
+    @RequestMapping(value = "/backtesting", method = RequestMethod.POST)
+    public GenericResponse<List<PortfolioDTO>> getBacktestingChart(@RequestParam(value = "fromDate", defaultValue = "null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
                                                                    Authentication authentication){
 
-        if(precision.equals("null") || (!precision.equals("weekly") && !precision.equals("monthly")))
-            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
-        if(months<=0)
+        if(fromDate.isBefore(LocalDate.parse("2014-05-01")) || fromDate.isAfter(LocalDate.now()))
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
 
         String userEmail = authentication.getName();
-        List<PortfolioDTO> portfolioDTOList = portfolioService.getBackTestingChart(userEmail, precision, months);
+        List<PortfolioDTO> portfolioDTOList = portfolioService.getBackTestingChart(userEmail, fromDate);
 
         if(portfolioDTOList!=null)
             return new GenericResponse<>(portfolioDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
         else
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
-    }*/
+    }
 
-    /*@RequestMapping(value = "/advice", method = RequestMethod.POST)
+    @RequestMapping(value = "/advice", method = RequestMethod.POST)
     public GenericResponse<BigDecimal> getAdvice(@RequestParam(value = "strategy", defaultValue = "null") int strategyCode,
                                                  Authentication authentication){
-        if(strategyCode<1 || strategyCode>4)
+        if(strategyCode<1 || strategyCode>5)
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
 
         String userEmail = authentication.getName();
         PortfolioDTO pDTO = portfolioService.getAdvice(userEmail, strategyCode);
-    }*/
+
+        if(pDTO!=null)
+            return new GenericResponse<>(pDTO.getTotalAmount(), Constant.SUCCES_MSG, Constant.SUCCESS);
+        else
+            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+
+    }
 
 }
