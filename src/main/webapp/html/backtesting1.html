@@ -1,42 +1,42 @@
 <style type="text/css">
-/*
-        #picker_label_table{ display:none; }
-*/
+    /*
+            #picker_label_table{ display:none; }
+    */
 
 </style>
 
 <div class="container">
     <div class="container">
 
-    <div class="col s12 m6">
-        <div class="card small ">
-        <div class="card-stacked">
-            <div class="card-content">
-                <span class="card-title grey-text center">BackTesting</span>
+        <div class="col s12 m6">
+            <div class="card small ">
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <span class="card-title grey-text center">BackTesting</span>
 
-                <!-- Precision Selector -->
-                <div class="input-field">
-                    <select>
-                        <option value="" disabled selected>Choose your option</option>
-                        <option value="1">Weekly</option>
-                        <option value="2">Monthly</option>
-                    </select>
-                    <label>Precision</label>
-                </div>
-                <!-- Date picker -->
-                <label for="picker_label">Select Interval</label>
-                <input id="picker_label" type="date" class="datepicker">
+                        <!-- Precision Selector -->
+                        <div class="input-field">
+                            <select>
+                                <option value="" disabled selected>Choose your option</option>
+                                <option value="1">Weekly</option>
+                                <option value="2">Monthly</option>
+                            </select>
+                            <label>Precision</label>
+                        </div>
+                        <!-- Date picker -->
+                        <label for="picker_label">Select Interval</label>
+                        <input id="picker_label" type="date" class="datepicker">
 
-                <div style="text-align: center;">
-                <button class="btn waves-effect waves-light" type="submit" name="action">Next
-                    <i class="material-icons right">send</i>
-                </button>
+                        <div style="text-align: center;">
+                            <button class="btn waves-effect waves-light" type="submit" name="action" ng-click="$ctrl.update()" >Next
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
     </div>
 
 </div>
@@ -49,11 +49,10 @@
 
 
 <script>
-    document.getEle
     $('.datepicker').pickadate({
-/*
-        selectMonths: true, // Creates a dropdown to control month
-*/
+        /*
+         selectMonths: true, // Creates a dropdown to control month
+         */
         selectYears: 7, // Creates a dropdown of 15 years to control year
         min: new Date(2014,4,30),
         max: new Date,
