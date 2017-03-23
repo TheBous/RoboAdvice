@@ -9,15 +9,14 @@
 <div class="section transparent">
 
     <div class="row container">
-        <div class="header_section" >Real Time Analytics</div>
+        <div class="header_section" >Instant Analytics</div>
         <!--  <p class="grey-text text-darken-3 lighten-3">Qui possiamo mettere qualche scritta figa che magari michele e luca si inventano.</p> -->
-
 
         <div class="row" ng-controller="GetGlobalAssets">
           <div class="col s3" ng-repeat="asset in globalAssets">
             <div class="center promo promo-example">
               <p style="font-size:25px;" class="promo-caption">{{asset.name}}</p>
-              <asset-general show-y-label="false" portfolio-amount="asset.percentages" portfolio-date="asset.dates"></asset-general>
+              <asset-general show-y-label="false"  portfolio-amount="asset.percentages" portfolio-date="asset.dates"></asset-general>
             </div>
           </div>
         </div>

@@ -1,51 +1,27 @@
-Colloquio con David:
+TODO:
 
-FATTO 1)Delete Pending Strategy in History e in Portfolio.
+1)Nelle Minicard possiamo mettere grafici in jquery SparkLines come qua http://demo.geekslabs.com/materialize/v2.1/layout03/app-widget.html | http://omnipotent.net/jquery.sparkline/#s-download
 
-FATTO 2)Click sulle card in Balance per vedere con maggior precisione la crescita o la decrescita di BONDS,Commodities,Forex, Stocks.
+2)in Profile opzioni per abilitare la modalità Expert ?
 
-FATTO 3)Polish codice con Let, const enum.
+3)rimuovere il css in html
 
-4)rimuovere il css in html
+4)invece di jquery andiamo con jqlite
 
-5)invece di jquery andiamo con jqlite
+5)Fare un 404
 
-6)in Profile opzioni per abilitare la modalità Expert
-
-7)testing con Karma
-
-8)
+6)
 
 UI Tips and tricks
 1)Tooltip sui vari acronimi e gergo provenienti da wiki.
 
-2)
+2)Wizard As carousel:
 
-3)Wizard As carousel:
+3)homePage Parallax
 
-4)homePage Parallax
+4)Swipeable tabs : http://materializecss.com/tabs.html
 
-5)Swipeable tabs : http://materializecss.com/tabs.html
-
-
-
-FATTO!8)nella navbar saldo corrente visibile in tutte le schermate
-
-FATTO!9)Wizard Guide fighetta sgueguerina
-
-FATTO!10)inserire grafici dentro history(giaMESSI solo da fixare)
-
-FATTO! 11)percentuali in worth che micheluzzo ci dona domani e Colore Cards.
-
-FATTO!12)Creare Legenda per i vari grafici:in portfolio, in wizard, in Historiy,
-
-FATTO! 13)in History sistemare gli indicatori di initial e final ammount
-
-FATTO! 14)Stilare gli Header
-
-FATTO! 15)in Portfolio manca la seconda torta
-
-16)Dopo l'update del profile fare redirect da qualche parte
+5)Dopo l'update del profile fare redirect da qualche parte
 
 
 
@@ -53,7 +29,7 @@ ________________________________________________________________________________
 
 Issue:
 
-1)
+1)In Balance page, sistemare le librerie esterne per lo slider che mi genera un hover rosso sulla navbar
 
 2)
 
