@@ -7,7 +7,7 @@ RoboAdviceApp.component("backUno",{
     controller: function($scope,CONFIG, $log){
         this.$onInit = function(){
             //interval from controller | default
-            $log.debug($scope.interval);
+            //$log.debug($scope.interval);
         };
         this.update = function(){
             $log.debug("backtesting1| interval: " + $scope.interval);
