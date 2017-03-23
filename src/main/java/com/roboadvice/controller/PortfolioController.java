@@ -1,5 +1,6 @@
 package com.roboadvice.controller;
 
+import com.roboadvice.dto.BacktestingDTO;
 import com.roboadvice.dto.PortfolioDTO;
 import com.roboadvice.service.PortfolioService;
 import com.roboadvice.utils.Constant;
@@ -71,17 +72,17 @@ public class PortfolioController {
     }
 
     @RequestMapping(value = "/backtesting", method = RequestMethod.POST)
-    public GenericResponse<List<PortfolioDTO>> getBacktestingChart(@RequestParam(value = "fromDate", defaultValue = "null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+    public GenericResponse<List<BacktestingDTO>> getBacktestingChart(@RequestParam(value = "fromDate", defaultValue = "null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
                                                                    Authentication authentication){
 
         if(fromDate.isBefore(LocalDate.parse("2014-05-01")) || fromDate.isAfter(LocalDate.now()))
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
 
         String userEmail = authentication.getName();
-        List<PortfolioDTO> portfolioDTOList = portfolioService.getBackTestingChart(userEmail, fromDate);
+        List<BacktestingDTO> backtestingDTOList = portfolioService.getBackTestingChart(userEmail, fromDate);
 
-        if(portfolioDTOList!=null)
-            return new GenericResponse<>(portfolioDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
+        if(backtestingDTOList!=null)
+            return new GenericResponse<>(backtestingDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
         else
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
     }

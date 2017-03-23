@@ -37,7 +37,6 @@ RoboAdviceApp.controller("Backtesting", function ($scope, $log, portfolioService
             }
             else{
                 $scope.loadingInProgress = false;
-                $log.debug(response.statusCode);
                 $log.debug("backtesting Controller | error on backtesting ");
             }
         });

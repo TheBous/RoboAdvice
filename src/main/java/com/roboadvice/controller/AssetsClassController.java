@@ -5,6 +5,7 @@ import com.roboadvice.service.AssetsClassService;
 import com.roboadvice.utils.Constant;
 import com.roboadvice.utils.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/assetsclass")
+@CrossOrigin(origins = "*")
 public class AssetsClassController {
 
     private AssetsClassService assetsClassService;

@@ -1,5 +1,6 @@
 package com.roboadvice.service;
 
+import com.roboadvice.dto.BacktestingDTO;
 import com.roboadvice.dto.PortfolioDTO;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ public interface PortfolioService {
     List<PortfolioDTO> getFullHistory(String userEmail);
     List<PortfolioDTO> getHistoryByDates(String userEmail, LocalDate from, LocalDate to);
 
-    List<PortfolioDTO> getBackTestingChart(String userEmail, LocalDate fromDate);
+    List<BacktestingDTO> getBackTestingChart(String userEmail, LocalDate fromDate);
     PortfolioDTO getAdvice(String userEmail, int strategyCode);
 
 

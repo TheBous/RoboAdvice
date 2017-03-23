@@ -15,7 +15,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(value = "*")
+@CrossOrigin(origins = "*")
 public class AuthenticationController {
 
     private UserService userService;
