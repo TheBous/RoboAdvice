@@ -1,6 +1,6 @@
 RoboAdviceApp.factory('userREST', ['$resource', '$cookies', 'TokenHandler',
     function($resource, $cookies, TokenHandler) {
-        var baseUrl = "http://localhost:8080/user/"
+        var baseUrl = "/user/"
         var token = $cookies.get("token");
 
         return $resource(baseUrl, {}, {
