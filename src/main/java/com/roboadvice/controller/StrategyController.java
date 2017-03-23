@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/strategy")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost")
 public class StrategyController {
 
     private StrategyService strategyService;
