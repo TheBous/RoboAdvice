@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/quandl")
-@CrossOrigin(origins = "http://localhost")
+@CrossOrigin(origins = "*")
 public class ApiDataController {
 
     private ApiDataService apiDataService;
