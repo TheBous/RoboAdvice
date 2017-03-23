@@ -1,7 +1,5 @@
 RoboAdviceApp.controller("Backtesting", function ($scope, $log, portfolioService, userService) {
-    $scope.xAxis = [];
     //$log.debug($scope.xAxis);
-    $scope.yAxis = [];
     $scope.user = userService;
 
     $scope.loadingInProgress = true;
@@ -16,23 +14,19 @@ RoboAdviceApp.controller("Backtesting", function ($scope, $log, portfolioService
         $log.debug("PortfolioService | Interval: "+ data.interval);
         portfolioService.getBacktesting(data.interval, function(response){
             if(response.statusCode == 0){
+                $scope.francesca = new Array(response.data.length);
+                $scope.yAxis = new Array(response.data.length);
                 //show spinner or other waiting animations
                 $scope.loadingInProgress = false;
                 $log.debug($scope.loadingInProgress);
                 $log.debug("backtesting Controller | callback");
                 for(let i = 0;i<response.data.length;i++){
                     //$log.debug(response.data[i].date);
-                    formattedDateGraph[i] = response.data[i].date.dayOfMonth + "/" + response.data[i].date.monthValue + "/" + response.data[i].date.year;
-                    formattedValueGraph[i] = response.data[i].totalAmount;
+                    $scope.francesca[i] = (response.data[i].date.dayOfMonth + "/" + response.data[i].date.monthValue + "/" + response.data[i].date.year);
+                    $scope.yAxis[i] = (response.data[i].totalAmount);
                     //$log.debug(formattedDateGraph[i]);
                     //$log.debug(formattedValueGraph[i]);
                 }
-                $scope.xAxis = formattedDateGraph;
-                $log.debug("+++++++++++");
-                $log.debug($scope.xAxis);
-                $scope.yAxis = formattedValueGraph;
-                $log.debug($scope.yAxis);
-
 
             }
             else{
