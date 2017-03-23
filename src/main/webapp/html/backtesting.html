@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>backtesting</title>
 
-
     <script>
 
         $(document).ready(function() {
@@ -24,15 +23,17 @@
 </head>
 <body>
 <div ng-controller="Backtesting">
-    <wizard indicators-position="top">
+    <h4>Current amount:</h4>{{user.getCurrentPortfolioAmount()}}
+    <wizard hide-indicators="true">
         <wz-step wz-title="first">
-            <back-uno precision="ThePrecision" interval="TheInterval" on-update="update(data)"></back-uno>
+
+            <back-uno interval="TheInterval" on-update="update(data)"></back-uno>
         </wz-step>
         <wz-step wz-title="second">
-            <back-due precision="ThePrecision" interval="TheInterval"></back-due>
+            <back-due  x-axis="xAxis" y-axis="yAxis"interval="TheInterval"></back-due>
         </wz-step>
         <wz-step wz-title="third">
-            <back-tre precision="ThePrecision" interval="TheInterval"></back-tre>
+            <back-tre interval="TheInterval"></back-tre>
         </wz-step>
     </wizard>
 </div>

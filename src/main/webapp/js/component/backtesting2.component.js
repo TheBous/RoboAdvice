@@ -1,13 +1,19 @@
 RoboAdviceApp.component("backDue",{
     bindings: {
-      precision: "<",
-      interval: "<"
+        xAxis: "<",
+        yAxis: "<",
+        interval: "<"
+        //spinner: "<"
     },
     templateUrl: "../../html/backtesting2.html",
-    controller: function($scope,CONFIG){
-      this.$onInit = function(){
-        $scope.interval = this.interval;
-        $scope.precision = this.precision;
-      }
+    controller: function($scope,CONFIG, $log){
+        this.$onInit = function(){
+            $scope.interval = this.interval;
+            console.log("-----------")
+            $log.debug(this.xAxis);
+            $log.debug(this.yAxis);
+            //$log.debug("SPINNER VALUE" + this.spinner)
+        };
+
     }
 });
