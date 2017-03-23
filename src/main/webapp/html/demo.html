@@ -1,9 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <h1>Demo</h1>
-</head>
-<body>
+<div class="header_section" >Demuzzo</div>
 
-</body>
-</html>
+<div class="row container">
+    <!--  <p class="grey-text text-darken-3 lighten-3">Qui possiamo mettere qualche scritta figa che magari michele e luca si inventano.</p> -->
+    <div class="row" ng-controller="GetGlobalAssets">
+        <div class="col s3" ng-repeat="asset in globalAssets">
+            <div class="center promo promo-example">
+                <p style="font-size:25px;" class="promo-caption">{{asset.name}}</p>
+                <asset-general show-y-label="false"  portfolio-amount="asset.percentages" portfolio-date="asset.dates"></asset-general>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row ">
+    <div class="col m8 s12">
+        <div class="card white">
+            <div class="card-content teal-text" ng-controller="RealtimeGraphController">
+                <span class="card-title"> {{strategy.getLastStrategy().getName()}} Trend</span>
+
+                <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
+                <realtime-line-graph stimated-amount="stimatedAmount" realtime="true" forecast-value="10250" increment-data="incrementData(data)" vertical-axis="lastStrategyAmounts" horizzontal-axis="lastStrategyDates"></realtime-line-graph>
+                <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
+            </div>
+            <!--<div class="card-action">
+                <a href="#">Michele</a>
+                <a href="#">Luca</a>
+            </div>-->
+        </div>
+    </div>
