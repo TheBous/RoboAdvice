@@ -152,7 +152,6 @@ public class PortfolioServiceImpl implements PortfolioService{
         if(currentStrategyList==null || currentStrategyList.isEmpty())
             return null;
 
-
         List<BacktestingDTO> backtestingDTOList = new ArrayList<>();
         BacktestingDTO bDTO;
 
@@ -162,8 +161,14 @@ public class PortfolioServiceImpl implements PortfolioService{
         BigDecimal investment = new BigDecimal(Constant.INITIAL_INVESTMENT);
         BigDecimal amount=BigDecimal.ZERO, value=BigDecimal.ZERO, units=BigDecimal.ZERO;
         LocalDate endDate = LocalDate.now();
+        int precision;
+        if(endDate.isBefore(startDate.plusDays(90)))
+            precision=1;
+        else if(endDate.isBefore(startDate.plusDays(210)))
+            precision=2;
+        else precision=3;
+
         List<Assets> assetsList = (List<Assets>) assetsRepository.findAll();
-        List<AssetsClass> assetsClassList = (List<AssetsClass>) assetsClassRepository.findAll();
         ApiData api;
 
         //Create first portfolio========================================================================
@@ -194,15 +199,13 @@ public class PortfolioServiceImpl implements PortfolioService{
                 }
             }
         }
-        System.out.println("First portfolio created");
-
 
         //Update portfolio every day===================================================================
         int index=0;
 
         List<Portfolio> oldPortfolioList = new ArrayList<>();
 
-        for(LocalDate date = startDate.plusDays(1); date.isBefore(endDate); date = date.plusDays(2)){
+        for(LocalDate date = startDate.plusDays(1); date.isBefore(endDate); date = date.plusDays(precision)){
             oldPortfolioList.clear();
             for( ;index<portfolioList.size();index++){
                 oldPortfolioList.add(portfolioList.get(index));
@@ -307,6 +310,13 @@ public class PortfolioServiceImpl implements PortfolioService{
 
         LocalDate startDate = currentStrategyList.get(0).getDate();
         LocalDate endDate = LocalDate.now();
+        int precision;
+        if(endDate.isBefore(startDate.plusDays(90)))
+            precision=1;
+        else if(endDate.isBefore(startDate.plusDays(210)))
+            precision=2;
+        else precision=3;
+
         BigDecimal startAmount = portfolioRepository.findTotalAmountByUserAndDate(u, startDate);
         if(startAmount==null)
             startAmount = new BigDecimal(10000);
@@ -351,7 +361,7 @@ public class PortfolioServiceImpl implements PortfolioService{
         List<Portfolio> oldPortfolioList = new ArrayList<>();
         List<BigDecimal> values = new ArrayList<>();
 
-        for(LocalDate date = startDate.plusDays(1);date.isBefore(endDate);date = date.plusDays(2)){
+        for(LocalDate date = startDate.plusDays(1);date.isBefore(endDate);date = date.plusDays(precision)){
             oldPortfolioList.clear();
             for( ;index<portfolioList.size();index++){
                 oldPortfolioList.add(portfolioList.get(index));
