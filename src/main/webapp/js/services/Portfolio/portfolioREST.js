@@ -1,6 +1,6 @@
 RoboAdviceApp.service("portfolioREST",
     function($resource,$cookies,TokenHandler){
-        var baseUrl = "/portfolio/";
+        var baseUrl = "http://localhost:8080/portfolio/";
         return $resource(baseUrl, {}, {
             getCurrent: {
                 method: 'POST',

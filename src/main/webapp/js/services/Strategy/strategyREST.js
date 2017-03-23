@@ -1,6 +1,6 @@
 RoboAdviceApp.factory('strategyREST', ['$resource', '$cookies', 'TokenHandler',
     function($resource,$cookies, TokenHandler) {
-        var baseUrl = "/strategy/"
+        var baseUrl = "http://localhost:8080/strategy/"
 
         return $resource(baseUrl, {}, {
             getCurrent: {
