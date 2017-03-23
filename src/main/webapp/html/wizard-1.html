@@ -1,17 +1,38 @@
+<style>
+
+    .radio_star
+    {
+        margin: 0 auto;
+        width:20%;
+        float:left;
+        color:#444;
+    }
+
+
+    @media only screen and (max-width: 600px) {
+        .radio_star {
+            margin: 0 auto;
+            width:20%;
+            float:none;
+            color:#444;
+        }
+    }
+</style>
+
 <div class="container">
     <div class="row">
         <div class="col s12 m12">
-            <div class="card grey lighten-5" >
+            <div class="card brown lighten-5 animated bounceInLeft" >
                 <div class="card-content black-text">
-                    <br />
+                    <br>
                     <div style="text-align:left">
-                    <span class="card-title" style="margin-bottom:10pt">Strategy name: <b class="strategy_name">{{$ctrl.myStrategy.name}}</b></span>
-                    <span class="card-title">Investment:
+                    <span class="card-title" style="margin-bottom:10pt">Strategy name:<b class="strategy_name">{{$ctrl.myStrategy.name}}</b></span>
+                    <span class="card-title animated bounceInLeft">Investment:
                       <b class="amount">$ {{$ctrl.investmentAmount}}</b>
                     </span>
                     <span class="card-title">Choose your strategy:<br />
                       <div style="margin:10pt;margin-bottom:20pt">
-                        <div ng-repeat="strategy in strategies" style="float:left;width:20%;color:#444; text-align:center;">
+                        <div ng-repeat="strategy in strategies" class="center-align radio_star" >
                             <input ng-click="newValue($index)" value="{{strategy.name}}" class="with-gap" name="group1" type="radio" id="{{strategy.name}}" />
                             <label for="{{strategy.name}}">{{strategy.name}}</label>
                         </div>
@@ -23,19 +44,19 @@
                         <canvas id="pie" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
                       </div>
                       <div style="height:50pt;text-align:center;margin-top:10pt">
-                        <div class="chip" style="float:left;width:24%">
+                        <div class="chip" >
                           <img src="../img/bonds.jpg" alt="Bonds">
                               Bonds
                           </div>
-                          <div class="chip" style="float:left;width:24%">
+                          <div class="chip" >
                               <img src="../img/stocks.jpg" alt="Stocks">
-                              Commodities
-                          </div>
-                          <div class="chip" style="float:left;width:24%">
-                          <img src="../img/commodities.jpg" alt="Commodities">
                               Stocks
                           </div>
-                          <div class="chip" style="float:left;width:24%">
+                          <div class="chip">
+                          <img src="../img/commodities.jpg" alt="Commodities">
+                              Commodities
+                          </div>
+                          <div class="chip">
                               <img src="../img/forex.jpg" alt="Forex">
                               Forex
                           </div>
@@ -47,4 +68,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
