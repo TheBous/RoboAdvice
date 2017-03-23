@@ -10,19 +10,19 @@
             <div class="timeline-content" ng-class="{'right' : $index%2}">
                 <h2> {{strategy.getName()}} <strong class="date">{{strategy.getFormattedDate()}}</strong>   <span  ng-if="strategy.isPending()" class="new badge" data-badge-caption="Pending Strategy"></span>
                 </h2>
-
                 <p class="right" ng-if="strategy.isPending()">
                     <a href="#!/wizard" class="btn-floating  waves-effect waves-light cyan tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Strategy" ><i class="material-icons">mode_edit</i></a>
                     <a ng-click="deletePending()" class="btn-floating  waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Strategy"><i class="material-icons">delete</i></a>
+                    <script>
+                        $(document).ready(function(){
+                            $('.tooltipped').tooltip({delay: 50});
+                            $(".tooltipped").off("click");
+                        });
+                    </script>
                 </p>
-
-
-
-
-
                 <p ng-if="!strategy.isPending()">
-                   <b>Final amount:</b> <strong class="amount"> $ {{strategy.getFinalAmount()}}</strong><br />
-                    <b>Initial amount:</b> <strong class="amount"> $ {{strategy.getInitialAmount()}}</strong>
+                   <b>Final amount:</b> <strong class="amount"> $ {{strategy.getFinalAmount()| number :2}}</strong><br />
+                    <b>Initial amount:</b> <strong class="amount"> $ {{strategy.getInitialAmount() | number :2}}</strong>
                     <br/>
                 </p>
                     <assets-class-graph percentages="strategy.getAssets()"></assets-class-graph>
@@ -43,7 +43,6 @@
                         <div style="text-align: center;" class="card-content">
                             <span style="color:black;"class="card-title">Your history will be updated tomorrow </span></span>
                             <img  style="width:70%" src="../img/002-analytics-2.png">
-
                         </div>
                     </div>
                 </div>
@@ -53,12 +52,3 @@
     </div>
 </div>
 
-
-<script>
-    $(document).ready(function(){
-        $('.tooltipped').tooltip({delay: 50});
-    });
-
-
-
-</script>

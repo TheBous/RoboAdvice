@@ -42,6 +42,15 @@
                                 <div class="card-action" style="text-align:right">
                                     <a href="#!/wizard" class="btn-floating waves-effect waves-light cyan tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Strategy" ><i class="material-icons left">mode_edit</i>Edit</a>
                                     <a ng-if="strategy.getCurrentStrategy().isPending()" ng-click="deletePending()" class="btn-floating  waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Strategy"><i class="material-icons left">delete</i>Delete</a>
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('.tooltipped').tooltip({delay: 50});
+                                            $(".tooltipped").off("click");
+                                        });
+
+                                    </script>
+
+
                                 </div>
                             </div>
                         </div>
@@ -85,9 +94,3 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function(){
-        $('.tooltipped').tooltip({delay: 50});
-    });
-
-</script>
