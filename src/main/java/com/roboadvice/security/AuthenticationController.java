@@ -15,7 +15,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(value = "*")
+@CrossOrigin(origins = "http://localhost")
 public class AuthenticationController {
 
     private UserService userService;

@@ -1,5 +1,6 @@
 package com.roboadvice.serviceImpl;
 
+import com.roboadvice.dto.BacktestingDTO;
 import com.roboadvice.dto.PortfolioDTO;
 import com.roboadvice.model.*;
 import com.roboadvice.repository.*;
@@ -27,8 +28,11 @@ public class PortfolioServiceImpl implements PortfolioService{
     private AssetsClassRepository assetsClassRepository;
 
     @Autowired
-    public PortfolioServiceImpl(PortfolioRepository portfolioRepository, UserRepository userRepository, StrategyRepository strategyRepository,
-                                AssetsRepository assetsRepository, ApiDataRepository apiDataRepository,
+    public PortfolioServiceImpl(PortfolioRepository portfolioRepository,
+                                UserRepository userRepository,
+                                StrategyRepository strategyRepository,
+                                AssetsRepository assetsRepository,
+                                ApiDataRepository apiDataRepository,
                                 AssetsClassRepository assetsClassRepository) {
         this.portfolioRepository = portfolioRepository;
         this.userRepository = userRepository;
@@ -139,8 +143,8 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
-    @Cacheable("backtestingChart")
-    public List<PortfolioDTO> getBackTestingChart(String userEmail, LocalDate fromDate) {
+    //@Cacheable("backtestingChart")
+    public List<BacktestingDTO> getBackTestingChart(String userEmail, LocalDate startDate) {
         User u = userRepository.findByEmail(userEmail);
         if(u==null)
             return null;
@@ -150,18 +154,17 @@ public class PortfolioServiceImpl implements PortfolioService{
             return null;
 
 
-        List<PortfolioDTO> portfolioDTOList = new ArrayList<>();
-        PortfolioDTO pDTO;
+        List<BacktestingDTO> backtestingDTOList = new ArrayList<>();
+        BacktestingDTO bDTO;
 
         List<Portfolio> portfolioList = new ArrayList<>();
         Portfolio p;
 
         BigDecimal investment = new BigDecimal(Constant.INITIAL_INVESTMENT);
         BigDecimal amount=BigDecimal.ZERO, value=BigDecimal.ZERO, units=BigDecimal.ZERO;
-        LocalDate startDate = fromDate;//LocalDate.parse("2017-01-01");
         LocalDate endDate = LocalDate.now();
-        Iterable<Assets> assetsList = assetsRepository.findAll();
-        Iterable<AssetsClass> assetsClassList = assetsClassRepository.findAll();
+        List<Assets> assetsList = (List<Assets>) assetsRepository.findAll();
+        List<AssetsClass> assetsClassList = (List<AssetsClass>) assetsClassRepository.findAll();
         ApiData api;
 
         //Create first portfolio========================================================================
@@ -171,7 +174,7 @@ public class PortfolioServiceImpl implements PortfolioService{
                     amount = Constant.percentage(investment, str.getPercentage());
                     value = Constant.percentage(amount, asset.getAllocation_p());
 
-                    api = apiDataRepository.findLatestValueByAssetAndDate(asset.getId(), startDate.toString());
+                    api = apiDataRepository.findTopByAssetsAndDateLessThanEqualOrderByDateDesc(asset, startDate);
 
                     if (api != null)
                         units = value.divide(api.getValue(), 5, RoundingMode.HALF_UP);
@@ -181,8 +184,6 @@ public class PortfolioServiceImpl implements PortfolioService{
                     }
 
                     p = new Portfolio();
-                    //p.setId(0);
-                    //p.setUser(str.getUser());
                     p.setDate(startDate.plusDays(1));
                     p.setAssetsClass(str.getAssetsClass());
                     p.setAssets(asset);
@@ -198,86 +199,44 @@ public class PortfolioServiceImpl implements PortfolioService{
 
 
         //Update portfolio every day===================================================================
-        amount = BigDecimal.ZERO;
-        int i=0, index=0;
+        int index=0;
 
         List<Portfolio> oldPortfolioList = new ArrayList<>();
 
-        List<BigDecimal> values = new ArrayList<>();
-
-        for(LocalDate date = startDate.plusDays(1); date.isBefore(endDate); date = date.plusWeeks(1)){
-            //System.out.println("Date: "+date.toString()+" - Size: "+portfolioList.size());
+        for(LocalDate date = startDate.plusDays(1); date.isBefore(endDate); date = date.plusDays(2)){
             oldPortfolioList.clear();
             for( ;index<portfolioList.size();index++){
                 oldPortfolioList.add(portfolioList.get(index));
             }
 
-            for(AssetsClass ac : assetsClassList){
-                for(Assets asset : assetsList){
-                    if(asset.getAssetsClass().getId() == ac.getId()){
-                        for(Portfolio oldP : oldPortfolioList){
-                            if(oldP.getAssets().getId() == asset.getId()){
-                                //System.out.println(oldP.toString());
-                                api = apiDataRepository.findLatestValueByAssetAndDate(asset.getId(), date.toString());
-                                if(api != null)
-                                    values.add(oldP.getUnits().multiply(api.getValue()));
-                                else
-                                    values.add(BigDecimal.ZERO);
-                            }
-                        }
-                    }
-                }
-
-                for (BigDecimal v : values) {
-                    amount = amount.add(v);
-                }
-
-                for(Assets asset : assetsList){
-                    if(asset.getAssetsClass().getId() == ac.getId()){
-                        for(Portfolio oldP : oldPortfolioList){
-                            if(oldP.getAssets().getId() == asset.getId()){
-                                p = new Portfolio();
-                                //p.setId(0);
-                                //p.setUser(oldP.getUser());
-                                p.setDate(date.plusDays(1));
-                                p.setAssetsClass(ac);
-                                p.setAssets(asset);
-                                p.setAmount(amount);
-                                p.setValue(values.get(i));
-                                p.setUnits(oldP.getUnits());
-
-                                portfolioList.add(p);
-                                i++;
-                            }
-                        }
-                    }
-                }
-                i=0;
-                amount = BigDecimal.ZERO;
-                values.clear();
+            List<ApiData> apiDataList = apiDataRepository.findLatestApiValuesByDate(date.toString());
+            for(int i=0;i<Constant.NUM_ASSETS;i++){
+                //api = apiDataRepository.findTopByAssetsAndDateLessThanEqualOrderByDateDesc(assetsList.get(i), date);
+                api = apiDataList.get(i);
+                value = oldPortfolioList.get(i).getUnits().multiply(api.getValue());
+                p = new Portfolio();
+                p.setDate(date.plusDays(1));
+                p.setUnits(oldPortfolioList.get(i).getUnits());
+                p.setValue(value);
+                portfolioList.add(p);
             }
-            System.out.println("Portfolio created for date: "+date.toString());
         }
 
-        //Create list of PortfolioDTO====================================================================
-        for(i=0; i<portfolioList.size();i+=Constant.NUM_ASSETS) {
-            pDTO = new PortfolioDTO();
+        //Create list of BacktestingDTO====================================================================
+        for(int i=0; i<portfolioList.size();i+=Constant.NUM_ASSETS) {
+            bDTO = new BacktestingDTO();
 
-            pDTO.setDate(portfolioList.get(i).getDate());
+            bDTO.setDate(portfolioList.get(i).getDate());
 
-            pDTO.setTotalAmount(BigDecimal.ZERO);
+            bDTO.setTotalAmount(BigDecimal.ZERO);
 
             for(int j=i;j<i+Constant.NUM_ASSETS && j<portfolioList.size();j++) {
-                pDTO.setTotalAmount(pDTO.getTotalAmount().add(portfolioList.get(j).getValue()));
-                //pDTO.setAssetsClassAmount(portfolioList.get(j).getAssetsClass().getId(), portfolioList.get(j).getAmount());
+                bDTO.setTotalAmount(bDTO.getTotalAmount().add(portfolioList.get(j).getValue()));
             }
-            /*for(int y=i;y<i+Constant.NUM_ASSETS_CLASS;y++) {
-                pDTO.setAssetsClassPercentage(portfolioList.get(y).getAssetsClass().getId(), portfolioList.get(y).getAmount().multiply(new BigDecimal(100).divide(pDTO.getTotalAmount(), 2, RoundingMode.HALF_UP)));
-            }*/
-            portfolioDTOList.add(pDTO);
+            backtestingDTOList.add(bDTO);
         }
 
-        return  portfolioDTOList;
+        return  backtestingDTOList;
 
     }
 
