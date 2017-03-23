@@ -15,7 +15,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE, RequestMethod.PUT })
+@CrossOrigin(origins = "*")
 public class AuthenticationController {
 
     private UserService userService;

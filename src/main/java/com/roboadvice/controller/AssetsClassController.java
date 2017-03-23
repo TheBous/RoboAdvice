@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/assetsclass")
-@CrossOrigin(origins = "http://localhost")
+@CrossOrigin(origins = "*")
 public class AssetsClassController {
 
     private AssetsClassService assetsClassService;

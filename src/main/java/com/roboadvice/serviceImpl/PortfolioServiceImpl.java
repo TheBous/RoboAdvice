@@ -143,7 +143,6 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
-    //@Cacheable("backtestingChart")
     public List<BacktestingDTO> getBackTestingChart(String userEmail, LocalDate startDate) {
         User u = userRepository.findByEmail(userEmail);
         if(u==null)
