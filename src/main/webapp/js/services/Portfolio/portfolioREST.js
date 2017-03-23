@@ -33,6 +33,14 @@ RoboAdviceApp.service("portfolioREST",
                 }
             },
 
+            advice: {
+                method: 'POST',
+                url: baseUrl + 'advice',
+                params: {
+                    strategy: '@strategy'
+                }
+            },
+
             getAssetsTrend: {
                 method: 'POST',
                 url: "/assetsclass/trend"

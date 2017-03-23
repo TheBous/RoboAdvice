@@ -4,6 +4,7 @@
 
 RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strategyREST, strategyService, $log){
     return{
+        adviceAmount : [],
         backtestingDatas: {},
         portfolioHistory : null,
         portfoliosRaw : {
@@ -160,6 +161,25 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                 else{
                     $log.debug("backtesting| error on  backtesting");
                     if(callback)
+                        callback(response);
+                }
+            });
+        },
+        getAdvice(param,callback){
+            let parent = this;
+            $log.debug("Portfolio service || get advice");
+            portfolioREST.advice({strategy: param}).$promise.then(function(response) {
+                if (response.statusCode == 0) {
+                    $log.debug("PortfolioService | statusCode = 0");
+                    $log.debug(response.data);
+                    parent.adviceAmount = response.data;
+                    $log.debug(parent.adviceAmount);
+                    if (callback)
+                        callback(response);
+                }
+                else {
+                    $log.debug("advice| error on  advice");
+                    if (callback)
                         callback(response);
                 }
             });

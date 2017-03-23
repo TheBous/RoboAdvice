@@ -48,43 +48,43 @@
 
 <br />
 <div ng-controller="AdviceController">
-  <div class="row">
-    <div class="col m4"></div>
-      <div class="col m4 s12">
-        <div class="card grey lighten-4">
-            <div class="card-content" style="text-align:center">
-              <span style="color:black;"class="card-title teal-text">Current strategy: <b>{{currentStrategy.getName()}}</b> </span>
-              <span style="color:black;"class="card-title teal-text">Tipology: <b>{{currentStrategyTipology}}</b> </span>
+    <div class="row">
+        <div class="col m4"></div>
+        <div class="col m4 s12">
+            <div class="card grey lighten-4">
+                <div class="card-content" style="text-align:center">
+                    <span style="color:black;"class="card-title teal-text">Current strategy: <b>{{currentStrategy.getName()}}</b> </span>
+                    <span style="color:black;"class="card-title teal-text">Tipology: <b>{{currentStrategyTipology}}</b> </span>
+                </div>
+                <div style=" margin:5pt;margin-left:8pt;height:auto">
+                    <assets-class-graph percentages=currentStrategy.getAssets()></assets-class-graph>
+                </div>
+                <br />
             </div>
-            <div style=" margin:5pt;margin-left:8pt;height:auto">
-              <assets-class-graph percentages=currentStrategy.getAssets()></assets-class-graph>
-            </div>
-            <br />
         </div>
     </div>
-  </div>
 
-        <div class="container" >
+    <div class="container" >
 
         <div class="row">
             <div class="col m1"></div>
 
             <div class="col m15 s15 " ng-repeat="defStrategy in standardStrategies">
-        <div class="card grey lighten-4">
-            <div class="card-content" style="text-align:center">
-                <span style="color:black;"class="card-title teal-text"><b>{{defStrategy.name}}</b> </span>
-            </div>
-            <div style=" margin:5pt;margin-left:8pt;text-align:center">
-                <b style="font-size:2em;font-color:dimgrey;">+10%</b>
-            </div>
-            <br />
-            <div style="text-align:center">
-                <button class="btn" style="margin:5pt" ng-click="changeStrategy()">Change</button>
+                <div class="card grey lighten-4">
+                    <div class="card-content" style="text-align:center">
+                        <span style="color:black;"class="card-title teal-text"><b>{{defStrategy.name}}</b> </span>
+                    </div>
+                    <div style=" margin:5pt;margin-left:8pt;text-align:center">
+                        <b style="font-size:2em;font-color:dimgrey;">+10%</b>
+                    </div>
+                    <br/>
+                    <div style="text-align:center">
+                        <button class="btn" style="margin:5pt" ng-click="changeStrategy()">Change</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-  </div>
-</div>
 
 </div>
 <!--

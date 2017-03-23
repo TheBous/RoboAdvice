@@ -1,4 +1,4 @@
-RoboAdviceApp.controller("AdviceController",function($scope,strategyService,userService,$log,$location){
+RoboAdviceApp.controller("AdviceController",function($scope,strategyService, portfolioService,userService,$log,$location){
   if(userService.hasStrategies()){
     $scope.standardStrategies = strategyService.getStandardStrategies();
     $scope.currentStrategy = strategyService.getLastStrategy();
@@ -11,8 +11,8 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService,user
       let percentage = aStrategy.strategy.map(function(strategyPercentage){
         return strategyPercentage.percentage;
       });
-      $log.error(percentage)
-      $log.error(currentPercentages)
+      $log.error(percentage);
+      $log.error(currentPercentages);
       if(currentPercentages == percentage){
         $log.debug("found strategy");
         $log.error(aStrategy.name);
@@ -21,8 +21,16 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService,user
     $scope.currentStrategyTipology = "Custom";
 
     $scope.changeStrategy = function(){
+      portfolioService.getAdvice(1, function(response){
+        if(response.statusCode == 0){
+          $log.debug("yep");
+        }
+        else{
+          $log.debug("nope");
+        }
+      });
       // the user wants to change the current strategy based on advice
-      alert("the user wants to change his life");
+      //alert("the user wants to change his life");
     }
   }else{
     $log.error("AdviceController| The user doesn't have strategies");
