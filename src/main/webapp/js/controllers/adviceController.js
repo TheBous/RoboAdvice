@@ -36,7 +36,7 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
         }
     }else{
         $log.error("AdviceController| The user doesn't have strategies");
-        // reloat history
+        // reload history
         $location.path("history");
     }
 
