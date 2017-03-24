@@ -25,7 +25,8 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
               if(response.statusCode == 0){
                 $scope.adviceAmount[index] = response.data;
               }else{
-
+                $log.error("AdviceController.getAdvice| REST error, object data:");
+                $log.error(response.data);
               }
           });
         }
