@@ -1,7 +1,7 @@
 <div>
     <h4>Last Amount:</h4>{{$ctrl.yAxis[($ctrl.yAxis.length)-1]}}
 </div>
-<div ng-show="loadingInProgress" style="text-align: center">
+<div ng-show="loadingInProgress==true" style="text-align: center">
     <div class="preloader-wrapper big active">
         <div class="spinner-layer spinner-blue">
             <div class="circle-clipper left">
@@ -19,7 +19,8 @@
 </div>
 <div>
     <h1>Backtesting chart</h1>
-    <canvas id="line" class="chart chart-line" chart-data="$ctrl.yAxis" chart-labels="$ctrl.xAxis">
+    
+    <canvas id="line" class="chart chart-line" chart-data="$ctrl.yAxis" chart-labels="$ctrl.francesca">
     </canvas>
 </div>
 

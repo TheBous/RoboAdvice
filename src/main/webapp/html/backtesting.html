@@ -17,23 +17,21 @@
             });
             $('select').material_select();
         });
-
     </script>
-
 </head>
 <body>
 <div ng-controller="Backtesting">
     <h4>Current amount:</h4>{{user.getCurrentPortfolioAmount()}}
+
     <wizard hide-indicators="true">
         <wz-step wz-title="first">
-
-            <back-uno interval="TheInterval" on-update="update(data)"></back-uno>
+          <back-uno interval="TheInterval" on-update="update(data)"></back-uno>
         </wz-step>
         <wz-step wz-title="second">
-            <back-due  x-axis="xAxis" y-axis="yAxis"interval="TheInterval"></back-due>
+          <back-due francesca="francesca" y-axis="yAxis" interval="TheInterval"></back-due>
         </wz-step>
         <wz-step wz-title="third">
-            <back-tre interval="TheInterval"></back-tre>
+          <back-tre interval="TheInterval"></back-tre>
         </wz-step>
     </wizard>
 </div>
