@@ -71,6 +71,9 @@
 
             <div class="col m15 s15 " ng-repeat="defStrategy in standardStrategies">
                 <div ng-if="defStrategy.name != currentStrategy.getName()" class="card grey lighten-4">
+                    <div ng-if="advicePercentage[$index] == max">
+                        <img style="width: 10%;" src="../img/EasterEgg.png">
+                    </div>
                     <div class="card-content" style="text-align:center">
                         <span style="color:black;"class="card-title teal-text"><b>{{defStrategy.name}}</b> </span>
                     </div>
@@ -79,7 +82,9 @@
                         <div>
                             <i ng-if="advicePercentage[$index] < 0" style="color:#F44336;font-size:50px;" class="material-icons winning">trending_up</i>
                             <i ng-if="advicePercentage[$index] > 0" style="color: #00e676;font-size:50px;" class="material-icons losing">trending_down</i>
-                            <h6>Percentage: <label ng-if="advicePercentage[$index] > 0">-<label/>{{advicePercentage[$index] | number : 2}}%</label>
+                            <h6>Percentage:
+                                <label ng-if="advicePercentage[$index] > 0">-
+                                    <label/>{{advicePercentage[$index] | number : 4}}%</label>
                         </div>
 
                         <h5>Amount: {{adviceAmount[$index] | number:1}}</h5>
