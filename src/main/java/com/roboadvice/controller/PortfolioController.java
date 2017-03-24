@@ -86,21 +86,4 @@ public class PortfolioController {
         else
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
     }
-
-    @RequestMapping(value = "/advice", method = RequestMethod.POST)
-    public GenericResponse<BigDecimal> getAdvice(@RequestParam(value = "strategy", defaultValue = "null") int strategyCode,
-                                                 Authentication authentication){
-        if(strategyCode<0 || strategyCode>4)
-            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
-
-        String userEmail = authentication.getName();
-        PortfolioDTO pDTO = portfolioService.getAdvice(userEmail, strategyCode);
-
-        if(pDTO!=null)
-            return new GenericResponse<>(pDTO.getTotalAmount(), Constant.SUCCES_MSG, Constant.SUCCESS);
-        else
-            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
-
-    }
-
 }
