@@ -67,6 +67,7 @@ var Strategy = class {
    getHistoryDate(){            return this.portfolios.dates; }
    isCurrent(){                 return false; }
    getAssets(){                 return this.assetsData; }
+   getAssetsLabel(){            return this.assetsLabel();}
    getFormattedDate(){          return this.dateFormatted.day + "/" + this.dateFormatted.month + "/" + this.dateFormatted.year; }
    getDate(){                   return this.date; }
    getName(){                   return this.name; }

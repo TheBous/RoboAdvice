@@ -1,18 +1,24 @@
 RoboAdviceApp.controller("AdviceController",function($scope,strategyService, portfolioService,userService,$log,$location, ADVICE_CODES){
     if(userService.hasStrategies()){
-        var currentAmount = userService.getCurrentPortfolioAmount();
+        let currentAmount = userService.getCurrentPortfolioAmount();
         $scope.standardStrategies = strategyService.getStandardStrategies();
         $scope.currentStrategy = strategyService.getLastStrategy();
         $scope.adviceAmount = new Array(5);
         $scope.advicePercentage = new Array(5);
+        $scope.max = 0;
         // get the current Tipology
         // percentages is an array of percentages [95,0,0,5] is an example
         let currentPercentages = strategyService.getLastStrategy().getAssets();
-
+        /*let standardLabels = new Array(5);
+         for(let i = 0; i<5;i++) {
+         standardLabels[i] = strategyService.getStandardStrategies()[i].name;
+         }
+         $log.info(standardLabels);*/
         $scope.standardStrategies.forEach(function(aStrategy){
             let percentage = aStrategy.strategy.map(function(strategyPercentage){
                 return strategyPercentage.percentage;
             });
+            $log.info("percentage:");
             $log.error(percentage);
             $log.error(currentPercentages);
             if(currentPercentages == percentage){
@@ -20,14 +26,28 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
                 $log.error(aStrategy.name);
             }
         });
-        $scope.currentStrategyTipology = "Custom";
-
+        for(let i=0;i<5;i++){
+            $log.debug($scope.currentStrategy.getName());
+            $log.debug($scope.standardStrategies[i].name);
+            if(strategyService.getStandardStrategies()[i].name == $scope.currentStrategy.getName()){
+                $scope.currentStrategyTipology = "Standard";
+            }
+            else{
+                $scope.currentStrategyTipology = "Custom";
+            }
+        }
         for(let index = 0;index < 5; index++){
             strategyService.getAdvice(index, function(response){
                 if(response.statusCode == 0){
                     console.log("----",response.data);
                     $scope.adviceAmount[index] = response.data;
                     $scope.advicePercentage[index] = (currentAmount - $scope.adviceAmount[index]) / currentAmount;
+                    if($scope.advicePercentage[i] > 0) {
+                        if ($scope.advicePercentage[index] > $scope.max) {
+                            $scope.max = $scope.advicePercentage[index];
+                            $log.info($scope.max);
+                        }
+                    }
                     $log.debug($scope.advicePercentage[index]);
                 }else{
                     $log.error("AdviceController.getAdvice| REST error, object data:");
