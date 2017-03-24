@@ -54,7 +54,7 @@
             <div class="card grey lighten-4">
                 <div class="card-content" style="text-align:center">
                     <span style="color:black;"class="card-title teal-text">Current strategy: <b>{{currentStrategy.getName()}}</b> </span>
-                    <span style="color:black;"class="card-title teal-text">Tipology: <b>{{currentStrategyTipology}}</b> </span>
+                    <span style="color:black;"class="card-title teal-text">Type:<b>{{currentStrategyTipology}}</b> </span>
                 </div>
                 <div style=" margin:5pt;margin-left:8pt;height:auto">
                     <assets-class-graph percentages=currentStrategy.getAssets()></assets-class-graph>
@@ -70,7 +70,7 @@
             <div class="col m1"></div>
 
             <div class="col m15 s15 " ng-repeat="defStrategy in standardStrategies">
-                <div class="card grey lighten-4">
+                <div ng-if="defStrategy.name != currentStrategy.getName()" class="card grey lighten-4">
                     <div class="card-content" style="text-align:center">
                         <span style="color:black;"class="card-title teal-text"><b>{{defStrategy.name}}</b> </span>
                     </div>
@@ -79,9 +79,10 @@
                         <div>
                             <i ng-if="advicePercentage[$index] < 0" style="color:#F44336;font-size:50px;" class="material-icons winning">trending_up</i>
                             <i ng-if="advicePercentage[$index] > 0" style="color: #00e676;font-size:50px;" class="material-icons losing">trending_down</i>
-                            {{advicePercentage[$index]}}
+                            <h6>Percentage: <label ng-if="advicePercentage[$index] > 0">-<label/>{{advicePercentage[$index] | number : 2}}%</label>
                         </div>
-                        {{adviceAmount[$index] | number:3}}
+
+                        <h5>Amount: {{adviceAmount[$index] | number:1}}</h5>
                     </div>
                     <br/>
 
