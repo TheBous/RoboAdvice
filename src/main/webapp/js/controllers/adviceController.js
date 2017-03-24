@@ -26,7 +26,6 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
           portfolioService.getAdvice(index, function(response){
               if(response.statusCode == 0){
                 console.log("----",response.data);
-                
               }else{
 
               }
