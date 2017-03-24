@@ -1,5 +1,6 @@
 package com.roboadvice.controller;
 
+import com.roboadvice.dto.PortfolioDTO;
 import com.roboadvice.dto.StrategyDTO;
 import com.roboadvice.service.StrategyService;
 import com.roboadvice.utils.Constant;
@@ -9,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -77,6 +79,22 @@ public class StrategyController {
             return new GenericResponse<>(strategyDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
         else
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+    }
+
+    @RequestMapping(value = "/advice", method = RequestMethod.POST)
+    public GenericResponse<BigDecimal> getAdvice(@RequestParam(value = "strategy", defaultValue = "null") int strategyCode,
+                                                 Authentication authentication){
+        if(strategyCode<0 || strategyCode>4)
+            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+
+        String userEmail = authentication.getName();
+        PortfolioDTO pDTO = strategyService.getAdvice(userEmail, strategyCode);
+
+        if(pDTO!=null)
+            return new GenericResponse<>(pDTO.getTotalAmount(), Constant.SUCCES_MSG, Constant.SUCCESS);
+        else
+            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+
     }
 
 }
