@@ -62,23 +62,23 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
         },
         // insert a new strategy for the user
         insert: {
-            bonds : (usr_id) =>
-                strategyREST.insert({user_id: usr_id, bonds_p:'95', stocks_p:'0', forex_p:'0', commodities_p:'5', name:'Bonds'}),
+            bonds : () =>
+                strategyREST.insert({bonds_p:'95', stocks_p:'0', forex_p:'0', commodities_p:'5', name:'Bonds'}),
 
-            income : (usr_id) =>
-                strategyREST.insert({user_id: usr_id, bonds_p:'65', stocks_p:'10', forex_p:'15', commodities_p:'10', name:'Income'}),
+            income : () =>
+                strategyREST.insert({bonds_p:'65', stocks_p:'10', forex_p:'15', commodities_p:'10', name:'Income'}),
 
-            balanced : (usr_id) =>
-                strategyREST.insert({user_id: usr_id, bonds_p:'30', stocks_p:'30', forex_p:'20', commodities_p:'20', name:'Balanced'}),
+            balanced : () =>
+                strategyREST.insert({bonds_p:'30', stocks_p:'30', forex_p:'20', commodities_p:'20', name:'Balanced'}),
 
-            growth : (usr_id) =>
-                strategyREST.insert({user_id: usr_id, bonds_p:'20', stocks_p:'60', forex_p:'10', commodities_p:'10', name:'Growth'}),
+            growth : () =>
+                strategyREST.insert({bonds_p:'20', stocks_p:'60', forex_p:'10', commodities_p:'10', name:'Growth'}),
 
-            stocks : (usr_id) =>
-                strategyREST.insert({user_id: usr_id, bonds_p:'0', stocks_p:'100', forex_p:'0', commodities_p:'0', name:'Stocks'}),
+            stocks : () =>
+                strategyREST.insert({bonds_p:'0', stocks_p:'100', forex_p:'0', commodities_p:'0', name:'Stocks'}),
 
-            custom : (usr_id,strategy_name,percentages) =>
-                strategyREST.insert({user_id: usr_id, bonds_p: ''+percentages[0], stocks_p:''+percentages[1], forex_p:''+percentages[2], commodities_p:''+percentages[3], name:strategy_name})
+            custom : (strategy_name,percentages) =>
+                strategyREST.insert({bonds_p: ''+percentages[0], stocks_p:''+percentages[1], forex_p:''+percentages[2], commodities_p:''+percentages[3], name:strategy_name})
         },
         // get standard hard-coded strategies
         getStandardStrategies(){
@@ -133,7 +133,7 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
         deletePending(callback){
             let parent = this;
             $log.debug("strategyService.deletePending| actual length: " + parent.strategyHistory.length);
-            
+
             strategyREST.deletePending().$promise.then(function (response){
                 if (response.statusCode==0){
                     $log.debug("strategyService.deletePending | statusCode == 0");
@@ -144,6 +144,25 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
                     // delete is not possible
                     $log.error("strategyService.deletePending | statusCode != 0")
                     callback(false);
+                }
+            });
+        },
+        getAdvice(param,callback){
+            let parent = this;
+            $log.debug("Portfolio service || get advice");
+            strategyREST.advice({strategy: param}).$promise.then(function(response) {
+                if (response.statusCode == 0) {
+                    $log.debug("strategyService | statusCode = 0");
+                    $log.debug(response.data);
+                    parent.adviceAmount = response.data;
+                    $log.debug(parent.adviceAmount);
+                    if (callback)
+                        callback(response);
+                }
+                else {
+                    $log.debug("advice | error on  advice");
+                    if (callback)
+                        callback(response);
                 }
             });
         }

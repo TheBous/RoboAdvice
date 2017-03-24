@@ -1,5 +1,4 @@
 RoboAdviceApp.controller("deletePending", function($scope, $log, userService, strategyService){
-
     $scope.deletePending = function () {
         $log.debug("StrategyService || Delete pending strategy");
         swal({
