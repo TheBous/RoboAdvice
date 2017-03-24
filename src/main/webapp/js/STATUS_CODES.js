@@ -30,4 +30,9 @@ RoboAdviceApp.constant("STRATEGY_CODES", {
     2: "Server problem",
     "GUEST_USER": "Need to login"
 });
+
+RoboAdviceApp.constant("ADVICE_CODES", {
+    0: "Strategy Changed",
+    1: "Strategy not changed due to a service issue"
+})
 // coming soon
