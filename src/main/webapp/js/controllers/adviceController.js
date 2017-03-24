@@ -27,8 +27,8 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
                 if(response.statusCode == 0){
                     console.log("----",response.data);
                     $scope.adviceAmount[index] = response.data;
-                    /*$scope.advicePercentage[index] = (currentAmount - $scope.adviceAmount[index]) / currentAmount;
-                    $log.debug($scope.advicePercentage[index]);*/
+                    $scope.advicePercentage[index] = (currentAmount - $scope.adviceAmount[index]) / currentAmount;
+                    $log.debug($scope.advicePercentage[index]);
                 }else{
                     $log.error("AdviceController.getAdvice| REST error, object data:");
                     $log.error(response.statusCode);

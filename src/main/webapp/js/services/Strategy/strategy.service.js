@@ -152,7 +152,7 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
             $log.debug("Portfolio service || get advice");
             strategyREST.advice({strategy: param}).$promise.then(function(response) {
                 if (response.statusCode == 0) {
-                    $log.debug("PortfolioService | statusCode = 0");
+                    $log.debug("strategyService | statusCode = 0");
                     $log.debug(response.data);
                     parent.adviceAmount = response.data;
                     $log.debug(parent.adviceAmount);
