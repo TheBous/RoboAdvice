@@ -2,56 +2,114 @@ RoboAdviceApp.component("realtimeLineGraph",{
     bindings: {
         horizzontalAxis: "<", // an array of dates in timestamp
         verticalAxis: "<",    // an array of amounts
-        incrementData: "&",   // the method that increments the data
         realtime: "@",        // [true|false]
         forecastValue: "@",   // forecast value to obtain
-        stimatedAmount: "<"   // the stimated amount from the controller
+        incrementData: "&"
     },
-    template: `
-    <div style="text-align:left;float:left" ng-if="$ctrl.stimatedAmount">
-      Stimated Amount: <b>{{$ctrl.stimatedAmount}}</b>
-    </div>
-    <div style="text-align:right">
-      {{$ctrl.currentTime}}
-    </div>
-    <br>
-    <div>
-      <canvas id="line" class="chart chart-line" chart-data="$ctrl.verticalAxis" chart-labels="$ctrl.horizzontalAxis" chart-options="options">
-      </canvas
-    </div>
-  `,
+    templateUrl: "../../html/realtimeGraph.html",
     controller: function($scope,$interval,$log){
         var $ctrl = this;
         var scope = $scope;
 
         this.$onInit = function(){
             let now = new Date();
-
+            $log.debug("realtimeLineGrap| initialized")
+            //this.incrementData();
             $scope.options = {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:false
-//              min: minY
-//              max: maxY
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero:false
+                  }
+                }]
+              }
+            };
+            $ctrl.interval = 5000;
+
+            // realtime highchart
+            Highcharts.chart('rt', {
+                chart: {
+                    type: 'spline',
+                    animation: Highcharts.svg, // don't animate in old IE
+                    marginRight: 10,
+                    events: {
+                        load: function () {
+                          // set up the updating of the chart each second
+                          var series = this.series[0];
+                          if($ctrl.realtime == "true"){
+                            setInterval(function () {
+                              let rnd = Math.random()*10;
+                              let salt = (Math.floor(rnd)%2) ? 1 : -1;
+
+                              let x = $ctrl.horizzontalAxis[$ctrl.horizzontalAxis.length-1]+$ctrl.interval, // current time
+                              y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd*salt;
+                              //$ctrl.incrementData();
+                              $ctrl.horizzontalAxis.push(x);
+                              $ctrl.verticalAxis.push(y);
+
+                              series.addPoint([x, y], true, true);
+                            }, $ctrl.interval);
+                          }
                         }
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    labels: {
+                      enabled: false
+                    },
+                    type: 'datetime',
+                    tickPixelInterval: 150
+                },
+                yAxis: {
+                    title: {
+                        text: 'Value'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
                     }]
-                }
-            };
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                            //Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                            Highcharts.numberFormat(this.y, 2);
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Portfolio Amount',
+                    data: (function () {
+                        // set the first data
+                        var data = [];
+                        let portfolioNum = $ctrl.verticalAxis.length;
+                        let lastValue = $ctrl.verticalAxis[portfolioNum-1];
+                        var time = (new Date()).getTime();
 
-            $scope.getNewData = function(){
-              $ctrl.currentTime = now.getDateFormatted() + " " + now.getHours() + ":" + now.getMinutes();
-              let $this = this;
-              $ctrl.incrementData({data:$ctrl.forecastValue})
-            };
+                        for(let i = 0;i<portfolioNum; i++){
+                          $ctrl.horizzontalAxis[i]=time+i*$ctrl.interval
+                          data.push({
+                            x: time+i*$ctrl.interval,
+                            y: $ctrl.verticalAxis[i]
+                          });
+                        }
 
-            if(this.realtime == "true"){
-                  $log.debug("realtime component| realtime is setted");
-                //each minute
-                //this.incrementData();
-                $interval($scope.getNewData,5000,0,true);
-            }
-        }
+                        return data;
+
+                    }())
+                }]
+            });
+
+        }// end onInit
 
     }
 });
