@@ -12,6 +12,10 @@ RoboAdviceApp.controller("RealtimeGraphController",function($scope,strategyServi
     $scope.lastStrategyDates = angular.fromJson(sessionStorage.realtimeDates);
   }
 
+  $scope.incrementData = function(){
+
+  }
+
   // check if exists something in localStorage
   getRealtime();
   if(null == null){

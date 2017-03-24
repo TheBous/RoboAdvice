@@ -2,10 +2,9 @@ RoboAdviceApp.component("realtimeLineGraph",{
     bindings: {
         horizzontalAxis: "<", // an array of dates in timestamp
         verticalAxis: "<",    // an array of amounts
-        incrementData: "&",   // the method that increments the data
         realtime: "@",        // [true|false]
         forecastValue: "@",   // forecast value to obtain
-        stimatedAmount: "<"   // the stimated amount from the controller
+        incrementData: "&"
     },
     templateUrl: "../../html/realtimeGraph.html",
     controller: function($scope,$interval,$log){
@@ -15,9 +14,7 @@ RoboAdviceApp.component("realtimeLineGraph",{
         this.$onInit = function(){
             let now = new Date();
             $log.debug("realtimeLineGrap| initialized")
-            $log.debug(this.verticalAxis);
-            $log.debug(this.horizzontalAxis);
-
+            //this.incrementData();
             $scope.options = {
               scales: {
                 yAxes: [{
@@ -27,17 +24,7 @@ RoboAdviceApp.component("realtimeLineGraph",{
                 }]
               }
             };
-
-            $scope.getNewData = function(){
-              $ctrl.currentTime = now.getDateFormatted() + " " + now.getHours() + ":" + now.getMinutes();
-              //let $this = this;
-              //$ctrl.incrementData({data:$ctrl.forecastValue})
-            };
-
-            if(this.realtime == "true"){
-              $log.debug("realtime component| realtime is setted");
-              $ctrl.interval = 5000; // 1 second
-            }
+            $ctrl.interval = 5000;
 
             // realtime highchart
             Highcharts.chart('rt', {
@@ -49,21 +36,20 @@ RoboAdviceApp.component("realtimeLineGraph",{
                         load: function () {
                           // set up the updating of the chart each second
                           var series = this.series[0];
+                          if($ctrl.realtime == "true"){
+                            setInterval(function () {
+                              let rnd = Math.random()*10;
+                              let salt = (Math.floor(rnd)%2) ? 1 : -1;
 
-                          setInterval(function () {
-                            //console.log(new Date($ctrl.horizzontalAxis[$ctrl.horizzontalAxis.length-1]))
+                              let x = $ctrl.horizzontalAxis[$ctrl.horizzontalAxis.length-1]+$ctrl.interval, // current time
+                              y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd*salt;
+                              //$ctrl.incrementData();
+                              $ctrl.horizzontalAxis.push(x);
+                              $ctrl.verticalAxis.push(y);
 
-                            let rnd = Math.random()*10;
-                            let salt = (Math.floor(rnd)%2) ? 1 : -1;
-
-                            let x = $ctrl.horizzontalAxis[$ctrl.horizzontalAxis.length-1]+$ctrl.interval, // current time
-                            y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd*salt;
-
-                            $ctrl.horizzontalAxis.push(x);
-                            $ctrl.verticalAxis.push(y);
-                            series.addPoint([x, y], true, true);
-                          }, $ctrl.interval);
-
+                              series.addPoint([x, y], true, true);
+                            }, $ctrl.interval);
+                          }
                         }
                     }
                 },
@@ -71,6 +57,9 @@ RoboAdviceApp.component("realtimeLineGraph",{
                     text: ''
                 },
                 xAxis: {
+                    labels: {
+                      enabled: false
+                    },
                     type: 'datetime',
                     tickPixelInterval: 150
                 },
