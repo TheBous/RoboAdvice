@@ -178,7 +178,7 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                         callback(response);
                 }
                 else {
-                    $log.debug("advice| error on  advice");
+                    $log.debug("advice | error on  advice");
                     if (callback)
                         callback(response);
                 }

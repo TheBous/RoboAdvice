@@ -1,8 +1,10 @@
-RoboAdviceApp.controller("AdviceController",function($scope,strategyService, portfolioService,userService,$log,$location){
+RoboAdviceApp.controller("AdviceController",function($scope,strategyService, portfolioService, userService, $log, $location){
     if(userService.hasStrategies()){
+        var currentAmount = userService.getCurrentPortfolioAmount();
         $scope.standardStrategies = strategyService.getStandardStrategies();
         $scope.currentStrategy = strategyService.getLastStrategy();
         $scope.adviceAmount = new Array(5);
+        $scope.advicePercentage = new Array(5);
         // get the current Tipology
         // percentages is an array of percentages [95,0,0,5] is an example
         let currentPercentages = strategyService.getLastStrategy().getAssets();
@@ -24,7 +26,7 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
           portfolioService.getAdvice(index, function(response){
               if(response.statusCode == 0){
                 console.log("----",response.data);
-                $scope.adviceAmount[index] = response.data;
+                
               }else{
 
               }
