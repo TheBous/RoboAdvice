@@ -52,7 +52,7 @@ body_class{
 
 .person:hover > span{padding-left:45px;display:none}
 .person:hover img{height:105%;}
-.person:hover > div {	border: 14px solid #009688;}
+.person:hover > div {	border: 14px solid #00838f;}
 
 
 .person h4  {
