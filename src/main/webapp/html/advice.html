@@ -76,12 +76,12 @@
                     </div>
                     <div style=" margin:5pt;margin-left:8pt;text-align:center">
                         <b style="font-size:2em;font-color:dimgrey;">+10%</b><br />
-                        {{adviceAmount[0] | number:3}}
+                        {{adviceAmount[$index] | number:3}}
                     </div>
                     <br/>
 
                     <div style="text-align:center">
-                        <button class="btn" style="margin:5pt" ng-click="changeStrategy(0)">Change</button>
+                        <button class="btn" style="margin:5pt" ng-click="changeStrategy($index)">Change</button>
                     </div>
                 </div>
             </div>

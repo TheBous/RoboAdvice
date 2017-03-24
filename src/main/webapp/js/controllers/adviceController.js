@@ -1,4 +1,4 @@
-RoboAdviceApp.controller("AdviceController",function($scope,strategyService, portfolioService,userService,$log,$location){
+RoboAdviceApp.controller("AdviceController",function($scope,strategyService, portfolioService,userService,$log,$location, ADVICE_CODES){
     if(userService.hasStrategies()){
         $scope.standardStrategies = strategyService.getStandardStrategies();
         $scope.currentStrategy = strategyService.getLastStrategy();
@@ -23,7 +23,6 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
         for(let index = 0;index < 5; index++){
           portfolioService.getAdvice(index, function(response){
               if(response.statusCode == 0){
-                console.log("----",response.data);
                 $scope.adviceAmount[index] = response.data;
               }else{
 
@@ -33,10 +32,34 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
 
 
         $scope.changeStrategy = function(index){
-            $log.debug(index);
+          $log.debug("AdviceController.changeStrategy| index: " + index);
+          $log.debug("AdviceController.changeStrategy| new strategy name: " + $scope.standardStrategies[index].name);
+          let change_response = function(response){
+            if(response.statusCode == 0){
+              userService.newStrategy(response.data);
+              sweetAlert(ADVICE_CODES[response.statusCode], "" , "success");
+            }else{
+              // handle error
+              sweetAlert(ADVIC_CODES[response.statusCode], "" , "error");
+            }
+          };
 
-            // the user wants to change the current strategy based on advice
-            //alert("the user wants to change his life");
+          switch(index){
+            case 0:
+              strategyService.insert.bonds().$promise.then(change_response);
+            break;
+            case 1:
+              strategyService.insert.income().$promise.then(change_response);
+            break;
+            case 2:
+              strategyService.insert.balanced().$promise.then(change_response);
+            break;
+            case 3:
+              strategyService.insert.growth().$promise.then(change_response);
+            break;
+            case 4:
+              strategyService.insert.stocks().$promise.then(change_response);
+          }
         }
     }else{
         $log.error("AdviceController| The user doesn't have strategies");
