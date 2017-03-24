@@ -87,7 +87,7 @@ RoboAdviceApp.component("realtimeLineGraph",{
                 tooltip: {
                     formatter: function () {
                         return '<b>' + this.series.name + '</b><br/>' +
-                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                            //Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
                             Highcharts.numberFormat(this.y, 2);
                     }
                 },
@@ -98,7 +98,7 @@ RoboAdviceApp.component("realtimeLineGraph",{
                     enabled: false
                 },
                 series: [{
-                    name: 'Our data',
+                    name: 'Portfolio Amount',
                     data: (function () {
                         // set the first data
                         var data = [];
