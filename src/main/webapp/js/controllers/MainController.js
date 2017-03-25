@@ -55,6 +55,8 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
                 $cookies.remove("email");
                 $cookies.remove("password");
                 $cookies.remove("token");
+                sessionStorage.realtimeAmounts = null;
+                sessionStorage.realtimeDates = null;
 
                 window.location = "/";
                 //$location.path("/");

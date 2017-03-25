@@ -109,18 +109,31 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                             $log.debug("portfolioService.setHistory| setting up portfolio Differences: ");
                             let last_portfolio_index = i-1;
                             parent.portfolioDifferences = new Array(4);
-                            parent.portfolioDifferences[0]=portfolioHistory[last_portfolio_index].bondsAmount!=0 ? (
+
+                            parent.portfolioDifferences[0]={
+                                percentage: portfolioHistory[last_portfolio_index].bondsAmount!=0 ? (
                                 (portfolioHistory[last_portfolio_index].bondsAmount - portfolioHistory[last_portfolio_index-1].bondsAmount)
-                                / portfolioHistory[last_portfolio_index].bondsAmount) * 100 : 0;
-                            parent.portfolioDifferences[1]=portfolioHistory[last_portfolio_index].commoditiesAmount!=0 ? (
+                                / portfolioHistory[last_portfolio_index].bondsAmount) * 100 : 0,
+                                amount: portfolioHistory[last_portfolio_index].bondsAmount
+                            }
+                            parent.portfolioDifferences[1]={
+                                percentage: portfolioHistory[last_portfolio_index].commoditiesAmount!=0 ? (
                                 (portfolioHistory[last_portfolio_index].commoditiesAmount - portfolioHistory[last_portfolio_index-1].commoditiesAmount)
-                                / portfolioHistory[last_portfolio_index].commoditiesAmount) * 100 : 0;
-                            parent.portfolioDifferences[2]=portfolioHistory[last_portfolio_index].forexAmount!=0 ? (
+                                / portfolioHistory[last_portfolio_index].commoditiesAmount) * 100 : 0,
+                                amount: portfolioHistory[last_portfolio_index].commoditiesAmount
+                            }
+                            parent.portfolioDifferences[2]={
+                                percentage: portfolioHistory[last_portfolio_index].forexAmount!=0 ? (
                                 (portfolioHistory[last_portfolio_index].forexAmount - portfolioHistory[last_portfolio_index-1].forexAmount)
-                                / portfolioHistory[last_portfolio_index].forexAmount ) * 100 : 0;
-                            parent.portfolioDifferences[3]=portfolioHistory[last_portfolio_index].stocksAmount!=0 ? (
+                                / portfolioHistory[last_portfolio_index].forexAmount ) * 100 : 0,
+                                amount: portfolioHistory[last_portfolio_index].forexAmount
+                            }
+                            parent.portfolioDifferences[3]={
+                                percentage: portfolioHistory[last_portfolio_index].stocksAmount!=0 ? (
                                 (portfolioHistory[last_portfolio_index].stocksAmount - portfolioHistory[last_portfolio_index-1].stocksAmount)
-                                / portfolioHistory[last_portfolio_index].stocksAmount ) * 100 : 0;
+                                / portfolioHistory[last_portfolio_index].stocksAmount ) * 100 : 0,
+                                amount: portfolioHistory[last_portfolio_index].stocksAmount
+                            }
                         }
                         //parent.currentPortfolio = portfolioHistory[i-1];
                         //parent.portfolioList = portfolioHistory;

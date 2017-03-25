@@ -19,7 +19,11 @@
                                     <span class="card-title"> {{strategy.getLastStrategy().getName()}} Trend</span>
 
                                     <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
-                                    <realtime-line-graph increment-data="incrementData()" realtime="true" forecast-value="10250" vertical-axis="lastStrategyAmounts" horizzontal-axis="lastStrategyDates"></realtime-line-graph>
+                                    <realtime-line-graph vertical-axis="strategy.getLastStrategy().getHistoryAmount()" horizzontal-axis="strategy.getLastStrategy().getHistoryDate()"
+                                    realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph>
+                                    <!-- <realtime-line-graph vertical-axis="realtimeAmounts" horizzontal-axis="realtimeDates"
+                                    realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph> -->
+
                                     <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
                                 </div>
                                 <!--<div class="card-action">
