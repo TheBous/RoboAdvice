@@ -25,13 +25,14 @@ UI Tips and tricks
 
 
 
+
 ______________________________________________________________________________________________________________________________________________________
 
 Issue:
 
 1)In Balance page, sistemare le librerie esterne per lo slider che mi genera un hover rosso sulla navbar
 
-2)
+2)Valutare se mettere o meno il cancella sulla prima strategia di un utente.
 
 3)se utente appena creato, finisce il tutorial, ed esce dal sito, gli viene data na strategia?
 
@@ -41,3 +42,25 @@ Issue:
 
 ______________________________________________________________________________________________________________________________________________________
 
+far capire che in home ci sta la roba sotto
+
+sicuramente le tre cosine sopra, e i grafici sotto
+
+alla fine della home mettere un cosin che mi manda alla registrazine/login.
+
+
+in wizard after registration voglio una freccettina che mi fa scendere giu e mi fa capire che debbo andare giu.
+
+nel wizard mettere delle freccine che mi fanno tornare alle precedenti view:
+
+fare capire all'utente che il nome strategia si può cambiare, magari solo alla fine lo faccio vedere
+
+Mettere nel Save strategy un pop up che permette eventualmente di cambiare nome alla strategia.
+
+Advice non deve essere mostrata ad un utente appena registrato
+
+
+In ADvice: mettere che sei partito da 10k e sei arrivato a TOT, queste sono le nostre proposte.
+per il Layout,non voglio scendere metto strategia attuale a sx e le proposte a dx
+
+Button disabled in Main Menu per le funzionalità non disponibili in giorno 1
