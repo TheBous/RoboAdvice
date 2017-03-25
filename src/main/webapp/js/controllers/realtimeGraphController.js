@@ -2,43 +2,46 @@ RoboAdviceApp.controller("RealtimeGraphController",function($scope,strategyServi
 
   // save the state
   let saveRealtime = function(){
-    sessionStorage.realtimeAmounts = angular.toJson($scope.lastStrategyAmounts);
-    sessionStorage.realtimeDates = angular.toJson($scope.lastStrategyDates);
+    sessionStorage.realtimeAmounts = angular.toJson($scope.realtimeAmounts);
+    sessionStorage.realtimeDates = angular.toJson($scope.realtimeDates);
   }
 
   // get the state
   let getRealtime = function(){
-    $scope.lastStrategyAmounts = angular.fromJson(sessionStorage.realtimeAmounts);
-    $scope.lastStrategyDates = angular.fromJson(sessionStorage.realtimeDates);
+    $scope.realtimeAmounts = angular.fromJson(sessionStorage.realtimeAmounts);
+    $scope.realtimeDates = angular.fromJson(sessionStorage.realtimeDates);
   }
 
-  $scope.incrementData = function(){
-
+  $scope.stimatedAmount = 100;
+  $scope.incrementData = function(data){
+    // save the current state
+    $scope.stimatedAmount = 10000;
+    saveRealtime();
   }
 
   // check if exists something in localStorage
   getRealtime();
-  if(null == null){
+  if($scope.realtimeAmounts == null){
     // there isn't nothing
     // get the data from last portfolio
     let portfolios = strategyService.getLastStrategy().getPortfolios();
     let portfolioNum = portfolios.length;
 
     // initialize the array
-    $scope.lastStrategyAmounts = new Array(portfolioNum);
-    $scope.lastStrategyDates = new Array(portfolioNum);
+    $scope.realtimeAmounts = new Array(portfolioNum);
+    $scope.realtimeDates = new Array(portfolioNum);
+    //get the last
+  //  $scope.realtimeDates[0] = portfolios[portfolioNum-1].getDate().getTime();
+//    $scope.realtimeAmounts[0] = portfolios[portfolioNum-1].getTotalAmount();
 
     // push inside amounts and dates
     for(let i=0;i<portfolioNum;i++){
       // th edate is a timestamp
-      $scope.lastStrategyDates[i]=portfolios[i].getDate().getTime();
+      $scope.realtimeDates[i]=portfolios[i].getDate().getTime();
       // the amount is the total amount for each class assets
-      $scope.lastStrategyAmounts[i]=portfolios[i].getTotalAmount();
+      $scope.realtimeAmounts[i]=portfolios[i].getTotalAmount();
     }
-
-  }else{
-    // exists something
-
+    saveRealtime();
   }
 
 });

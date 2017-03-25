@@ -4,14 +4,18 @@ RoboAdviceApp.component("realtimeLineGraph",{
         verticalAxis: "<",    // an array of amounts
         realtime: "@",        // [true|false]
         forecastValue: "@",   // forecast value to obtain
-        incrementData: "&"
+        incrementData: "&",   // method to increment and save the state of the graph
+        stimatedAmount: "<",   // stimated amount, it changes
+        showDates: "@"        // [true|false]
     },
     templateUrl: "../../html/realtimeGraph.html",
     controller: function($scope,$interval,$log){
         var $ctrl = this;
-        var scope = $scope;
 
         this.$onInit = function(){
+            let rtid="rt" + Math.floor(1+Math.random()*1000);
+            $(".realtime_wrapper > div").attr("id",rtid);
+            $scope.rtid=rtid;
             let now = new Date();
             $log.debug("realtimeLineGrap| initialized")
             //this.incrementData();
@@ -26,8 +30,24 @@ RoboAdviceApp.component("realtimeLineGraph",{
             };
             $ctrl.interval = 5000;
 
+            this.getNewData = function(){
+
+              let rnd = Math.random()*10;
+              let salt = (Math.floor(rnd)%2) ? 1 : -1;
+              let series = $ctrl.series;
+              let x = $ctrl.horizzontalAxis[$ctrl.horizzontalAxis.length-1]+$ctrl.interval, // current time
+              y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd*salt;
+              //$ctrl.incrementData();
+              $ctrl.horizzontalAxis.push(x);
+              $ctrl.verticalAxis.push(y);
+              $ctrl.incrementData({data:[$ctrl.horizzontalAxis,$ctrl.verticalAxis]});
+              series.addPoint([x, y], true, true);
+            }
+
+            let showDates = $ctrl.showDates == "true" ? true : false;
+
             // realtime highchart
-            Highcharts.chart('rt', {
+            Highcharts.chart(rtid, {
                 chart: {
                     type: 'spline',
                     animation: Highcharts.svg, // don't animate in old IE
@@ -35,20 +55,9 @@ RoboAdviceApp.component("realtimeLineGraph",{
                     events: {
                         load: function () {
                           // set up the updating of the chart each second
-                          var series = this.series[0];
+                          $ctrl.series = this.series[0];
                           if($ctrl.realtime == "true"){
-                            setInterval(function () {
-                              let rnd = Math.random()*10;
-                              let salt = (Math.floor(rnd)%2) ? 1 : -1;
-
-                              let x = $ctrl.horizzontalAxis[$ctrl.horizzontalAxis.length-1]+$ctrl.interval, // current time
-                              y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd*salt;
-                              //$ctrl.incrementData();
-                              $ctrl.horizzontalAxis.push(x);
-                              $ctrl.verticalAxis.push(y);
-
-                              series.addPoint([x, y], true, true);
-                            }, $ctrl.interval);
+                            setInterval($ctrl.getNewData, $ctrl.interval);
                           }
                         }
                     }
@@ -58,7 +67,7 @@ RoboAdviceApp.component("realtimeLineGraph",{
                 },
                 xAxis: {
                     labels: {
-                      enabled: false
+                      enabled: $ctrl.showDates == "true" ? true : false
                     },
                     type: 'datetime',
                     tickPixelInterval: 150
@@ -96,9 +105,15 @@ RoboAdviceApp.component("realtimeLineGraph",{
                         var time = (new Date()).getTime();
 
                         for(let i = 0;i<portfolioNum; i++){
-                          $ctrl.horizzontalAxis[i]=time+i*$ctrl.interval
+
+                          if($ctrl.realtime == "true"){
+                            timeAxis = time+i*$ctrl.interval;
+                          }else{
+                            timeAxis = $ctrl.horizzontalAxis[i];
+                          }
+
                           data.push({
-                            x: time+i*$ctrl.interval,
+                            x: timeAxis,
                             y: $ctrl.verticalAxis[i]
                           });
                         }
