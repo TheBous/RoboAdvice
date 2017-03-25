@@ -4,7 +4,7 @@ RoboAdviceApp.controller("Backtesting", function ($scope, $log, portfolioService
 
     $scope.loadingInProgress = true;
     // $log.debug($scope.yAxis);
-    
+
     $scope.update = function(data) {
         //var graphDates = [];
         let formattedDateGraph = [];
@@ -29,8 +29,7 @@ RoboAdviceApp.controller("Backtesting", function ($scope, $log, portfolioService
                     //$log.debug(formattedDateGraph[i]);
                     //$log.debug(formattedValueGraph[i]);
                 }
-                $log.error($scope.francesca)
-
+                
             }
             else{
                 $scope.loadingInProgress = false;

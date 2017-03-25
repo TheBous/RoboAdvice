@@ -13,7 +13,7 @@
         <div class="card-panel grey lighten-5" style="text-align:center;">
           <span class="dark-text" style="letter-spacing:1pt">
             if you had chosen this strategy, your amount would been
-            <b style="font-size:20pt" class="green-text">{{backtestingStrategy.getFinalAmount()-$ctrl.yAxis[($ctrl.yAxis.length)-1] | number: 2}}</b> euro more than your strategy
+            <b style="font-size:20pt" class="green-text">{{backtestingDifference | number: 2}}</b> euro more than your strategy
           </span>
         </div>
       </div>
@@ -26,7 +26,7 @@
                         <div class="col m8 s12">
                             <div class="card white">
                                 <div class="card-content teal-text" ng-controller="RealtimeGraphController">
-                                    <span class="card-title"> {{backtestingStrategy.getName()}} Trend in the past 3 year</span>
+                                    <span class="card-title"> {{backtestingStrategy.getName()}} Trend</span>
 
 
                                     <div ng-show="loadingInProgress==true" style="text-align: center">
