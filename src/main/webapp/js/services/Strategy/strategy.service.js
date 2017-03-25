@@ -46,7 +46,7 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
                     // something is not working
                     $log.error("strategyService | error on fetching strategy history");
                     if(callback)
-                        callback(ret);
+                        callback(false);
                 }
             });
         },

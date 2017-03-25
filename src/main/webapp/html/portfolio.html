@@ -78,15 +78,10 @@
     <div class="container">
         <div class="container">
 
-            <div ng-if="user.currentPortfolio == null">
+            <div ng-if="!user.hasCurrentPortfolio()">
                 <div  class="col m12 s12">
-                    <div class="card big">
-                      <!-- <realtime-line-graph vertical-axis="[1,2,3,4]" horizzontal-axis="[1,2,3,4]"></realtime-line-graph> -->
-
-                        <!-- <div style="text-align: center;" class="card-content">
-                            <span style="color:black;"class="card-title">Your portfolio will be updated tomorrow </span></span>
-                            <img  style="width:70%" src="../img/004-analytics.png">
-                        </div> -->
+                    <div class="card big" >
+                      <realtime-line-graph increment-data="incrementData()" realtime="true" forecast-value="10250" vertical-axis="[1,2,3,4]" horizzontal-axis="[1,2,3,4]"></realtime-line-graph>
                     </div>
                 </div>
             </div></div>
