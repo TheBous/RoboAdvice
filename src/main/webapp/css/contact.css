@@ -36,7 +36,7 @@ body_class{
 }
 
 .person > span {
-	background:#4db6ac;
+	background:#1F7A8C;
 	position:absolute;
 	z-index:1;
 	top:140px;
@@ -52,7 +52,7 @@ body_class{
 
 .person:hover > span{padding-left:45px;display:none}
 .person:hover img{height:105%;}
-.person:hover > div {	border: 14px solid #009688;}
+.person:hover > div {	border: 14px solid #326771;}
 
 
 .person h4  {

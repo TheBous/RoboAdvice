@@ -18,7 +18,7 @@ RoboAdviceApp.controller("strategyWizard", function($scope, userService, STRATEG
                                                return a.percentage;
                                                });
 
-            strategyService.insert.custom(userService.getId(),newValue.name,percentages).$promise.then(
+            strategyService.insert.custom(newValue.name,percentages).$promise.then(
             function(response){
                 if(response.statusCode == 0){
                     // everything is going ok

@@ -32,6 +32,13 @@ RoboAdviceApp.factory('strategyREST', ['$resource', '$cookies', 'TokenHandler',
               params: {
                     user_id: '@user_id'
               }
+            },
+            advice: {
+                method: 'POST',
+                url: baseUrl + 'advice',
+                params: {
+                    strategy: '@strategy'
+                }
             }
         });
     }

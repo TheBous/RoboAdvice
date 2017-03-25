@@ -27,8 +27,16 @@
     <!-- Modal Structure -->
     <div id="modal1" class="modal bottom-sheet">
         <div class="modal-content">
-           <h4>Michele e Leonardo</h4>
-            <p>Hai vinto un bacino da Leonardo</p>
+
+          <h4>Class assets trends</h4>
+          <div class="row">
+            <div class="col s3" ng-repeat="asset in portfolio.getClassAssets() track by $index">
+              <div style="text-align:center">
+                <b>{{CONFIG["ASSETS_NAME"][$index]}} Trend</b><br>
+              </div>
+              <asset-general portfolio-amount="asset" portfolio-date="portfolio.getPortfolioDates()"></asset-general>
+            </div>
+          </div>
 
         </div>
         <div class="modal-footer">
@@ -38,40 +46,40 @@
     <!-- Main Container -->
     <div class="container">
         <div class="header_section">Balance
-                <div class="row">
-                    <div class="col s12 m3" ng-repeat="difference in portfolio.getPortfolioDifferences() track by $index">
-                        <div class="card teal lighten-4">
-                            <div class="card waves-effect waves-block waves-light">
-                                <img class="activator" >
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title activator grey-text text-darken-4" style="font-size: 22px;">{{CONFIG["ASSETS_NAME"][$index]}}<i class="material-icons right">keyboard_arrow_up</i></span>
-                                <!--   <p><a> {{difference | number : 2}}%</a></p> -->
-                                <div style="font-size:20px">{{difference | number : 2}}%</div>
-                                <div>
-                                    <i ng-if="difference < 0" style="color:#F44336;font-size:50px;" class="material-icons losing">trending_down</i>
-                                    <i ng-if="difference > 0" style="color: #00e676;font-size:50px;" class="material-icons winning">trending_up</i>
-                                    <i ng-if="difference==0" style="color: #ffeb3b;font-size:50px;" class="material-icons constant">trending_flat</i>
-                                </div>
-                            </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4" style="font-size:19px;"><span class="hide-on-med-and-down" >{{CONFIG["ASSETS_NAME"][$index]}}</span><i class="material-icons right">close</i></span>
-                                <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[$index]"></asset-general>
-                            </div>
-                            <!--  <div class="card-content white-text">
-                                  <div class="card-title">{{CONFIG["ASSETS_NAME"][$index]}}</div>
-                                  <p class="card-title">
-                                      {{difference | number : 6}}%
-                                  </p>
-                                  <p class="card-title">
-                                      <i ng-if="difference < 0" style="color:#F44336;font-size:50px;" class="material-icons losing">trending_down</i>
-                                      <i ng-if="difference > 0" style="color: #00e676;font-size:50px;" class="material-icons winning">trending_up</i>
-                                      <i ng-if="difference==0" style="color: #ffeb3b;font-size:50px;" class="material-icons constant">trending_flat</i>
-                                  </p>
-                              </div>-->
+            <div class="row">
+                <div class="col s12 m3" ng-repeat="difference in portfolio.getPortfolioDifferences() track by $index">
+                    <div class="card teal lighten-4">
+                        <div class="card waves-effect waves-block waves-light">
+                            <img class="activator" >
                         </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4" style="font-size: 22px;">{{CONFIG["ASSETS_NAME"][$index]}}<i class="material-icons right">keyboard_arrow_up</i></span>
+                            <!--   <p><a> {{difference | number : 2}}%</a></p> -->
+                            <div>
+                                <i ng-if="difference < 0" style="color:#F44336;font-size:50px;" class="material-icons losing">trending_down</i>
+                                <i ng-if="difference > 0" style="color: #00e676;font-size:50px;" class="material-icons winning">trending_up</i>
+                                <i ng-if="difference==0" style="color: #ffeb3b;font-size:50px;" class="material-icons constant">trending_flat</i>
+                            </div>
+                            <div style="font-size:20pt;letter-spacing:1pt">{{difference.percentage | number : 2}}%</div>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4" style="font-size:19px;"><span class="hide-on-med-and-down" >{{CONFIG["ASSETS_NAME"][$index]}}</span><i class="material-icons right">close</i></span>
+                            <div style="font-size:20pt;letter-spacing:1pt"><b>{{difference.amount}} $</b></div>
+                        </div>
+                        <!--  <div class="card-content white-text">
+                              <div class="card-title">{{CONFIG["ASSETS_NAME"][$index]}}</div>
+                              <p class="card-title">
+                                  {{difference | number : 6}}%
+                              </p>
+                              <p class="card-title">
+                                  <i ng-if="difference < 0" style="color:#F44336;font-size:50px;" class="material-icons losing">trending_down</i>
+                                  <i ng-if="difference > 0" style="color: #00e676;font-size:50px;" class="material-icons winning">trending_up</i>
+                                  <i ng-if="difference==0" style="color: #ffeb3b;font-size:50px;" class="material-icons constant">trending_flat</i>
+                              </p>
+                          </div>-->
                     </div>
                 </div>
+            </div>
         </div>
 
         <div ng-if="!(user.currentPortfolio == null)">
@@ -90,33 +98,33 @@
                 </div>
             </div>
         </div>
-        <div class="card ">
+       <!-- <div class="card ">
 
-        <div class="carousel carousel-slider center" fullWidth="false"	 data-indicators="true">
-            <div class="carousel-fixed-item center">
-            </div>
-            <div class="carousel-item red white-text" href="#one!">
-                <h2>{{CONFIG["ASSETS_NAME"][0]}}</h2>
-                <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[0]"></asset-general>
-            </div>
-            <div class="carousel-item amber white-text" href="#two!">
-                <h2>{{CONFIG["ASSETS_NAME"][1]}}</h2>
-                <p class="white-text">This is your second panel</p>
-                <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[1]"></asset-general>
-            </div>
-            <div class="carousel-item green white-text" href="#three!">
-                <h2>{{CONFIG["ASSETS_NAME"][2]}}</h2>
-                <p class="white-text">This is your third panel</p>
-                <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[2]"></asset-general>
-            </div>
-            <div class="carousel-item blue white-text" href="#four!">
-                <h2>{{CONFIG["ASSETS_NAME"][3]}}</h2>
-                <p class="white-text">This is your fourth panel</p>
-                <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[3]"></asset-general>
+            <div class="carousel carousel-slider center" fullWidth="false"	 data-indicators="true">
+                <div class="carousel-fixed-item center">
+                </div>
+                <div class="carousel-item red white-text" href="#one!">
+                    <h2>{{CONFIG["ASSETS_NAME"][0]}}</h2>
+                    <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[0]"></asset-general>
+                </div>
+                <div class="carousel-item amber white-text" href="#two!">
+                    <h2>{{CONFIG["ASSETS_NAME"][1]}}</h2>
+                    <p class="white-text">This is your second panel</p>
+                    <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[1]"></asset-general>
+                </div>
+                <div class="carousel-item green white-text" href="#three!">
+                    <h2>{{CONFIG["ASSETS_NAME"][2]}}</h2>
+                    <p class="white-text">This is your third panel</p>
+                    <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[2]"></asset-general>
+                </div>
+                <div class="carousel-item blue white-text" href="#four!">
+                    <h2>{{CONFIG["ASSETS_NAME"][3]}}</h2>
+                    <p class="white-text">This is your fourth panel</p>
+                    <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[3]"></asset-general>
 
+                </div>
             </div>
-        </div>
-        </div>
+        </div>-->
     </div>
 
     <script>
@@ -149,5 +157,3 @@
         </div>
     </div>
 </div>
-
-

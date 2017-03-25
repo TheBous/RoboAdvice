@@ -105,7 +105,11 @@ RoboAdviceApp.config(function($routeProvider) {
         .when('/backtesting', {
             templateUrl : 'html/backtesting.html',
         })
-        .when('/demo', {
-            templateUrl : "html/demo.html"
+        .when('/privacy', {
+            templateUrl : "html/privacy.html"
         })
+        .when('/cookie', {
+            templateUrl : "html/cookie.html"
+        })
+
 });
