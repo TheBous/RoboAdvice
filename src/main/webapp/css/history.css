@@ -74,7 +74,7 @@ h2 {
     content: "";
     width: 3px;
     height: 100%;
-    background: #00695c;
+    background: #E8BE5D;
     left: 50%;
     top: 0;
     position: absolute;
@@ -92,7 +92,7 @@ h2 {
 
 
 #timeline .timeline-item .timeline-icon {
-    background: #00695c;
+    background: #E8BE5D;
     width: 50px;
     height: 50px;
     position: absolute;
@@ -129,7 +129,7 @@ h2 {
 }
 #timeline .timeline-item .timeline-content h2 {
     padding: 15px;
-    background: #009688;
+    background: #326771;
     color: #fff;
     margin: -20px -20px 0 -20px;
     font-weight: 300;
@@ -147,7 +147,7 @@ h2 {
     height: 0;
     border-top: 7px solid transparent;
     border-bottom: 7px solid transparent;
-    border-left: 7px solid #009688;
+    border-left: 7px solid #326771;
 }
 #timeline .timeline-item .timeline-content.right {
     float: right;
@@ -157,7 +157,7 @@ h2 {
     right: 45%;
     left: inherit;
     border-left: 0;
-    border-right: 7px solid #009688;
+    border-right: 7px solid #326771;
 }
 
 

@@ -15,7 +15,7 @@ RoboAdviceApp.component("userEditableFields",{
             <input name="" placeholder="{{field.oldValue}}" ng-model="$ctrl.newUser[field.name]" />
           </div>
           <div class="card-action">
-            <div style="text-align: center;"> <a ng-click="$ctrl.update()" class="waves-effect waves-light btn"><i class="material-icons left">save</i>Update</a></div>
+            <div style="text-align: center;"> <a ng-click="$ctrl.update()" class="waves-effect waves-light  cyan darken-2 btn"><i class="material-icons left">save</i>Update</a></div>
           </div>
       </div>
     </div>
