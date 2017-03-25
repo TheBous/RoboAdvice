@@ -19,7 +19,9 @@
         });
     </script>
 </head>
-<body>
+<body ng-init="user.setStrategyHistory()">
+  <div class="header_section">BackTesting</div>
+
 <div ng-controller="Backtesting">
     <wizard hide-indicators="true">
         <wz-step wz-title="first">

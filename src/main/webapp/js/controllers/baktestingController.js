@@ -1,14 +1,16 @@
-RoboAdviceApp.controller("Backtesting", function ($scope, $log, portfolioService, userService) {
+RoboAdviceApp.controller("Backtesting", function ($scope, $log, portfolioService, userService, strategyService) {
     //$log.debug($scope.xAxis);
     $scope.user = userService;
 
     $scope.loadingInProgress = true;
     // $log.debug($scope.yAxis);
-
+    
     $scope.update = function(data) {
         //var graphDates = [];
         let formattedDateGraph = [];
         let formattedValueGraph = [];
+
+        // backtesting should let the user to choose a strategy to apply in the past
 
         $scope.TheInterval = data.interval;
         $log.debug("PortfolioService | Interval: "+ data.interval);
