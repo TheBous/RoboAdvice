@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
 public class NightlyTaskServiceImpl {
 
     private PortfolioRepository portfolioRepository;
@@ -35,7 +34,8 @@ public class NightlyTaskServiceImpl {
     private LocalDate lastUpdate;
 
     @Autowired
-    public NightlyTaskServiceImpl(PortfolioRepository portfolioRepository, ApiDataRepository apiDataRepository, StrategyRepository strategyRepository, AssetsClassRepository assetsClassRepository, AssetsRepository assetsRepository) {
+    public NightlyTaskServiceImpl(PortfolioRepository portfolioRepository, ApiDataRepository apiDataRepository, StrategyRepository strategyRepository,
+                                  AssetsClassRepository assetsClassRepository, AssetsRepository assetsRepository) {
         this.portfolioRepository = portfolioRepository;
         this.apiDataRepository = apiDataRepository;
         this.strategyRepository = strategyRepository;
@@ -45,6 +45,7 @@ public class NightlyTaskServiceImpl {
 
     @Scheduled(cron ="0 0 5 * * *") //scheduled every day at 5:00 am
     @Caching(evict = {@CacheEvict(cacheNames = "portfolioFullHistory", allEntries = true), @CacheEvict(cacheNames = "assetsClassTrend", allEntries = true)})
+    @Transactional
     public void updateAPI(){
         startTime = System.currentTimeMillis();
         System.out.println("============= NIGHTLY COMPUTATIONS STARTED =============\n");
@@ -71,19 +72,20 @@ public class NightlyTaskServiceImpl {
         }
         System.out.println("*** NIGHTLY TASK 1: QUANDL API UPDATED! ***\n");
 
-        insertPortfoliosForNewStrategiesFromNewUsers();
-        updatePortfolios();
-        insertPortfoliosForNewStrategiesFromOldUsers();
+        lastUpdate = portfolioRepository.getLastUpdateDate();
+        for( ;lastUpdate.isBefore(LocalDate.now());lastUpdate = lastUpdate.plusDays(1)) {
+            insertPortfoliosForNewStrategiesFromNewUsers();
+            updatePortfolios();
+            insertPortfoliosForNewStrategiesFromOldUsers();
+        }
 
         endTime = System.currentTimeMillis();
         System.out.println("============= NIGHTLY COMPUTATIONS FINISHED - Total time: "+((endTime-startTime)/1000)+"s =============");
     }
 
     //CREATE NEW PORTFOLIO FOR NEW USERS
+    @Transactional
     private void insertPortfoliosForNewStrategiesFromNewUsers(){
-
-        lastUpdate = portfolioRepository.getLastUpdateDate();
-
         BigDecimal investment = new BigDecimal(Constant.INITIAL_INVESTMENT);
         BigDecimal amount, value, units;
 
@@ -101,14 +103,16 @@ public class NightlyTaskServiceImpl {
                         amount = Constant.percentage(investment, strategy.getPercentage());   //(10'000 * 65)/100
                         value = Constant.percentage(amount, asset.getAllocation_p());
 
-                        api = apiDataRepository.findLatestValueByAsset(asset.getId());
+                        //api = apiDataRepository.findLatestValueByAsset(asset.getId());
+                        api = apiDataRepository.findTopByAssetsAndDateLessThanEqualOrderByDateDesc(asset, lastUpdate);
 
                         units = value.divide(api.getValue(),5, RoundingMode.HALF_UP);
 
                         p = new Portfolio();
                         p.setId(0);
                         p.setUser(strategy.getUser());
-                        p.setDate(LocalDate.now());
+                        //p.setDate(LocalDate.now());
+                        p.setDate(lastUpdate.plusDays(1));
                         p.setAssetsClass(strategy.getAssetsClass());
                         p.setAssets(asset);
                         p.setAmount(amount);
@@ -119,14 +123,15 @@ public class NightlyTaskServiceImpl {
                     }
                 }
             }
-            System.out.println("*** NIGHTLY TASK 2: PORTFOLIOs CORRECTLY CREATED FOR NEW USERS! ***\n");
+            System.out.println("*** NIGHTLY TASK 2: PORTFOLIOs CORRECTLY CREATED FOR NEW USERS! - "+lastUpdate.plusDays(1).toString()+" ***\n");
         }
         else{
-            System.out.println("*** NIGHTLY TASK 2: NEW STRATEGIES FROM NEW USERS NOT FOUND! ***\n");
+            System.out.println("*** NIGHTLY TASK 2: NEW STRATEGIES FROM NEW USERS NOT FOUND! - "+lastUpdate.plusDays(1).toString()+" ***\n");
         }
     }
 
     //UPDATE PORTFOLIOS DAILY FOR OLD USERS THAT DID NOT CHANGE STRATEGY
+    @Transactional
     private void updatePortfolios(){
         BigDecimal amount = new BigDecimal(0);
         List<BigDecimal> values = new ArrayList<>();
@@ -151,7 +156,8 @@ public class NightlyTaskServiceImpl {
                         if (asset.getAssetsClass().getId() == assetClass.getId()) {
                             for (Portfolio portfolio : portfolios) {
                                 if (portfolio.getAssets().getId() == asset.getId() && portfolio.getUser().getId() == user.getId()) {
-                                    api = apiDataRepository.findLatestValueByAsset(asset.getId());
+                                    //api = apiDataRepository.findLatestValueByAsset(asset.getId());
+                                    api = apiDataRepository.findTopByAssetsAndDateLessThanEqualOrderByDateDesc(asset, lastUpdate);
                                     values.add(portfolio.getUnits().multiply(api.getValue()));
                                 }
                             }
@@ -169,7 +175,8 @@ public class NightlyTaskServiceImpl {
                                     updatedPortfolio = new Portfolio();
                                     updatedPortfolio.setId(0);
                                     updatedPortfolio.setUser(portfolio.getUser());
-                                    updatedPortfolio.setDate(LocalDate.now());
+                                    //updatedPortfolio.setDate(LocalDate.now());
+                                    updatedPortfolio.setDate(lastUpdate.plusDays(1));
                                     updatedPortfolio.setAssetsClass(assetClass);
                                     updatedPortfolio.setAssets(asset);
                                     updatedPortfolio.setAmount(amount);
@@ -187,14 +194,15 @@ public class NightlyTaskServiceImpl {
                     values.clear();
                 }
             }
-            System.out.println("*** NIGHTLY TASK 3: USER's PORTFOLIO HAS BEEN UPDATED! ***\n");
+            System.out.println("*** NIGHTLY TASK 3: USER's PORTFOLIO HAS BEEN UPDATED! - "+lastUpdate.plusDays(1).toString()+" ***\n");
         }
         else{
-            System.out.println("*** NIGHTLY TASK 3: NO PORTFOLIOs HAVE BEEN FOUND! ***\n");
+            System.out.println("*** NIGHTLY TASK 3: NO PORTFOLIOs HAVE BEEN FOUND! - "+lastUpdate.plusDays(1).toString()+" ***\n");
         }
     }
 
     //CREATE NEW PORTFOLIO FOR OLD USERS THAT CHANGED STRATEGY
+    @Transactional
     private void insertPortfoliosForNewStrategiesFromOldUsers(){
         BigDecimal investment = new BigDecimal(0);
         BigDecimal amount, value, units;
@@ -216,7 +224,8 @@ public class NightlyTaskServiceImpl {
                 for(Assets asset : allAssets) {
                     for (Portfolio portfolio : oldPortfolio) {
                         if(asset.getId() == portfolio.getAssets().getId()){
-                            api = apiDataRepository.findLatestValueByAsset(asset.getId());
+                            //api = apiDataRepository.findLatestValueByAsset(asset.getId());
+                            api = apiDataRepository.findTopByAssetsAndDateLessThanEqualOrderByDateDesc(asset, lastUpdate);
                             investment = investment.add(portfolio.getUnits().multiply(api.getValue())); //calcolo l'investimento iniziale del nuovo portfolio partendo dal vecchio
                         }
                     }
@@ -228,14 +237,16 @@ public class NightlyTaskServiceImpl {
                         amount = Constant.percentage(investment, strategy.getPercentage());
                         value = Constant.percentage(amount, asset.getAllocation_p());
 
-                        api = apiDataRepository.findLatestValueByAsset(asset.getId());
+                        //api = apiDataRepository.findLatestValueByAsset(asset.getId());
+                        api = apiDataRepository.findTopByAssetsAndDateLessThanEqualOrderByDateDesc(asset, lastUpdate);
 
                         units = value.divide(api.getValue(), 5, RoundingMode.HALF_UP);
 
                         p = new Portfolio();
                         p.setId(0);
                         p.setUser(strategy.getUser());
-                        p.setDate(LocalDate.now());
+                        //p.setDate(LocalDate.now());
+                        p.setDate(lastUpdate.plusDays(1));
                         p.setAssetsClass(strategy.getAssetsClass());
                         p.setAssets(asset);
                         p.setAmount(amount);
@@ -247,10 +258,10 @@ public class NightlyTaskServiceImpl {
                 }
                 investment = BigDecimal.ZERO;
             }
-            System.out.println("*** NIGHTLY TASK 4: PORTFOLIOs CORRECTLY CREATED FOR USERS THAT CHANGED STRATEGY! ***\n");
+            System.out.println("*** NIGHTLY TASK 4: PORTFOLIOs CORRECTLY CREATED FOR USERS THAT CHANGED STRATEGY! - "+lastUpdate.plusDays(1).toString()+" ***\n");
         }
         else{
-            System.out.println("*** NIGHTLY TASK 4: NEW STRATEGIES FROM OLD USERS NOT FOUND! ***\n");
+            System.out.println("*** NIGHTLY TASK 4: NEW STRATEGIES FROM OLD USERS NOT FOUND! - "+lastUpdate.plusDays(1).toString()+" ***\n");
         }
     }
 
