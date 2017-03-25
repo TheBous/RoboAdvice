@@ -22,11 +22,12 @@ RoboAdviceApp.controller("Backtesting", function ($scope, $log, portfolioService
                 $log.debug("backtesting Controller | callback");
                 for(let i = 0;i<response.data.length;i++){
                     //$log.debug(response.data[i].date);
-                    $scope.francesca[i] = (response.data[i].date.dayOfMonth + "/" + response.data[i].date.monthValue + "/" + response.data[i].date.year);
+                    $scope.francesca[i] = (new Date(response.data[i].date.year + "/" + response.data[i].date.monthValue + "/" + response.data[i].date.dayOfMonth)).getTime();
                     $scope.yAxis[i] = (response.data[i].totalAmount);
                     //$log.debug(formattedDateGraph[i]);
                     //$log.debug(formattedValueGraph[i]);
                 }
+                $log.error($scope.francesca)
 
             }
             else{

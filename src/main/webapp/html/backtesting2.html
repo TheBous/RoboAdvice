@@ -1,33 +1,47 @@
-<div>
-    <h4>Last Amount:</h4>{{$ctrl.yAxis[($ctrl.yAxis.length)-1]}}
-</div>
-<div ng-show="loadingInProgress==true" style="text-align: center">
-    <div class="preloader-wrapper big active">
-        <div class="spinner-layer spinner-blue">
-            <div class="circle-clipper left">
-                <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-                <div class="circle"></div>
-                ❤
-            </div>
-            <div class="circle-clipper right">
-                <div class="circle"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<div>
-    <h1>Backtesting chart</h1>
-    
-    <canvas id="line" class="chart chart-line" chart-data="$ctrl.yAxis" chart-labels="$ctrl.francesca">
-    </canvas>
-</div>
+<style>
+    body {
+        background: #f9f9f9;
+    }
 
 
-<!--
-<h3>Choice date:</h3>
-<h4>{{$ctrl.xAxis}}</h4>
-<h4>{{$ctrl.yAxis}}</h4>
-<h4>{{$ctrl.interval}}</h4>
--->
+</style>
+
+<div class="header_section">BackTesting</div>
+
+    <div class="" style="max-width:90%;margin: auto;">
+                    <!-- first Card -->
+                    <div>
+                      <h4>Last Amount:</h4>{{$ctrl.yAxis[($ctrl.yAxis.length)-1]}}
+                    </div>
+                    <div class="row">
+                        <div class="col m8 s12">
+                            <div class="card white">
+                                <div class="card-content teal-text" ng-controller="RealtimeGraphController">
+                                    <span class="card-title"> {{strategy.getLastStrategy().getName()}} Trend</span>
+
+
+                                    <div ng-show="loadingInProgress==true" style="text-align: center">
+                                        <div class="preloader-wrapper big active">
+                                            <div class="spinner-layer spinner-blue">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div>
+                                                <div class="gap-patch">
+                                                    <div class="circle"></div>
+                                                    ❤
+                                                </div>
+                                                <div class="circle-clipper right">
+                                                    <div class="circle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                    <realtime-line-graph ng-if="$ctrl.yAxis" vertical-axis="$ctrl.yAxis" horizzontal-axis="$ctrl.francesca"
+                                    realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>

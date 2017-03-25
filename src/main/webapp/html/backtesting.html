@@ -11,8 +11,8 @@
                 /*
                  selectMonths: true, // Creates a dropdown to control month
                  */
-                selectYears: 7, // Creates a dropdown of 15 years to control year
-                min: new Date(2014,4,30),
+                selectYears: 6, // Creates a dropdown of 14 years to control year
+                min: new Date(2013,3,29),
                 max: new Date,
             });
             $('select').material_select();
@@ -21,8 +21,6 @@
 </head>
 <body>
 <div ng-controller="Backtesting">
-    <h4>Current amount:</h4>{{user.getCurrentPortfolioAmount()}}
-
     <wizard hide-indicators="true">
         <wz-step wz-title="first">
           <back-uno interval="TheInterval" on-update="update(data)"></back-uno>
