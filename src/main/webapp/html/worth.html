@@ -55,13 +55,12 @@
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4" style="font-size: 22px;">{{CONFIG["ASSETS_NAME"][$index]}}<i class="material-icons right">keyboard_arrow_up</i></span>
                             <!--   <p><a> {{difference | number : 2}}%</a></p> -->
-                            <div style="font-size:20pt;letter-spacing:1pt">{{difference.percentage | number : 2}}%</div>
-
                             <div>
                                 <i ng-if="difference < 0" style="color:#F44336;font-size:50px;" class="material-icons losing">trending_down</i>
                                 <i ng-if="difference > 0" style="color: #00e676;font-size:50px;" class="material-icons winning">trending_up</i>
                                 <i ng-if="difference==0" style="color: #ffeb3b;font-size:50px;" class="material-icons constant">trending_flat</i>
                             </div>
+                            <div style="font-size:20pt;letter-spacing:1pt">{{difference.percentage | number : 2}}%</div>
                         </div>
                         <div class="card-reveal">
                             <span class="card-title grey-text text-darken-4" style="font-size:19px;"><span class="hide-on-med-and-down" >{{CONFIG["ASSETS_NAME"][$index]}}</span><i class="material-icons right">close</i></span>
