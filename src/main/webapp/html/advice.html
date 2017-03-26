@@ -131,8 +131,8 @@
             </div>
         </div>
 
-        <ul class="collection col m7 s12" ng-repeat="defStrategy in standardStrategies" >
-            <li class="collection-item avatar" style="background-color: #fafafa;">
+        <ul class="collection col m7 s12">
+            <li class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt" ng-repeat="defStrategy in standardStrategies">
                 <i class="material-icons circle">folder</i>
                 <i ng-if="advicePercentage[$index] < 0" style="color:#F44336;font-size:38px;" class="material-icons circle brown lighten-4 winning">trending_up</i>
                 <i ng-if="advicePercentage[$index] > 0" style="color: #00e676;font-size:38px;" class="material-icons circle brown lighten-4 losing">trending_down</i>
@@ -155,7 +155,7 @@
 
 
                 </p>
-                <a href="#!" class="secondary-content"><button class="btn" style="margin:5pt" ng-click="changeStrategy()">Change</button></a>
+                <a class="secondary-content"><button class="btn" style="margin:5pt" ng-click="changeStrategy($index)">Change</button></a>
             </li>
 
         </ul>
@@ -165,4 +165,3 @@
 
 </div>
 </div>
-

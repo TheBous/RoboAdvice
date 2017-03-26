@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>backtesting</title>
-
     <script>
-
         $(document).ready(function() {
             $('.datepicker').pickadate({
                 /*
@@ -25,10 +23,11 @@
 <div ng-controller="Backtesting">
     <wizard hide-indicators="true">
         <wz-step wz-title="first">
+
           <back-uno interval="TheInterval" on-update="update(data)"></back-uno>
         </wz-step>
         <wz-step wz-title="second">
-          <back-due francesca="francesca" y-axis="yAxis" interval="TheInterval"></back-due>
+          <back-due ng-if="yAxis!=null" francesca="francesca" y-axis="yAxis" interval="TheInterval"></back-due>
         </wz-step>
         <wz-step wz-title="third">
           <back-tre interval="TheInterval"></back-tre>
