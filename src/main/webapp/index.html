@@ -82,6 +82,8 @@
             </a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
+
+                <li ng-if="user.isLogged() && user.hasStrategies()"><a href="#!/forecast">Forecast</a></li>
                 <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/backtesting">Backtesting</a></li>
                 <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/demo">Demo</a></li>
                 <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/advice">Advice</a></li>
@@ -184,6 +186,9 @@
 <script src="js/controllers/realtimeGraphController.js"></script>
 <script src="js/controllers/baktestingController.js"></script>
 <script src="js/controllers/adviceController.js"></script>
+<script src="js/controllers/forecastController.js"></script>
+<script src="js/component/forecast1.component.js"></script>
+<script src="js/component/forecast2.component.js"></script>
 
 <!-- COMPONENTS -->
 <script src="js/component/assetsClassGraph.component.js"></script>

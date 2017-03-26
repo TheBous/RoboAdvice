@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>backtesting</title>
-
     <script>
+      $(document).ready(function(){
 
-        $(document).ready(function() {
             $('.datepicker').pickadate({
-                /*
-                 selectMonths: true, // Creates a dropdown to control month
-                 */
-                selectYears: 6, // Creates a dropdown of 14 years to control year
-                min: new Date(2013,3,29),
+                selectYears: 4, // Creates a dropdown of 14 years to control year
+                min: new Date(2014,3,31),
                 max: new Date,
             });
+
             $('select').material_select();
-        });
+      });
     </script>
 </head>
 <body ng-init="user.setStrategyHistory()">
@@ -25,10 +22,11 @@
 <div ng-controller="Backtesting">
     <wizard hide-indicators="true">
         <wz-step wz-title="first">
+
           <back-uno interval="TheInterval" on-update="update(data)"></back-uno>
         </wz-step>
         <wz-step wz-title="second">
-          <back-due francesca="francesca" y-axis="yAxis" interval="TheInterval"></back-due>
+          <back-due ng-if="yAxis!=null" francesca="francesca" y-axis="yAxis" interval="TheInterval"></back-due>
         </wz-step>
         <wz-step wz-title="third">
           <back-tre interval="TheInterval"></back-tre>

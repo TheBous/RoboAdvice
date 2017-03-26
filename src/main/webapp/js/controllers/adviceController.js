@@ -42,7 +42,7 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
                     console.log("----",response.data);
                     $scope.adviceAmount[index] = response.data;
                     $scope.advicePercentage[index] = (currentAmount - $scope.adviceAmount[index]) / currentAmount;
-                    if($scope.advicePercentage[i] > 0) {
+                    if($scope.advicePercentage[index] > 0) {
                         if ($scope.advicePercentage[index] > $scope.max) {
                             $scope.max = $scope.advicePercentage[index];
                             $log.info($scope.max);
@@ -56,35 +56,48 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
             });
         }
         $scope.changeStrategy = function(index){
+            $log.error("-------------")
             $log.debug("AdviceController.changeStrategy| index: " + index);
             $log.debug("AdviceController.changeStrategy| new strategy name: " + $scope.standardStrategies[index].name);
-            let change_response = function(response){
-                if(response.statusCode == 0){
-                    userService.newStrategy(response.data);
-                    sweetAlert(ADVICE_CODES[response.statusCode], "" , "success");
-                }else{
-                    // handle error
-                    sweetAlert(ADVIC_CODES[response.statusCode], "" , "error");
-                }
-            };
+            swal({
+                    title: "Are you sure?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, change my strategy!",
+                    closeOnConfirm: true
+                },
+                function(){
+                  let change_response = function(response){
+                      if(response.statusCode == 0){
+                          userService.newStrategy(response.data);
+                          sweetAlert(ADVICE_CODES[response.statusCode], "" , "success");
+                          $location.path("history");
+                      }else{
+                          // handle error
+                          sweetAlert(ADVIC_CODES[response.statusCode], "" , "error");
+                      }
+                  };
 
-            switch(index){
-                case 0:
-                    strategyService.insert.bonds().$promise.then(change_response);
-                    break;
-                case 1:
-                    strategyService.insert.income().$promise.then(change_response);
-                    break;
-                case 2:
-                    strategyService.insert.balanced().$promise.then(change_response);
-                    break;
-                case 3:
-                    strategyService.insert.growth().$promise.then(change_response);
-                    break;
-                case 4:
-                    strategyService.insert.stocks().$promise.then(change_response);
-            }
-        }
+                  switch(index){
+                      case 0:
+                          strategyService.insert.bonds().$promise.then(change_response);
+                          break;
+                      case 1:
+                          strategyService.insert.income().$promise.then(change_response);
+                          break;
+                      case 2:
+                          strategyService.insert.balanced().$promise.then(change_response);
+                          break;
+                      case 3:
+                          strategyService.insert.growth().$promise.then(change_response);
+                          break;
+                      case 4:
+                          strategyService.insert.stocks().$promise.then(change_response);
+                  }
+                });// swal end
+
+        }//change strategy end
     }else{
         $log.error("AdviceController| The user doesn't have strategies");
         // reload history
