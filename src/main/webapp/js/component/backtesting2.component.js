@@ -9,11 +9,12 @@ RoboAdviceApp.component("backDue",{
         $scope.interval = this.interval;
         let $ctrl = this;
         this.$onInit = function(){
+          let last_value = this.yAxis[this.yAxis.length-1];
           //$log.debug(this.xAxis);
           //$log.debug(this.yAxis);
           //$log.debug("SPINNER VALUE" + this.spinner)
           $scope.backtestingStrategy = strategyService.getLastStrategy();
-          $scope.backtestingDifference = $scope.backtestingStrategy.getFinalAmount()-$ctrl.yAxis[($ctrl.yAxis.length)-1];
+          $scope.backtestingDifference = $scope.backtestingStrategy.getFinalAmount()-last_value;
           $log.error($scope.backtestingStrategy.getName())
         };
 
