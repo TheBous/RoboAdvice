@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="container">
+        <div class="col s12 m6">
+            <div class="card small ">
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <!-- <span class="card-title grey-text center">BackTesting</span> -->
+                        <blockquote>
+                            Welcome in the the forecast section.<br />
+                            Here you are able to select a date in the future and see how your portfolio
+                            grow
+                        </blockquote>
+                        <!-- Date picker -->
+                        <div style="text-align: center;">
+                          <fieldset style="border:0px hidden black">
+                            <label for="picker_label">Let's start selectioning a date in the future</label>
+                            <input style="width:100px; " ng-model="$ctrl.forecastDate" id="picker_label" type="text" class="datepicker"/>
+                          </fieldset>
+
+                        </div>
+                        <div style="text-align: center;">
+                            <div class="card-action">
+                                <button ng-disabled="!$ctrl.forecastDate" class="btn waves-effect waves-light" type="submit" name="action" ng-click="$ctrl.nextClick()" wz-next>Next
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

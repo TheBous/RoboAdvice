@@ -1,9 +1,10 @@
 RoboAdviceApp.component("forecastTwo",{
   bindings: {
-
+    forecastDate: "<"
   },
-  template: "ciao sono forecast2",
+  templateUrl: "../../html/forecastView-2.html",
   controller: function(){
-
+    this.$onInit=function(){
+    }
   }
 });

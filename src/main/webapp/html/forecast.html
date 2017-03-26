@@ -21,10 +21,10 @@
 <div ng-controller="Forecast" style="margin:10pt">
     <wizard hide-indicators="false">
         <wz-step wz-title="first">
-          <forecast-one></forecast-one>
+          <forecast-one start-forecast="startForecast(date)"></forecast-one>
         </wz-step>
         <wz-step wz-title="second">
-          <forecast-two></forecast-two>
+          <forecast-two ng-if="forecastDate!=null" forecast-date="forecastDate"></forecast-two>
         </wz-step>
     </wizard>
 </div>

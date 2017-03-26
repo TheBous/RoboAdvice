@@ -1,9 +1,17 @@
 RoboAdviceApp.component("forecastOne",{
   bindings: {
-
+    startForecast: "&"
   },
-  template: "ciao sono forecast1",
+  templateUrl: "../../html/forecastView-1.html",
   controller: function(){
+    let $ctrl = this;
+    this.$onInit=function(){
+
+    }
+
+    this.nextClick=function(){
+      this.startForecast({date: $ctrl.forecastDate});
+    }
 
   }
 });
