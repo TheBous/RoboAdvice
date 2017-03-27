@@ -5,7 +5,8 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
     $scope.portfolio = portfolioService;
     $scope.strategy = strategyService;
 
-    $location.path("/");
+    let page = $cookies.get("page");
+
     // silent login
     let tmp_email = $cookies.get("email");
     let tmp_password = $cookies.get("password");
@@ -28,6 +29,13 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
                 $http.defaults.headers.common['Authorization']= "Bearer " + response.data.token;
                 userService.init(response.data.user);
                 $scope.user=userService;
+
+                if(page != ""){
+                  
+                  $location.path("/" + page);
+                }else $location.path("/");
+
+
             }else{
                 $log.debug("something is wrong, i read cookies but this is the response:");
                 $log.debug(data);
