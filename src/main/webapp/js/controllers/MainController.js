@@ -5,12 +5,7 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
     $scope.portfolio = portfolioService;
     $scope.strategy = strategyService;
 
-    $scope.$on('userLogged', function (event, data) {
-        console.log("userLogged message captured");
-        console.log(data.user);
-        $scope.user=data.user;
-    });
-
+    $location.path("/");
     // silent login
     let tmp_email = $cookies.get("email");
     let tmp_password = $cookies.get("password");
