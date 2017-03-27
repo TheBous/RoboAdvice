@@ -74,7 +74,7 @@ public class PortfolioController {
 
     @RequestMapping(value = "/backtesting", method = RequestMethod.POST)
     public GenericResponse<List<BacktestingDTO>> getBacktestingChart(@RequestParam(value = "fromDate", defaultValue = "null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
-                                                                   Authentication authentication){
+                                                                     Authentication authentication){
 
         if(fromDate.isBefore(LocalDate.parse("2014-05-01")) || fromDate.isAfter(LocalDate.now()))
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
@@ -89,9 +89,16 @@ public class PortfolioController {
     }
 
     @RequestMapping(value = "/forecast", method = RequestMethod.POST)
-    public GenericResponse<List<ForecastingDTO>> getForecast(Authentication authentication){
+    public GenericResponse<List<ForecastingDTO>> getForecast(@RequestParam(value = "targetDate", defaultValue = "1900-01-01") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate targetDate,
+                                                             Authentication authentication){
+        if(LocalDate.parse("1900-01-01").equals(targetDate))
+            targetDate = LocalDate.now().plusMonths(1);
+
+        if(targetDate.isBefore(LocalDate.now()) || targetDate.isEqual(LocalDate.now()))
+            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+
         String userEmail = authentication.getName();
-        List<ForecastingDTO> forecastingDTOList = portfolioService.getForecast(userEmail);
+        List<ForecastingDTO> forecastingDTOList = portfolioService.getForecast(userEmail, targetDate);
 
         if(forecastingDTOList!=null)
             return new GenericResponse<>(forecastingDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
