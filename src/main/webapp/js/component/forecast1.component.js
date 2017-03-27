@@ -3,7 +3,7 @@ RoboAdviceApp.component("forecastOne",{
     startForecast: "&"
   },
   templateUrl: "../../html/forecastView-1.html",
-  controller: function(){
+  controller: function($scope){
     let $ctrl = this;
     this.$onInit=function(){
         $('.datepicker').pickadate({
@@ -12,7 +12,14 @@ RoboAdviceApp.component("forecastOne",{
             max: new Date,
         });
         $('select').material_select();
-
+        this.info=function () {
+            swal({
+                title:"Expected trend!",
+                text:"The following prediction is based on Time Series, a model to generate predictions (forecasts) for future events based on known past events.<br>",
+                html:true,
+                type: "warning"
+            });
+        }
     }
 
     this.nextClick=function(){
@@ -21,3 +28,4 @@ RoboAdviceApp.component("forecastOne",{
 
   }
 });
+
