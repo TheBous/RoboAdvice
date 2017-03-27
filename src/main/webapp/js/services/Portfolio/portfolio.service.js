@@ -177,6 +177,30 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                         callback(response);
                 }
             });
+        },
+        getForecasting(callback){
+          let parent = this;
+          $log.debug("PortfolioService.forecasting called");
+          portfolioREST.forecasting().$promise.then(function(response){
+              if(response.statusCode == 0){
+                $log.debug("PortfolioService.forecasting response 0")
+                let ret = {
+                  amounts : new Array(),
+                  dates : new Array()
+                };
+                parent.forecast = new Array();
+                response.data.forEach(function(element){
+                    let portfolioObj = new Portfolio(element);
+                    parent.forecast.push(portfolioObj);
+                    ret.amounts.push(portfolioObj.getTotalAmount());
+                    ret.dates.push(portfolioObj.getDate());
+                });
+                callback(ret);
+              }else{
+                $log.error("PortfolioService.forecasting response error");
+                callback(false)
+              }
+          });
         }
     }
 });

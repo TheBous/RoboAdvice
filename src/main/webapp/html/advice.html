@@ -138,21 +138,8 @@
                 <i ng-if="advicePercentage[$index] > 0" style="color: #00e676;font-size:38px;" class="material-icons circle brown lighten-4 losing">trending_down</i>
                 <span style="font-size:24px;font-weight:500;color: teal" class="title">{{defStrategy.name}}</span>
 
-                <div ng-show="loadingInProgress" style="text-align: center">
-                    <div class="preloader-wrapper big active">
-                        <div class="spinner-layer spinner-blue">
-                            <div class="circle-clipper left">
-                                <div class="circle"></div>
-                            </div>
-                            <div class="gap-patch">
-                                <div class="circle"></div>
-                                ❤
-                            </div>
-                            <div class="circle-clipper right">
-                                <div class="circle"></div>
-                            </div>
-                        </div>
-                    </div>
+                <div  style="width: 70%;" ng-show="loadingInProgress" class="progress">
+                    <div  class="indeterminate"></div>
                 </div>
 
 
