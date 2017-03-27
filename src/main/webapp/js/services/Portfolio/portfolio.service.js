@@ -207,7 +207,7 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
             portfolioREST.forecasting().$promise.then(getResponse);
           else{
             let date2 = new Date(date);
-            let dateFormatted = date2.getUTCFullYear() + "-" + date2.getMonth() + "-" + date2.getDate();
+            let dateFormatted = date2.getUTCFullYear() + "-" + date2.getMonthFormatted() + "-" + date2.getDayFormatted();
             console.log(dateFormatted)
             portfolioREST.forecastingByDate({targetDate: dateFormatted}).$promise.then(getResponse);
           }
