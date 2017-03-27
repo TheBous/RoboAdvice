@@ -69,15 +69,15 @@
 </head>
 <body ng-cloak ng-controller="MainController">
 
-<div id="bottoncino" class="fixed-action-btn toolbar">
-    <a class="btn-floating btn-large" style="background-color:#E8BE5D;">
+<div id="bottoncino" ng-if="user.isLogged()" class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large" style="background-color:#047682;">
         <i class="large material-icons">apps</i>
     </a>
     <ul>
-        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:500;color:black;" href="#!/backtesting"  >Backtesting</a></li>
-        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:500;color:black;" href="#!/forecast">Forecast</a></li>
-        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:500;color:black;" href="#!/advice">Advice</a></li>
-        <li   data-target="modal1" class="waves-effect waves-light"><a style="font-size:16px;font-weight:500;color:black;" data-target="modal1" href="#!">Trends</a></li>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:400;" href="#!/backtesting"  >Backtesting</a></li>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:400;" href="#!/forecast">Forecast</a></li>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:400;" href="#!/advice">Advice</a></li>
+        <li data-target="modal1" class="waves-effect waves-light"><a style="font-size:16px;font-weight:400;" data-target="modal1" href="#!">Trends</a></li>
     </ul>
 
 </div>
