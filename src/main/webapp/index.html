@@ -69,17 +69,35 @@
 </head>
 <body ng-cloak ng-controller="MainController">
 
-<div id="bottoncino" class="fixed-action-btn toolbar">
-    <a class="btn-floating btn-large" style="background-color:#E8BE5D;">
+<div id="bottoncino" ng-if="user.isLogged()" class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large" style="background-color:#047682;">
         <i class="large material-icons">apps</i>
     </a>
     <ul>
-        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:500;color:black;" href="#!/backtesting"  >Backtesting</a></li>
-        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:500;color:black;" href="#!/forecast">Forecast</a></li>
-        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:500;color:black;" href="#!/advice">Advice</a></li>
-        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:500;color:black;" href="#!">Trends</a></li>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:400;" href="#!/backtesting"  >Backtesting</a></li>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:400;" href="#!/forecast">Forecast</a></li>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:400;" href="#!/advice">Advice</a></li>
+        <li data-target="modal1" class="waves-effect waves-light"><a style="font-size:16px;font-weight:400;" data-target="modal1" href="#!">Trends</a></li>
     </ul>
 
+</div>
+
+<!-- Modale -->
+<div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4 style="text-align: center;padding-bottom:25px; ">Trends per Asset Class</h4>
+        <div class="row">
+            <div class="col s3" ng-repeat="asset in portfolio.getClassAssets() track by $index">
+                <div style="text-align:center">
+                    <b>{{CONFIG["ASSETS_NAME"][$index]}}</b><br>
+                </div>
+                <asset-general portfolio-amount="asset" portfolio-date="portfolio.getPortfolioDates()"></asset-general>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!/worth" class=" modal-action modal-close waves-effect teal btn-flat">Close</a>
+    </div>
 </div>
 
 <!-- Magic -->
@@ -100,6 +118,13 @@
     $( document ).ready(function() {
         $('.tapTarget').tapTarget('open');
     });
+
+    $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+    });
+
+
 </script>
 
 
