@@ -15,7 +15,7 @@ import weka.classifiers.timeseries.WekaForecaster;
 
 public class WekaTimeSeriesForecasting {
 
-    public static List<ForecastingDTO> getForecast(List<Portfolio> portfolioList){
+    public static List<ForecastingDTO> getForecast(List<Portfolio> portfolioList, long daysToForecast){
         try {
             List<ForecastingDTO> forecastingDTOList = new ArrayList<>();
             ForecastingDTO fDTO;
@@ -29,10 +29,6 @@ public class WekaTimeSeriesForecasting {
             PrintWriter writer = new PrintWriter(fileName, "UTF-8");
             writer.println(data);
             writer.close();
-
-            int daysToForecast = portfolioList.size();
-            if(daysToForecast>30)
-                daysToForecast=30;
 
             // load the data
             Instances portfolio = new Instances(new BufferedReader(new FileReader(fileName)));
@@ -68,7 +64,7 @@ public class WekaTimeSeriesForecasting {
 
             // forecast for 'daysToForecast' values beyond the end of the
             // training data
-            List<List<NumericPrediction>> forecast = forecaster.forecast(daysToForecast, System.out);
+            List<List<NumericPrediction>> forecast = forecaster.forecast((int) daysToForecast, System.out);
 
             // output the predictions. Outer list is over the steps; inner list is over
             // the targets
