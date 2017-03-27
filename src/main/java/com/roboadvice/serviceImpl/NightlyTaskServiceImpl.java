@@ -150,6 +150,8 @@ public class NightlyTaskServiceImpl {
             Iterable<AssetsClass> assetsClasses = assetsClassRepository.findAll();
             Iterable<Assets> assets = assetsRepository.findAll();
 
+            List<Portfolio> portfolioList = new ArrayList<>();
+
             for(User user : users) {
                 for (AssetsClass assetClass : assetsClasses) {
                     for (Assets asset : assets) {
@@ -183,7 +185,8 @@ public class NightlyTaskServiceImpl {
                                     updatedPortfolio.setValue(values.get(i));
                                     updatedPortfolio.setUnits(portfolio.getUnits());
 
-                                    portfolioRepository.save(updatedPortfolio);
+                                    portfolioList.add(updatedPortfolio);
+                                    //portfolioRepository.save(updatedPortfolio);
                                     i++;
                                 }
                             }
@@ -193,6 +196,16 @@ public class NightlyTaskServiceImpl {
                     amount = BigDecimal.ZERO;
                     values.clear();
                 }
+
+                if(checkRebalance(portfolioList)) {
+                    rebalanceAndSave(portfolioList);
+                }
+                else{
+                    for(Portfolio p : portfolioList){
+                        portfolioRepository.save(p);
+                    }
+                }
+                portfolioList.clear();
             }
             System.out.println("*** NIGHTLY TASK 3: USER's PORTFOLIO HAS BEEN UPDATED! - "+lastUpdate.plusDays(1).toString()+" ***\n");
         }
@@ -313,6 +326,62 @@ public class NightlyTaskServiceImpl {
         else {
             return null;
         }
+    }
+
+    private boolean checkRebalance(List<Portfolio> portfolioList){
+        BigDecimal totalAmount = BigDecimal.ZERO, currentAssetsClassPercentage;
+        for(Portfolio p : portfolioList)
+            totalAmount = totalAmount.add(p.getValue());
+
+        List<Strategy> strategyList = strategyRepository.findByUserAndActive(portfolioList.get(0).getUser(), true);
+
+        for(Strategy str : strategyList){
+            for(Portfolio p : portfolioList){
+                if(str.getAssetsClass().getId() == p.getAssetsClass().getId()){
+                    currentAssetsClassPercentage = p.getAmount().multiply(new BigDecimal(100)).divide(totalAmount, 2, RoundingMode.HALF_UP);
+
+                    if(currentAssetsClassPercentage.compareTo(str.getPercentage().add(new BigDecimal(2))) > 0 ||
+                       currentAssetsClassPercentage.compareTo(str.getPercentage().add(new BigDecimal(-2))) < 0) {
+                        return true;
+                    }
+                    else break;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void rebalanceAndSave(List<Portfolio> portfolioList){
+        BigDecimal totalAmount = BigDecimal.ZERO, amount, value, assetWeight, units;
+        for(Portfolio p : portfolioList)
+            totalAmount = totalAmount.add(p.getValue());
+
+        List<Strategy> strategyList = strategyRepository.findByUserAndActive(portfolioList.get(0).getUser(), true);
+        List<Assets> assetsList = (List<Assets>) assetsRepository.findAll();
+        ApiData api;
+
+        for(Strategy str :strategyList){
+            for(Assets asset : assetsList){
+                if(str.getAssetsClass().getId() == asset.getAssetsClass().getId()){
+                    for(Portfolio p : portfolioList) {
+                        if (asset.getId() == p.getAssets().getId()) {
+                            assetWeight = str.getPercentage().divide(new BigDecimal(100),5,RoundingMode.HALF_UP).multiply(asset.getAllocation_p().divide(new BigDecimal(100), 5, RoundingMode.HALF_UP));
+                            api = apiDataRepository.findTopByAssetsAndDateLessThanEqualOrderByDateDesc(asset, lastUpdate);
+
+                            amount = totalAmount.multiply(str.getPercentage()).divide(new BigDecimal(100), 5, RoundingMode.HALF_UP);
+                            value = totalAmount.multiply(assetWeight);
+                            units = value.divide(api.getValue(), 5, RoundingMode.HALF_UP);
+
+                            p.setAmount(amount);
+                            p.setValue(value);
+                            p.setUnits(units);
+                            portfolioRepository.save(p);
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("*** Portfolio rebalanced for userID: "+portfolioList.get(0).getUser().getId()+" ***");
     }
 
 }
