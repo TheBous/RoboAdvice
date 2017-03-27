@@ -13,7 +13,7 @@
         <div class="card-panel grey lighten-5" style="text-align:center;">
           <span class="dark-text" style="letter-spacing:1pt">
             Below you can see your portfolio trend until the {{$ctrl.forecastDate}},
-            differences: <b>{{$ctrl.forecastingDifference | number:2}} $</b>
+            differences: <b ng-class="$ctrl.differenceClass">{{$ctrl.forecastingDifference | number:2}} $</b>
           </span>
         </div>
       </div>
