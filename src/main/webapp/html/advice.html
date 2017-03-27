@@ -115,8 +115,7 @@
 
 <!-- prova card -->
 
-<div   style=" width: 80%;
-  margin: 0 auto;" ng-controller="AdviceController">
+<div style=" width: 80%; margin: 0 auto;" ng-controller="AdviceController">
     <div class="row">
         <div class="col m5 s12">
             <div class="card grey lighten-3">
@@ -127,15 +126,15 @@
                 <div style=" margin:5pt;margin-left:8pt;height:auto">
                     <assets-class-graph percentages=currentStrategy.getAssets()></assets-class-graph>
                 </div>
-                <br />
+                <br/>
             </div>
         </div>
 
         <ul class="collection col m7 s12">
             <li class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt" ng-repeat="defStrategy in standardStrategies">
                 <i class="material-icons circle">folder</i>
-                <i ng-if="advicePercentage[$index] < 0" style="color:#F44336;font-size:38px;" class="material-icons circle brown lighten-4 winning">trending_up</i>
-                <i ng-if="advicePercentage[$index] > 0" style="color: #00e676;font-size:38px;" class="material-icons circle brown lighten-4 losing">trending_down</i>
+                <i ng-if="advicePercentage[$index] > 0" style="color:#F44336;font-size:38px;" class="material-icons circle brown lighten-4 winning">trending_up</i>
+                <i ng-if="advicePercentage[$index] < 0" style="color: #00e676;font-size:38px;" class="material-icons circle brown lighten-4 losing">trending_down</i>
                 <span style="font-size:24px;font-weight:500;color: teal" class="title">{{defStrategy.name}}</span>
 
                 <div  style="width: 70%;" ng-show="loadingInProgress" class="progress">
@@ -148,13 +147,12 @@
    -->
 
                 <div>
-
                     <h6>Percentage:</h6>
-                    <label ng-if="advicePercentage[$index] > 0">-
-                        <label style="font-size:20px;">{{advicePercentage[$index] | number : 3}}%</label>
+                    <label style="font-size:20px;">{{advicePercentage[$index] | number : 3}}%</label>
                 </div>
 
                 <span style="font-size:19px;font-weight: 400;color:#666;">Amount: ${{adviceAmount[$index] | number:2}}</span>
+                <span ng-if="advicePercentage[$index] == max" class="new badge animated tada" data-badge-caption="Fair strategy"></span>
 
 
 

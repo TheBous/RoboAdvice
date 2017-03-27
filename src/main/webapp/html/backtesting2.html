@@ -2,73 +2,53 @@
     body {
         background: #f9f9f9;
     }
-
-
 </style>
-    <div class="row">
-      <div class="col s12 m3">
 
-      </div>
-      <div class="col s12 m6" style="margin-left:auto;margin-right:auto">
+
+<div class="row">
+    <div class="col s12 m3">
+    </div>
+    <div class="col s12 m6" style="margin-left:auto;margin-right:auto">
         <div class="card-panel grey lighten-5" style="text-align:center;">
           <span class="dark-text" style="letter-spacing:1pt">
             if you had chosen this strategy, your amount would been
             <b style="font-size:20pt" class="green-text">{{backtestingDifference | number: 2}}</b> euro more than your strategy
           </span>
         </div>
-      </div>
     </div>
+</div>
 
-
-    <div class="" style="max-width:90%;margin: auto;">
-                    <!-- first Card -->
-                    <div class="row">
-                        <div class="col m8 s12">
-                            <div class="card white">
-                                <div class="card-content teal-text" ng-controller="RealtimeGraphController">
-                                    <span class="card-title"> {{backtestingStrategy.getName()}} Trend</span>
-
-
-                                    <div ng-show="loadingInProgress==true" style="text-align: center">
-                                        <div class="preloader-wrapper big active">
-                                            <div class="spinner-layer spinner-blue">
-                                                <div class="circle-clipper left">
-                                                    <div class="circle"></div>
-                                                </div>
-                                                <div class="gap-patch">
-                                                    <div class="circle"></div>
-                                                    ❤
-                                                </div>
-                                                <div class="circle-clipper right">
-                                                    <div class="circle"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                      <realtime-line-graph ng-if="$ctrl.yAxis" vertical-axis="$ctrl.yAxis" horizzontal-axis="$ctrl.francesca"
-                                        realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph>
-                                    </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- backtesting summary -->
-                    <div class="col m4 s12">
-                        <div class="card grey lighten-4">
-                            <div class="card-content">
-                                <span style="color:black;" class="card-title teal-text">Summary</span><br />
-                                <span style="color:black">Strategy Name: <b>{{backtestingStrategy.getName()}}</b></span><br />
-                                <span style="color:black">Actual Amount: <b>{{backtestingStrategy.getFinalAmount()}}</b></span><br />
-                                <span style="color:black">Backtesting final amount: <b>{{$ctrl.yAxis[($ctrl.yAxis.length)-1]}}</b></span><br />
-
-                            </div>
-                            <div style=" margin:5pt;margin-left:8pt;height:37.5% ">
-                              <assets-class-graph percentages="backtestingStrategy.getAssets()"></assets-class-graph>
-                            </div>
-                            <div class="card-action" style="text-align:right">
-
-                            </div>
-                        </div>
+<div class="" style="max-width:90%;margin: auto;">
+    <!-- first Card -->
+    <div class="row">
+        <div class="col m8 s12">
+            <div class="card white">
+                <div class="card-content teal-text" ng-controller="RealtimeGraphController">
+                    <span class="card-title"> {{backtestingStrategy.getName()}} Trend</span>
+                    <div>
+                        <realtime-line-graph ng-if="$ctrl.yAxis" vertical-axis="$ctrl.yAxis" horizzontal-axis="$ctrl.francesca"
+                                             realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph>
                     </div>
                 </div>
+            </div>
+
+        </div>
+        <!-- backtesting summary -->
+        <div class="col m4 s12">
+            <div class="card grey lighten-4">
+                <div class="card-content">
+                    <span style="color:black;" class="card-title teal-text">Summary</span><br />
+                    <span style="color:black">Strategy Name: <b>{{backtestingStrategy.getName()}}</b></span><br />
+                    <span style="color:black">Actual Amount: <b>{{backtestingStrategy.getFinalAmount()}}</b></span><br />
+                    <span style="color:black">Backtesting final amount: <b>{{$ctrl.yAxis[($ctrl.yAxis.length)-1]}}</b></span><br />
+
+                </div>
+                <div style=" margin:5pt;margin-left:8pt;height:37.5% ">
+                    <assets-class-graph percentages="backtestingStrategy.getAssets()"></assets-class-graph>
+                </div>
+                <div class="card-action" style="text-align:right">
+
+                </div>
+            </div>
+        </div>
+    </div>
