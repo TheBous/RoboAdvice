@@ -132,7 +132,7 @@
 
         <ul class="collection col m7 s12">
             <li class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt" ng-repeat="defStrategy in standardStrategies">
-                <i class="material-icons circle">folder</i>
+                <i class="material-icons circle">cached</i>
                 <i ng-if="advicePercentage[$index] > 0" style="color:#F44336;font-size:38px;" class="material-icons circle brown lighten-4 winning">trending_up</i>
                 <i ng-if="advicePercentage[$index] < 0" style="color: #00e676;font-size:38px;" class="material-icons circle brown lighten-4 losing">trending_down</i>
                 <span style="font-size:24px;font-weight:500;color: teal" class="title">{{defStrategy.name}}</span>
@@ -147,7 +147,6 @@
    -->
 
                 <div>
-                    <h6>Percentage:</h6>
                     <label style="font-size:20px;">{{advicePercentage[$index] | number : 3}}%</label>
                 </div>
 

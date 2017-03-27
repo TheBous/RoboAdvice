@@ -16,18 +16,18 @@
     <script src="http://materializecss.com/js/init.js"></script>-->
 
     <!-- FaB -->
+<!--
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large teal accent-4"  data-target="modal1">
             <i class="large material-icons">insert_chart</i>
         </a>
     </div>
 
+-->
 
-
-    <!-- Modal Structure -->
+<!--    &lt;!&ndash; Modal Structure &ndash;&gt;
     <div id="modal1" class="modal bottom-sheet">
         <div class="modal-content">
-
           <h4 style="text-align: center;padding-bottom:25px; ">Trends per Asset Class</h4>
           <div class="row">
             <div class="col s3" ng-repeat="asset in portfolio.getClassAssets() track by $index">
@@ -37,12 +37,12 @@
               <asset-general portfolio-amount="asset" portfolio-date="portfolio.getPortfolioDates()"></asset-general>
             </div>
           </div>
-
         </div>
         <div class="modal-footer">
             <a href="#!/worth" class=" modal-action modal-close waves-effect teal btn-flat">Close</a>
         </div>
-    </div>
+    </div>-->
+
     <!-- Main Container -->
     <div class="container">
         <div class="header_section">Balance
@@ -127,14 +127,7 @@
         </div>-->
     </div>
 
-    <script>
-        $(document).ready(function(){
-            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-            $('.modal').modal();
-        });
 
-
-    </script>
 </div>
 
 <div class="container">
