@@ -1,6 +1,7 @@
 package com.roboadvice.controller;
 
 import com.roboadvice.dto.BacktestingDTO;
+import com.roboadvice.dto.ForecastingDTO;
 import com.roboadvice.dto.PortfolioDTO;
 import com.roboadvice.service.PortfolioService;
 import com.roboadvice.utils.Constant;
@@ -83,6 +84,17 @@ public class PortfolioController {
 
         if(backtestingDTOList!=null)
             return new GenericResponse<>(backtestingDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
+        else
+            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+    }
+
+    @RequestMapping(value = "/forecast", method = RequestMethod.POST)
+    public GenericResponse<List<ForecastingDTO>> getForecast(Authentication authentication){
+        String userEmail = authentication.getName();
+        List<ForecastingDTO> forecastingDTOList = portfolioService.getForecast(userEmail);
+
+        if(forecastingDTOList!=null)
+            return new GenericResponse<>(forecastingDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
         else
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
     }
