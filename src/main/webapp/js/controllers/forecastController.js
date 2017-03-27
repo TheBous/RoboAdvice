@@ -1,6 +1,8 @@
 RoboAdviceApp.controller("Forecast",function($scope,$log,strategyService,portfolioService){
 
-  $scope.startForecast = function(date){
+    $scope.loadingInProgress = true;
+
+    $scope.startForecast = function(date){
     $log.debug("Forecasting started " + date);
     $scope.forecastDate = date;
     
@@ -8,10 +10,12 @@ RoboAdviceApp.controller("Forecast",function($scope,$log,strategyService,portfol
       $scope.forecastDate = null;
       // default forecast for 1 mounth
       portfolioService.getForecasting($scope.forecastDate,function(forecastData){
-        /*
-        forecastData is an array of objects like this:
-        { amount, date }
-        */
+          $scope.loadingInProgress = false;
+
+          /*
+          forecastData is an array of objects like this:
+          { amount, date }
+          */
         $scope.forecastAmounts = forecastData.amounts;
         $scope.forecastDates = forecastData.dates;
       });
