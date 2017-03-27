@@ -26,8 +26,13 @@
             <back-uno interval="TheInterval" on-update="update(data)"></back-uno>
         </wz-step>
         <wz-step wz-title="second">
-            <div style="width: 100%;" ng-show="loadingInProgress" class="progress">
-                <div  class="indeterminate"></div>
+            <div ng-show="loadingInProgress">
+                <div style="width: 100%;" class="progress">
+                    <div  class="indeterminate"></div>
+                </div>
+                <div style="width: 30%; margin: 0 auto;">
+                    <img src="../img/home_animation.gif">
+                </div>
             </div>
             <back-due ng-if="yAxis!=null"  francesca="francesca" y-axis="yAxis" interval="TheInterval"></back-due>
         </wz-step>
