@@ -45,8 +45,12 @@
                                         </div>
                                     </div>
                                     <div>
-                                      <realtime-line-graph ng-if="$ctrl.forecastDates" vertical-axis="$ctrl.forecastAmounts" horizzontal-axis="$ctrl.forecastDates"
+                                      <realtime-line-graph ng-if="forecastDates" vertical-axis="forecastAmounts" horizzontal-axis="forecastDates"
                                         realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph>
+                                    </div>
+                                    <div>
+                                      <br />
+                                      <button class="btn" href="forecast" wz-reset>Select a date</button>
                                     </div>
                             </div>
                         </div>
@@ -63,7 +67,7 @@
 
                             </div>
                             <div style=" margin:5pt;margin-left:8pt;height:37.5% ">
-                              <assets-class-graph percentages="$ctrl.forecastingStrategy.getAssets()"></assets-class-graph>
+                              <assets-class-graph percentages="$ctrl.forecastStrategy.getAssets()"></assets-class-graph>
                             </div>
                             <div class="card-action" style="text-align:right">
 

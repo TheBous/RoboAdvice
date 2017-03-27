@@ -11,8 +11,10 @@
     <div class="col s12 m6" style="margin-left:auto;margin-right:auto">
         <div class="card-panel grey lighten-5" style="text-align:center;">
           <span class="dark-text" style="letter-spacing:1pt">
-            if you had chosen this strategy, your amount would been
-            <b style="font-size:20pt" class="green-text">{{backtestingDifference | number: 2}}</b> euro more than your strategy
+            If you had chosen this strategy, your amount would been
+            <b ng-if="backtestingDifference > 0" style="font-size:20pt" class="green-text">{{backtestingDifference | number: 2}}</b>
+            <b ng-if="backtestingDifference < 0" style="font-size:20pt" class="red-text">{{backtestingDifference | number: 2}}</b>
+              dollars compared to your current amount.
           </span>
         </div>
     </div>
@@ -29,12 +31,15 @@
                         <realtime-line-graph ng-if="$ctrl.yAxis" vertical-axis="$ctrl.yAxis" horizzontal-axis="$ctrl.francesca"
                                              realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph>
                     </div>
+                    <div>
+                        <button class="btn" wz-reset>Select a new date</button>              
+                    </div>
                 </div>
             </div>
 
         </div>
         <!-- backtesting summary -->
-        <div class="col m4 s12">
+        <div style="height:120%" class="col m4 s12">
             <div class="card grey lighten-4">
                 <div class="card-content">
                     <span style="color:black;" class="card-title teal-text">Summary</span><br />
