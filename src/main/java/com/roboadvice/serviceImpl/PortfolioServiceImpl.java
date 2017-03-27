@@ -8,10 +8,8 @@ import com.roboadvice.repository.*;
 import com.roboadvice.service.PortfolioService;
 import com.roboadvice.utils.Constant;
 import com.roboadvice.utils.WekaTimeSeriesForecasting;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,6 +17,8 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 public class PortfolioServiceImpl implements PortfolioService{
@@ -94,7 +94,7 @@ public class PortfolioServiceImpl implements PortfolioService{
                         pDTO.setAssetsClassAmount(portfolioList.get(j).getAssetsClass().getId(), portfolioList.get(j).getAmount());
                     }
                     for(int y=i;y<i+Constant.NUM_ASSETS_CLASS;y++) {
-                        pDTO.setAssetsClassPercentage(portfolioList.get(y).getAssetsClass().getId(), portfolioList.get(y).getAmount().multiply(new BigDecimal(100).divide(pDTO.getTotalAmount(), 2, RoundingMode.HALF_UP)));
+                        pDTO.setAssetsClassPercentage(portfolioList.get(y).getAssetsClass().getId(), portfolioList.get(y).getAmount().multiply(new BigDecimal(100)).divide(pDTO.getTotalAmount(), 2, RoundingMode.HALF_UP));
                     }
                     portfolioDTO_list.add(pDTO);
                 }
@@ -246,36 +246,40 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
-    public List<ForecastingDTO> getForecast(String userEmail) {
+    public List<ForecastingDTO> getForecast(String userEmail, LocalDate targetDate) {
         User u = userRepository.findByEmail(userEmail);
         if(u == null)
             return null;
 
+        long daysToForecast = DAYS.between(LocalDate.now(), targetDate);
+
         List<Portfolio> portfolioList = portfolioRepository.getAmountsByUser(u);
-        if(portfolioList.size()<2) {
-            //if a user has not enough portfolios for forecast computation, the forecast is based on the backtesting of last 2 days
-            List<BacktestingDTO> bDTO = getBackTestingChart(u.getEmail(), LocalDate.now().minusDays(2));
+        if(portfolioList.size()<3) {
+            //if a user has not enough portfolios for forecast computation, the forecast is based on the backtesting
+            List<BacktestingDTO> bDTO = getBackTestingChart(u.getEmail(), LocalDate.now().minusDays(daysToForecast));
             List<ForecastingDTO> forecastingDTOList = new ArrayList<>();
-            ForecastingDTO fDTO = new ForecastingDTO();
+            ForecastingDTO fDTO;
             if(portfolioList.size()==0) {
                 //new user
-                fDTO.setDate(LocalDate.now().plusDays(1));
-                fDTO.setTotalAmount(new BigDecimal(10000));
-                forecastingDTOList.add(fDTO);
-                fDTO = new ForecastingDTO();
-                fDTO.setDate(LocalDate.now().plusDays(2));
-                fDTO.setTotalAmount(bDTO.get(bDTO.size() - 1).getTotalAmount());
-                forecastingDTOList.add(fDTO);
+                for(int i=0; i<bDTO.size();i++){
+                    fDTO = new ForecastingDTO();
+                    fDTO.setDate(LocalDate.now().plusDays(i+1));
+                    fDTO.setTotalAmount(bDTO.get(i).getTotalAmount());
+                    forecastingDTOList.add(fDTO);
+                }
             }
             else{
-                //user with just one portfolio
-                fDTO.setDate(LocalDate.now().plusDays(1));
-                fDTO.setTotalAmount(bDTO.get(bDTO.size() - 1).getTotalAmount());
-                forecastingDTOList.add(fDTO);
+                //user with just one/two portfolios*/
+                for(int i=portfolioList.size(); i<bDTO.size();i++){
+                    fDTO = new ForecastingDTO();
+                    fDTO.setDate(LocalDate.now().plusDays(i));
+                    fDTO.setTotalAmount(bDTO.get(i).getTotalAmount());
+                    forecastingDTOList.add(fDTO);
+                }
             }
             return forecastingDTOList;
         }
 
-        return WekaTimeSeriesForecasting.getForecast(portfolioList);
+        return WekaTimeSeriesForecasting.getForecast(portfolioList, daysToForecast);
     }
 }
