@@ -45,11 +45,12 @@
                                         </div>
                                     </div>
                                     <div>
-                                      <realtime-line-graph ng-if="$ctrl.forecastDates" vertical-axis="$ctrl.forecastAmounts" horizzontal-axis="$ctrl.forecastDates"
+                                      <realtime-line-graph ng-if="forecastDates" vertical-axis="forecastAmounts" horizzontal-axis="forecastDates"
                                         realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph>
                                     </div>
                                     <div>
-                                      <button class="btn" wz-previous>Select a date</button>
+                                      <br />
+                                      <button class="btn" href="forecast" wz-reset>Select a date</button>
                                     </div>
                             </div>
                         </div>

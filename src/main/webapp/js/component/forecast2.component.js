@@ -5,13 +5,20 @@ RoboAdviceApp.component("forecastTwo",{
     forecastDates: "<"
   },
   templateUrl: "../../html/forecastView-2.html",
-  controller: function(portfolioService,strategyService){
-    let $ctrl = this;
+  controller: function(portfolioService,strategyService,$log, $scope){
+
+    this.$onChanges = function(obj){
+      $scope.forecastAmounts = this.forecastAmounts;
+      $scope.forecastDates = this.forecastDates;
+    }
 
     this.$onInit=function(){
+      $scope.forecastAmounts = this.forecastAmounts;
+      $scope.forecastDates = this.forecastDates;
+
       this.forecastFinalAmount = this.forecastAmounts[this.forecastAmounts.length-1];
-      $ctrl.forecastStrategy = strategyService.getLastStrategy();
-      console.log($ctrl.forecastStrategy.getName())
+      this.forecastStrategy = strategyService.getLastStrategy();
+      console.log(this.forecastStrategy.getName())
 
     }
   }
