@@ -1,11 +1,13 @@
 package com.roboadvice.serviceImpl;
 
 import com.roboadvice.dto.BacktestingDTO;
+import com.roboadvice.dto.ForecastingDTO;
 import com.roboadvice.dto.PortfolioDTO;
 import com.roboadvice.model.*;
 import com.roboadvice.repository.*;
 import com.roboadvice.service.PortfolioService;
 import com.roboadvice.utils.Constant;
+import com.roboadvice.utils.WekaTimeSeriesForecasting;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -241,5 +243,39 @@ public class PortfolioServiceImpl implements PortfolioService{
 
         return  backtestingDTOList;
 
+    }
+
+    @Override
+    public List<ForecastingDTO> getForecast(String userEmail) {
+        User u = userRepository.findByEmail(userEmail);
+        if(u == null)
+            return null;
+
+        List<Portfolio> portfolioList = portfolioRepository.getAmountsByUser(u);
+        if(portfolioList.size()<2) {
+            //if a user has not enough portfolios for forecast computation, the forecast is based on the backtesting of last 2 days
+            List<BacktestingDTO> bDTO = getBackTestingChart(u.getEmail(), LocalDate.now().minusDays(2));
+            List<ForecastingDTO> forecastingDTOList = new ArrayList<>();
+            ForecastingDTO fDTO = new ForecastingDTO();
+            if(portfolioList.size()==0) {
+                //new user
+                fDTO.setDate(LocalDate.now().plusDays(1));
+                fDTO.setTotalAmount(new BigDecimal(10000));
+                forecastingDTOList.add(fDTO);
+                fDTO = new ForecastingDTO();
+                fDTO.setDate(LocalDate.now().plusDays(2));
+                fDTO.setTotalAmount(bDTO.get(bDTO.size() - 1).getTotalAmount());
+                forecastingDTOList.add(fDTO);
+            }
+            else{
+                //user with just one portfolio
+                fDTO.setDate(LocalDate.now().plusDays(1));
+                fDTO.setTotalAmount(bDTO.get(bDTO.size() - 1).getTotalAmount());
+                forecastingDTOList.add(fDTO);
+            }
+            return forecastingDTOList;
+        }
+
+        return WekaTimeSeriesForecasting.getForecast(portfolioList, u);
     }
 }

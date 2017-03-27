@@ -8,14 +8,14 @@
 
 
 <div>
-    <!-- Roba Esterna -->
-
+    <!-- Roba Esterna commentata-->
+<!--
     <link href="http://materializecss.com/css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="http://materializecss.com/bin/materialize.js"></script>
-    <script src="http://materializecss.com/js/init.js"></script>
-    <!-- FaB -->
+    <script src="http://materializecss.com/js/init.js"></script>-->
 
+    <!-- FaB -->
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large teal accent-4"  data-target="modal1">
             <i class="large material-icons">insert_chart</i>
@@ -28,7 +28,7 @@
     <div id="modal1" class="modal bottom-sheet">
         <div class="modal-content">
 
-          <h4>Class assets trends</h4>
+          <h4 style="text-align: center;padding-bottom:25px; ">Trends per Asset Class</h4>
           <div class="row">
             <div class="col s3" ng-repeat="asset in portfolio.getClassAssets() track by $index">
               <div style="text-align:center">
@@ -48,7 +48,8 @@
         <div class="header_section">Balance
             <div class="row">
                 <div class="col s12 m3" ng-repeat="difference in portfolio.getPortfolioDifferences() track by $index">
-                    <div class="card teal lighten-4">
+                  <!--  <div class="card teal lighten-4"> #E8BE5D  previous color teal-->
+                        <div class="card" style="background-color:#E8BE5D">
                         <div class="card waves-effect waves-block waves-light">
                             <img class="activator" >
                         </div>
@@ -63,8 +64,8 @@
                             <div style="font-size:20pt;letter-spacing:1pt">{{difference.percentage | number : 2}}%</div>
                         </div>
                         <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4" style="font-size:19px;"><span class="hide-on-med-and-down" >{{CONFIG["ASSETS_NAME"][$index]}}</span><i class="material-icons right">close</i></span>
-                            <div style="font-size:20pt;letter-spacing:1pt"><b>{{difference.amount}} $</b></div>
+                            <span class="card-title grey-text text-darken-4" style="font-size:19px;"><span class="hide-on-med-and-down" > <!--{{CONFIG["ASSETS_NAME"][$index]}} --></span><i class="material-icons right">close</i></span>
+                            <span class="" style="font-size:20pt;letter-spacing:1pt;">${{difference.amount}} </span>
                         </div>
                         <!--  <div class="card-content white-text">
                               <div class="card-title">{{CONFIG["ASSETS_NAME"][$index]}}</div>
@@ -109,19 +110,18 @@
                 </div>
                 <div class="carousel-item amber white-text" href="#two!">
                     <h2>{{CONFIG["ASSETS_NAME"][1]}}</h2>
-                    <p class="white-text">This is your second panel</p>
+                    <p class="white-text">Sezione 2</p>
                     <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[1]"></asset-general>
                 </div>
                 <div class="carousel-item green white-text" href="#three!">
                     <h2>{{CONFIG["ASSETS_NAME"][2]}}</h2>
-                    <p class="white-text">This is your third panel</p>
+                    <p class="white-text">sezione 3</p>
                     <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[2]"></asset-general>
                 </div>
                 <div class="carousel-item blue white-text" href="#four!">
                     <h2>{{CONFIG["ASSETS_NAME"][3]}}</h2>
-                    <p class="white-text">This is your fourth panel</p>
+                    <p class="white-text">Sezione 4</p>
                     <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[3]"></asset-general>
-
                 </div>
             </div>
         </div>-->
@@ -136,7 +136,6 @@
 
     </script>
 </div>
-
 
 <div class="container">
     <div class="container">

@@ -81,10 +81,22 @@
 			<version>1.16.14</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Json Web Token -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>0.6.0</version>
+		</dependency>
+		<!-- Weka Time-Series Forecasting -->
+		<dependency>
+			<groupId>nz.ac.waikato.cms.weka</groupId>
+			<artifactId>weka-stable</artifactId>
+			<version>3.8.0</version>
+		</dependency>
+		<dependency>
+			<groupId>nz.ac.waikato.cms.weka</groupId>
+			<artifactId>timeseriesForecasting</artifactId>
+			<version>1.0.24</version>
 		</dependency>
 	</dependencies>
 

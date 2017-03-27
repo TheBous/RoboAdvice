@@ -45,4 +45,9 @@ public class Portfolio {
         this.date = date;
     }
 
+    public Portfolio(BigDecimal amount, LocalDate date){
+        this.amount = amount;
+        this.date = date;
+    }
+
 }

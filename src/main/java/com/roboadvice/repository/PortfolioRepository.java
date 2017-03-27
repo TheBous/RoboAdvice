@@ -41,6 +41,9 @@ public interface PortfolioRepository extends PagingAndSortingRepository<Portfoli
     @Query("SELECT SUM(p.value) FROM Portfolio p WHERE p.user=?1 AND p.date=?2")
     BigDecimal findTotalAmountByUserAndDate(User u, LocalDate date);
 
+    @Query("SELECT NEW com.roboadvice.model.Portfolio(sum(p.value), p.date) FROM Portfolio p WHERE p.user=?1 GROUP BY p.date")
+    List<Portfolio> getAmountsByUser(User u);
+
 
 
 }
