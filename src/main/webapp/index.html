@@ -69,6 +69,41 @@
 </head>
 <body ng-cloak ng-controller="MainController">
 
+<div id="bottoncino" class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large" style="background-color:#E8BE5D;">
+        <i class="large material-icons">apps</i>
+    </a>
+    <ul>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:500;color:black;" href="#!/backtesting"  >Backtesting</a></li>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:500;color:black;" href="#!/forecast">Forecast</a></li>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:500;color:black;" href="#!/advice">Advice</a></li>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:500;color:black;" href="#!">Trends</a></li>
+    </ul>
+
+</div>
+
+<!-- Magic -->
+<!-- Element Showed -->
+
+<!-- Tap Target Structure -->
+<!--
+<div class="tap-target" data-activates="bottoncino">
+    <div class="tap-target-content">
+        <h5>Title</h5>
+        <p>A bunch of text</p>
+    </div>
+</div>
+-->
+
+
+<script>
+    $( document ).ready(function() {
+        $('.tapTarget').tapTarget('open');
+    });
+</script>
+
+
+
 
 
 
@@ -83,16 +118,16 @@
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
 
-                <li ng-if="user.isLogged() && user.hasStrategies()"><a href="#!/forecast">Forecast</a></li>
-                <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/backtesting">Backtesting</a></li>
+               <!-- <li ng-if="user.isLogged() && user.hasStrategies()"><a href="#!/forecast">Forecast</a></li> -->
+                <!--<li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/backtesting">Backtesting</a></li> -->
                 <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/demo">Demo</a></li>
-                <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/advice">Advice</a></li>
+               <!-- <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/advice">Advice</a></li> -->
                 <li><a href="#!/">Home</a></li>
                 <li ng-if="user.isLogged()"><a href="#!/portfolio">Dashboard</a></li>
                 <li><a href="#!/contact">Team</a></li>
                 <li><a href="#!/sign" ng-if="!user.isLogged()">Login</a></li>
                 <li ng-if="user.isLogged()">
-                    <a href="#!/user-profile">Hi {{user.getName()}}</a></li>
+                    <a href="#!/user-profile">Profile <!--{{user.getName()}} --></a></li>
                 <li ng-if="user.isLogged()"><a ng-click="logout()">Logout</a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
