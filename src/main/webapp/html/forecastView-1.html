@@ -5,25 +5,27 @@
                 <div class="card-stacked">
                     <div class="card-content">
                         <!-- <span class="card-title grey-text center">BackTesting</span> -->
-                        <blockquote class="flow-text" style="font-size:16px;border-left: 5px solid #E8BE5D;border-left-width: 5px;border-left-style: solid;border-left-color: ##E8BE5D">
+                        <blockquote class="flow-text" style="font-size:16px;border-left: 5px solid #E8BE5D;border-left-width: 5px;border-left-style: solid;border-left-color:#E8BE5D">
                             RoboAdvice provides forecasting feature to show the evolution of your Balance.<br />
                             Here you are able to select a date in the future and see how your portfolio
                             grow
                         </blockquote>
                         <!-- Date picker -->
                         <div style="text-align: center;">
-                          <fieldset style="border:0px hidden black">
-                            <label for="picker_label">Select Date</label>
-                            <input style="width:150px; " ng-model="$ctrl.forecastDate" id="picker_label" type="text" class="datepicker"/>
-                          </fieldset>
+                            <fieldset style="border:0px hidden black">
+                                <label for="picker_label">Select Date</label>
+                                <input style="width:150px; " ng-model="$ctrl.forecastDate" id="picker_label" type="text" class="datepicker"/>
+                            </fieldset>
 
                         </div>
                         <div style="text-align: center;">
                             <div class="card-action">
-                                <button class="btn waves-effect waves-light" type="submit" name="action" ng-click="$ctrl.nextClick()" wz-next>Next
-                                    <i class="material-icons right">send</i>
-                                </button>
+                                <a class="btn-floating btn waves-effect waves-light blue left "><i style="font-size:37px;" ng-click="$ctrl.info()" class="material-icons" href="">info</i></a>
+                                <button ng-disabled="!$ctrl.forecastDate" class="btn waves-effect waves-light" type="submit" name="action" ng-click="$ctrl.nextClick()" wz-next>Next </button>
                             </div>
+
+                        </div>
+
 
                         </div>
                     </div>

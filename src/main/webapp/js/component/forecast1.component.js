@@ -3,6 +3,7 @@ RoboAdviceApp.component("forecastOne",{
     startForecast: "&"
   },
   templateUrl: "../../html/forecastView-1.html",
+
   controller: function($log){
     let $ctrl = this;
     this.$onInit=function(){
@@ -16,6 +17,14 @@ RoboAdviceApp.component("forecastOne",{
             max: maxMonth,
         });
         $('select').material_select();
+        this.info=function () {
+            swal({
+                title:"Expected trend!",
+                text:"The following prediction is based on Time Series, a model to generate predictions (forecasts) for future events based on known past events.<br>",
+                html:true,
+                type: "warning"
+            });
+        }
     }
 
     this.nextClick=function(){
@@ -33,3 +42,4 @@ RoboAdviceApp.component("forecastOne",{
 
   }
 });
+
