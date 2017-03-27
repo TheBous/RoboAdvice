@@ -12,8 +12,7 @@
       <div class="col s12 m6" style="margin-left:auto;margin-right:auto">
         <div class="card-panel grey lighten-5" style="text-align:center;">
           <span class="dark-text" style="letter-spacing:1pt">
-            Below you can see your portfolio trend until the {{$ctrl.forecastDate}},
-            differences: <b ng-class="$ctrl.differenceClass">{{$ctrl.forecastingDifference | number:2}} $</b>
+            Below you can see your portfolio trend until the {{$ctrl.forecastDate}}
           </span>
         </div>
       </div>
@@ -58,9 +57,9 @@
                         <div class="card grey lighten-4">
                             <div class="card-content">
                                 <span style="color:black;" class="card-title teal-text">Summary</span><br />
-                                <span style="color:black">Strategy Name: <b>{{$ctrl.forecastingStrategy.getName()}}</b></span><br />
-                                <span style="color:black">Actual Amount: <b>{{$ctrl.forecastingStrategy.getFinalAmount()}}</b></span><br />
-                                <span style="color:black">Forecasting final amount: <b>{{$ctrl.forecastingFinalAmount | number:5}}</b></span><br />
+                                <span style="color:black">Strategy Name: <b>{{$ctrl.forecastStrategy.getName()}}</b></span><br />
+                                <span style="color:black">Actual Amount: <b>{{$ctrl.forecastStrategy.getFinalAmount()}}</b></span><br />
+                                <span style="color:black">Forecasting final amount: <b>{{$ctrl.forecastFinalAmount | number:5}}</b></span><br />
 
                             </div>
                             <div style=" margin:5pt;margin-left:8pt;height:37.5% ">

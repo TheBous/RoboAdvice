@@ -178,10 +178,11 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                 }
             });
         },
-        getForecasting(callback){
+        getForecasting(date,callback){
           let parent = this;
           $log.debug("PortfolioService.forecasting called");
-          portfolioREST.forecasting().$promise.then(function(response){
+          $log.debug("PortfolioService.forecasting | date: " + date);
+          let getResponse = function(response){
               if(response.statusCode == 0){
                 $log.debug("PortfolioService.forecasting response 0")
                 let ret = {
@@ -200,7 +201,16 @@ RoboAdviceApp.service("portfolioService", function(portfolioREST, CONFIG, strate
                 $log.error("PortfolioService.forecasting response error");
                 callback(false)
               }
-          });
+          };
+
+          if(date == null)
+            portfolioREST.forecasting().$promise.then(getResponse);
+          else{
+            let date2 = new Date(date);
+            let dateFormatted = date2.getUTCFullYear() + "-" + date2.getMonthFormatted() + "-" + date2.getDayFormatted();
+            console.log(dateFormatted)
+            portfolioREST.forecastingByDate({targetDate: dateFormatted}).$promise.then(getResponse);
+          }
         }
     }
 });
