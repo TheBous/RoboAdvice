@@ -276,6 +276,6 @@ public class PortfolioServiceImpl implements PortfolioService{
             return forecastingDTOList;
         }
 
-        return WekaTimeSeriesForecasting.getForecast(portfolioList, u);
+        return WekaTimeSeriesForecasting.getForecast(portfolioList);
     }
 }

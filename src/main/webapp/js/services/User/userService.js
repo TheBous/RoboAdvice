@@ -30,7 +30,7 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
             $log.debug("userService.setStrategyHistory| setting up user's strategies");
 
             strategyService.setHistory(this.getId(),function(history){
-                if(history != null){
+                if(history.length>0){
                     parent.hasStrategy = true;
                     $log.debug("userService.init| the user has " + history.length + " strategies");
                 }else{

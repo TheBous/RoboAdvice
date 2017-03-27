@@ -45,9 +45,10 @@ public class Portfolio {
         this.date = date;
     }
 
-    public Portfolio(BigDecimal amount, LocalDate date){
+    public Portfolio(BigDecimal amount, LocalDate date, User u){
         this.amount = amount;
         this.date = date;
+        this.user = u;
     }
 
 }

@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.roboadvice.dto.ForecastingDTO;
 import com.roboadvice.model.Portfolio;
-import com.roboadvice.model.User;
 import weka.core.Instances;
 import weka.classifiers.functions.GaussianProcesses;
 import weka.classifiers.evaluation.NumericPrediction;
@@ -16,7 +15,7 @@ import weka.classifiers.timeseries.WekaForecaster;
 
 public class WekaTimeSeriesForecasting {
 
-    public static List<ForecastingDTO> getForecast(List<Portfolio> portfolioList, User u){
+    public static List<ForecastingDTO> getForecast(List<Portfolio> portfolioList){
         try {
             List<ForecastingDTO> forecastingDTOList = new ArrayList<>();
             ForecastingDTO fDTO;
@@ -26,7 +25,7 @@ public class WekaTimeSeriesForecasting {
                 data = data+""+p.getAmount()+","+p.getDate().toString()+"\n";
             }
 
-            String fileName = "forecast_"+u.getId()+".txt";
+            String fileName = "forecast_"+portfolioList.get(0).getUser().getId()+".txt";
             PrintWriter writer = new PrintWriter(fileName, "UTF-8");
             writer.println(data);
             writer.close();

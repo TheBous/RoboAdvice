@@ -2,7 +2,12 @@
 RoboAdviceApp.controller("CheckUserLogged",function($scope,$location){
   if(!$scope.user.isLogged())
   $location.path("/");
-})
+});
+
+RoboAdviceApp.controller("newUserConstraint",function(userService, $location){
+  if(!userService.hasStrategies())
+    $location.path("wizard");
+});
 
 RoboAdviceApp.config([
     '$provide',
@@ -84,29 +89,49 @@ RoboAdviceApp.config(function($routeProvider) {
         })
         .when('/history', {
             templateUrl : 'html/history.html',
-            controller: "CheckUserLogged"
+            controller: "newUserConstraint"
         })
         .when('/worth', {
             templateUrl : 'html/worth.html',
-            controller: "CheckUserLogged"
+            controller: "newUserConstraint"
         })
         .when('/portfolio', {
             templateUrl : 'html/portfolio.html',
-            controller: function(userService, $location){
+            controller: function(userService,$location){
+              if(!userService.hasStrategies()){
+                $location.path("wizard");
+              }else if(!userService.hasCurrentPortfolio()){
+                $location.path("demo");
+              }
             }
         })
         .when('/worthgraph' | '/dashboard', {
             templateUrl : 'html/portfolio.html',
-            controller: "CheckUserLogged"
+            controller: "newUserConstraint"
         })
         .when('/advice', {
-            templateUrl: "html/advice.html"
+            templateUrl: "html/advice.html",
+            controller: function(strategyService,$location){
+              if(strategyService.getLastStrategy() == null){
+                $location.path("demo");
+              }
+            }
         })
         .when('/backtesting', {
-            templateUrl : 'html/backtesting.html'
+            templateUrl : 'html/backtesting.html',
+            controller: function(strategyService,$location){
+              if(strategyService.getLastStrategy() == null){
+                $location.path("demo");
+              }
+            }
         })
         .when('/forecast', {
-            templateUrl : 'html/forecast.html'
+            templateUrl : 'html/forecast.html',
+            controller: function(strategyService,$location){
+              if(strategyService.getLastStrategy() == null){
+                $location.path("demo");
+              }
+            }
         })
         .when('/privacy', {
             templateUrl : "html/privacy.html"
