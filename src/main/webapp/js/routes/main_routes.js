@@ -1,8 +1,21 @@
 
 RoboAdviceApp.controller("CheckUserLogged",function($scope,$location){
-  if(!$scope.user.isLogged())
-  $location.path("/");
-})
+    if(!$scope.user.isLogged())
+    $location.path("/");
+});
+
+RoboAdviceApp.controller("newUserConstraint",function(userService, $location){
+    if(!userService.hasStrategies())
+      $location.path("wizard");
+});
+
+RoboAdviceApp.controller("premiumFeatures",function(userService,$location){
+    if(!userService.hasStrategies()){
+      $location.path("wizard");
+    }else if(!userService.hasCurrentPortfolio()){
+      $location.path("demo");
+    }
+  });
 
 RoboAdviceApp.config([
     '$provide',
@@ -84,29 +97,35 @@ RoboAdviceApp.config(function($routeProvider) {
         })
         .when('/history', {
             templateUrl : 'html/history.html',
-            controller: "CheckUserLogged"
+            controller: "newUserConstraint"
         })
         .when('/worth', {
             templateUrl : 'html/worth.html',
-            controller: "CheckUserLogged"
+            controller: "newUserConstraint"
         })
         .when('/portfolio', {
             templateUrl : 'html/portfolio.html',
-            controller: function(userService, $location){
-            }
+            controller: "premiumFeatures"
         })
         .when('/worthgraph' | '/dashboard', {
             templateUrl : 'html/portfolio.html',
-            controller: "CheckUserLogged"
+            controller: "newUserConstraint"
+        })
+        .when('/demo', {
+            templateUrl: "html/demo.html",
+            controller: "premiumFeatures"
         })
         .when('/advice', {
-            templateUrl: "html/advice.html"
+            templateUrl: "html/advice.html",
+            controller: "premiumFeatures"
         })
         .when('/backtesting', {
-            templateUrl : 'html/backtesting.html'
+            templateUrl : 'html/backtesting.html',
+            controller: "premiumFeatures"
         })
         .when('/forecast', {
-            templateUrl : 'html/forecast.html'
+            templateUrl : 'html/forecast.html',
+            controller: "premiumFeatures"
         })
         .when('/privacy', {
             templateUrl : "html/privacy.html"

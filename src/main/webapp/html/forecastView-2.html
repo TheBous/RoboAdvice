@@ -12,7 +12,8 @@
       <div class="col s12 m6" style="margin-left:auto;margin-right:auto">
         <div class="card-panel grey lighten-5" style="text-align:center;">
           <span class="dark-text" style="letter-spacing:1pt">
-            Below you can see your portfolio trend until the {{$ctrl.forecastDate}}
+            Below you can see your portfolio trend until the {{$ctrl.forecastDate}},
+            differences: <b>{{$ctrl.forecastingDifference | number:2}} $</b>
           </span>
         </div>
       </div>
@@ -45,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                      <realtime-line-graph ng-if="$ctrl.yAxis" vertical-axis="$ctrl.yAxis" horizzontal-axis="$ctrl.francesca"
+                                      <realtime-line-graph ng-if="$ctrl.forecastDates" vertical-axis="$ctrl.forecastAmounts" horizzontal-axis="$ctrl.forecastDates"
                                         realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph>
                                     </div>
                             </div>
@@ -57,13 +58,13 @@
                         <div class="card grey lighten-4">
                             <div class="card-content">
                                 <span style="color:black;" class="card-title teal-text">Summary</span><br />
-                                <span style="color:black">Strategy Name: <b>{{backtestingStrategy.getName()}}</b></span><br />
-                                <span style="color:black">Actual Amount: <b>{{backtestingStrategy.getFinalAmount()}}</b></span><br />
-                                <span style="color:black">Backtesting final amount: <b>{{$ctrl.yAxis[($ctrl.yAxis.length)-1]}}</b></span><br />
+                                <span style="color:black">Strategy Name: <b>{{$ctrl.forecastingStrategy.getName()}}</b></span><br />
+                                <span style="color:black">Actual Amount: <b>{{$ctrl.forecastingStrategy.getFinalAmount()}}</b></span><br />
+                                <span style="color:black">Forecasting final amount: <b>{{$ctrl.forecastingFinalAmount | number:5}}</b></span><br />
 
                             </div>
                             <div style=" margin:5pt;margin-left:8pt;height:37.5% ">
-                              <assets-class-graph percentages="backtestingStrategy.getAssets()"></assets-class-graph>
+                              <assets-class-graph percentages="$ctrl.forecastingStrategy.getAssets()"></assets-class-graph>
                             </div>
                             <div class="card-action" style="text-align:right">
 

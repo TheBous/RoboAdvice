@@ -5,7 +5,7 @@ RoboAdviceApp.service("strategyService",function(strategyREST, $log, CONFIG){
     return {
         // the user's strategies history
         strategyHistory: [],
-        lastStrategy: {},
+        lastStrategy: null,
 
         // get current strategy
         getCurrent: (usr_id) => strategyREST.getCurrent({user_id: usr_id}),
