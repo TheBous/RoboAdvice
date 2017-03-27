@@ -97,7 +97,13 @@ RoboAdviceApp.config(function($routeProvider) {
         })
         .when('/portfolio', {
             templateUrl : 'html/portfolio.html',
-            controller: "newUserConstraint"
+            controller: function(userService,$location){
+              if(!userService.hasStrategies()){
+                $location.path("wizard");
+              }else if(!userService.hasCurrentPortfolio()){
+                $location.path("demo");
+              }
+            }
         })
         .when('/worthgraph' | '/dashboard', {
             templateUrl : 'html/portfolio.html',
@@ -105,15 +111,27 @@ RoboAdviceApp.config(function($routeProvider) {
         })
         .when('/advice', {
             templateUrl: "html/advice.html",
-            controller: "newUserConstraint"
+            controller: function(strategyService,$location){
+              if(strategyService.getLastStrategy() == null){
+                $location.path("demo");
+              }
+            }
         })
         .when('/backtesting', {
             templateUrl : 'html/backtesting.html',
-            controller: "newUserConstraint"
+            controller: function(strategyService,$location){
+              if(strategyService.getLastStrategy() == null){
+                $location.path("demo");
+              }
+            }
         })
         .when('/forecast', {
             templateUrl : 'html/forecast.html',
-            controller: "newUserConstraint"
+            controller: function(strategyService,$location){
+              if(strategyService.getLastStrategy() == null){
+                $location.path("demo");
+              }
+            }
         })
         .when('/privacy', {
             templateUrl : "html/privacy.html"

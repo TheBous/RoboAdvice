@@ -1,5 +1,5 @@
 RoboAdviceApp.controller("AdviceController",function($scope,strategyService, portfolioService,userService,$log,$location, ADVICE_CODES){
-    if(userService.hasStrategies()){
+    if(strategyService.getLastStrategy()!=null){
         let currentAmount = userService.getCurrentPortfolioAmount();
         $scope.standardStrategies = strategyService.getStandardStrategies();
         $scope.currentStrategy = strategyService.getLastStrategy();
@@ -103,8 +103,6 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
         }//change strategy end
     }else{
         $log.error("AdviceController| The user doesn't have strategies");
-        // reload history
-        $location.path("history");
     }
 
 });
