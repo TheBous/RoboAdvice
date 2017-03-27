@@ -25,6 +25,8 @@ RoboAdviceApp.component("forecastOne",{
         this.startForecast({date: $ctrl.forecastDate});
       }else{
         // forecast by date
+        let now = new Date();
+        
         this.startForecast({date: null})
       }
     }
