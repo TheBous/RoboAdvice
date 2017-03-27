@@ -15,7 +15,7 @@
           <forecast-one start-forecast="startForecast(date)"></forecast-one>
         </wz-step>
         <wz-step wz-title="second">
-          <forecast-two ng-if="forecastDate!=null" forecast-date="forecastDate"></forecast-two>
+          <forecast-two ng-if="forecastAmounts!=null" forecast-date="forecastDate" forecast-amounts="forecastAmounts" forecast-dates="forecastDates"></forecast-two>
         </wz-step>
     </wizard>
 </div>

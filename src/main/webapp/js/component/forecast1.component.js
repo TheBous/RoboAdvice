@@ -3,7 +3,7 @@ RoboAdviceApp.component("forecastOne",{
     startForecast: "&"
   },
   templateUrl: "../../html/forecastView-1.html",
-  controller: function(){
+  controller: function($log){
     let $ctrl = this;
     this.$onInit=function(){
         $('.datepicker').pickadate({
@@ -12,11 +12,17 @@ RoboAdviceApp.component("forecastOne",{
             max: new Date,
         });
         $('select').material_select();
-
     }
 
     this.nextClick=function(){
-      this.startForecast({date: $ctrl.forecastDate});
+      $log.debug("nextClick clicked");
+      if($ctrl.forecastDate == null){
+        // default forecast
+        this.startForecast({date: $ctrl.forecastDate});
+      }else{
+        // forecast by date
+        this.startForecast({date: null})
+      }
     }
 
   }
