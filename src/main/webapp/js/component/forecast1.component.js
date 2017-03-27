@@ -16,7 +16,7 @@ RoboAdviceApp.component("forecastOne",{
 
     this.nextClick=function(){
       $log.debug("nextClick clicked");
-      if($ctrl.forecastDate == null){
+      if($ctrl.forecastDate != null){
         // default forecast
         this.startForecast({date: $ctrl.forecastDate});
       }else{

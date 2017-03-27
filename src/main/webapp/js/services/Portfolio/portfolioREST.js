@@ -36,6 +36,13 @@ RoboAdviceApp.service("portfolioREST",
                 method: 'POST',
                 url: baseUrl + 'forecast'
             },
+            forecastingByDate: {
+                method: 'POST',
+                url: baseUrl + 'forecast',
+                params: {
+                    targetDate: '@targetDate'
+                }
+            },
             getAssetsTrend: {
                 method: 'POST',
                 url: "/assetsclass/trend"
