@@ -32,7 +32,7 @@ RoboAdviceApp.component("signIn",{
                     sweetAlert(SIGNIN_CODES[response.statusCode], "" , "success");
                     this.myuser = userService;
 
-                    $location.path("/portfolio");
+                    $location.path("/");
                 }else{
                     sweetAlert(SIGNIN_CODES[response.statusCode], "" , "error");
                     $log.debug("wrong username || password");

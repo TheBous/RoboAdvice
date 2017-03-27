@@ -9,11 +9,15 @@ RoboAdviceApp.controller("newUserConstraint",function(userService, $location){
       $location.path("wizard");
 });
 
-RoboAdviceApp.controller("premiumFeatures",function(userService,$location){
+RoboAdviceApp.controller("premiumFeatures",function(userService,$location,$cookies){
+    let page = $location.path();
+    page = page.substr(1);
+
+    $cookies.put("page",page);
     if(!userService.hasStrategies()){
-      $location.path("wizard");
+      //$location.path("wizard");
     }else if(!userService.hasCurrentPortfolio()){
-      $location.path("demo");
+      //$location.path("demo");
     }
   });
 

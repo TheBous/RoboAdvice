@@ -15,6 +15,9 @@ RoboAdviceApp.component("forecastTwo",{
         */
         $ctrl.forecastingFinalAmount = forecastData.amounts[forecastData.amounts.length-1];
         $ctrl.forecastingDifference = $ctrl.forecastingFinalAmount - $ctrl.forecastingStrategy.getFinalAmount();
+        if($ctrl.forecastingDifference>0)$ctrl.differenceClass = "green-text";
+          else $ctrl.differenceClass = "red-text";
+
         $ctrl.forecastAmounts = forecastData.amounts;
         $ctrl.forecastDates = forecastData.dates;
       });
