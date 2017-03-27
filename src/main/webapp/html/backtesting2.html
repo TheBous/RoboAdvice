@@ -39,8 +39,8 @@
                 <div class="card-content">
                     <span style="color:black;" class="card-title teal-text">Summary</span><br />
                     <span style="color:black">Strategy Name: <b>{{backtestingStrategy.getName()}}</b></span><br />
-                    <span style="color:black">Actual Amount: <b>{{backtestingStrategy.getFinalAmount()}}</b></span><br />
-                    <span style="color:black">Backtesting final amount: <b>{{$ctrl.yAxis[($ctrl.yAxis.length)-1]}}</b></span><br />
+                    <span style="color:black">Actual Amount: <b>{{backtestingStrategy.getFinalAmount() | number : 2}}</b></span><br />
+                    <span style="color:black">Backtesting final amount: <b>{{$ctrl.yAxis[($ctrl.yAxis.length)-1] | number : 2}}</b></span><br />
 
                 </div>
                 <div style=" margin:5pt;margin-left:8pt;height:37.5% ">
