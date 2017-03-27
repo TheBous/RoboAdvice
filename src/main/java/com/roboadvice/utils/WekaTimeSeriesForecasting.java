@@ -73,7 +73,10 @@ public class WekaTimeSeriesForecasting {
                 NumericPrediction predForTarget = predsAtStep.get(0);
                 //System.out.println("" + predForTarget.predicted() + " ");
                 fDTO = new ForecastingDTO();
-                fDTO.setTotalAmount(new BigDecimal(predForTarget.predicted()));
+                if(predForTarget.predicted()>0)
+                    fDTO.setTotalAmount(new BigDecimal(predForTarget.predicted()));
+                else
+                    fDTO.setTotalAmount(new BigDecimal(0));
                 fDTO.setDate(portfolioList.get(portfolioList.size()-1).getDate().plusDays(i+1));
 
                 forecastingDTOList.add(fDTO);
