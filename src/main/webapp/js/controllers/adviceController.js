@@ -37,8 +37,11 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
             }
         }
         for(let index = 0;index < 5; index++){
+            $scope.loadingInProgress = true;
             strategyService.getAdvice(index, function(response){
                 if(response.statusCode == 0){
+                    $scope.loadingInProgress = false;
+
                     console.log("----",response.data);
                     $scope.adviceAmount[index] = response.data;
                     $scope.advicePercentage[index] = (currentAmount - $scope.adviceAmount[index]) / currentAmount;
