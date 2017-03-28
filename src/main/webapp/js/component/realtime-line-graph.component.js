@@ -47,18 +47,32 @@ RoboAdviceApp.component("realtimeLineGraph",{
                 // set up the updating of the chart each second
                 $ctrl.series = this.series[0];
                 var series = this.series[0];
+                let iteration = 1;
                 if($ctrl.realtime == "true"){
                   setInterval(function () {
-                    let rnd = Math.random()*2;
-                    let salt = (Math.floor(rnd)%2) ? 1 : -1;
+                    let salt = Math.random()*0.5;
+                    if(iteration<99)
+                      iteration++;
+                    else
+                      iteration = 1;
 
                     let series = $ctrl.series;
+                    let height = (
 
-                    y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd*salt;
+                      $ctrl.stimatedAmount - ($ctrl.verticalAxis[$ctrl.verticalAxis.length-1])
+                    )/(100-iteration);
+                    let rnd = Math.random()*(height);
+
+                    if(iteration%2 == 0)
+                      y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd;
+                    else y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]-rnd/2;
+
 
                     let x = $ctrl.horizzontalAxis[$ctrl.horizzontalAxis.length-1]+$ctrl.interval;
                     $ctrl.horizzontalAxis.push(x);
                     $ctrl.verticalAxis.push(y);
+
+                    
 
                     series.addPoint([x, y], true, true);
                   }, $ctrl.interval);
