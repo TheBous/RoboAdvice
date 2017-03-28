@@ -1,4 +1,4 @@
-RoboAdviceApp.controller("RealtimeGraphController",function($scope,strategyService,$log){
+RoboAdviceApp.controller("RealtimeGraphController",function($scope,demoREST,$log){
 
   // save the state
   let saveRealtime = function(){
@@ -25,25 +25,32 @@ RoboAdviceApp.controller("RealtimeGraphController",function($scope,strategyServi
   getRealtime();
   if($scope.realtimeAmounts == null){
     // there isn't nothing
-    // get the data from last portfolio
-    let portfolios = strategyService.getLastStrategy().getPortfolios();
-    let portfolioNum = portfolios.length;
+    // get the data from the forecast
+    let portfolios = new Array();
 
-    // initialize the array
-    $scope.realtimeAmounts = new Array(portfolioNum);
-    $scope.realtimeDates = new Array(portfolioNum);
-    //get the last
-  //  $scope.realtimeDates[0] = portfolios[portfolioNum-1].getDate().getTime();
-//    $scope.realtimeAmounts[0] = portfolios[portfolioNum-1].getTotalAmount();
+    demoREST.forecast().$promise.then(function(response){
+      console.log(response.data);
+      response.data.forEach(function(obj){
+        let portfolioObj = new Portfolio(obj);
+        portfolios.push(portfolioObj);
+      });
+      let portfolioNum = portfolios.length;
+      $log.debug("RealtimeGraphController | " + portfolioNum + " portfolios from forecast ");
 
-    // push inside amounts and dates
-    for(let i=0;i<portfolioNum;i++){
-      // th edate is a timestamp
-      $scope.realtimeDates[i]=portfolios[i].getDate().getTime();
-      // the amount is the total amount for each class assets
-      $scope.realtimeAmounts[i]=portfolios[i].getTotalAmount();
-    }
-    saveRealtime();
+      $scope.realtimeAmounts = new Array(portfolioNum);
+      $scope.realtimeDates = new Array(portfolioNum);
+
+      // push inside amounts and dates
+      for(let i=0;i<portfolioNum;i++){
+        // the date is a timestamp
+        $scope.realtimeDates[i]=portfolios[i].getDate().getTime();
+        // the amount is the total amount for each class assets
+        $scope.realtimeAmounts[i]=portfolios[i].getTotalAmount();
+      }
+
+    });
+
+    //saveRealtime();
   }
 
 });
