@@ -119,6 +119,10 @@ RoboAdviceApp.config(function($routeProvider) {
             templateUrl: "html/demo.html",
             controller: "premiumFeatures"
         })
+        .when('/demo2', {
+            templateUrl: "html/demo2.html",
+            controller: "premiumFeatures"
+        })
         .when('/advice', {
             templateUrl: "html/advice.html",
             controller: "premiumFeatures"
