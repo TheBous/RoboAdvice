@@ -79,7 +79,7 @@ RoboAdviceApp.controller("AdviceController",function($scope,strategyService, por
                             $location.path("history");
                         }else{
                             // handle error
-                            sweetAlert(ADVIC_CODES[response.statusCode], "" , "error");
+                            sweetAlert(ADVICE_CODES[response.statusCode], "" , "error");
                         }
                     };
 
