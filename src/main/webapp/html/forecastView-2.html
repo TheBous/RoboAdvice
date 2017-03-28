@@ -2,32 +2,34 @@
     body {
         background: #f9f9f9;
     }
-
-
 </style>
-    <div class="row">
-      <div class="col s12 m3">
 
-      </div>
-      <div class="col s12 m6" style="margin-left:auto;margin-right:auto">
-        <div class="card-panel grey lighten-5" style="text-align:center;">
-          <span class="dark-text" style="letter-spacing:1pt">
-            Below you can see your portfolio trend until the {{$ctrl.forecastDate}}
-          </span>
-        </div>
-      </div>
+<div class="row container">
+    <div class="col s12 m3">
     </div>
+    <div class="col s12 m6" style="margin-left:auto;margin-right:auto">
+        <div class="card " style="text-align:center;background-color:#F8FFE5">
+            <p style="padding-top: 20px;font-size:15px;margin-bottom: 20px;">
+                Below you can see your portfolio trend until the {{$ctrl.forecastDate}}
+            </p>
+            <div class="card-action " style="background-color:#CBD1BC">
+                <button class="btn" href="forecast" wz-reset><i  class="material-icons">date_range</i>Test again</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
 
     <div class="" style="max-width:90%;margin: auto;">
                     <!-- first Card -->
                     <div class="row">
-                        <div class="col m8 s12">
+                        <div class="col l8 m12 s12">
                             <div class="card white">
                                 <div class="card-content teal-text" ng-controller="RealtimeGraphController">
                                     <span class="card-title"> {{backtestingStrategy.getName()}} Trend</span>
-
-
                                     <div ng-show="loadingInProgress==true" style="text-align: center">
                                         <div class="preloader-wrapper big active">
                                             <div class="spinner-layer spinner-blue">
@@ -49,29 +51,25 @@
                                         realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph>
                                     </div>
                                     <div>
-                                      <br />
-                                      <button class="btn" href="forecast" wz-reset>Select a date</button>
                                     </div>
                             </div>
                         </div>
 
                     </div>
                     <!-- backtesting summary -->
-                    <div class="col m4 s12">
+                    <div style="height:140%;  "class="col l4 m12 s12">
                         <div class="card grey lighten-4">
                             <div class="card-content">
                                 <span style="color:black;" class="card-title teal-text">Summary</span><br />
-                                <span style="color:black">Strategy Name: <b>{{$ctrl.forecastStrategy.getName()}}</b></span><br />
-                                <span style="color:black">Actual Amount: <b>{{$ctrl.forecastStrategy.getFinalAmount()}}</b></span><br />
-                                <span style="color:black">Forecasting final amount: <b>{{$ctrl.forecastFinalAmount | number:5}}</b></span><br />
-
+                                <span style="color:black">Strategy: <b>{{$ctrl.forecastStrategy.getName()}}</b></span><br />
+                                <span style="color:black">Current Amount: <b>{{$ctrl.forecastStrategy.getFinalAmount()| number:2}}$</b></span><br />
+                                <span style="color:black">Forecasted Final amount: <b>{{$ctrl.forecastFinalAmount | number:2}}$</b></span><br />
                             </div>
                             <div style=" margin:5pt;margin-left:8pt;height:37.5% ">
                               <assets-class-graph percentages="$ctrl.forecastStrategy.getAssets()"></assets-class-graph>
                             </div>
-                            <div class="card-action" style="text-align:right">
 
-                            </div>
                         </div>
                     </div>
                 </div>
+    </div>
