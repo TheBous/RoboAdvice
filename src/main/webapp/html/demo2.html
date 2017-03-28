@@ -20,10 +20,8 @@
 <body>
 <div ng-controller="demoController">
     <div style="text-align: center;">
-        <label for="picker_label">  Select Date</label>
-
-        <input style="width:150px; " ng-model="interval" id="picker_label" type="text" class="datepicker"><i style="" class="material-icons">date_range</i>
-
+        <label for="picker_label">Select Date</label>
+        <input style="width:150px;" ng-model="interval" id="picker_label" type="text" class="datepicker"><i style="" class="material-icons">date_range</i>
     </div>
     <div style="text-align: center;">
         <div class="card-action">
@@ -35,11 +33,11 @@
     <div ng-if="!buttonClicked && spinner" style="width: 100%;" class="progress">
         <div  class="indeterminate"></div>
     </div>
-    <div class="row" ng-if="amount != 0">
+    <div class="row" ng-if="amount!=null">
 
         <div class="collection col l5 m7 s12">
-            <realtime-line-graph ng-if="amount != 0" vertical-axis="amount" horizzontal-axis="timestamp"
-                                 realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount"></realtime-line-graph>
+            <realtime-line-graph ng-if="amount!=null" vertical-axis="amount" horizzontal-axis="timestamp"
+                 realtime="false" show-dates="true"></realtime-line-graph>
         </div>
 
         <ul class="collection col l5 m7 s12">

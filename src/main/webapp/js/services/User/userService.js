@@ -105,7 +105,7 @@ RoboAdviceApp.service("userService",function($log,$cookies,userREST, $http, Toke
             else return CONFIG["INITIAL_AMOUNT"];
         },
         /* USER STRATEGY METHODS */
-        hasStrategies(){          return this.hasStrategy},
+        hasStrategies(){          return strategyService.getHistory().length!=0},
 
         /* USER METHODS */
         getToken(){               return this.token;},

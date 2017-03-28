@@ -1,4 +1,4 @@
-RoboAdviceApp.controller("deletePending", function($scope, $log, userService, strategyService){
+RoboAdviceApp.controller("deletePending", function($scope, $log, userService, strategyService, $location){
     $scope.deletePending = function () {
         $log.debug("StrategyService || Delete pending strategy");
         swal({
@@ -12,10 +12,15 @@ RoboAdviceApp.controller("deletePending", function($scope, $log, userService, st
             },
             function(){
                 strategyService.deletePending(function(result){
-                    if(result == true)
+                    if(result == true){
                         swal("Deleted!","Your strategy has been deleted.", "success");
-                    else
+                        
+                        if(strategyService.getHistory().length==0){
+                          $location.path("wizard");
+                        }
+                    }else{
                         swal("Not Deleted!","Your strategy has not been deleted.", "error");
+                    }
                 });
             });
 
