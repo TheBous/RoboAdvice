@@ -1,3 +1,12 @@
+<style>
+    @media only screen and (max-width: 517px) {
+        .bt_resp {
+            margin-top: 5px;
+        }
+    }
+</style>
+
+
 <div class="container">
     <div class="row">
         <div class="col s12 m12">
@@ -46,7 +55,7 @@
                 <br />
                 <div class="card-action" style="text-align:center;">
                     <a class="waves-effect waves-light btn" wz-next>Edit your Strategy</a>
-                    <a class="waves-effect waves-light btn" ng-click="$ctrl.saveStrategy({value: newStrategy})">Save your strategy</a>
+                    <a class="waves-effect waves-light btn bt_resp" ng-click="$ctrl.saveStrategy({value: newStrategy})">Save your strategy</a>
                 </div>
                 <br />
             </div>

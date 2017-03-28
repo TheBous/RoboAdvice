@@ -65,11 +65,14 @@
                                 </div>
                                 <div class="card-action" style="text-align:right">
                                     <a href="#!/wizard" class="btn-floating waves-effect waves-light cyan tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Strategy" ><i class="material-icons left">mode_edit</i>Edit</a>
-                                    <a ng-if="strategy.getCurrentStrategy().isPending()" ng-click="deletePending()" class="btn-floating  waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Strategy"><i class="material-icons left">delete</i>Delete</a>
+                                    <a ng-if="strategy.getCurrentStrategy().isPending()" ng-click="deletePending()" class="btn-floating  waves-effect waves-light red tooltipped"  data-position="bottom" data-delay="50" data-tooltip="Delete Strategy"><i class="material-icons left">delete</i>Delete</a>
                                     <script>
                                         $(document).ready(function(){
                                             $('.tooltipped').tooltip({delay: 50});
-                                            //$(".tooltipped").off("click");
+
+                                            $(".tooltipped").on("click", function () {
+                                                $('.tooltipped').tooltip('remove');
+                                            });
                                         });
                                     </script>
 
@@ -101,13 +104,13 @@
 <div class="container">
     <div class="container">
         <div class="container">
-
             <div ng-if="!user.hasCurrentPortfolio()">
-                <div  class="col m12 s12">
-                    <div class="card big" >
-                      <realtime-line-graph increment-data="incrementData()" realtime="true" forecast-value="10250" vertical-axis="[1,2,3,4]" horizzontal-axis="[1,2,3,4]"></realtime-line-graph>
-                    </div>
+                <div class="col m12 s12" style="text-align:center">
+                      <img  style="width:70%" src="../img/004-analytics.png">
+                      <br />
+                      <br />
                 </div>
-            </div></div>
+            </div>
+        </div>
     </div>
 </div>

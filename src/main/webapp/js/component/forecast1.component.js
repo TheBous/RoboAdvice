@@ -20,7 +20,7 @@ RoboAdviceApp.component("forecastOne",{
         this.info=function () {
             swal({
                 title:"Expected trend!",
-                text:"The following prediction is based on Time Series, a model to generate predictions (forecasts) for future events based on known past events.<br>",
+                text:"The following prediction is based on Time Series, a model to generate predictions (forecasts) for future events based on known past chronological events.<br>It uses Weka Time Series library developed by Pentaho.",
                 html:true,
                 type: "warning"
             });
