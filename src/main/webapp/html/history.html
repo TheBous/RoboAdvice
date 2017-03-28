@@ -16,9 +16,11 @@
                     <script>
                         $(document).ready(function(){
                             $('.tooltipped').tooltip({delay: 50});
+
                             $(".tooltipped").on("click", function () {
                                 $('.tooltipped').tooltip('remove');
-                            });                        });
+                            });
+                        });
                     </script>
                 </p>
                 <p ng-if="!strategy.isPending()">
