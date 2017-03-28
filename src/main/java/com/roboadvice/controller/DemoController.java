@@ -30,6 +30,15 @@ public class DemoController {
         this.portfolioService = portfolioService;
     }
 
+    /**
+     * Method that generates a portfolio starting from a date and a strategy specified as parameters.
+     * This method is used as a demo of the platform and will be used by a new registered user.
+     *
+     * @param fromDate the portfolio will be generated from this date.
+     * @param strategyDTO DTO object of a strategy.
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return list of BacktestingDTO objects.
+     */
     @RequestMapping(value = "/backtesting", method = RequestMethod.POST)
     public GenericResponse<List<BacktestingDTO>> getBacktestingDemo(@RequestParam(value = "fromDate", defaultValue = "null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
                                                                     @RequestBody @Valid StrategyDTO strategyDTO,
@@ -43,6 +52,12 @@ public class DemoController {
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
     }
 
+    /**
+     * Method used in the demo that generate the forecast of the user's portfolio for the next two days.
+     *
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return list of ForecastingDTO objects.
+     */
     @RequestMapping(value = "/forecast", method = RequestMethod.POST)
     public GenericResponse<List<ForecastingDTO>> getForecastingDemo(Authentication authentication){
         String userEmail = authentication.getName();

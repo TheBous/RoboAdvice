@@ -28,6 +28,13 @@ public class PortfolioController {
         this.portfolioService = portfolioService;
     }
 
+    /**
+     * Method that returns the current total amount of user's portfolio and the amount for every
+     * assets class.
+     *
+     * @param authentication  parameter from Spring Security used for user's authentication.
+     * @return  return a PortfolioDTO
+     */
     @RequestMapping(value = "/getCurrent", method = RequestMethod.POST)
     public GenericResponse<PortfolioDTO> getCurrent(Authentication authentication){
 
@@ -41,6 +48,12 @@ public class PortfolioController {
     }
 
 
+    /**
+     * Method that returns a list of portfolio amounts for every day starting from the first user's portfolio.
+     *
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return return a list of PortfolioDTO
+     */
     @RequestMapping(value = "/getFullHistory", method = RequestMethod.POST)
     public GenericResponse<List<PortfolioDTO>> getFullHistory(Authentication authentication){
         String email = authentication.getName();
@@ -55,6 +68,14 @@ public class PortfolioController {
     }
 
 
+    /**
+     * Method that returns a list of portfolio amounts for every day starting from date "fromDate" and ending in date "toDate".
+     *
+     * @param fromDate the date from which will be generated the portfolio.
+     * @param toDate last date in which the portfolio will be generated.
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return return a list of PortfolioDTO
+     */
     @RequestMapping(value = "/getHistoryByDate", method = RequestMethod.POST)
     public GenericResponse<List<PortfolioDTO>> getHistoryByDate(@RequestParam(value = "fromDate", defaultValue = "null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
                                                                 @RequestParam(value = "toDate", defaultValue = "null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
@@ -72,6 +93,13 @@ public class PortfolioController {
 
     }
 
+    /**
+     * Method that generates portfolio history of the user, starting from date "fromDate"
+     *
+     * @param fromDate the portfolio will be generated from this date.
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return return a list of object BacktestingDTO
+     */
     @RequestMapping(value = "/backtesting", method = RequestMethod.POST)
     public GenericResponse<List<BacktestingDTO>> getBacktestingChart(@RequestParam(value = "fromDate", defaultValue = "null") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
                                                                      Authentication authentication){
@@ -88,6 +116,13 @@ public class PortfolioController {
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
     }
 
+    /**
+     * Method that generates a forecast for user's portfolio based on library Weka Time Series Forecasting
+     *
+     * @param targetDate maximum date to forecast
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return return a list of object ForecastingDTO
+     */
     @RequestMapping(value = "/forecast", method = RequestMethod.POST)
     public GenericResponse<List<ForecastingDTO>> getForecast(@RequestParam(value = "targetDate", defaultValue = "1900-01-01") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate targetDate,
                                                              Authentication authentication){

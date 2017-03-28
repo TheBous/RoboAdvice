@@ -9,6 +9,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.Valid;
 import java.util.*;
@@ -27,7 +28,10 @@ public class AuthenticationController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = "application/json")
     public GenericResponse<User> signup(@RequestBody @Valid UserDTO userDTO){
-        User u = new User(0,userDTO.getName(), userDTO.getSurname(), userDTO.getEmail(), userDTO.getPassword(), "USER");
+        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+        String password = bcrypt.encode(userDTO.getPassword());
+
+        User u = new User(0,userDTO.getName(), userDTO.getSurname(), userDTO.getEmail(), password, "USER");
         if(userService.insert(u))
             return new GenericResponse<>(u, Constant.SUCCES_MSG, Constant.SUCCESS);
         else
@@ -40,7 +44,9 @@ public class AuthenticationController {
         String secretKey = "mikyfalSone";
         User u = userService.selectByEmail(userDTO.getEmail());
         Map<String, Object> tokenMap = new HashMap<>();
-        if(u!= null && u.getPassword().equals(userDTO.getPassword())){
+        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+        String password = bcrypt.encode(userDTO.getPassword());
+        if(u!= null && /*u.getPassword().equals(userDTO.getPassword())*/ bcrypt.matches(userDTO.getPassword(), u.getPassword())){
             Date date = new Date();
             long t = date.getTime();
             //scadenza token: 7200000 millisecondi = 2 ore
