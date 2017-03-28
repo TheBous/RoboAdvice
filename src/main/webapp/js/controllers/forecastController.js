@@ -1,8 +1,10 @@
 RoboAdviceApp.controller("Forecast",function($scope,$log,strategyService,portfolioService){
+  $scope.forecastAmounts = null;
+  $scope.forecastDates = null;
 
-    $scope.loadingInProgress = true;
+  $scope.loadingInProgress = true;
 
-    $scope.startForecast = function(date){
+  $scope.startForecast = function(date){
     $log.debug("Forecasting started " + date);
     $scope.forecastDate = date;
 
@@ -15,12 +17,12 @@ RoboAdviceApp.controller("Forecast",function($scope,$log,strategyService,portfol
       */
       $scope.loadingInProgress = false;
 
-      $scope.forecastAmounts = null;
-      $scope.forecastDates = null;
+      $scope.forecastAmounts = new Array();
+      $scope.forecastDates = new Array();
+
       $scope.forecastAmounts = forecastData.amounts;
       $scope.forecastDates = forecastData.dates;
     });
-
   }// end startForecast
 
 });

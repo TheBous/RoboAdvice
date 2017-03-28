@@ -3,35 +3,46 @@ RoboAdviceApp.component("realtimeLineGraph",{
         horizzontalAxis: "<", // an array of dates in timestamp
         verticalAxis: "<",    // an array of amounts
         realtime: "@",        // [true|false]
-        forecastValue: "@",   // forecast value to obtain
-        incrementData: "&",   // method to increment and save the state of the graph
-        stimatedAmount: "<",   // stimated amount, it changes
-        showDates: "@"        // [true|false]
+        forecastValue: "@?",   // forecast value to obtain
+        incrementData: "&?",   // method to increment and save the state of the graph
+        stimatedAmount: "<?",   // stimated amount, it changes
+        showDates: "@?"        // [true|false]
     },
     templateUrl: "../../html/realtimeGraph.html",
     controller: function($scope,$interval,$log){
         var rtid="rt" + Math.floor(1+Math.random()*1000);
         $(".realtime_wrapper > div").attr("id",rtid);
         $scope.rtid=rtid;
+        let $ctrl = this;
 
-        var $ctrl = this;
-
-        this.$onChanges = function(obj){
-            $log.error(obj);
-            $ctrl.horizzontalAxis = this.horizzontalAxis;
-            $ctrl.verticalAxis = this.verticalAxis;
-            this.setGraph();
+        /* change every time change something in the binding variables */
+        this.$onChanges = function(changesObj){
+          //$log.error(changesObj)
+          $ctrl.horizzontalAxis = changesObj.horizzontalAxis.currentValue;
+          $ctrl.verticalAxis = changesObj.verticalAxis.currentValue;
+          this.setGraph();
         }
+
+        /* called on each cycle of the digest cycle */
+        // this.$doCheck = function(){
+        //   $log.debug("doCheck");
+        //   $ctrl.horizzontalAxis = this.horizzontalAxis;
+        //   $ctrl.verticalAxis = this.verticalAxis;
+        //   this.setGraph();
+        // };
 
         this.$onInit = function(){
             let now = new Date();
+
             $log.debug("realtimeLineGrap| initialized")
             $log.debug("verticalAxis:");
             $log.debug($ctrl.verticalAxis);
             $log.debug("horizzontalAxis:");
             $log.debug($ctrl.horizzontalAxis);
+
             //this.incrementData();
             let showDates = $ctrl.showDates == "true" ? true : false;
+            //this.setGraph();
         }// end onInit
 
         this.setGraph = function(){
@@ -50,6 +61,7 @@ RoboAdviceApp.component("realtimeLineGraph",{
                             var series = this.series[0];
                             let iteration = 1;
                             if($ctrl.realtime == "true"){
+                                $log.debug("+++ Component realtime setted");
                                 setInterval(function () {
                                     let salt = Math.random()*0.5;
                                     if(iteration<99)
