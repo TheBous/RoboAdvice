@@ -146,6 +146,8 @@
                 <!--<li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/backtesting">Backtesting</a></li> -->
                 <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/demo">Demo</a></li>
                <!-- <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/advice">Advice</a></li> -->
+                <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/demo2">Demo2</a></li>
+
                 <li><a href="#!/">Home</a></li>
                 <li ng-if="user.isLogged()"><a href="#!/portfolio">Dashboard</a></li>
                 <li><a href="#!/contact">Team</a></li>
@@ -240,12 +242,16 @@
 <script src="js/component/backtesting1.component.js"></script>
 <script src="js/component/backtesting2.component.js"></script>
 <script src="js/component/backtesting3.component.js"></script>
+<script src="js/component/demoB.component.js"></script>
+<script src="js/component/demoF.component.js"></script>
+
 <script src="js/controllers/deletePendingController.js"></script>
 <script src="js/controllers/getGlobalAssets.js"></script>
 <script src="js/controllers/realtimeGraphController.js"></script>
 <script src="js/controllers/baktestingController.js"></script>
 <script src="js/controllers/adviceController.js"></script>
 <script src="js/controllers/forecastController.js"></script>
+<script src="js/controllers/demoController.js"></script>
 <script src="js/component/forecast1.component.js"></script>
 <script src="js/component/forecast2.component.js"></script>
 
@@ -260,9 +266,10 @@
 <script src="js/services/Strategy/strategyREST.js"></script>
 <script src="js/services/Portfolio/portfolioREST.js"></script>
 <script src="js/services/User/userREST.js"></script>
+<script src="js/services/Demo/demoREST.js"></script>
 <script src="js/services/User/userService.js"></script>
 <script src="js/services/Portfolio/portfolio.service.js"></script>
-
+<script src="js/services/Demo/demoService.js"></script>
 
 
 <!-- DIRECTIVES -->
