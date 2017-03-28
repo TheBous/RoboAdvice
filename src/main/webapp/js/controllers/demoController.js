@@ -11,7 +11,6 @@ RoboAdviceApp.controller("demoController", function($scope, $log, demoREST, demo
     $scope.buttonClicked = true;
     $scope.spinner = false;
 
-
     demoService.getDemoForecasting(function(response){
         if(response.statusCode == 0) {
             //$log.debug(response.data);
@@ -42,7 +41,6 @@ RoboAdviceApp.controller("demoController", function($scope, $log, demoREST, demo
         $log.error("backtesting calling error")
       }
     }
-
 
     $scope.getAmount = function(){
       return $scope.amount;

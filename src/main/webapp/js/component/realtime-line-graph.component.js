@@ -17,6 +17,7 @@ RoboAdviceApp.component("realtimeLineGraph",{
         var $ctrl = this;
 
         this.$onChanges = function(obj){
+            $log.error(obj);
             $ctrl.horizzontalAxis = this.horizzontalAxis;
             $ctrl.verticalAxis = this.verticalAxis;
             this.setGraph();
