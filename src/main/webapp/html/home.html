@@ -4,9 +4,10 @@
     <div class="header_section">Welcome to RoboAdvice</div>
     <div class="parallax"><img src="../img/parallax_background.png"></div>
     <div style="text-align:center;">
-    <a class="waves-effect waves-light btn-large cyan animated flash infinite ">Signup</a>
+        <a class="waves-effect waves-light btn-large cyan animated flash infinite ">Signup</a>
     </div>
 </div>
+
 
 
 
@@ -121,15 +122,19 @@
         <!-- Skills -->
         <div class="col l6 s12">
                 <div class="header_section" style="font-size:30px;" >Asset Classes last year trends</div>
-                <!--  <p class="grey-text text-darken-3 lighten-3">Qui possiamo mettere qualche scritta figa che magari michele e luca si inventano.</p> -->
+
+            <!--  <p class="grey-text text-darken-3 lighten-3">Qui possiamo mettere qualche scritta figa che magari michele e luca si inventano.</p> -->
                 <div class="row " ng-controller="GetGlobalAssets">
-                    <div class="col s3 " ng-repeat="asset in globalAssets" style="margin-top:40px;">
+                    <div class="col s3 " ng-repeat="asset in globalAssets">
                         <div class="center promo promo-example">
                             <p style="font-size:25px;" class="promo-caption">{{asset.name}}</p>
                             <asset-general show-y-label="false"  portfolio-amount="asset.percentages" portfolio-date="asset.dates"></asset-general>
                         </div>
                     </div>
                 </div>
+            <div style="text-align: center">
+                <img class="responsive-img" style="width:25%;" src="../img/hometime.png" style="">
+            </div>
         </div>
     </div>
 </section>
