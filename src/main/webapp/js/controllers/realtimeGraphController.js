@@ -16,7 +16,9 @@ RoboAdviceApp.controller("RealtimeGraphController",function($scope,strategyServi
   $scope.incrementData = function(data){
     // save the current state
     $scope.stimatedAmount = 10000;
-    saveRealtime();
+    $scope.realtimeDates = data[0];
+    $scope.realtimeAmounts = data[1];
+    //saveRealtime();
   }
 
   // check if exists something in localStorage
