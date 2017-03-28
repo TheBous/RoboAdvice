@@ -3,8 +3,11 @@ RoboAdviceApp.component("demoB",{
 
     },
     templateUrl: "../../html/demoB.html",
-    controller: function($scope,CONFIG, $log){
+    controller: function($scope,CONFIG, $log, demoService){
         this.$onInit = function(){
+          demoService.backtesting.bonds("2017-03-25").$promise.then(function(response){
+            console.log(response);
+          });
         };
     }
 });

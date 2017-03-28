@@ -27,23 +27,23 @@ RoboAdviceApp.service("demoService", function(demoREST, CONFIG, $log){
 
         },
         backtesting: {
-            bonds : () =>
-                demoREST.backtesting({bonds_p:'95', stocks_p:'0', forex_p:'0', commodities_p:'5', name:'Bonds'}),
+            bonds : (fromDate) =>
+                demoREST.backtesting({fromDate},{bonds_p:'95', stocks_p:'0', forex_p:'0', commodities_p:'5', name:'Bonds'}),
 
-            income : () =>
-                demoREST.backtesting({bonds_p:'65', stocks_p:'10', forex_p:'15', commodities_p:'10', name:'Income'}),
+            income : (fromDate) =>
+                demoREST.backtesting({fromDate},{bonds_p:'65', stocks_p:'10', forex_p:'15', commodities_p:'10', name:'Income'}),
 
-            balanced : () =>
-                demoREST.backtesting({bonds_p:'30', stocks_p:'30', forex_p:'20', commodities_p:'20', name:'Balanced'}),
+            balanced : (fromDate) =>
+                demoREST.backtesting({fromDate},{bonds_p:'30', stocks_p:'30', forex_p:'20', commodities_p:'20', name:'Balanced'}),
 
-            growth : () =>
-                demoREST.backtesting({bonds_p:'20', stocks_p:'60', forex_p:'10', commodities_p:'10', name:'Growth'}),
+            growth : (fromDate) =>
+                demoREST.backtesting({fromDate},{bonds_p:'20', stocks_p:'60', forex_p:'10', commodities_p:'10', name:'Growth'}),
 
-            stocks : () =>
-                demoREST.backtesting({bonds_p:'0', stocks_p:'100', forex_p:'0', commodities_p:'0', name:'Stocks'}),
+            stocks : (fromDate) =>
+                demoREST.backtesting({fromDate},{bonds_p:'0', stocks_p:'100', forex_p:'0', commodities_p:'0', name:'Stocks'}),
 
-            custom : (strategy_name,percentages) =>
-                demoREST.backtesting({bonds_p: ''+percentages[0], stocks_p:''+percentages[1], forex_p:''+percentages[2], commodities_p:''+percentages[3], name:strategy_name})
+            custom : (strategy_name,percentages,fromDate) =>
+                demoREST.backtesting({fromDate},{bonds_p: ''+percentages[0], stocks_p:''+percentages[1], forex_p:''+percentages[2], commodities_p:''+percentages[3], name:strategy_name})
         },
     }
 });

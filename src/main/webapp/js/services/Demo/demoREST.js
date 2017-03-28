@@ -16,4 +16,3 @@ RoboAdviceApp.service("demoREST",
             },
         })
     });
-
