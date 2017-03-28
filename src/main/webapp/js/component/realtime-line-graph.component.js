@@ -17,128 +17,129 @@ RoboAdviceApp.component("realtimeLineGraph",{
         var $ctrl = this;
 
         this.$onChanges = function(obj){
-          $ctrl.horizzontalAxis = this.horizzontalAxis;
-          $ctrl.verticalAxis = this.verticalAxis;
-          this.setGraph(rtid);
+            $ctrl.horizzontalAxis = this.horizzontalAxis;
+            $ctrl.verticalAxis = this.verticalAxis;
+            this.setGraph();
         }
 
         this.$onInit = function(){
-
             let now = new Date();
             $log.debug("realtimeLineGrap| initialized")
+            $log.debug("verticalAxis:");
+            $log.debug($ctrl.verticalAxis);
+            $log.debug("horizzontalAxis:");
+            $log.debug($ctrl.horizzontalAxis);
             //this.incrementData();
-
-            $ctrl.interval = 5000;
-
             let showDates = $ctrl.showDates == "true" ? true : false;
-            this.setGraph(rtid);
         }// end onInit
 
-        this.getNewData = function(){
-
-          let rnd = Math.random()*10;
-          let salt = (Math.floor(rnd)%2) ? 1 : -1;
-          let series = $ctrl.series;
-          let x = $ctrl.horizzontalAxis[$ctrl.horizzontalAxis.length-1]+$ctrl.interval, // current time
-          y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd*salt;
-          //$ctrl.incrementData();
-          $ctrl.horizzontalAxis.push(x);
-          $ctrl.verticalAxis.push(y);
-          $ctrl.incrementData({data:[$ctrl.horizzontalAxis,$ctrl.verticalAxis]});
-          series.addPoint([x, y], true, true);
-        }
-
-        // realtime highchart
         this.setGraph = function(){
-          $scope.options = {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero:false
-                }
-              }]
-            }
-          };
+            // realtime highchart
+            $ctrl.interval = 1000;
 
-          Highcharts.chart($scope.rtid, {
-            chart: {
-              type: 'spline',
-              animation: Highcharts.svg, // don't animate in old IE
-              marginRight: 10,
-              events: {
-                load: function () {
-                  // set up the updating of the chart each second
-                  $ctrl.series = this.series[0];
-                  if($ctrl.realtime == "true"){
-                    setInterval($ctrl.getNewData, $ctrl.interval);
-                  }
-                }
-              }
-            },
-            title: {
-              text: ''
-            },
-            xAxis: {
-              labels: {
-                enabled: $ctrl.showDates == "true" ? true : false
-              },
-              type: 'datetime',
-              tickPixelInterval: 150
-            },
-            yAxis: {
-              title: {
-                text: 'Value'
-              },
-              plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-              }]
-            },
-            tooltip: {
-              formatter: function () {
-                let ret = '<b>' + this.series.name + '</b><br/>';
-                if($ctrl.showDates == "true")
-                  ret = ret + Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>';
-                ret = ret + Highcharts.numberFormat(this.y, 2);
-                return ret;
-              }
-            },
-            legend: {
-              enabled: false
-            },
-            exporting: {
-              enabled: false
-            },
-            series: [{
-              name: 'Portfolio Amount',
-              data: (function () {
-                // set the first data
-                var data = [];
-                let portfolioNum = $ctrl.verticalAxis.length;
-                let lastValue = $ctrl.verticalAxis[portfolioNum-1];
-                var time = (new Date()).getTime();
+            Highcharts.chart($scope.rtid, {
+                chart: {
+                    type: 'spline',
+                    animation: Highcharts.svg, // don't animate in old IE
+                    marginRight: 10,
+                    events: {
+                        load: function () {
+                            // set up the updating of the chart each second
+                            $ctrl.series = this.series[0];
+                            var series = this.series[0];
+                            let iteration = 1;
+                            if($ctrl.realtime == "true"){
+                                setInterval(function () {
+                                    let salt = Math.random()*0.5;
+                                    if(iteration<99)
+                                        iteration++;
+                                    else
+                                        iteration = 1;
 
-                for(let i = 0;i<portfolioNum; i++){
+                                    let series = $ctrl.series;
+                                    let height = (
 
-                  if($ctrl.realtime == "true"){
-                    timeAxis = time+i*$ctrl.interval;
-                  }else{
-                    timeAxis = $ctrl.horizzontalAxis[i];
-                  }
+                                            $ctrl.stimatedAmount - ($ctrl.verticalAxis[$ctrl.verticalAxis.length-1])
+                                        )/(100-iteration);
+                                    let rnd = Math.random()*(height);
 
-                  data.push({
-                    x: timeAxis,
-                    y: $ctrl.verticalAxis[i]
-                  });
-                }
+                                    if(iteration%2 == 0)
+                                        y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd;
+                                    else y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]-rnd/2;
 
-                return data;
 
-              }())
-            }]
-          });
-        }// end set graph
+                                    let x = $ctrl.horizzontalAxis[$ctrl.horizzontalAxis.length-1]+$ctrl.interval;
+                                    $ctrl.horizzontalAxis.push(x);
+                                    $ctrl.verticalAxis.push(y);
+
+
+
+                                    series.addPoint([x, y], true, true);
+                                }, $ctrl.interval);
+                            }
+                        }
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    labels: {
+                        enabled: $ctrl.showDates == "true" ? true : false
+                    },
+                    type: 'datetime',
+                    tickPixelInterval: 150
+                },
+                yAxis: {
+                    title: {
+                        text: 'Value'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    formatter: function () {
+                        let ret = '<b>' + this.series.name + '</b><br/>';
+                        if($ctrl.showDates == "true")
+                            ret = ret + Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>';
+                        ret = ret + Highcharts.numberFormat(this.y, 2);
+                        return ret;
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Portfolio Amount',
+                    data: (function () {
+                        // set the first data
+                        var data = [];
+                        let portfolioNum = $ctrl.verticalAxis.length;
+                        let lastValue = $ctrl.verticalAxis[portfolioNum-1];
+                        var time = (new Date()).getTime();
+
+
+                        for(let i = 0;i<portfolioNum; i++){
+                            timeAxis = $ctrl.horizzontalAxis[i];
+
+                            data.push({
+                                x: timeAxis,
+                                y: $ctrl.verticalAxis[i]
+                            });
+                        }
+
+                        return data;
+
+                    }())
+                }]
+            });
+        }
 
     }
 });

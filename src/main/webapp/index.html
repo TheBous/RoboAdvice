@@ -29,7 +29,6 @@
     <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
 
     <!-- CSS and Styles -->
-
     <link rel="stylesheet" type="text/css" href="css/home.css"/>
     <link rel="stylesheet" type="text/css" href="css/animate.css"/>
     <link rel="stylesheet" type="text/css" href="css/history.css"/>
@@ -76,10 +75,10 @@
         <i class="large material-icons">apps</i>
     </a>
     <ul>
-        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:400;" href="#!/backtesting"  >Backtesting</a></li>
-        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:400;" href="#!/forecast">Forecast</a></li>
-        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:400;" href="#!/advice">Advice</a></li>
-        <li data-target="modal1" class="waves-effect waves-light"><a style="font-size:16px;font-weight:400;" href="">Trends</a></li>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:300;" href="#!/backtesting"  >Backtesting</a></li>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:300;" href="#!/forecast">Forecast</a></li>
+        <li class="waves-effect waves-light"><a style="font-size:16px;font-weight:300;" href="#!/advice">Advice</a></li>
+        <li data-target="modal1" class="waves-effect waves-light"><a style="font-size:16px;font-weight:300;" href="">Trends</a></li>
     </ul>
 
 </div>
@@ -101,6 +100,12 @@
         <a href="#!/worth" class=" modal-action modal-close waves-effect teal btn-flat">Close</a>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+    });
+</script>
 
 <!-- Magic -->
 <!-- Element Showed -->
@@ -119,31 +124,6 @@
 
 
 
-
-
-
-
-
-
-
-<script>
- /*   $( document ).ready(function() {
-        $('.tapTarget').tapTarget('open');
-    });
-*/
-    $(document).ready(function(){
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-        $('.modal').modal();
-    });
-
-
-</script>
-
-
-
-
-
-
 <div>
     <nav class="nav-extended">
 
@@ -159,6 +139,8 @@
                 <!--<li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/backtesting">Backtesting</a></li> -->
                 <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/demo">Demo</a></li>
                <!-- <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/advice">Advice</a></li> -->
+                <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/demo2">Demo2</a></li>
+
                 <li><a href="#!/">Home</a></li>
                 <li ng-if="user.isLogged()"><a href="#!/portfolio">Dashboard</a></li>
                 <li><a href="#!/contact">Team</a></li>
@@ -179,9 +161,13 @@
         </div>
         <div  ng-if="showBar()" class="nav-content" style="background-color: #047682 " >
             <ul class="tabs tabs-transparent tabs-fixed-width">
-                <li class="tab "><a href="#!/portfolio">Portfolio</a></li>
+
+                <li ng-if="user.hasCurrentPortfolio()" class="tab"><a href="#!/portfolio">Portfolio</a></li>
+                <li ng-if="!user.hasCurrentPortfolio()" class="tab"><a href="#!/demo2">Demo Backtesting</a></li>
+
                 <li class="tab"><a  href="#!/history">History</a></li>
-                <li class="tab"><a href="#!/worth">Balance</a></li>
+                <li ng-if="user.hasCurrentPortfolio()" class="tab"><a href="#!/worth">Balance</a></li>
+                <li ng-if="!user.hasCurrentPortfolio()" class="tab"><a href="#!/demo">Demo Forecasting</a></li>
             </ul>
         </div>
     </nav>
@@ -253,12 +239,16 @@
 <script src="js/component/backtesting1.component.js"></script>
 <script src="js/component/backtesting2.component.js"></script>
 <script src="js/component/backtesting3.component.js"></script>
+<script src="js/component/demoB.component.js"></script>
+<script src="js/component/demoF.component.js"></script>
+
 <script src="js/controllers/deletePendingController.js"></script>
 <script src="js/controllers/getGlobalAssets.js"></script>
 <script src="js/controllers/realtimeGraphController.js"></script>
 <script src="js/controllers/baktestingController.js"></script>
 <script src="js/controllers/adviceController.js"></script>
 <script src="js/controllers/forecastController.js"></script>
+<script src="js/controllers/demoController.js"></script>
 <script src="js/component/forecast1.component.js"></script>
 <script src="js/component/forecast2.component.js"></script>
 
@@ -273,9 +263,10 @@
 <script src="js/services/Strategy/strategyREST.js"></script>
 <script src="js/services/Portfolio/portfolioREST.js"></script>
 <script src="js/services/User/userREST.js"></script>
+<script src="js/services/Demo/demoREST.js"></script>
 <script src="js/services/User/userService.js"></script>
 <script src="js/services/Portfolio/portfolio.service.js"></script>
-
+<script src="js/services/Demo/demoService.js"></script>
 
 
 <!-- DIRECTIVES -->

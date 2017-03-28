@@ -20,9 +20,19 @@ RoboAdviceApp.component("backUno",{
             $log.debug("backtesting1| interval: " + $scope.interval);
             let formattedDate;
             let date = new Date($scope.interval);
-            formattedDate = date.getFullYear() + "-" + (date.getMonthFormatted()) + "-" + date.getDayFormatted()
+            formattedDate = date.getFullYear() + "-" + (date.getMonthFormatted()) + "-" + date.getDayFormatted();
             $log.debug(formattedDate);
             this.onUpdate({data: {interval: formattedDate}});
+        }
+
+        $('select').material_select();
+        this.info_back=function () {
+            swal({
+                title:"Time Computation!",
+                text:"The following computation is based on historica Data, remember if you pick a far date, the system will take more time to process all the informations.<br>",
+                html:true,
+                type: "warning"
+            })
         }
     }
 });

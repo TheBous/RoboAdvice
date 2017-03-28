@@ -31,7 +31,7 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
                 $scope.user=userService;
 
                 if(page != ""){
-                  
+
                   $location.path("/" + page);
                 }else $location.path("/");
 
@@ -67,7 +67,7 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
             });
     }
     $scope.showBar = function(){
-        return $location.path() == '/dashboard' | $location.path() == '/portfolio' | $location.path() == '/history' | $location.path() == '/worth';
+        return $location.path() == '/dashboard' | $location.path() == '/portfolio' | $location.path() == '/history' | $location.path() == '/worth' | $location.path() == '/demo2' | $location.path() == '/demo'; 
     };
 
 
