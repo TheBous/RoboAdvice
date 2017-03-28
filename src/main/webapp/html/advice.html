@@ -131,7 +131,7 @@
         </div>
 
         <ul class="collection col m7 s12">
-            <li class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt" ng-repeat="defStrategy in standardStrategies">
+            <li ng-if="defStrategy.name != currentStrategy.getName()" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt" ng-repeat="defStrategy in standardStrategies">
                 <i class="material-icons circle">cached</i>
                 <i ng-if="advicePercentage[$index] > 0" style="color:#F44336;font-size:38px;" class="material-icons circle brown lighten-4 winning">trending_up</i>
                 <i ng-if="advicePercentage[$index] < 0" style="color: #00e676;font-size:38px;" class="material-icons circle brown lighten-4 losing">trending_down</i>
@@ -150,13 +150,13 @@
                     <label style="font-size:20px;">{{advicePercentage[$index] | number : 3}}%</label>
                 </div>
 
-                <span style="font-size:19px;font-weight: 400;color:#666;">Amount: ${{adviceAmount[$index] | number:2}}</span>
+                <span ng-if="defStrategy.name != currentStrategy.getName()" style="font-size:19px;font-weight: 400;color:#666;">Amount: ${{adviceAmount[$index] | number:2}}</span>
                 <span ng-if="advicePercentage[$index] == max" class="new badge animated tada" data-badge-caption="Fair strategy"></span>
 
 
 
                 </p>
-                <a class="secondary-content"><button class="btn" style="margin:5pt" ng-click="changeStrategy($index)">Change</button></a>
+                <a ng-if="defStrategy.name != currentStrategy.getName()" class="secondary-content"><button class="btn" style="margin:5pt" ng-click="changeStrategy($index)">Change</button></a>
             </li>
 
         </ul>
