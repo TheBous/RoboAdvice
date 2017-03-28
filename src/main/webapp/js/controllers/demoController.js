@@ -9,6 +9,7 @@ RoboAdviceApp.controller("demoController", function($scope, $log, demoREST, demo
     $scope.date = [];
     $scope.timestamp = [];
     $scope.buttonClicked = true;
+    $scope.spinner = false;
 
 
     demoService.getDemoForecasting(function(response){
@@ -28,8 +29,10 @@ RoboAdviceApp.controller("demoController", function($scope, $log, demoREST, demo
 
         formattedDate = date.getFullYear() + "-" + (date.getMonthFormatted()) + "-" + date.getDayFormatted();
         $log.debug(formattedDate);
-        demoService.backtesting.bonds(formattedDate).$promise.then(function (response) {
+        $scope.spinner = true;
 
+        demoService.backtesting.bonds(formattedDate).$promise.then(function (response) {
+            $scope.spinner = false;
             console.log(response);
             for (let i = 0; i < response.data.length; i++) {
                 $scope.amount[i] = response.data[i].totalAmount;

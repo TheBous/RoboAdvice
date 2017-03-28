@@ -32,6 +32,9 @@
             </button>
         </div>
     </div>
+    <div ng-if="!buttonClicked && spinner" style="width: 100%;" class="progress">
+        <div  class="indeterminate"></div>
+    </div>
     <div class="row" ng-if="amount != 0">
 
         <div class="collection col l5 m7 s12">
