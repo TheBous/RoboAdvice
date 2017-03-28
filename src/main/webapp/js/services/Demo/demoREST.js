@@ -1,5 +1,5 @@
 RoboAdviceApp.service("demoREST",
-    function($resource){
+    function($resource, $cookies, TokenHandler){
         var baseUrl = "/demo/";
         return $resource(baseUrl, {}, {
             forecast: {
