@@ -4,6 +4,8 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
     $scope.user = userService;
     $scope.portfolio = portfolioService;
     $scope.strategy = strategyService;
+    $scope.actualDate = new Date(portfolioService.getPortfolioDates()[0]);
+    $scope.actualFormattedDate = $scope.actualDate.getDateFormatted() + '/' + $scope.actualDate.getMonthFormatted() + '/' + $scope.actualDate.getYear();
 
     let page = $cookies.get("page");
 
