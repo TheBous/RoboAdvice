@@ -6,7 +6,7 @@
                     <div class="card-content">
                         <!-- <span class="card-title grey-text center">BackTesting</span> -->
                         <blockquote  class="flow-text" style="font-size:16.5px;border-left: 5px solid #E8BE5D;border-left-width: 5px;border-left-style: solid;border-left-color: ##E8BE5D">
-                            Backtesting is the process of testing your trading strategy on historical data.<BR>
+                            Backtesting tests your trading strategy based on historical data.<BR>
                             Pick a Date, RoboAdvice will show your Worth according to the current strategy.
                         </blockquote>
 
@@ -23,12 +23,11 @@
                         <!-- Date picker -->
                         <div style="text-align: center;">
                             <label for="picker_label">  Select Date</label>
-
-                            <input style="width:150px; " ng-model="interval" id="picker_label" type="text" class="datepicker"><i style="" class="material-icons">date_range</i>
-
+                            <input style="width:150px; " ng-model="interval" id="picker_label" type="text" class="datepicker"><i style="color:#9e9e9e" class="material-icons">date_range</i>
                         </div>
                         <div style="text-align: center;">
                             <div class="card-action">
+                                <a class="btn-floating btn waves-effect waves-light teal left "><i style="font-size:37px;color:#E8BE5D;" ng-click="$ctrl.info_back()" class="material-icons" href="">info</i></a>
                                 <button ng-disabled="!interval" class="btn waves-effect waves-light" type="submit" name="action" ng-click="$ctrl.update()" wz-next>Next
                                     <i class="material-icons right">send</i>
                                 </button>
@@ -40,3 +39,5 @@
         </div>
     </div>
 </div>
+
+
