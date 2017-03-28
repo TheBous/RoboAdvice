@@ -43,7 +43,7 @@ public class NightlyTaskServiceImpl {
         this.assetsRepository = assetsRepository;
     }
 
-    @Scheduled(cron ="0 8 15 * * *") //scheduled every day at 5:00 am
+    @Scheduled(cron ="0 0 5 * * *") //scheduled every day at 5:00 am
     @Caching(evict = {@CacheEvict(cacheNames = "portfolioFullHistory", allEntries = true), @CacheEvict(cacheNames = "assetsClassTrend", allEntries = true)})
     @Transactional
     public void updateAPI(){
