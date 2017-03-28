@@ -26,6 +26,13 @@ public class StrategyController {
         this.strategyService = strategyService;
     }
 
+    /**
+     * Method used to insert a new strategy from a user.
+     *
+     * @param strategyDTO is the DTO object that contains all the information regarding the new strategy
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return return an object StrategyDTO.
+     */
     @RequestMapping(value = "/insert", method = RequestMethod.POST, consumes = "application/json")
     public GenericResponse<StrategyDTO> insertStrategy(@RequestBody @Valid StrategyDTO strategyDTO,
                                                        Authentication authentication) {
@@ -39,6 +46,13 @@ public class StrategyController {
     }
 
 
+    /**
+     * Method used to delete a pending strategy of a user. A strategy is "in pending" only if
+     * it has no computed portfolios yet.
+     *
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return return a boolean value
+     */
     @RequestMapping(value="/delete", method = RequestMethod.POST)
     public GenericResponse<Boolean> deletePendingStrategy(Authentication authentication){
         String email =authentication.getName();
@@ -49,6 +63,12 @@ public class StrategyController {
             return new GenericResponse<>(false, Constant.ERROR_MSG, Constant.ERROR);
     }
 
+    /**
+     * Method used to get the current active strategy of a user.
+     *
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return return an object StrategyDTO
+     */
     @RequestMapping(value = "/getCurrent", method = RequestMethod.POST)
     public GenericResponse<StrategyDTO> getCurrentStrategy(Authentication authentication){
         String email = authentication.getName();
@@ -60,6 +80,12 @@ public class StrategyController {
     }
 
 
+    /**
+     * Method used to get last used strategy of a user that isn't active anymore.
+     *
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return return an object StrategyDTO
+     */
     @RequestMapping(value = "/getLast", method = RequestMethod.POST)
     public GenericResponse<StrategyDTO> getLastStrategy(Authentication authentication){
         String email = authentication.getName();
@@ -71,6 +97,12 @@ public class StrategyController {
     }
 
 
+    /**
+     * Method used to get full strategy history of a user.
+     *
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return return list of object StrategyDTO
+     */
     @RequestMapping(value = "/getFullHistory", method = RequestMethod.POST)
     public GenericResponse<List <StrategyDTO>> getFullHistory(Authentication authentication) {
         String email = authentication.getName();
@@ -81,6 +113,15 @@ public class StrategyController {
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
     }
 
+    /**
+     * Method used to give advice to the user. This method returns how would have performed one of the stock
+     * strategies specified as input with parameter "strategyCode", starting from the same date as user's current
+     * strategy.
+     *
+     * @param strategyCode code that specify one of the stock strategy (values from 0 to 4)
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return return a BigDecimal value, which is the final amount.
+     */
     @RequestMapping(value = "/advice", method = RequestMethod.POST)
     public GenericResponse<BigDecimal> getAdvice(@RequestParam(value = "strategy", defaultValue = "null") int strategyCode,
                                                  Authentication authentication){

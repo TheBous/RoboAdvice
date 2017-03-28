@@ -13,7 +13,6 @@ public interface StrategyService {
     StrategyDTO getCurrentActiveStrategy(String userEmail);
     StrategyDTO getLastUsedStrategy(String userEmail);
     List<StrategyDTO> getFullHistoryByUser(String userEmail);
-
     PortfolioDTO getAdvice(String userEmail, int strategyCode);
 
 }

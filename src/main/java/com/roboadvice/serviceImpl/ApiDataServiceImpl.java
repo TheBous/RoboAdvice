@@ -60,9 +60,4 @@ public class ApiDataServiceImpl implements ApiDataService{
         else
             return null;
     }
-
-    /*@Override
-    public ApiData findLatestValueByAsset(Assets asset) {
-        return apiDataRepository.findLatestValueByAsset(asset.getId());
-    }*/
 }

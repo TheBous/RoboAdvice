@@ -24,6 +24,12 @@ public class UserController {
     }
 
 
+    /**
+     * Method used to get the user specified by "authentication" parameter.
+     *
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return return an object UserDTO.
+     */
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     public GenericResponse<UserDTO> getUser(Authentication authentication){
         String email = authentication.getName();
@@ -34,6 +40,13 @@ public class UserController {
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
     }
 
+    /**
+     * Method used to update user's info. The user can change his name or surname.
+     *
+     * @param userDTO DTO object that contains new user's info.
+     * @param authentication parameter from Spring Security used for user's authentication.
+     * @return return an object UserDTO.
+     */
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
     public GenericResponse<UserDTO> updateUser(@RequestBody @Valid UserDTO userDTO,
                                                Authentication authentication){

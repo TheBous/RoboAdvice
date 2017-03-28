@@ -30,7 +30,8 @@ public class StrategyServiceImpl implements StrategyService{
     private ApiDataRepository apiDataRepository;
 
     @Autowired
-    public StrategyServiceImpl(StrategyRepository strategyRepository, UserRepository userRepository, AssetsClassRepository assetsClassRepository, PortfolioRepository portfolioRepository, AssetsRepository assetsRepository, ApiDataRepository apiDataRepository) {
+    public StrategyServiceImpl(StrategyRepository strategyRepository, UserRepository userRepository, AssetsClassRepository assetsClassRepository,
+                               PortfolioRepository portfolioRepository, AssetsRepository assetsRepository, ApiDataRepository apiDataRepository) {
         this.strategyRepository = strategyRepository;
         this.userRepository = userRepository;
         this.assetsClassRepository = assetsClassRepository;
@@ -104,9 +105,7 @@ public class StrategyServiceImpl implements StrategyService{
 
     @Override
     public StrategyDTO getLastUsedStrategy(String userEmail) {
-
         StrategyDTO strDTO = new StrategyDTO();
-
         User u = userRepository.findByEmail(userEmail);
         if(u == null)
             return null;
@@ -238,47 +237,38 @@ public class StrategyServiceImpl implements StrategyService{
         List<Portfolio> portfolioList = new ArrayList<>();
         Portfolio p;
 
-        //=====================Generate first portfolio and first amount
+        //Generate first portfolio and first amount
         for(Strategy str : strategyList){
             for(Assets asset : assetsList){
                 if(str.getAssetsClass().getId() == asset.getAssetsClass().getId()){
                     amount = Constant.percentage(startAmount, str.getPercentage());
                     value = Constant.percentage(amount, asset.getAllocation_p());
-
-                    //api = apiDataRepository.findLatestValueByAssetAndDate(asset.getId(), startDate.toString());
                     api = apiDataRepository.findTopByAssetsAndDateLessThanEqualOrderByDateDesc(asset, startDate);
-
                     if(api != null)
                         units = value.divide(api.getValue(), 5, RoundingMode.HALF_UP);
                     else{
                         units = BigDecimal.ZERO;
-                        value = BigDecimal.ZERO;
                     }
-
                     p=new Portfolio();
                     p.setDate(startDate.plusDays(1));
                     p.setAssetsClass(str.getAssetsClass());
                     p.setAssets(asset);
                     p.setAmount(amount);
                     p.setUnits(units);
-
                     portfolioList.add(p);
                 }
             }
         }
 
-        //======================================Generate all the others portfolios
-        amount = BigDecimal.ZERO;
+        //Generate all the others portfolios
         int index=0;
         List<Portfolio> oldPortfolioList = new ArrayList<>();
-        List<BigDecimal> values = new ArrayList<>();
 
         for(LocalDate date = startDate.plusDays(1);date.isBefore(endDate);date = date.plusDays(precision)){
             oldPortfolioList.clear();
             for( ;index<portfolioList.size();index++){
                 oldPortfolioList.add(portfolioList.get(index));
             }
-
             List<ApiData> apiDataList= apiDataRepository.findLatestApiValuesByDate(date.toString());
             for(int i=0;i<Constant.NUM_ASSETS;i++){
                 api = apiDataList.get(Constant.NUM_ASSETS-i-1);
@@ -290,15 +280,12 @@ public class StrategyServiceImpl implements StrategyService{
                 portfolioList.add(p);
             }
         }
-
         PortfolioDTO pDTO = new PortfolioDTO();
         BigDecimal totalAmount=BigDecimal.ZERO;
-
         for(int j=portfolioList.size()-Constant.NUM_ASSETS;j<portfolioList.size();j++)
             totalAmount = totalAmount.add(portfolioList.get(j).getValue());
 
         pDTO.setTotalAmount(totalAmount);
-
         return pDTO;
     }
 }

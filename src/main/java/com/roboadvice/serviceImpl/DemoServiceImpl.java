@@ -68,7 +68,7 @@ public class DemoServiceImpl implements DemoService{
         else if(endDate.isBefore(startDate.plusDays(210)))
             precision=2;
         else precision=3;
-        //Create first portfolio========================================================================
+        //Create first portfolio
         for(Strategy str : strategyList){
             for(Assets asset : assetsList){
                 if(str.getAssetsClass().getId() == asset.getAssetsClass().getId()){
@@ -92,7 +92,7 @@ public class DemoServiceImpl implements DemoService{
                 }
             }
         }
-        //Update portfolio every day===================================================================
+        //Update portfolio every day
         int index=0;
         List<Portfolio> oldPortfolioList = new ArrayList<>();
         for(LocalDate date = startDate.plusDays(1); date.isBefore(endDate); date = date.plusDays(precision)){
@@ -102,7 +102,6 @@ public class DemoServiceImpl implements DemoService{
             }
             List<ApiData> apiDataList = apiDataRepository.findLatestApiValuesByDate(date.toString());
             for(int i=0;i<Constant.NUM_ASSETS;i++){
-                //api = apiDataRepository.findTopByAssetsAndDateLessThanEqualOrderByDateDesc(assetsList.get(i), date);
                 api = apiDataList.get(Constant.NUM_ASSETS-i-1);
                 value = oldPortfolioList.get(i).getUnits().multiply(api.getValue());
                 p = new Portfolio();
@@ -112,7 +111,7 @@ public class DemoServiceImpl implements DemoService{
                 portfolioList.add(p);
             }
         }
-        //Create list of BacktestingDTO====================================================================
+        //Create list of BacktestingDTO
         for(int i=0; i<portfolioList.size();i+=Constant.NUM_ASSETS) {
             bDTO = new BacktestingDTO();
             bDTO.setDate(portfolioList.get(i).getDate());

@@ -28,21 +28,15 @@ public class PortfolioServiceImpl implements PortfolioService{
     private StrategyRepository strategyRepository;
     private AssetsRepository assetsRepository;
     private ApiDataRepository apiDataRepository;
-    private AssetsClassRepository assetsClassRepository;
 
     @Autowired
-    public PortfolioServiceImpl(PortfolioRepository portfolioRepository,
-                                UserRepository userRepository,
-                                StrategyRepository strategyRepository,
-                                AssetsRepository assetsRepository,
-                                ApiDataRepository apiDataRepository,
-                                AssetsClassRepository assetsClassRepository) {
+    public PortfolioServiceImpl(PortfolioRepository portfolioRepository, UserRepository userRepository, StrategyRepository strategyRepository,
+                                AssetsRepository assetsRepository, ApiDataRepository apiDataRepository) {
         this.portfolioRepository = portfolioRepository;
         this.userRepository = userRepository;
         this.strategyRepository = strategyRepository;
         this.assetsRepository = assetsRepository;
         this.apiDataRepository = apiDataRepository;
-        this.assetsClassRepository = assetsClassRepository;
     }
 
     @Override
@@ -57,8 +51,7 @@ public class PortfolioServiceImpl implements PortfolioService{
                     portfolioDTO.setTotalAmount(portfolioDTO.getTotalAmount().add(p.getValue()));
                 }
                 for(int i = 0; i< Constant.NUM_ASSETS_CLASS; i++){
-                    portfolioDTO.setAssetsClassAmount(i+1, portfolioList.get(i).getValue() );
-                    portfolioDTO.setAssetsClassPercentage(i+1, portfolioDTO.getAssetsClassAmount(i+1).multiply(new BigDecimal(100)).divide(portfolioDTO.getTotalAmount(), 2, RoundingMode.HALF_UP));
+                    portfolioDTO.setAssetsClassAmount(i+1, portfolioList.get(i).getValue());
                 }
                 portfolioDTO.setDate(portfolioList.get(0).getDate());
                 return portfolioDTO;
@@ -74,27 +67,19 @@ public class PortfolioServiceImpl implements PortfolioService{
     @Override
     @Cacheable("portfolioFullHistory")
     public List<PortfolioDTO> getFullHistory(String userEmail) {
-
         User u = userRepository.findByEmail(userEmail);
         if(u != null) {
             List<Portfolio> portfolioList = portfolioRepository.fullHistoryByUser(u);
-
             if(portfolioList != null && !portfolioList.isEmpty()){
                 List<PortfolioDTO> portfolioDTO_list = new ArrayList<>();
                 PortfolioDTO pDTO = new PortfolioDTO();
                 for(int i=0; i<portfolioList.size();i+=Constant.NUM_ASSETS_CLASS) {
                     pDTO = new PortfolioDTO();
-
                     pDTO.setDate(portfolioList.get(i).getDate());
-
                     pDTO.setTotalAmount(BigDecimal.ZERO);
-
                     for(int j=i;j<i+Constant.NUM_ASSETS_CLASS;j++) {
                         pDTO.setTotalAmount(pDTO.getTotalAmount().add(portfolioList.get(j).getAmount()));
                         pDTO.setAssetsClassAmount(portfolioList.get(j).getAssetsClass().getId(), portfolioList.get(j).getAmount());
-                    }
-                    for(int y=i;y<i+Constant.NUM_ASSETS_CLASS;y++) {
-                        pDTO.setAssetsClassPercentage(portfolioList.get(y).getAssetsClass().getId(), portfolioList.get(y).getAmount().multiply(new BigDecimal(100)).divide(pDTO.getTotalAmount(), 2, RoundingMode.HALF_UP));
                     }
                     portfolioDTO_list.add(pDTO);
                 }
@@ -106,8 +91,6 @@ public class PortfolioServiceImpl implements PortfolioService{
         }
         else
             return null;
-
-
     }
 
     @Override
@@ -115,24 +98,16 @@ public class PortfolioServiceImpl implements PortfolioService{
         User u = userRepository.findByEmail(userEmail);
         if(u != null){
             List<Portfolio> portfolioList = portfolioRepository.historyByUserAndDates(u, fromDate.toString(), toDate.toString());
-
             if (portfolioList != null && !portfolioList.isEmpty()) {
                 List<PortfolioDTO> portfolioDTO_list = new ArrayList<>();
-
                 PortfolioDTO pDTO = new PortfolioDTO();
                 for(int i=0; i<portfolioList.size();i+=Constant.NUM_ASSETS_CLASS) {
                     pDTO = new PortfolioDTO();
-
                     pDTO.setDate(portfolioList.get(i).getDate());
-
                     pDTO.setTotalAmount(BigDecimal.ZERO);
-
                     for (int j = i; j < i + Constant.NUM_ASSETS_CLASS; j++) {
                         pDTO.setTotalAmount(pDTO.getTotalAmount().add(portfolioList.get(j).getAmount()));
                         pDTO.setAssetsClassAmount(portfolioList.get(j).getAssetsClass().getId(), portfolioList.get(j).getAmount());
-                    }
-                    for (int y = i; y < i + Constant.NUM_ASSETS_CLASS; y++) {
-                        pDTO.setAssetsClassPercentage(portfolioList.get(y).getAssetsClass().getId(), portfolioList.get(y).getAmount().multiply(new BigDecimal(100).divide(pDTO.getTotalAmount(), 2, RoundingMode.HALF_UP)));
                     }
                     portfolioDTO_list.add(pDTO);
                 }
@@ -157,7 +132,6 @@ public class PortfolioServiceImpl implements PortfolioService{
 
         List<BacktestingDTO> backtestingDTOList = new ArrayList<>();
         BacktestingDTO bDTO;
-
         List<Portfolio> portfolioList = new ArrayList<>();
         Portfolio p;
 
@@ -170,11 +144,10 @@ public class PortfolioServiceImpl implements PortfolioService{
         else if(endDate.isBefore(startDate.plusDays(210)))
             precision=2;
         else precision=3;
-
         List<Assets> assetsList = (List<Assets>) assetsRepository.findAll();
         ApiData api;
 
-        //Create first portfolio========================================================================
+        //Create first portfolio
         for(Strategy str : currentStrategyList){
             for(Assets asset : assetsList){
                 if(str.getAssetsClass().getId() == asset.getAssetsClass().getId()){
@@ -202,18 +175,14 @@ public class PortfolioServiceImpl implements PortfolioService{
                 }
             }
         }
-
-        //Update portfolio every day===================================================================
+        //Update portfolio every day
         int index=0;
-
         List<Portfolio> oldPortfolioList = new ArrayList<>();
-
         for(LocalDate date = startDate.plusDays(1); date.isBefore(endDate); date = date.plusDays(precision)){
             oldPortfolioList.clear();
             for( ;index<portfolioList.size();index++){
                 oldPortfolioList.add(portfolioList.get(index));
             }
-
             List<ApiData> apiDataList = apiDataRepository.findLatestApiValuesByDate(date.toString());
             for(int i=0;i<Constant.NUM_ASSETS;i++){
                 //api = apiDataRepository.findTopByAssetsAndDateLessThanEqualOrderByDateDesc(assetsList.get(i), date);
@@ -226,23 +195,17 @@ public class PortfolioServiceImpl implements PortfolioService{
                 portfolioList.add(p);
             }
         }
-
-        //Create list of BacktestingDTO====================================================================
+        //Create list of BacktestingDTO
         for(int i=0; i<portfolioList.size();i+=Constant.NUM_ASSETS) {
             bDTO = new BacktestingDTO();
-
             bDTO.setDate(portfolioList.get(i).getDate());
-
             bDTO.setTotalAmount(BigDecimal.ZERO);
-
             for(int j=i;j<i+Constant.NUM_ASSETS && j<portfolioList.size();j++) {
                 bDTO.setTotalAmount(bDTO.getTotalAmount().add(portfolioList.get(j).getValue()));
             }
             backtestingDTOList.add(bDTO);
         }
-
         return  backtestingDTOList;
-
     }
 
     @Override
@@ -269,7 +232,7 @@ public class PortfolioServiceImpl implements PortfolioService{
                 }
             }
             else{
-                //user with just one/two portfolios*/
+                //user with just one/two portfolios
                 for(int i=portfolioList.size(); i<bDTO.size();i++){
                     fDTO = new ForecastingDTO();
                     fDTO.setDate(LocalDate.now().plusDays(i));
@@ -279,7 +242,6 @@ public class PortfolioServiceImpl implements PortfolioService{
             }
             return forecastingDTOList;
         }
-
         return WekaTimeSeriesForecasting.getForecast(portfolioList, daysToForecast);
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,25 +27,22 @@ public class AssetsClassServiceImpl implements AssetsClassService {
 
     @Override
     public AssetsClass insert(AssetsClass ac) {
-
         AssetsClass assetsClass = assetsClassRepository.findById(ac.getId());
-
         if(assetsClass == null)
             return assetsClassRepository.save(ac);
         else
             return assetsClass;
-
     }
 
     @Override
     @Cacheable("assetsClassTrend")
     public List<AssetsClassDTO> getAssetsClassTrend() {
 
-        List<Portfolio> sum_list= assetsClassRepository.getHistoryByDate(LocalDate.now().minusYears(1), LocalDate.now()); //1y
+        List<Portfolio> sum_list= assetsClassRepository.getHistoryByDate(LocalDate.now().minusYears(1), LocalDate.now()); //1 year
         List<AssetsClassDTO> assetsClassDTOList = new ArrayList<>();
         AssetsClassDTO assetsClassDTO;
 
-        int y=0;
+        int y;
         for(int i=0;i<sum_list.size();i+=y) {
             assetsClassDTO = new AssetsClassDTO();
             assetsClassDTO.setDate(sum_list.get(i).getDate());

@@ -26,11 +26,17 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
+    /**
+     * Method used for user signup. User's password is encrypted using class BCryptPasswordEncoder and
+     * then stored in the database.
+     *
+     * @param userDTO DTO object that contains user's info.
+     * @return return user object.
+     */
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = "application/json")
     public GenericResponse<User> signup(@RequestBody @Valid UserDTO userDTO){
         BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
         String password = bcrypt.encode(userDTO.getPassword());
-
         User u = new User(0,userDTO.getName(), userDTO.getSurname(), userDTO.getEmail(), password, "USER");
         if(userService.insert(u))
             return new GenericResponse<>(u, Constant.SUCCES_MSG, Constant.SUCCESS);
@@ -38,6 +44,12 @@ public class AuthenticationController {
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
     }
 
+    /**
+     * Method used for user's login.
+     *
+     * @param userDTO DTO object that contains user's email and password.
+     * @return return Map<> object that contains user's info and token JWT.
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
     public GenericResponse<Map<String, Object>> login(@RequestBody @Valid UserDTO userDTO){
         String token = null;
@@ -46,10 +58,10 @@ public class AuthenticationController {
         Map<String, Object> tokenMap = new HashMap<>();
         BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
         String password = bcrypt.encode(userDTO.getPassword());
-        if(u!= null && /*u.getPassword().equals(userDTO.getPassword())*/ bcrypt.matches(userDTO.getPassword(), u.getPassword())){
+        if(u!= null && bcrypt.matches(userDTO.getPassword(), u.getPassword())){
             Date date = new Date();
             long t = date.getTime();
-            //scadenza token: 7200000 millisecondi = 2 ore
+            //token expires in 7200000 millis = 2h
             token = Jwts.builder().setSubject(userDTO.getEmail()).claim("role", u.getRole()).setIssuedAt(date).setExpiration(new Date(t+7200000))
                     .signWith(SignatureAlgorithm.HS256, secretKey).compact();
             tokenMap.put("token", token);

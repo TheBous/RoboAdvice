@@ -19,17 +19,11 @@ public class AssetsServiceImpl implements AssetsService{
 
     @Override
     public Assets insert(Assets asset) {
-
         Assets a = assetsRepository.findById(asset.getId());
         if(a == null){
             return assetsRepository.save(asset);
         }
         else
             return a;
-    }
-
-    @Override
-    public Iterable<Assets> findAll() {
-        return assetsRepository.findAll();
     }
 }

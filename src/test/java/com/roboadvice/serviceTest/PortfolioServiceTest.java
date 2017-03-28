@@ -57,7 +57,6 @@ public class PortfolioServiceTest {
         assertTrue(portfolioDTOS instanceof  List<?>);
         assertTrue(!portfolioDTOS.isEmpty());
         for (PortfolioDTO portfolioDTO : portfolioDTOS){
-            assertTrue(portfolioDTO.getBondsPercentage() instanceof BigDecimal);
             assertTrue(portfolioDTO.getDate() instanceof LocalDate);
             assertTrue(portfolioDTO.getTotalAmount() instanceof  BigDecimal);
             assertTrue(portfolioDTO.getAssetsClassAmount(1) instanceof BigDecimal);
@@ -89,7 +88,6 @@ public class PortfolioServiceTest {
             assertTrue(portfolioDTO.getAssetsClassAmount(1) instanceof  BigDecimal);
             assertTrue(portfolioDTO.getTotalAmount() instanceof  BigDecimal);
             assertTrue(portfolioDTO.getDate() instanceof LocalDate);
-            assertTrue(portfolioDTO.getBondsPercentage() instanceof BigDecimal);
             assertTrue(portfolioDTO.getCommoditiesAmount() instanceof BigDecimal);
         }
     }

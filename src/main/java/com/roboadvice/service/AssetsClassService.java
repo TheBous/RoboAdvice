@@ -1,7 +1,6 @@
 package com.roboadvice.service;
 
 import com.roboadvice.dto.AssetsClassDTO;
-import com.roboadvice.model.Assets;
 import com.roboadvice.model.AssetsClass;
 
 import java.util.List;
