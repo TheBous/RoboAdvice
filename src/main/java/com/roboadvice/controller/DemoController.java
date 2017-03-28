@@ -1,8 +1,10 @@
 package com.roboadvice.controller;
 
 import com.roboadvice.dto.BacktestingDTO;
+import com.roboadvice.dto.ForecastingDTO;
 import com.roboadvice.dto.StrategyDTO;
 import com.roboadvice.service.DemoService;
+import com.roboadvice.service.PortfolioService;
 import com.roboadvice.utils.Constant;
 import com.roboadvice.utils.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,12 @@ import java.util.List;
 public class DemoController {
 
     private DemoService demoService;
+    private PortfolioService portfolioService;
 
     @Autowired
-    public DemoController(DemoService demoService) {
+    public DemoController(DemoService demoService, PortfolioService portfolioService) {
         this.demoService = demoService;
+        this.portfolioService = portfolioService;
     }
 
     @RequestMapping(value = "/backtesting", method = RequestMethod.POST)
@@ -39,4 +43,13 @@ public class DemoController {
             return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
     }
 
+    @RequestMapping(value = "/forecast", method = RequestMethod.POST)
+    public GenericResponse<List<ForecastingDTO>> getForecastingDemo(Authentication authentication){
+        String userEmail = authentication.getName();
+        List<ForecastingDTO> forecastingDTOList = portfolioService.getForecast(userEmail, LocalDate.now().plusDays(2));
+        if(forecastingDTOList!=null)
+            return new GenericResponse<>(forecastingDTOList, Constant.SUCCES_MSG, Constant.SUCCESS);
+        else
+            return new GenericResponse<>(null, Constant.ERROR_MSG, Constant.ERROR);
+    }
 }
