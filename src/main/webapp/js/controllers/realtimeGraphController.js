@@ -37,7 +37,7 @@ RoboAdviceApp.controller("RealtimeGraphController",function($scope,demoREST,$log
       });
 
       let portfolioNum = portfolios.length;
-      
+
       $scope.stimatedAmount = portfolios[portfolioNum-1].getTotalAmount();
 
       $log.debug("RealtimeGraphController | " + portfolioNum + " portfolios from forecast ");

@@ -15,7 +15,7 @@ RoboAdviceApp.controller("premiumFeatures",function(userService,$location,$cooki
 
     $cookies.put("page",page);
     if(!userService.hasStrategies()){
-      //$location.path("wizard");
+      $location.path("wizard");
     }else if(!userService.hasCurrentPortfolio()){
       //$location.path("demo");
     }
@@ -109,7 +109,11 @@ RoboAdviceApp.config(function($routeProvider) {
         })
         .when('/portfolio', {
             templateUrl : 'html/portfolio.html',
-            controller: "premiumFeatures"
+            controller: function($location, userService){
+              if(!userService.hasCurrentPortfolio()){
+                $location.path("demo2");
+              }
+            }
         })
         .when('/worthgraph' | '/dashboard', {
             templateUrl : 'html/portfolio.html',
