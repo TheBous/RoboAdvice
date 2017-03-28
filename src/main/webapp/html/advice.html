@@ -117,7 +117,7 @@
 
 <div style=" width: 80%; margin: 0 auto;" ng-controller="AdviceController">
     <div class="row">
-        <div class="col m5 s12">
+        <div class="col l5 m12 s12">
             <div class="card grey lighten-3">
                 <div class="card-content" style="text-align:center">
                     <span style="color:black;"class="card-title teal-text">Current strategy: <b>{{currentStrategy.getName()}}</b> </span>
@@ -129,40 +129,24 @@
                 <br/>
             </div>
         </div>
-
-        <ul class="collection col m7 s12">
-            <li ng-if="defStrategy.name != currentStrategy.getName()" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt" ng-repeat="defStrategy in standardStrategies">
+        <ul class="collection col l7 m12 s12">
+            <li ng-if="defStrategy.name != currentStrategy.getName()" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt" ng-repeat="defStrategy in standardStrategies | orderBy: adviceAmount[$index] ">
                 <i class="material-icons circle">cached</i>
                 <i ng-if="advicePercentage[$index] > 0" style="color:#F44336;font-size:38px;" class="material-icons circle brown lighten-4 winning">trending_up</i>
                 <i ng-if="advicePercentage[$index] < 0" style="color: #00e676;font-size:38px;" class="material-icons circle brown lighten-4 losing">trending_down</i>
                 <span style="font-size:24px;font-weight:500;color: teal" class="title">{{defStrategy.name}}</span>
-
                 <div  style="width: 70%;" ng-show="loadingInProgress" class="progress">
                     <div  class="indeterminate"></div>
                 </div>
-
-
-                <!--   <p>First Line <br>
-                       Second Line
-   -->
-
                 <div>
                     <label style="font-size:20px;">{{advicePercentage[$index] | number : 3}}%</label>
                 </div>
-
                 <span ng-if="defStrategy.name != currentStrategy.getName()" style="font-size:19px;font-weight: 400;color:#666;">Amount: ${{adviceAmount[$index] | number:2}}</span>
-                <span ng-if="advicePercentage[$index] == max" class="new badge animated tada" data-badge-caption="Fair strategy"></span>
-
-
+                <span style="background-color: #E8BE5D;margin-top: 10px;background-color: #E8BE5D; margin-bottom: 4px;margin-right: 3px;" ng-if="advicePercentage[$index] == max" class="new badge animated tada" data-badge-caption="Fair strategy"></span>
 
                 </p>
-                <a ng-if="defStrategy.name != currentStrategy.getName()" class="secondary-content"><button class="btn" style="margin:5pt" ng-click="changeStrategy($index)">Change</button></a>
+                <a ng-if="defStrategy.name != currentStrategy.getName()" class="secondary-content"><button class="btn"  ng-click="changeStrategy($index)">Change</button></a>
             </li>
-
         </ul>
-
-
-
-
     </div>
 </div>

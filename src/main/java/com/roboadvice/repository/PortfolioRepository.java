@@ -32,7 +32,7 @@ public interface PortfolioRepository extends PagingAndSortingRepository<Portfoli
     @Query("SELECT p FROM Portfolio p WHERE p.date=?1 AND p.user NOT IN (SELECT s.user FROM Strategy s  WHERE s.active=1 AND s.date=?1 GROUP BY s.user)")
     List<Portfolio> findAllPortfoliosToBeUpdatedByDate(LocalDate date);
 
-    @Query("SELECT p.user FROM Portfolio p WHERE p.date=?1 GROUP BY p.user")
+    @Query("SELECT p.user FROM Portfolio p WHERE p.date=?1 AND p.user NOT IN (SELECT s.user FROM Strategy s  WHERE s.active=1 AND s.date=?1 GROUP BY s.user) GROUP BY p.user")
     List<User> findAllPortfoliosUsersByDate(LocalDate date);
 
     @Query(value = "SELECT * FROM portfolio WHERE user_id=?1 AND date BETWEEN ?2 and ?3 GROUP BY assets_class_id, date ORDER BY date, assets_class_id", nativeQuery = true)

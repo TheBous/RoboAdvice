@@ -23,6 +23,11 @@ public class AssetsClassController {
         this.assetsClassService = assetsClassService;
     }
 
+    /**
+     * Method that generate last year trend of every Assets Class
+     *
+     * @return this method return a list of object AssetsClassDTO
+     */
     @RequestMapping("/trend")
     public GenericResponse<List<AssetsClassDTO>> getAssetsClassTrend(){
         List<AssetsClassDTO> assetsClassDTOList = assetsClassService.getAssetsClassTrend();
