@@ -33,7 +33,7 @@ RoboAdviceApp.controller("Backtesting", function ($scope, $log, portfolioService
 
             }
             else{
-                $log.debug("backtesting Controller | error on backtesting ");
+                $log.error("backtesting Controller | error on backtesting ");
             }
         });
     }

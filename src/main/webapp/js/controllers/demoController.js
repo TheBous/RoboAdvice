@@ -39,9 +39,9 @@ RoboAdviceApp.controller("demoController", function($scope, $log, demoREST, demo
           $scope.date[i] = response.data[i].date.year + '/' + response.data[i].date.monthValue + '/' + response.data[i].date.dayOfMonth;
           $scope.timestamp[i] = new Date($scope.date[i]).getTime();
         }
-        $log.debug("backtesting response from the server:")
-        $log.debug($scope.amount);
-        $log.debug($scope.timestamp);
+        //$log.debug("backtesting response from the server:")
+        //$log.debug($scope.amount);
+        //$log.debug($scope.timestamp);
 
       }else{
         $log.error("backtesting calling error")
