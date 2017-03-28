@@ -1,4 +1,4 @@
-<div class="header_section" >Demuzzo</div>
+<div class="header_section">Demo</div>
 
 <div class="row container">
     <!--  <p class="grey-text text-darken-3 lighten-3">Qui possiamo mettere qualche scritta figa che magari michele e luca si inventano.</p> -->
@@ -18,14 +18,9 @@
         <div class="card white">
             <div class="card-content teal-text" ng-controller="RealtimeGraphController">
                 <span class="card-title"> {{strategy.getLastStrategy().getName()}} Trend</span>
-
-                <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
-                <realtime-line-graph stimated-amount="stimatedAmount" realtime="true" forecast-value="10250" increment-data="incrementData(data)" vertical-axis="lastStrategyAmounts" horizzontal-axis="lastStrategyDates"></realtime-line-graph>
-                <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
+                <realtime-line-graph vertical-axis="strategy.getLastStrategy().getHistoryAmount()" horizzontal-axis="strategy.getLastStrategy().getHistoryDate()"
+                realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph>
             </div>
-            <!--<div class="card-action">
-                <a href="#">Michele</a>
-                <a href="#">Luca</a>
-            </div>-->
         </div>
     </div>
+</div>
