@@ -1,40 +1,10 @@
 <html>
 
-<div class="parallax-container" style="height: 400px;" >
+<div class="parallax-container" style="height: 550px;" >
     <div class="header_section">Welcome to RoboAdvice</div>
     <div class="parallax"><img src="../img/parallax_background.png"></div>
-    <div style="text-align:center;">
-        <a class="waves-effect waves-light btn-large cyan animated flash infinite ">Signup</a>
-    </div>
+
 </div>
-
-
-
-
-<style>
-
-    #parallax {
-        background: url(../img/parallax_background.png);
-        background-size: cover;
-        background-attachment: fixed;
-        background-position: center;
-    }
-
-</style>
-
-
-
-<!--<div id="parallax" class="full-screen" style="">
-    <div class="hero-caption">
-        <div class="hero-text">
-            <h2>A Creative</h2>
-            <h1>Design Studio</h1>
-            <a class="waves-effect waves-light btn-large btn-secondary">Purchase</a>
-            <a class="waves-effect waves-light btn-large btn-white">learn More</a>
-        </div>
-    </div>
-</div>-->
-
 
 <div class="section transparent">
 
@@ -65,8 +35,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
     <div class="parallax-container" style="height: 400px;">
         <div class="parallax"><img src="../img/parallax2.png"></div>
@@ -74,43 +42,43 @@
 </div>
 
 
-<section id="skills">
+<section >
     <div class="row">
-        <div class="col l6 s12">
+        <div class="col l8 m12 s12">
             <!-- Testimonials -->
 
             <div class="slider">
                 <ul class="slides">
                     <li>
-                        <img src="http://lorempixel.com/580/250/nature/1"> <!-- random image -->
+                        <img src="../img/commodities.jpg"> <!-- random image -->
                         <div class="caption center-align">
                             <h3>Forecast!</h3>
                             <h5 class="light grey-text text-lighten-3">Mettere testo per la forecast.</h5>
                         </div>
                     </li>
                     <li>
-                        <img src="http://lorempixel.com/580/250/nature/2"> <!-- random image -->
+                        <img src="../img/bonds.jpg"> <!-- random image -->
                         <div class="caption left-align">
                             <h3>Backtesting</h3>
                             <h5 class="light grey-text text-lighten-3">Mettere testo per la BackTesting.</h5>
                         </div>
                     </li>
                     <li>
-                        <img src="http://lorempixel.com/580/250/nature/3"> <!-- random image -->
+                        <img src="../img/forex.jpg"> <!-- random image -->
                         <div class="caption right-align">
                             <h3>Advice</h3>
                             <h5 class="light grey-text text-lighten-3">Mettere testo per la Advice</h5>
                         </div>
                     </li>
                     <li>
-                        <img src="http://lorempixel.com/580/250/nature/4"> <!-- random image -->
+                        <img src="../img/stocks.jpg"> <!-- random image -->
                         <div class="caption center-align">
                             <h3>Demo!</h3>
                             <h5 class="light grey-text text-lighten-3">Mettere testo per la demo.</h5>
                         </div>
                     </li>
                     <li>
-                        <img src="http://lorempixel.com/580/250/nature/4"> <!-- random image -->
+                        <img src="../img/commodities.jpg"> <!-- random image -->
                         <div class="caption center-align">
                             <h3>Autobalanced</h3>
                             <h5 class="light grey-text text-lighten-3">Mettere testo per la Balance.</h5>
@@ -119,27 +87,31 @@
                 </ul>
             </div>
         </div>
-        <!-- Skills -->
-        <div class="col l6 s12">
-                <div class="header_section" style="font-size:30px;" >Asset Classes last year trends</div>
-
-            <!--  <p class="grey-text text-darken-3 lighten-3">Qui possiamo mettere qualche scritta figa che magari michele e luca si inventano.</p> -->
-                <div class="row " ng-controller="GetGlobalAssets">
-                    <div class="col s3 " ng-repeat="asset in globalAssets">
-                        <div class="center promo promo-example">
-                            <p style="font-size:25px;" class="promo-caption">{{asset.name}}</p>
-                            <asset-general show-y-label="false"  portfolio-amount="asset.percentages" portfolio-date="asset.dates"></asset-general>
-                        </div>
-                    </div>
-                </div>
-            <div style="text-align: center">
-                <img class="responsive-img" style="width:25%;" src="../img/hometime.png" style="">
+        <div class="col l4 m12 s12">
+            <div class="header_section">Register</div>
+            <p style="text-align:center;font-size:17px;">Start today your online investment travel.<br>RoboAdvice guides you with ease and transparency to get the best opportunities for your investments.</p>
+            <div style="text-align:center;">
+                <a class="waves-effect waves-light btn-large cyan animated flash" href="#!/sign">Signup</a>
             </div>
         </div>
     </div>
 </section>
 
 
+
+<div class="parallax-container" style="height: 400px;" >
+    <div class="header_section">Last Year Trend</div>
+    <div class="row " ng-controller="GetGlobalAssets">
+        <div class="col s3 " ng-repeat="asset in globalAssets">
+            <div class="center promo promo-example">
+                <p style="font-size:25px;" class="promo-caption">{{asset.name}}</p>
+                <asset-general show-y-label="false"  portfolio-amount="asset.percentages" portfolio-date="asset.dates"></asset-general>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  <p class="grey-text text-darken-3 lighten-3">Qui possiamo mettere qualche scritta figa che magari michele e luca si inventano.</p> -->
 
 <!--
 
@@ -169,7 +141,6 @@
     $(document).ready(function(){
         $('.parallax').parallax();
     });
-
     $(document).ready(function(){
         $('.slider').slider();
     });
