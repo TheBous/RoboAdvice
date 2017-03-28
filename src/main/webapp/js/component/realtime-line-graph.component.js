@@ -27,6 +27,7 @@ RoboAdviceApp.component("realtimeLineGraph",{
           $log.debug("realtimeLineGrap| initialized")
           //this.incrementData();
           $ctrl.interval = 5000;
+          $log.debug(this.horizzontalAxis);
           let showDates = $ctrl.showDates == "true" ? true : false;
         }// end onInit
 

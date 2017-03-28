@@ -20,7 +20,7 @@ RoboAdviceApp.component("backUno",{
             $log.debug("backtesting1| interval: " + $scope.interval);
             let formattedDate;
             let date = new Date($scope.interval);
-            formattedDate = date.getFullYear() + "-" + (date.getMonthFormatted()) + "-" + date.getDayFormatted()
+            formattedDate = date.getFullYear() + "-" + (date.getMonthFormatted()) + "-" + date.getDayFormatted();
             $log.debug(formattedDate);
             this.onUpdate({data: {interval: formattedDate}});
         }
