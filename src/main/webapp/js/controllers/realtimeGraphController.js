@@ -12,7 +12,8 @@ RoboAdviceApp.controller("RealtimeGraphController",function($scope,demoREST,$log
     $scope.realtimeDates = angular.fromJson(sessionStorage.realtimeDates);
   }
 
-  $scope.stimatedAmount = 100;
+    $scope.stimatedAmount = 100;
+
   $scope.incrementData = function(data){
     // save the current state
     $scope.stimatedAmount = 10000;
@@ -22,7 +23,7 @@ RoboAdviceApp.controller("RealtimeGraphController",function($scope,demoREST,$log
   }
 
   // check if exists something in localStorage
-  getRealtime();
+  //getRealtime();
   if($scope.realtimeAmounts == null){
     // there isn't nothing
     // get the data from the forecast
@@ -34,23 +35,29 @@ RoboAdviceApp.controller("RealtimeGraphController",function($scope,demoREST,$log
         let portfolioObj = new Portfolio(obj);
         portfolios.push(portfolioObj);
       });
+
       let portfolioNum = portfolios.length;
+      
+      $scope.stimatedAmount = portfolios[portfolioNum-1].getTotalAmount();
+
       $log.debug("RealtimeGraphController | " + portfolioNum + " portfolios from forecast ");
 
-      $scope.realtimeAmounts = new Array(portfolioNum);
-      $scope.realtimeDates = new Array(portfolioNum);
+      // push data for render highchart properly
+      $scope.realtimeAmounts = new Array(19);
+      $scope.realtimeDates = new Array(19);
+      // now
+      let time = (new Date()).getTime();
 
-      // push inside amounts and dates
-      for(let i=0;i<portfolioNum;i++){
-        // the date is a timestamp
-        $scope.realtimeDates[i]=portfolios[i].getDate().getTime();
-        // the amount is the total amount for each class assets
-        $scope.realtimeAmounts[i]=portfolios[i].getTotalAmount();
+      // 19 seconds before now
+      let j=0;
+      for(let i=-19;i<0;i++){
+        $scope.realtimeAmounts[j] = (portfolios[0].getTotalAmount());
+        $scope.realtimeDates[j] = (time+i*1000);
+        j++;
       }
 
+      //saveRealtime();
     });
-
-    //saveRealtime();
   }
 
 });

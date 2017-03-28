@@ -25,13 +25,18 @@ RoboAdviceApp.component("realtimeLineGraph",{
         this.$onInit = function(){
           let now = new Date();
           $log.debug("realtimeLineGrap| initialized")
+          $log.debug("verticalAxis:");
+          $log.debug($ctrl.verticalAxis);
+          $log.debug("horizzontalAxis:");
+          $log.debug($ctrl.horizzontalAxis);
           //this.incrementData();
-          $ctrl.interval = 5000;
           let showDates = $ctrl.showDates == "true" ? true : false;
         }// end onInit
 
       this.setGraph = function(){
         // realtime highchart
+        $ctrl.interval = 1000;
+
         Highcharts.chart($scope.rtid, {
           chart: {
             type: 'spline',
@@ -44,20 +49,19 @@ RoboAdviceApp.component("realtimeLineGraph",{
                 var series = this.series[0];
                 if($ctrl.realtime == "true"){
                   setInterval(function () {
-                    let rnd = Math.random()*10;
+                    let rnd = Math.random()*2;
                     let salt = (Math.floor(rnd)%2) ? 1 : -1;
-                    let series = $ctrl.series;
-                    //let x = $ctrl.horizzontalAxis[$ctrl.horizzontalAxis.length-1]+1000, // current time
-                    y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd*salt;
-                    //$ctrl.incrementData();
-                    $ctrl.incrementData({data:[$ctrl.horizzontalAxis,$ctrl.verticalAxis]});
 
-                    let x = (new Date()).getTime();
+                    let series = $ctrl.series;
+
+                    y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd*salt;
+
+                    let x = $ctrl.horizzontalAxis[$ctrl.horizzontalAxis.length-1]+$ctrl.interval;
                     $ctrl.horizzontalAxis.push(x);
                     $ctrl.verticalAxis.push(y);
 
                     series.addPoint([x, y], true, true);
-                  }, 1000);
+                  }, $ctrl.interval);
                 }
               }
             }
@@ -106,13 +110,9 @@ RoboAdviceApp.component("realtimeLineGraph",{
               let lastValue = $ctrl.verticalAxis[portfolioNum-1];
               var time = (new Date()).getTime();
 
-              for(let i = 0;i<portfolioNum; i++){
 
-                //if($ctrl.realtime == "true"){
-                  timeAxis = time+i*1000;
-                //}else{
-                  //timeAxis = $ctrl.horizzontalAxis[i];
-                //}
+              for(let i = 0;i<portfolioNum; i++){
+                  timeAxis = $ctrl.horizzontalAxis[i];
 
                 data.push({
                   x: timeAxis,
