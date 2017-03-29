@@ -51,7 +51,9 @@
             </li>
             <li ng-if="defStrategy.name != currentStrategy.getName()" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt" ng-repeat="defStrategy in standardStrategies">
                 <span style="font-size:24px;font-weight:500;color: teal" class="title">{{defStrategy.name}}</span>
-
+                <!-- <div style="width:50pt">
+                  <assets-class-graph percentages="[1,2,3,4]" show-chips="false"></assets-class-graph>
+                </div> -->
                 <a ng-if="defStrategy.name != currentStrategy.getName()" class="secondary-content"><button class="btn" style="margin:5pt" ng-click="update(defStrategy.name)">Try</button></a>
             </li>
         </ul>

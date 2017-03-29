@@ -2,24 +2,25 @@
     <canvas id="pie" class="chart chart-pie" chart-data="assetsData" chart-labels="assetsLabel" chart-options="options">
     </canvas>
 </div>
-    <div  class="center-align" >
+<br />
+    <div  class="center-align" ng-if="ifLabel">
 
-        <div class="chip" style="" ng-if="ifLabel[0]">
+        <div class="chip" style="">
             <img src="../img/bonds.jpg" alt="Bonds">
             Bonds
         </div>
-        <div class="chip" style="" ng-if="ifLabel[1]">
+        <div class="chip" style="">
             <img src="../img/stocks.jpg" alt="Commodities">
             Stocks
         </div>
     </div>
 
-    <div  class="center-align">
-        <div class="chip" style="" ng-if="ifLabel[2]">
+    <div  class="center-align" ng-if="ifLabel">
+        <div class="chip" style="">
             <img src="../img/commodities.jpg" alt="Stocks">
             Comm
         </div>
-        <div class="chip" style="" ng-if="ifLabel[3]">
+        <div class="chip" style="">
             <img src="../img/forex.jpg" alt="Forex">
             Forex
         </div>
