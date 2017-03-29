@@ -217,7 +217,7 @@ public class PortfolioServiceImpl implements PortfolioService{
         long daysToForecast = DAYS.between(LocalDate.now(), targetDate);
 
         List<Portfolio> portfolioList = portfolioRepository.getAmountsByUser(u);
-        if(portfolioList.size()<3) {
+        if(portfolioList.size()<2) {
             //if a user has not enough portfolios for forecast computation, the forecast is based on the backtesting
             List<BacktestingDTO> bDTO = getBackTestingChart(u.getEmail(), LocalDate.now().minusDays(daysToForecast));
             List<ForecastingDTO> forecastingDTOList = new ArrayList<>();
@@ -232,7 +232,7 @@ public class PortfolioServiceImpl implements PortfolioService{
                 }
             }
             else{
-                //user with just one/two portfolios
+                //user with just one portfolios
                 for(int i=portfolioList.size(); i<bDTO.size();i++){
                     fDTO = new ForecastingDTO();
                     fDTO.setDate(LocalDate.now().plusDays(i));
