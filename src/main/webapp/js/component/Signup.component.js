@@ -43,13 +43,13 @@ RoboAdviceApp.component("signUp",{
                             password:   sha256($scope.password)
                         },function(response){
                             if(response.statusCode == 0){
-                                $http.defaults.headers.common['Authorization']= "Bearer " + response.data.token;
+                                //$http.defaults.headers.common['Authorization']= "Bearer " + response.data.token;
                                 $log.debug("token setted: " + response.data.token);
                                 userService.init(response.data.user);
                                 $scope.user=userService;
 
                                 $cookies.put("email", response.data.user.email);
-                                $cookies.put("password", response.data.user.password);
+                                $cookies.put("password", sha256($scope.password));
                                 // $cookies.put("token", "Bearer " + response.data.token);
                                 // TokenHandler.set("Bearer " + response.data.token);
                                 //$http.defaults.headers.common['Authorization']= "Bearer:" + response.data.token;
