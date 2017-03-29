@@ -1,119 +1,22 @@
 <div class="header_section">Advice</div>
 
-
-<!--<style>
-    .col s15,
-    .col m15,
-    .col l15,
-    .col xl15 {
-        position: relative;
-        min-height: 1px;
-        padding-right: 10px;
-        padding-left: 10px;
-    }
-
-
-    .col s15 {
-        width: 20%;
-        float: left;
-    }
-
-    @media (min-width: 600px) {
-        .col m15 {
-            width: 20%;
-            float: left;
-        }
-    }
-
-    @media (min-width: 992px) {
-        .col l15 {
-            width: 20%;
-            float: left;
-        }
-    }
-    @media (min-width: 1200px) {
-        .col xl15 {
-            width: 20%;
-            float: left;
-        }
-    }
-
-</style>
-
-<br />
-<div ng-controller="AdviceController">
-    <div class="row">
-        <div class="col m4"></div>
-        <div class="col m4 s12">
-            <div class="card grey lighten-4">
-                <div class="card-content" style="text-align:center">
-                    <span style="color:black;"class="card-title teal-text">Current strategy: <b>{{currentStrategy.getName()}}</b> </span>
-                    <span style="color:black;"class="card-title teal-text">Type:<b>{{currentStrategyTipology}}</b> </span>
-                </div>
-                <div style=" margin:5pt;margin-left:8pt;height:auto">
-                    <assets-class-graph percentages=currentStrategy.getAssets()></assets-class-graph>
-                </div>
-                <br />
+<div class="row container">
+    <div class="col s12 m3">
+    </div>
+    <div class="col s12 m6" style="margin-left:auto;margin-right:auto">
+        <div class="card " style="text-align:center;background-color:#F8FFE5">
+            <div >
+                The Advice tool shows you the trend of the market based on RoboAdvice default strategies. <br>
+            </div>
+            <div class="card-action " style="background-color:#CBD1BC">
+                Feel free to switch to one of them anytime!
             </div>
         </div>
+
     </div>
-
-    <div class="container" >
-
-        <div class="row">
-            <div class="col m1"></div>
-
-            <div class="col m15 s15 " ng-repeat="defStrategy in standardStrategies">
-                <div ng-if="defStrategy.name != currentStrategy.getName()" class="card grey lighten-4">
-                    <div ng-if="advicePercentage[$index] == max">
-                        <img style="width: 10%;" src="../img/EasterEgg.png">
-                    </div>
-                    <div class="card-content" style="text-align:center">
-                        <span style="color:black;"class="card-title teal-text"><b>{{defStrategy.name}}</b> </span>
-                    </div>
-                    <div style=" margin:5pt;margin-left:8pt;text-align:center">
-                        <b style="font-size:2em;font-color:dimgrey;"></b><br />
-                        <div>
-                            <i ng-if="advicePercentage[$index] < 0" style="color:#F44336;font-size:50px;" class="material-icons winning">trending_up</i>
-                            <i ng-if="advicePercentage[$index] > 0" style="color: #00e676;font-size:50px;" class="material-icons losing">trending_down</i>
-                            <h6>Percentage:
-                                <label ng-if="advicePercentage[$index] > 0">-
-                                    <label/>{{advicePercentage[$index] | number : 4}}%</label>
-                        </div>
-
-                        <h5>Amount: {{adviceAmount[$index] | number:1}}</h5>
-                    </div>
-                    <br/>
-
-                    <div style="text-align:center">
-
-                        <button class="btn" style="margin:5pt" ng-click="changeStrategy($index)">Change</button></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
-<!--
-
-<div class="row">
-    <div class="col m3 s12" ng-repeat="defStrategy in standardStrategies">
-        <div class="card grey lighten-4">
-            <div class="card-content" style="text-align:center">
-                <span style="color:black;"class="card-title teal-text"><b>{{defStrategy.name}}</b> </span>
-            </div>
-            <div style=" margin:5pt;margin-left:8pt;text-align:center">
-                <b style="font-size:2em;font-color:dimgrey;">+10%</b>
-            </div>
-            <br />
-            <div style="text-align:center">
-                <button class="btn" style="margin:5pt" ng-click="changeStrategy()">Change</button>
-            </div>
-        </div>
-    </div>
-</div>-->
+</div>
 
 
-<!-- prova card -->
 
 <div style=" width: 80%; margin: 0 auto;" ng-controller="AdviceController">
     <div class="row">
@@ -142,7 +45,7 @@
                     <label style="font-size:20px;">{{advicePercentage[$index] | number : 3}}%</label>
                 </div>
                 <span ng-if="defStrategy.name != currentStrategy.getName()" style="font-size:19px;font-weight: 400;color:#666;">Amount: ${{adviceAmount[$index] | number:2}}</span>
-                <span style="background-color: #E8BE5D;margin-top: 10px;background-color: #E8BE5D; margin-bottom: 4px;margin-right: 3px;" ng-if="advicePercentage[$index] == max" class="new badge animated tada" data-badge-caption="Fair strategy"></span>
+                <span style="background-color: #E8BE5D;margin-top: 10px;background-color: #E8BE5D; margin-bottom: 4px;margin-right: 3px;" ng-if="advicePercentage[$index] == max" class="new badge animated tada" data-badge-caption="Suggested strategy"></span>
 
                 </p>
                 <a ng-if="defStrategy.name != currentStrategy.getName()" class="secondary-content"><button class="btn"  ng-click="changeStrategy($index)">Change</button></a>

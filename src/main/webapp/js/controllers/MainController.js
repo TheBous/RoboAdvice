@@ -4,8 +4,7 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
     $scope.user = userService;
     $scope.portfolio = portfolioService;
     $scope.strategy = strategyService;
-    $scope.actualDate = new Date(portfolioService.getPortfolioDates()[0]);
-    $scope.actualFormattedDate = $scope.actualDate.getDateFormatted() + '/' + $scope.actualDate.getMonthFormatted() + '/' + $scope.actualDate.getYear();
+
 
     let page = $cookies.get("page");
 
@@ -20,6 +19,7 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
         $log.debug("email: " + tmp_email);
         $log.debug("password: " + tmp_password);
         //$log.debug("token: " + TokenHandler.get());
+        //$http.defaults.headers.common['Authorization']= "Bearer " + response.data.token;
 
         userService.doLogin({
             email:      tmp_email,
@@ -28,19 +28,22 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
             if(response.statusCode == 0){
                 // everything is going well
                 // user object is into data.data
-                $http.defaults.headers.common['Authorization']= "Bearer " + response.data.token;
+                //$http.defaults.headers.common['Authorization']= "Bearer " + response.data.token;
                 userService.init(response.data.user);
                 $scope.user=userService;
 
+                /*$scope.actualDate = new Date(portfolioService.getPortfolioDates()[0]);
+                $log.debug("date:");
+                $log.debug($scope.actualDate);
+                $scope.actualFormattedDate = $scope.actualDate.getDateFormatted() + '/' + $scope.actualDate.getMonthFormatted() + '/' + $scope.actualDate.getYear();
+*/
                 if(page != ""){
-
                   $location.path("/" + page);
                 }else $location.path("/");
 
-
             }else{
                 $log.debug("something is wrong, i read cookies but this is the response:");
-                $log.debug(data);
+                $log.debug(response);
             }
         });
     }
@@ -67,9 +70,9 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
                 //$location.path("/");
                 //$scope.$apply();
             });
-    }
+    };
     $scope.showBar = function(){
-        return $location.path() == '/dashboard' | $location.path() == '/portfolio' | $location.path() == '/history' | $location.path() == '/worth' | $location.path() == '/demo2' | $location.path() == '/demo'; 
+        return $location.path() == '/dashboard' | $location.path() == '/portfolio' | $location.path() == '/history' | $location.path() == '/worth' | $location.path() == '/demo2' | $location.path() == '/demo';
     };
 
 

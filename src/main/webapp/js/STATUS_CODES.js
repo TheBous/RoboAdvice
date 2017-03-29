@@ -6,13 +6,13 @@ RoboAdviceApp.constant("GP_CODES", {
 
 RoboAdviceApp.constant("SIGNIN_CODES", {
     // login
-    0: "Login done successfully!",
+    0: "Login successfully done!",
     1: "Email or Password wrong",
     2: "Server problem"
 });
 
 RoboAdviceApp.constant("USER_CODES", {
-    0: "Update done successfully",
+    0: "Update successfully done!",
     1: "Update issue"
 });
 

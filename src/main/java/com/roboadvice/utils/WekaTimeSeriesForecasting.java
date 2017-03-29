@@ -44,8 +44,7 @@ public class WekaTimeSeriesForecasting {
 
             forecaster.getTSLagMaker().setTimeStampField("Date"); // date time stamp
             forecaster.getTSLagMaker().setMinLag(1);
-            forecaster.getTSLagMaker().setMaxLag(30); // monthly API data
-            //forecaster.getTSLagMaker().setMaxLag(daysToForecast);
+            forecaster.getTSLagMaker().setMaxLag(1); // daily data
 
             // add a month of the year indicator field
             forecaster.getTSLagMaker().setAddMonthOfYear(true);
@@ -58,8 +57,7 @@ public class WekaTimeSeriesForecasting {
 
             // prime the forecaster with enough recent historical data
             // to cover up to the maximum lag. In our case, we could just supply
-            // the 12 most recent historical instances, as this covers our maximum
-            // lag period
+            // the most recent historical instances
             forecaster.primeForecaster(portfolio);
 
             // forecast for 'daysToForecast' values beyond the end of the

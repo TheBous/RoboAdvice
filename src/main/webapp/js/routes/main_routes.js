@@ -4,20 +4,37 @@ RoboAdviceApp.controller("CheckUserLogged",function($scope,$location){
     $location.path("/");
 });
 
-RoboAdviceApp.controller("newUserConstraint",function(userService, $location){
-    if(!userService.hasStrategies())
-      $location.path("wizard");
+RoboAdviceApp.controller("newUserConstraint",function(userService, $cookies, $location){
+    let page = $location.path();
+    page = page.substr(1);
+      //console.log(page)
+      //console.log($cookies.get("page"))
+      if(page==$cookies.get("page")){
+        // the user pressed F5
+        $location.path(page);
+      }else{
+        // the user changed page
+        if(userService.hasStrategies()){
+          // the user has some strategies so, reload the page he wants
+          $location.path(page);
+        }else{
+          // the user hasn't strategies, it should add at least one!
+          $location.path("wizard");
+        }
+        $cookies.put("page",page);
+      }
+
 });
 
 RoboAdviceApp.controller("premiumFeatures",function(userService,$location,$cookies){
     let page = $location.path();
     page = page.substr(1);
 
-    $cookies.put("page",page);
-    if(!userService.hasStrategies()){
-      $location.path("wizard");
-    }else if(!userService.hasCurrentPortfolio()){
-      //$location.path("demo");
+    if(page==$cookies.get("page")){
+      // the user pressed F5
+      $location.path("portfolio");
+    }else{
+
     }
   });
 
@@ -109,11 +126,7 @@ RoboAdviceApp.config(function($routeProvider) {
         })
         .when('/portfolio', {
             templateUrl : 'html/portfolio.html',
-            controller: function($location, userService){
-              if(!userService.hasCurrentPortfolio()){
-                $location.path("demo2");
-              }
-            }
+            controller: "newUserConstraint"
         })
         .when('/worthgraph' | '/dashboard', {
             templateUrl : 'html/portfolio.html',
@@ -121,11 +134,11 @@ RoboAdviceApp.config(function($routeProvider) {
         })
         .when('/demo', {
             templateUrl: "html/demo.html",
-            controller: "premiumFeatures"
+            controller: "newUserConstraint"
         })
         .when('/demo2', {
             templateUrl: "html/demo2.html",
-            controller: "premiumFeatures"
+            controller: "newUserConstraint"
         })
         .when('/advice', {
             templateUrl: "html/advice.html",
@@ -145,5 +158,9 @@ RoboAdviceApp.config(function($routeProvider) {
         .when('/cookie', {
             templateUrl : "html/cookie.html"
         })
+        .otherwise({
+            templateUrl:"html/404page.html",
+            redirectTo: '/404page'
+    });
 
 });

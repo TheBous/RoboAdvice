@@ -4,7 +4,7 @@ RoboAdviceApp.controller("deletePending", function($scope, $log, userService, st
         swal({
                 title: "Are you sure?",
                 type: "warning",
-                text: "Deleting this strategy, you will return to your previous strategy?",
+                text: "Deleting this strategy you will return to your previous strategy",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "Yes, delete it!",
