@@ -8,6 +8,8 @@ RoboAdviceApp.component("wizardUno",{
     controller: function($scope, strategyService, userService,$log){
         $scope.strategies = strategyService.getStandardStrategies();
         $ctrl = this;
+        $scope.riskLevel = "Low";
+
         this.$onInit = function(){
             $log.debug("wizard-1 init");
             // default is bonds
@@ -48,8 +50,19 @@ RoboAdviceApp.component("wizardUno",{
         $scope.newValue = function(value){
             this.myStrategy = value;
             $scope.newStrategy = $scope.strategies[value];
-
             $scope.data = strategy_percentages[value];
+            switch(value){
+              case 0: $scope.riskLevel = "Low";
+                break;
+              case 1: $scope.riskLevel = "Not so Low";
+                break;
+              case 2: $scope.riskLevel = "Mid";
+                break;
+              case 3: $scope.riskLevel = "Not so High";
+                break;
+              case 4: $scope.riskLevel = "High";
+            }
+
 
             $log.debug(value);
         }
