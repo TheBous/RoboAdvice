@@ -4,7 +4,7 @@
     <div class="header_section">Welcome to RoboAdvice</div>
     <div class="parallax"><img src="../img/parallax_background.png"></div>
     <div style="text-align: center;style:#666;margin-top:250px;">
-    <i  class="large material-icons fadeInDown animated infinite">expand_more</i>
+        <i  class="large material-icons fadeInDown animated infinite">expand_more</i>
     </div>
 </div>
 
@@ -88,7 +88,12 @@
                 </ul>
             </div>
         </div>
-        <div class="col l4 m12 s12">
+        <div ng-if="user.isLogged()" class="col l4 m12 s12">
+            <div class="header_section">RoboAdvice</div>
+            <p style="text-align:center;font-size:20px;">Start today your online investment travel.<br>RoboAdvice guides you with ease and transparency to get the best opportunities for your investments.</p>
+
+        </div>
+        <div ng-if="!user.isLogged()" class="col l4 m12 s12">
             <div class="header_section">Register</div>
             <p style="text-align:center;font-size:17px;">Start today your online investment travel.<br>RoboAdvice guides you with ease and transparency to get the best opportunities for your investments.</p>
             <div style="text-align:center;">
