@@ -147,5 +147,9 @@ RoboAdviceApp.config(function($routeProvider) {
         .when('/cookie', {
             templateUrl : "html/cookie.html"
         })
+        .otherwise({
+            templateUrl:"html/404page.html",
+            redirectTo: '/404page'
+    });
 
 });
