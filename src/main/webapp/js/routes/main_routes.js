@@ -9,7 +9,10 @@ RoboAdviceApp.controller("newUserConstraint",function(userService, $cookies, $lo
     page = page.substr(1);
     if(userService.isLogged()){
       $cookies.put("page",page);
-      $location.path(page);
+      if(userService.hasStrategies())
+        $location.path(page);
+      else
+        $location.path("wizard");
     }else{
       $cookies.put("page","/");
       $location.path("/")
@@ -23,8 +26,8 @@ RoboAdviceApp.controller("premiumFeatures",function(userService,$location,$cooki
     $cookies.put("page",page);
     if(!userService.hasStrategies()){
       $location.path("portfolio");
-    }else if(!userService.hasCurrentPortfolio()){
-      $location.path("portfolio");
+    }else{
+      $location.path(page);
       //$location.path("demo");
     }
   });
