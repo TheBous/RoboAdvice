@@ -4,7 +4,8 @@ RoboAdviceApp.controller("CheckUserLogged",function($scope,$location){
     $location.path("/");
 });
 
-RoboAdviceApp.controller("newUserConstraint",function(userService, $location){
+RoboAdviceApp.controller("newUserConstraint",function(userService, $cookies, $location){
+    $cookies.put("page",page);
     if(!userService.hasStrategies())
       $location.path("wizard");
 });
@@ -17,6 +18,7 @@ RoboAdviceApp.controller("premiumFeatures",function(userService,$location,$cooki
     if(!userService.hasStrategies()){
       $location.path("wizard");
     }else if(!userService.hasCurrentPortfolio()){
+      $location.path("portfolio");
       //$location.path("demo");
     }
   });
