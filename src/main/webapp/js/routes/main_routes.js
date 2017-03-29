@@ -7,28 +7,34 @@ RoboAdviceApp.controller("CheckUserLogged",function($scope,$location){
 RoboAdviceApp.controller("newUserConstraint",function(userService, $cookies, $location){
     let page = $location.path();
     page = page.substr(1);
-    if(userService.isLogged()){
-      $cookies.put("page",page);
-      if(userService.hasStrategies())
+      //console.log(page)
+      //console.log($cookies.get("page"))
+      if(page==$cookies.get("page")){
+        // the user pressed F5
         $location.path(page);
-      else
-        $location.path("wizard");
-    }else{
-      $cookies.put("page","/");
-      $location.path("/")
-    }
+      }else{
+        // the user changed page
+        if(userService.hasStrategies()){
+          // the user has some strategies so, reload the page he wants
+          $location.path(page);
+        }else{
+          // the user hasn't strategies, it should add at least one!
+          $location.path("wizard");
+        }
+        $cookies.put("page",page);
+      }
+
 });
 
 RoboAdviceApp.controller("premiumFeatures",function(userService,$location,$cookies){
     let page = $location.path();
     page = page.substr(1);
 
-    $cookies.put("page",page);
-    if(!userService.hasStrategies()){
+    if(page==$cookies.get("page")){
+      // the user pressed F5
       $location.path("portfolio");
     }else{
-      $location.path(page);
-      //$location.path("demo");
+
     }
   });
 
@@ -128,11 +134,11 @@ RoboAdviceApp.config(function($routeProvider) {
         })
         .when('/demo', {
             templateUrl: "html/demo.html",
-            controller: "premiumFeatures"
+            controller: "newUserConstraint"
         })
         .when('/demo2', {
             templateUrl: "html/demo2.html",
-            controller: "premiumFeatures"
+            controller: "newUserConstraint"
         })
         .when('/advice', {
             templateUrl: "html/advice.html",
