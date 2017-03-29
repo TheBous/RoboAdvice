@@ -14,7 +14,7 @@
 
 
 
-    <div class="" style="max-width:90%;margin: auto;" ng-if="user.hasCurrentPortfolio()" ng-controller="deletePending">
+<div class="" style="max-width:90%;margin: auto;" ng-if="user.hasCurrentPortfolio()" ng-controller="deletePending">
 
 
 
@@ -22,83 +22,56 @@
 
 
 
-        <!--<li class="waves-effect waves-light"><a href="#!"> <i class="material-icons">undo</i>BackTesting</a></li>
-                <li class="waves-effect waves-light"><a href="#!"> <i class="material-icons">redo</i>ForeCast</a></li>
-                <li class="waves-effect waves-light"><a href="#!"> <i class="material-icons">announcement</i>Advice</a></li>
-                <li class="waves-effect waves-light"><a href="#!"> <i class="material-icons">equalizer</i>Trends</a></li>-->
 
 
+    <!-- first Card -->
+    <div class="row">
+        <div class="col m8 s12">
+            <div class="card white">
+                <div class="card-content teal-text">
+                    <span class="card-title"> {{strategy.getLastStrategy().getName()}} Trend</span>
 
+                    <realtime-line-graph vertical-axis="strategy.getLastStrategy().getHistoryAmount()" horizzontal-axis="strategy.getLastStrategy().getHistoryDate()"
+                                         realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph>
+                </div>
 
+            </div>
+        </div>
+        <div >
+            <!--Second Card -->
+            <div  class="col m4 s12">
+                <div class="card grey lighten-4">
+                    <div class="card-content">
+                        <span style="color:black;"class="card-title teal-text">{{strategy.getCurrentStrategy().getName()}} </span>
+                        <span ng-if="strategy.getCurrentStrategy().isPending()" class="new badge" data-badge-caption="Pending Strategy"></span>
+                    </div>
+                    <div style=" margin:5pt;margin-left:8pt;height:47.5% ">
+                        <assets-class-graph percentages=strategy.getCurrentStrategy().getAssets()></assets-class-graph>
+                    </div>
+                    <div class="card-action" style="text-align:right">
+                        <a href="#!/wizard" class="btn-floating waves-effect waves-light cyan tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Strategy" ><i class="material-icons left">mode_edit</i>Edit</a>
+                        <a ng-if="strategy.getCurrentStrategy().isPending()" ng-click="deletePending()" class="btn-floating  waves-effect waves-light red tooltipped"  data-position="bottom" data-delay="50" data-tooltip="Delete Strategy"><i class="material-icons left">delete</i>Delete</a>
+                        <script>
+                            $(document).ready(function(){
+                                $('.tooltipped').tooltip({delay: 50});
 
-        <!-- first Card -->
-                    <div class="row">
-                        <div class="col m8 s12">
-                            <div class="card white">
-                                <div class="card-content teal-text">
-                                    <span class="card-title"> {{strategy.getLastStrategy().getName()}} Trend</span>
+                                $(".tooltipped").on("click", function () {
+                                    $('.tooltipped').tooltip('remove');
+                                });
+                            });
+                        </script>
 
-                                    <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
-                                    <realtime-line-graph vertical-axis="strategy.getLastStrategy().getHistoryAmount()" horizzontal-axis="strategy.getLastStrategy().getHistoryDate()"
-                                    realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph>
-                                    <!-- <realtime-line-graph vertical-axis="realtimeAmounts" horizzontal-axis="realtimeDates"
-                                    realtime="false" show-dates="true" increment-data="incrementData(data)" stimated-amount="stimatedAmount" forecast-value="10250"></realtime-line-graph> -->
-
-                                    <!-- <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph> -->
-                                </div>
-                                <!--<div class="card-action">
-                                    <a href="#">Michele</a>
-                                    <a href="#">Luca</a>
-                                </div>-->
-                            </div>
-                        </div>
-                        <div >
-                        <!--Second Card -->
-                        <div  class="col m4 s12">
-                            <div class="card grey lighten-4">
-                                <div class="card-content">
-                                    <span style="color:black;"class="card-title teal-text">{{strategy.getCurrentStrategy().getName()}} </span>
-                                    <span ng-if="strategy.getCurrentStrategy().isPending()" class="new badge" data-badge-caption="Pending Strategy"></span>
-                                </div>
-                                <div style=" margin:5pt;margin-left:8pt;height:47.5% ">
-                                  <assets-class-graph percentages=strategy.getCurrentStrategy().getAssets()></assets-class-graph>
-                                </div>
-                                <div class="card-action" style="text-align:right">
-                                    <a href="#!/wizard" class="btn-floating waves-effect waves-light cyan tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Strategy" ><i class="material-icons left">mode_edit</i>Edit</a>
-                                    <a ng-if="strategy.getCurrentStrategy().isPending()" ng-click="deletePending()" class="btn-floating  waves-effect waves-light red tooltipped"  data-position="bottom" data-delay="50" data-tooltip="Delete Strategy"><i class="material-icons left">delete</i>Delete</a>
-                                    <script>
-                                        $(document).ready(function(){
-                                            $('.tooltipped').tooltip({delay: 50});
-
-                                            $(".tooltipped").on("click", function () {
-                                                $('.tooltipped').tooltip('remove');
-                                            });
-                                        });
-                                    </script>
-
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- third Card -->
-
-                        </div>
-                     <!--   <div  class="col m6 s12" ng-if="strategy.getCurrentStrategy().isPending()">
-                            <div class="card grey lighten-4">
-                                <div class="card-content">
-                                    <span style="color:black;" class="card-title teal-text">{{strategy.getLastStrategy().getName()}} </span>
-                                </div>
-                                <div style="margin:5pt;margin-left:8pt">
-                                  <assets-class-graph ng-if="strategy.getLastStrategy().getAssets()" percentages=strategy.getLastStrategy().getAssets()></assets-class-graph>
-                                </div>
-                                <div style="height:50pt">
-                                  &nbsp;
-                                </div>
-                            </div>
-                        </div>-->
 
                     </div>
                 </div>
+            </div>
+            <!-- third Card -->
+
+        </div>
+
+
+    </div>
+</div>
 
 
 <div class="container">
@@ -106,9 +79,9 @@
         <div class="container">
             <div ng-if="!user.hasCurrentPortfolio()">
                 <div class="col m12 s12" style="text-align:center">
-                      <img  style="width:70%" src="../img/004-analytics.png">
-                      <br />
-                      <br />
+                    <img  style="width:70%" src="../img/004-analytics.png">
+                    <br />
+                    <br />
                 </div>
             </div>
         </div>

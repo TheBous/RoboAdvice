@@ -30,14 +30,19 @@
             </button>
         </div>
     </div>
-    <div ng-if="!buttonClicked && spinner" style="width: 100%;" class="progress">
-        <div  class="indeterminate"></div>
+    <div ng-if="!buttonClicked && spinner">
+        <div style="width: 100%;" class="progress">
+            <div  class="indeterminate"></div>
+        </div>
+        <div style="width: 30%; margin: 0 auto;">
+            <img src="../img/source.gif">
+        </div>
     </div>
     <div class="row" ng-if="amount!=null">
 
         <div class="collection col l5 m7 s12">
             <realtime-line-graph ng-if="amount!=null" vertical-axis="amount" horizzontal-axis="timestamp"
-                 realtime="false" show-dates="true"></realtime-line-graph>
+                                 realtime="false" show-dates="true"></realtime-line-graph>
         </div>
 
         <ul class="collection col l5 m7 s12">
@@ -49,27 +54,9 @@
                 <span style="font-size:24px;font-weight:500;color: teal" class="title">{{defStrategy.name}}</span>
 
                 <a ng-if="defStrategy.name != currentStrategy.getName()" class="secondary-content"><button class="btn" style="margin:5pt" ng-click="update(defStrategy.name)">Try</button></a>
-
-                <!--<div  style="width: 70%;" ng-show="loadingInProgress" class="progress">
-                    <div  class="indeterminate"></div>
-                </div>-->
-
             </li>
-
         </ul>
-
-
     </div>
-
-
-
-
-
-    <!--
-        <demo-f forecast="forecastDatas"></demo-f>
-
-        <demo-b></demo-b>
-    -->
 </div>
 </body>
 
