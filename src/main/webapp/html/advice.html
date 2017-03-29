@@ -45,7 +45,7 @@
                     <label style="font-size:20px;">{{advicePercentage[$index] | number : 3}}%</label>
                 </div>
                 <span ng-if="defStrategy.name != currentStrategy.getName()" style="font-size:19px;font-weight: 400;color:#666;">Amount: ${{adviceAmount[$index] | number:2}}</span>
-                <span style="background-color: #E8BE5D;margin-top: 10px;background-color: #E8BE5D; margin-bottom: 4px;margin-right: 3px;" ng-if="advicePercentage[$index] == max" class="new badge animated tada" data-badge-caption="Fair strategy"></span>
+                <span style="background-color: #E8BE5D;margin-top: 10px;background-color: #E8BE5D; margin-bottom: 4px;margin-right: 3px;" ng-if="advicePercentage[$index] == max" class="new badge animated tada" data-badge-caption="Suggested strategy"></span>
 
                 </p>
                 <a ng-if="defStrategy.name != currentStrategy.getName()" class="secondary-content"><button class="btn"  ng-click="changeStrategy($index)">Change</button></a>
