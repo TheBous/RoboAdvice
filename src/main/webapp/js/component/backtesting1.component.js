@@ -8,12 +8,14 @@ RoboAdviceApp.component("backUno",{
         this.$onInit = function(){
             //interval from controller | default
             //$log.debug($scope.interval);
-              $('.datepicker').pickadate({
+            let now = new Date();
+            now.setDate(now.getDate() - 1);
+            $('.datepicker').pickadate({
                 selectYears: 4, // Creates a dropdown of 14 years to control year
-                  min: new Date(2014,3,31),
-                  max: new Date,
-              });
-              $('select').material_select();
+                min: new Date(2014,3,31),
+                max: now,
+            });
+            $('select').material_select();
 
         };
         this.update = function(){
