@@ -8,40 +8,7 @@
 
 
 <div>
-    <!-- Roba Esterna commentata-->
-<!--
-    <link href="http://materializecss.com/css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="http://materializecss.com/bin/materialize.js"></script>
-    <script src="http://materializecss.com/js/init.js"></script>-->
 
-    <!-- FaB -->
-<!--
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large teal accent-4"  data-target="modal1">
-            <i class="large material-icons">insert_chart</i>
-        </a>
-    </div>
-
--->
-
-<!--    &lt;!&ndash; Modal Structure &ndash;&gt;
-    <div id="modal1" class="modal bottom-sheet">
-        <div class="modal-content">
-          <h4 style="text-align: center;padding-bottom:25px; ">Trends per Asset Class</h4>
-          <div class="row">
-            <div class="col s3" ng-repeat="asset in portfolio.getClassAssets() track by $index">
-              <div style="text-align:center">
-                <b>{{CONFIG["ASSETS_NAME"][$index]}} Trend</b><br>
-              </div>
-              <asset-general portfolio-amount="asset" portfolio-date="portfolio.getPortfolioDates()"></asset-general>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-            <a href="#!/worth" class=" modal-action modal-close waves-effect teal btn-flat">Close</a>
-        </div>
-    </div>-->
 
     <!-- Main Container -->
     <div class="container">
@@ -67,17 +34,7 @@
                             <span class="card-title grey-text text-darken-4" style="font-size:19px;"><span class="hide-on-med-and-down" > <!--{{CONFIG["ASSETS_NAME"][$index]}} --></span><i class="material-icons right">close</i></span>
                             <span class="" style="font-size:20pt;letter-spacing:1pt;">${{difference.amount}} </span>
                         </div>
-                        <!--  <div class="card-content white-text">
-                              <div class="card-title">{{CONFIG["ASSETS_NAME"][$index]}}</div>
-                              <p class="card-title">
-                                  {{difference | number : 6}}%
-                              </p>
-                              <p class="card-title">
-                                  <i ng-if="difference < 0" style="color:#F44336;font-size:50px;" class="material-icons losing">trending_down</i>
-                                  <i ng-if="difference > 0" style="color: #00e676;font-size:50px;" class="material-icons winning">trending_up</i>
-                                  <i ng-if="difference==0" style="color: #ffeb3b;font-size:50px;" class="material-icons constant">trending_flat</i>
-                              </p>
-                          </div>-->
+
                     </div>
                 </div>
             </div>
@@ -91,40 +48,12 @@
                             <span class="card-title">Worth</span>
                             <worth-graph portfolio-amount="portfolio.getPortfolioAmounts()" portfolio-date="portfolio.getPortfolioDates()"></worth-graph>
                         </div>
-                        <!--<div class="card-action">
-                            <a href="#">Luca</a>
-                            <a href="#">Michele</a>
-                        </div>-->
+
                     </div>
                 </div>
             </div>
         </div>
-       <!-- <div class="card ">
 
-            <div class="carousel carousel-slider center" fullWidth="false"	 data-indicators="true">
-                <div class="carousel-fixed-item center">
-                </div>
-                <div class="carousel-item red white-text" href="#one!">
-                    <h2>{{CONFIG["ASSETS_NAME"][0]}}</h2>
-                    <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[0]"></asset-general>
-                </div>
-                <div class="carousel-item amber white-text" href="#two!">
-                    <h2>{{CONFIG["ASSETS_NAME"][1]}}</h2>
-                    <p class="white-text">Sezione 2</p>
-                    <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[1]"></asset-general>
-                </div>
-                <div class="carousel-item green white-text" href="#three!">
-                    <h2>{{CONFIG["ASSETS_NAME"][2]}}</h2>
-                    <p class="white-text">sezione 3</p>
-                    <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[2]"></asset-general>
-                </div>
-                <div class="carousel-item blue white-text" href="#four!">
-                    <h2>{{CONFIG["ASSETS_NAME"][3]}}</h2>
-                    <p class="white-text">Sezione 4</p>
-                    <asset-general portfolio-amount="portfolio.getPortfolioDates()" portfolio-date="portfolio.getClassAssets()[3]"></asset-general>
-                </div>
-            </div>
-        </div>-->
     </div>
 
 
