@@ -101,6 +101,7 @@ RoboAdviceApp.controller("demoController", function($scope, $log, demoREST, demo
 
       formattedDate = date.getFullYear() + "-" + (date.getMonthFormatted()) + "-" + date.getDayFormatted();
       $log.debug(formattedDate);
+      $log.debug("backtesting on your strategy",param1,param2);
       demoService.backtesting.custom(param1,param2, formattedDate).$promise.then(function (response) {
 
         $scope.amount = new Array(response.data.length);

@@ -44,11 +44,10 @@
             <realtime-line-graph ng-if="amount!=null" vertical-axis="amount" horizzontal-axis="timestamp"
                                  realtime="false" show-dates="true"></realtime-line-graph>
         </div>
-
         <ul class="collection col l5 m7 s12">
-            <li ng-if="strategy.getLastStrategy()" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt">
-                <span style="font-size:24px;font-weight:500;color: teal" class="title">{{strategy.getLastStrategy().getName()}}</span>
-                <a class="secondary-content"><button class="btn" style="margin:5pt" ng-click="updateOwn(strategy.getLastStrategy().getName(), strategy.getLastStrategy().getAssets())">Try</button></a>
+            <li ng-if="strategy.getCurrentStrategy()!=null" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt">
+                <span style="font-size:24px;font-weight:500;color: teal" class="title">{{strategy.getCurrentStrategy().getName()}}</span>
+                <a class="secondary-content"><button class="btn" style="margin:5pt" ng-click="updateOwn(strategy.getCurrentStrategy().getName(), strategy.getCurrentStrategy().getAssets())">Try</button></a>
             </li>
             <li ng-if="defStrategy.name != currentStrategy.getName()" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt" ng-repeat="defStrategy in standardStrategies">
                 <span style="font-size:24px;font-weight:500;color: teal" class="title">{{defStrategy.name}}</span>

@@ -143,7 +143,10 @@
                 <!-- <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/demo2">Demo2</a></li> -->
 
                 <li><a href="#!/">Home</a></li>
-                <li ng-if="user.isLogged()"><a href="#!/portfolio">Dashboard</a></li>
+                <li ng-if="user.isLogged()">
+                  <a href="#!/portfolio">Dashboard</a>
+                  <!-- <a ng-if="!user.hasCurrentPortfolio()" href="#!/demo2">Demo</a> -->
+                </li>
                 <li><a href="#!/contact">Team</a></li>
                 <li><a href="#!/sign" ng-if="!user.isLogged()">Login</a></li>
                 <li ng-if="user.isLogged()">
