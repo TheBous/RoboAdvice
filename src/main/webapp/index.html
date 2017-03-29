@@ -87,7 +87,7 @@
 <!-- Modale -->
 <div id="modal1" class="modal bottom-sheet">
     <div class="modal-content">
-        <h4 style="text-align: center;padding-bottom:25px; ">Trends from first portfolio on {{(portfolio.getPortfolioHistory()[0]).getFormattedDate()}}</h4>
+        <h4 style="text-align: center;padding-bottom:25px; ">Trends from first portfolio from {{(portfolio.getPortfolioHistory()[0]).getFormattedDate()}}</h4>
         <div class="row">
             <div class="col s3" ng-repeat="asset in portfolio.getClassAssets() track by $index">
                 <div style="text-align:center">
@@ -136,11 +136,7 @@
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
 
-               <!-- <li ng-if="user.isLogged() && user.hasStrategies()"><a href="#!/forecast">Forecast</a></li> -->
-                <!--<li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/backtesting">Backtesting</a></li> -->
-                <!-- <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/demo">Demo</a></li> -->
-               <!-- <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/advice">Advice</a></li> -->
-                <!-- <li ng-if="user.isLogged() && user.getCurrentPortfolioAmount()"><a href="#!/demo2">Demo2</a></li> -->
+
 
                 <li><a href="#!/">Home</a></li>
                 <li ng-if="user.isLogged()">
