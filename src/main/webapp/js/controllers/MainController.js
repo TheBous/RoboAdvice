@@ -4,8 +4,7 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
     $scope.user = userService;
     $scope.portfolio = portfolioService;
     $scope.strategy = strategyService;
-    $scope.actualDate = new Date(portfolioService.getPortfolioDates()[0]);
-    $scope.actualFormattedDate = $scope.actualDate.getDateFormatted() + '/' + $scope.actualDate.getMonthFormatted() + '/' + $scope.actualDate.getYear();
+
 
     let page = $cookies.get("page");
 
@@ -32,6 +31,11 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
                 userService.init(response.data.user);
                 $scope.user=userService;
 
+                /*$scope.actualDate = new Date(portfolioService.getPortfolioDates()[0]);
+                $log.debug("date:");
+                $log.debug($scope.actualDate);
+                $scope.actualFormattedDate = $scope.actualDate.getDateFormatted() + '/' + $scope.actualDate.getMonthFormatted() + '/' + $scope.actualDate.getYear();
+*/
                 if(page != ""){
 
                   $location.path("/" + page);
@@ -67,7 +71,7 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
                 //$location.path("/");
                 //$scope.$apply();
             });
-    }
+    };
     $scope.showBar = function(){
         return $location.path() == '/dashboard' | $location.path() == '/portfolio' | $location.path() == '/history' | $location.path() == '/worth' | $location.path() == '/demo2' | $location.path() == '/demo'; 
     };

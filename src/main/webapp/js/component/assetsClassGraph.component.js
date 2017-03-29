@@ -6,17 +6,27 @@
 
 RoboAdviceApp.component("assetsClassGraph",{
     bindings: {
-        percentages: "<"
+        percentages: "<",
+        showChips: "@"
     },
     templateUrl: "../../html/assetClassGraph.html",
     controller: function($scope,CONFIG){
         $scope.assetsLabel = CONFIG["ASSETS_NAME"];
-        $scope.ifLabel = {
-            0: true,
-            1: true,
-            2: true,
-            3: true
-        };
+        if(this.showChips == "true" || this.showChips == null){
+          $scope.ifLabel = {
+              0: true,
+              1: true,
+              2: true,
+              3: true
+          };
+        }else{
+          $scope.ifLabel = {
+              0: false,
+              1: false,
+              2: false,
+              3: false
+          }
+        }
         this.$onInit = function(){
             $scope.assetsData = this.percentages;
             let index = 0;
