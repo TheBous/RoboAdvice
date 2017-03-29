@@ -13,9 +13,9 @@
     <div class="col s12 m6" style="margin-left:auto;margin-right:auto">
         <div class="card " style="text-align:center;background-color:#F8FFE5">
           <p style="padding-top: 20px;font-size:15px;margin-bottom: 20px;" >
-            If you had chosen this strategy,<br> your current amount would be
+            If you had chosen the {{backtestingStrategy.getName()}} on the selected date <br> your current amount would be
             <b ng-if="backtestingDifference > 0" style="font-size:15pt;font-style: italic" class="green-text">+{{backtestingDifference | number: 2}} $ higher</b>
-            <b ng-if="backtestingDifference < 0" style="font-size:15pt;font-style: italic" class="red-text">-{{backtestingDifference | number: 2}} $ lower <lower></lower></b>
+            <b ng-if="backtestingDifference < 0" style="font-size:15pt;font-style: italic" class="red-text">{{backtestingDifference | number: 2}} $ lower</b>
 
           </p>
             <div class="card-action " style="background-color:#CBD1BC">
@@ -56,22 +56,6 @@
                     <assets-class-graph percentages="backtestingStrategy.getAssets()"></assets-class-graph>
                 </div>
 
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col s12 m6">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">Card Title</span>
-                    <p>I am a very simple card. I am good at containing small bits of information.
-                        I am convenient because I require little markup to use effectively.</p>
-                </div>
-                <div class="card-action">
-                    <a href="#">This is a link</a>
-                    <a href="#">This is a link</a>
-                </div>
             </div>
         </div>
     </div>
