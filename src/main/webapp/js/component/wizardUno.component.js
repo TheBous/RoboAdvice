@@ -52,15 +52,15 @@ RoboAdviceApp.component("wizardUno",{
             $scope.newStrategy = $scope.strategies[value];
             $scope.data = strategy_percentages[value];
             switch(value){
-              case 0: $scope.riskLevel = "Low";
+              case 0: $scope.riskLevel = "Very low";
                 break;
-              case 1: $scope.riskLevel = "Not so Low";
+              case 1: $scope.riskLevel = "Low";
                 break;
-              case 2: $scope.riskLevel = "Mid";
+              case 2: $scope.riskLevel = "Medium";
                 break;
-              case 3: $scope.riskLevel = "Not so High";
+              case 3: $scope.riskLevel = "High";
                 break;
-              case 4: $scope.riskLevel = "High";
+              case 4: $scope.riskLevel = "Very high";
             }
 
 
