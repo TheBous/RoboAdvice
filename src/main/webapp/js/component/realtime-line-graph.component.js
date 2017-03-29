@@ -73,12 +73,19 @@ RoboAdviceApp.component("realtimeLineGraph",{
                                     }
 
                                     let series = $ctrl.series;
-                                    let height = ( $ctrl.stimatedAmount - ($ctrl.verticalAxis[$ctrl.verticalAxis.length-1]) )/(100-iteration);
-                                    let rnd = Math.random()*(height);
 
-                                    if(iteration%2 == 0)
-                                        y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd;
-                                    else y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]-rnd/2;
+                                    let height = ( $ctrl.stimatedAmount - ($ctrl.verticalAxis[$ctrl.verticalAxis.length-1]) )/(100-iteration);
+
+                                    let rnd = Math.random()*(height);
+                                    if(height>0){
+                                      if(iteration%2 == 0)
+                                          y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd;
+                                      else y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]-rnd/2;
+                                    }else{
+                                      if(iteration%2 == 0)
+                                          y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]-rnd/2;
+                                      else y = $ctrl.verticalAxis[$ctrl.verticalAxis.length-1]+rnd;
+                                    }
 
                                     let x = $ctrl.horizzontalAxis[$ctrl.horizzontalAxis.length-1]+$ctrl.interval;
                                     $ctrl.horizzontalAxis.push(x);
