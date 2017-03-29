@@ -29,7 +29,7 @@ RoboAdviceApp.component("backUno",{
         this.info_back=function () {
             swal({
                 title:"Time Computation!",
-                text:"The following computation is based on historica Data, remember if you pick a far date, the system will take more time to process all the informations.<br>",
+                text:"The following computation is based on historical Data. Remember that if you pick a date far in time, the system will take more time to process all the information.<br>",
                 html:true,
                 type: "warning"
             })
