@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="header_section">Demo Backtesting</div>
 
-<head>
-    <meta charset="UTF-8">
-    <title>demo</title>
+
     <script>
         $(document).ready(function(){
             $('.datepicker').pickadate({
@@ -15,34 +12,34 @@
             $('select').material_select();
         });
     </script>
-</head>
-
-<body>
 <div ng-controller="demoController">
     <div style="text-align: center;">
         <label for="picker_label">Select Date</label>
         <input style="width:150px;" ng-model="interval" id="picker_label" type="text" class="datepicker"><i style="" class="material-icons">date_range</i>
     </div>
     <div style="text-align: center;">
-        <div class="card-action">
             <button ng-if="buttonClicked" ng-disabled="!interval" class="btn waves-effect waves-light" type="submit" name="action" ng-click="update()">Next
                 <i class="material-icons right">send</i>
             </button>
-        </div>
+
     </div>
+    <br>
+    <img ng-if="buttonClicked" style="width:10%; margin-left: 45%;padding-bottom: 20px;" src="../img/rewind-time.png">
+
     <div ng-if="!buttonClicked && spinner">
         <div style="width: 100%;" class="progress">
             <div  class="indeterminate"></div>
         </div>
         <br>
     </div>
-    <div class="row" ng-if="amount!=null">
+    <div class="row container" ng-if="amount!=null">
 
-        <div class="collection col l5 m7 s12">
+        <div  style="background-color: white" class="collection col l7 m6 s12">
+            <div style="display: block;line-height: 32px;margin-bottom: 8px;color:teal;font-size: 26px;font-weight: 300;margin-top: 26px;">Backtest Demo Class<br></div>
             <realtime-line-graph ng-if="amount!=null" vertical-axis="amount" horizzontal-axis="timestamp"
                                  realtime="false" show-dates="true"></realtime-line-graph>
         </div>
-        <ul class="collection col l5 m7 s12">
+        <ul class="collection col l5 m6 s12">
             <li ng-if="strategy.getCurrentStrategy()!=null && isCustom==true" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt">
                 <span style="font-size:24px;font-weight:500;color: teal" class="title">{{strategy.getCurrentStrategy().getName()}}</span>
                 <a class="secondary-content"><button class="btn" style="margin:5pt" ng-click="updateOwn(strategy.getCurrentStrategy().getName(), strategy.getCurrentStrategy().getAssets())">Try</button></a>
