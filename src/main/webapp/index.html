@@ -71,7 +71,7 @@
 </head>
 <body ng-cloak ng-controller="MainController">
 
-<div id="bottoncino" ng-if="user.isLogged()" class="fixed-action-btn toolbar">
+<div id="bottoncino" ng-if="user.isLogged() && user.hasCurrentPortfolio()" class="fixed-action-btn toolbar">
     <a class="btn-floating btn-large" style="background-color:#047682;">
         <i class="large material-icons">apps</i>
     </a>
