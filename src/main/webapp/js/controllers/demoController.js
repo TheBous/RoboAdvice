@@ -18,14 +18,11 @@ RoboAdviceApp.controller("demoController", function($scope, $log, demoREST, demo
       $scope.isCustom = true;
       /* check if the current strategy is custom or not */
       let currentPercentage = strategyService.getCurrentStrategy().getAssets();
-      console.log(currentPercentage);
       $scope.standardStrategies.forEach(function(strategy){
         // for each strategy get the percentages
         let standardPercentage = strategy.strategy.map(function(st){
           return st.percentage;
         });
-        $log.debug(currentPercentage)
-        $log.debug(standardPercentage)
 
         if(
           standardPercentage[0] == currentPercentage[0] &&
