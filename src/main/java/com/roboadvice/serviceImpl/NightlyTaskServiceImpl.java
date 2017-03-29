@@ -11,7 +11,6 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.threeten.bp.Period;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -49,30 +48,31 @@ public class NightlyTaskServiceImpl {
     public void updateAPI(){
         startTime = System.currentTimeMillis();
         System.out.println("============= NIGHTLY COMPUTATIONS STARTED =============\n");
-        int j;
-        Iterable<Assets> assetsList = assetsRepository.findAll();
-        ApiData api;
-
-        for (Assets asset : assetsList) {
-            QuandlSession session = QuandlSession.create("-Kcq55sDChWyAc2wcxcM");
-            TabularResult tabularResult = session.getDataSet(
-                    DataSetRequest.Builder
-                            .of(asset.getApi_data_src())
-                            .withColumn(asset.getColumn_num())
-                            .withStartDate(org.threeten.bp.LocalDate.now().minus(Period.ofDays(5)))
-                            .withEndDate(org.threeten.bp.LocalDate.now().minus(Period.ofDays(1)))
-                            .build());
-            j = 0;
-            while (j < tabularResult.size()) {
-                api = new ApiData(0, LocalDate.parse(tabularResult.get(j).getString(0)), BigDecimal.valueOf(tabularResult.get(j).getDouble(1)), asset);
-                insertApiData(api);
-                j++;
-            }
-        }
-        System.out.println("*** NIGHTLY TASK 1: QUANDL API UPDATED! ***\n");
 
         lastUpdate = portfolioRepository.getLastUpdateDate();
         for( ;lastUpdate.isBefore(LocalDate.now());lastUpdate = lastUpdate.plusDays(1)) {
+            int j;
+            Iterable<Assets> assetsList = assetsRepository.findAll();
+            ApiData api;
+
+            for (Assets asset : assetsList) {
+                QuandlSession session = QuandlSession.create("-Kcq55sDChWyAc2wcxcM");
+                TabularResult tabularResult = session.getDataSet(
+                        DataSetRequest.Builder
+                                .of(asset.getApi_data_src())
+                                .withColumn(asset.getColumn_num())
+                                .withStartDate(org.threeten.bp.LocalDate.of(lastUpdate.minusDays(5).getYear(),lastUpdate.minusDays(5).getMonthValue(),lastUpdate.minusDays(5).getDayOfMonth()))
+                                .withEndDate(org.threeten.bp.LocalDate.of(lastUpdate.getYear(),lastUpdate.getMonthValue(),lastUpdate.getDayOfMonth()))
+                                .build());
+                j = 0;
+                while (j < tabularResult.size()) {
+                    api = new ApiData(0, LocalDate.parse(tabularResult.get(j).getString(0)), BigDecimal.valueOf(tabularResult.get(j).getDouble(1)), asset);
+                    insertApiData(api);
+                    j++;
+                }
+            }
+            System.out.println("*** NIGHTLY TASK 1: QUANDL API UPDATED! ***\n");
+
             insertPortfoliosForNewStrategiesFromNewUsers();
             updatePortfolios();
             insertPortfoliosForNewStrategiesFromOldUsers();
@@ -104,7 +104,6 @@ public class NightlyTaskServiceImpl {
                         p = new Portfolio();
                         p.setId(0);
                         p.setUser(strategy.getUser());
-                        //p.setDate(LocalDate.now());
                         p.setDate(lastUpdate.plusDays(1));
                         p.setAssetsClass(strategy.getAssetsClass());
                         p.setAssets(asset);
@@ -230,7 +229,6 @@ public class NightlyTaskServiceImpl {
                         p = new Portfolio();
                         p.setId(0);
                         p.setUser(strategy.getUser());
-                        //p.setDate(LocalDate.now());
                         p.setDate(lastUpdate.plusDays(1));
                         p.setAssetsClass(strategy.getAssetsClass());
                         p.setAssets(asset);
@@ -304,7 +302,6 @@ public class NightlyTaskServiceImpl {
             for(Portfolio p : portfolioList){
                 if(str.getAssetsClass().getId() == p.getAssetsClass().getId()){
                     currentAssetsClassPercentage = p.getAmount().multiply(new BigDecimal(100)).divide(totalAmount, 2, RoundingMode.HALF_UP);
-
                     if(currentAssetsClassPercentage.compareTo(str.getPercentage().add(new BigDecimal(2))) > 0 ||
                        currentAssetsClassPercentage.compareTo(str.getPercentage().add(new BigDecimal(-2))) < 0) {
                         return true;
