@@ -44,6 +44,7 @@ RoboAdviceApp.component("signUp",{
                         },function(response){
                             if(response.statusCode == 0){
                                 $http.defaults.headers.common['Authorization']= "Bearer " + response.data.token;
+                                $log.debug("token setted: " + response.data.token);
                                 userService.init(response.data.user);
                                 $scope.user=userService;
 
