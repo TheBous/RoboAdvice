@@ -44,7 +44,7 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
 
             }else{
                 $log.debug("something is wrong, i read cookies but this is the response:");
-                $log.debug(data);
+                $log.debug(response);
             }
         });
     }
@@ -73,7 +73,7 @@ RoboAdviceApp.controller("MainController",function($scope,$cookies,TokenHandler,
             });
     };
     $scope.showBar = function(){
-        return $location.path() == '/dashboard' | $location.path() == '/portfolio' | $location.path() == '/history' | $location.path() == '/worth' | $location.path() == '/demo2' | $location.path() == '/demo'; 
+        return $location.path() == '/dashboard' | $location.path() == '/portfolio' | $location.path() == '/history' | $location.path() == '/worth' | $location.path() == '/demo2' | $location.path() == '/demo';
     };
 
 

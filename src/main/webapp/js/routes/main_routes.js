@@ -4,9 +4,19 @@ RoboAdviceApp.controller("CheckUserLogged",function($scope,$location){
     $location.path("/");
 });
 
-RoboAdviceApp.controller("newUserConstraint",function(userService, $location){
-    if(!userService.hasStrategies())
-      $location.path("wizard");
+RoboAdviceApp.controller("newUserConstraint",function(userService, $cookies, $location){
+    let page = $location.path();
+    page = page.substr(1);
+    if(userService.isLogged()){
+      $cookies.put("page",page);
+      if(userService.hasStrategies())
+        $location.path(page);
+      else
+        $location.path("wizard");
+    }else{
+      $cookies.put("page","/");
+      $location.path("/")
+    }
 });
 
 RoboAdviceApp.controller("premiumFeatures",function(userService,$location,$cookies){
@@ -15,8 +25,9 @@ RoboAdviceApp.controller("premiumFeatures",function(userService,$location,$cooki
 
     $cookies.put("page",page);
     if(!userService.hasStrategies()){
-      $location.path("wizard");
-    }else if(!userService.hasCurrentPortfolio()){
+      $location.path("portfolio");
+    }else{
+      $location.path(page);
       //$location.path("demo");
     }
   });
@@ -109,11 +120,7 @@ RoboAdviceApp.config(function($routeProvider) {
         })
         .when('/portfolio', {
             templateUrl : 'html/portfolio.html',
-            controller: function($location, userService){
-              if(!userService.hasCurrentPortfolio()){
-                $location.path("demo2");
-              }
-            }
+            controller: "newUserConstraint"
         })
         .when('/worthgraph' | '/dashboard', {
             templateUrl : 'html/portfolio.html',
