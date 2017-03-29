@@ -87,7 +87,7 @@
 <!-- Modale -->
 <div id="modal1" class="modal bottom-sheet">
     <div class="modal-content">
-        <h4 style="text-align: center;padding-bottom:25px; ">Trends per Asset Class from {{actualFormattedDate}}</h4>
+        <h4 style="text-align: center;padding-bottom:25px; ">Trends from first portfolio on {{(portfolio.getPortfolioHistory()[0]).getFormattedDate()}}</h4>
         <div class="row">
             <div class="col s3" ng-repeat="asset in portfolio.getClassAssets() track by $index">
                 <div style="text-align:center">
