@@ -14,6 +14,30 @@ RoboAdviceApp.controller("demoController", function($scope, $log, demoREST, demo
     $scope.buttonClicked = true;
     $scope.spinner = false;
 
+    if(userService.hasStrategies()){
+      $scope.isCustom = true;
+      /* check if the current strategy is custom or not */
+      let currentPercentage = strategyService.getCurrentStrategy().getAssets();
+      console.log(currentPercentage);
+      $scope.standardStrategies.forEach(function(strategy){
+        // for each strategy get the percentages
+        let standardPercentage = strategy.strategy.map(function(st){
+          return st.percentage;
+        });
+        $log.debug(currentPercentage)
+        $log.debug(standardPercentage)
+
+        if(
+          standardPercentage[0] == currentPercentage[0] &&
+          standardPercentage[1] == currentPercentage[1] &&
+          standardPercentage[2] == currentPercentage[2] &&
+          standardPercentage[3] == currentPercentage[3]
+        ){
+          $log.debug("the current strategy is a standard strategy");
+          $scope.isCustom = false;
+        }
+      });
+    }
     demoService.getDemoForecasting(function(response){
       if(response.statusCode == 0) {
         //$log.debug(response.data);
@@ -101,6 +125,7 @@ RoboAdviceApp.controller("demoController", function($scope, $log, demoREST, demo
 
       formattedDate = date.getFullYear() + "-" + (date.getMonthFormatted()) + "-" + date.getDayFormatted();
       $log.debug(formattedDate);
+      $log.debug("backtesting on your strategy",param1,param2);
       demoService.backtesting.custom(param1,param2, formattedDate).$promise.then(function (response) {
 
         $scope.amount = new Array(response.data.length);
