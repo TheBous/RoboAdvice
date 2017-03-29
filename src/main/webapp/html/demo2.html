@@ -45,7 +45,7 @@
                                  realtime="false" show-dates="true"></realtime-line-graph>
         </div>
         <ul class="collection col l5 m7 s12">
-            <li ng-if="strategy.getCurrentStrategy()!=null" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt">
+            <li ng-if="strategy.getCurrentStrategy()!=null && isCustom==true" class="collection-item avatar" style="background-color: #fafafa;margin-bottom:10pt">
                 <span style="font-size:24px;font-weight:500;color: teal" class="title">{{strategy.getCurrentStrategy().getName()}}</span>
                 <a class="secondary-content"><button class="btn" style="margin:5pt" ng-click="updateOwn(strategy.getCurrentStrategy().getName(), strategy.getCurrentStrategy().getAssets())">Try</button></a>
             </li>
