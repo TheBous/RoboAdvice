@@ -19,7 +19,7 @@ RoboAdviceApp.component("assetsClassGraph",{
             if(this.showChips == "true" || this.showChips == null){
               $scope.ifLabel = true;
             }else{
-              $scope.ifLabel = false;
+              $scope.ifLabel = true;
             }
             //this.percentages.forEach(function(anElement){
             //  if(anElement==0)$scope.ifLabel[index++]=false;
