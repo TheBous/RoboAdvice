@@ -185,7 +185,6 @@ public class PortfolioServiceImpl implements PortfolioService{
             }
             List<ApiData> apiDataList = apiDataRepository.findLatestApiValuesByDate(date.toString());
             for(int i=0;i<Constant.NUM_ASSETS;i++){
-                //api = apiDataRepository.findTopByAssetsAndDateLessThanEqualOrderByDateDesc(assetsList.get(i), date);
                 api = apiDataList.get(Constant.NUM_ASSETS-i-1);
                 value = oldPortfolioList.get(i).getUnits().multiply(api.getValue());
                 p = new Portfolio();
