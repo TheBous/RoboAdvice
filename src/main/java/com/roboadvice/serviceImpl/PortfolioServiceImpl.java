@@ -153,16 +153,13 @@ public class PortfolioServiceImpl implements PortfolioService{
                 if(str.getAssetsClass().getId() == asset.getAssetsClass().getId()){
                     amount = Constant.percentage(investment, str.getPercentage());
                     value = Constant.percentage(amount, asset.getAllocation_p());
-
                     api = apiDataRepository.findTopByAssetsAndDateLessThanEqualOrderByDateDesc(asset, startDate);
-
                     if (api != null)
                         units = value.divide(api.getValue(), 5, RoundingMode.HALF_UP);
                     else {
                         units = BigDecimal.ZERO;
                         value = BigDecimal.ZERO;
                     }
-
                     p = new Portfolio();
                     p.setDate(startDate.plusDays(1));
                     p.setAssetsClass(str.getAssetsClass());
@@ -170,7 +167,6 @@ public class PortfolioServiceImpl implements PortfolioService{
                     p.setAmount(amount);
                     p.setValue(value);
                     p.setUnits(units);
-
                     portfolioList.add(p);
                 }
             }
