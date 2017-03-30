@@ -153,6 +153,7 @@ public class StrategyServiceImpl implements StrategyService{
     }
 
     @Override
+    @Cacheable("getAdvice")
     public PortfolioDTO getAdvice(String userEmail, int strategyCode) {
         User u = userRepository.findByEmail(userEmail);
         if(u==null)
