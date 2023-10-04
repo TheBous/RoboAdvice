@@ -85,7 +85,7 @@
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
-			<version>0.6.0</version>
+			<version>0.12.0</version>
 		</dependency>
 		<!-- Weka Time-Series Forecasting -->
 		<dependency>
